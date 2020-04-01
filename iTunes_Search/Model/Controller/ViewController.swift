@@ -54,7 +54,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Favorite", message: "Please check favorites to see your selected songs", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Favorite", message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default) { (action) in
             self.favoriteButton.setTitle("This song added to your favorite list ", for: .normal)
             self.saveToFavorites.text = ""
