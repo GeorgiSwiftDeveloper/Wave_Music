@@ -62,7 +62,11 @@ class iTunesMusicViewController: UIViewController {
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
         }else{
-            favoriteButton.isUserInteractionEnabled = false
+            let alert = UIAlertController(title: "There is no music that we can add to your favorites, please search music ", message: nil, preferredStyle: .alert)
+                       let emptyAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            }
+            alert.addAction(emptyAction)
+            present(alert, animated: true, completion: nil)
         }
     }
 }
