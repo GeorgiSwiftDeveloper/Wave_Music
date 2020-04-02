@@ -16,13 +16,13 @@ class iTunesMusicViewController: UIViewController {
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var favoriteButton: UIButton!
-    
+    @IBOutlet weak var favoriteMusicTableView: UITableView!
     
     var iTunesConnectionManager = iTunesConnection()
     var selectedAlbumManager = FavoriteViewController()
     
     var favoriteAlbum = [AlbumModel]()
-    var selectedAlbum = [AlbumModel]()
+//    var selectedAlbum = [AlbumModel]()
 
     
     
@@ -31,6 +31,8 @@ class iTunesMusicViewController: UIViewController {
         
         iTunesConnectionManager.delegate = self
         searchTextField.delegate = self
+        self.favoriteMusicTableView.delegate = self
+        self.favoriteMusicTableView.dataSource = self
         customizeUI()
     }
     
@@ -50,12 +52,13 @@ class iTunesMusicViewController: UIViewController {
     @IBAction func favoriteButtonPressed(_ sender: Any) {
         if self.favoriteAlbum.count > 0{
             favoriteButton.isUserInteractionEnabled = true
-            let alert = UIAlertController(title: "Favorite", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "This song succesfuly added to your favorites", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default) { (action) in
-                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
-                nextViewController.favoriteAlbum.append(contentsOf: self.favoriteAlbum)
-                self.present(nextViewController, animated:true, completion:nil)
+//                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
+            
+//                self.present(nextViewController, animated:true, completion:nil)
+                self.favoriteMusicTableView.reloadData()
             }
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -91,7 +94,7 @@ extension iTunesMusicViewController: AlbumManagerDelegate, SelectedAlbumFromFavo
     }
     
     func selectedAlbum(album: AlbumModel) {
-        self.selectedAlbum.append(album)
+//        self.selectedAlbum.append(album)
     }
 }
 
@@ -124,4 +127,19 @@ extension iTunesMusicViewController: UITextFieldDelegate {
         searchTextField.text = ""
         
     }
+}
+extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       return favoriteAlbum.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteAlbumTableViewCell
+        cell?.confiigurationCell(albums: favoriteAlbum[indexPath.row])
+        
+        return cell!
+    }
+    
+    
+    
 }
