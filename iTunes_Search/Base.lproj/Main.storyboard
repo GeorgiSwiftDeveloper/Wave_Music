@@ -21,13 +21,14 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="8j2-DH-Sf8"/>
+                        <segue destination="XEs-D6-LBO" kind="relationship" relationship="viewControllers" id="rXh-LW-Vt3"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NQW-6Q-aE5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="224" y="206"/>
         </scene>
-        <!--iTunes Music View Controller-->
+        <!--Search-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="iTunesMusicViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,10 +49,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hip-Hop" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="mmq-Ec-Ph3">
-                                        <rect key="frame" x="15" y="393" width="82" height="40"/>
+                                        <rect key="frame" x="15" y="393" width="150" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="B2r-BI-OlZ"/>
-                                            <constraint firstAttribute="width" constant="82" id="q9y-qy-4zI"/>
+                                            <constraint firstAttribute="width" constant="150" id="q9y-qy-4zI"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="21"/>
                                         <color key="textColor" red="0.77570837739999998" green="0.45094162230000001" blue="0.64707595110000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -267,7 +268,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" selectedImage="magnifyingglass" catalog="system" systemItem="search" id="oOB-5x-u6s"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="music.note.list" catalog="system" selectedImage="music.note.list" id="oOB-5x-u6s"/>
                     <navigationItem key="navigationItem" id="bNe-j1-HrP"/>
                     <connections>
                         <outlet property="artWorkImageView" destination="rzY-nv-gJ7" id="oXJ-qR-1OZ"/>
@@ -293,7 +294,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="fay-Qh-ciq"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="wRx-k4-Uus"/>
+                    <tabBarItem key="tabBarItem" title="Feuture-Muvies" image="film.fill" catalog="system" id="wRx-k4-Uus"/>
                     <navigationItem key="navigationItem" title="Favorites" id="Zqd-bw-utd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5yR-lu-KRh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -305,7 +306,9 @@
     <resources>
         <image name="arrowshape.turn.up.left.2.fill" catalog="system" width="128" height="87"/>
         <image name="arrowtriangle.right.fill" catalog="system" width="128" height="113"/>
+        <image name="film.fill" catalog="system" width="128" height="93"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="music.note.list" catalog="system" width="128" height="113"/>
         <image name="play.rectangle.fill" catalog="system" width="128" height="93"/>
         <image name="song-logo-png-" width="200" height="200"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>

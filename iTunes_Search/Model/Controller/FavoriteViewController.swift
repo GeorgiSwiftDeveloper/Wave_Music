@@ -10,47 +10,47 @@ import UIKit
 protocol SelectedAlbumFromFavorites {
     func selectedAlbum(album: AlbumModel)
 }
-class FavoriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FavoriteViewController: UIViewController {
   
     
 
     var favoriteAlbum = [AlbumModel]()
     var delegate: SelectedAlbumFromFavorites?
 
-    @IBOutlet weak var tableview: UITableView!
+//    @IBOutlet weak var tableview: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        self.tableview.delegate = self
-        self.tableview.dataSource = self
+//
+//        self.tableview.delegate = self
+//        self.tableview.dataSource = self
         // Do any additional setup after loading the view.
     }
     
 
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteAlbum.count
-      }
-
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteAlbumTableViewCell
-        cell?.confiigurationCell(albums: favoriteAlbum[indexPath.row])
-        
-        return cell!
-    }
-    
-     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-            favoriteAlbum.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let indexPath = tableView.indexPathForSelectedRow 
-
-        let currentCell = tableView.cellForRow(at: indexPath!) as? FavoriteAlbumTableViewCell
-        
-        self.dismiss(animated: true, completion: nil)
-    }
+//     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return favoriteAlbum.count
+//      }
+//
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteAlbumTableViewCell
+//        cell?.confiigurationCell(albums: favoriteAlbum[indexPath.row])
+//
+//        return cell!
+//    }
+//
+//     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == UITableViewCell.EditingStyle.delete {
+//            favoriteAlbum.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let indexPath = tableView.indexPathForSelectedRow
+//
+//        let currentCell = tableView.cellForRow(at: indexPath!) as? FavoriteAlbumTableViewCell
+//
+//        self.dismiss(animated: true, completion: nil)
+//    }
 }
