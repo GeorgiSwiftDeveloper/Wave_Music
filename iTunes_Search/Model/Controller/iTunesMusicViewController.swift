@@ -53,10 +53,6 @@ class iTunesMusicViewController: UIViewController {
             favoriteButton.isUserInteractionEnabled = true
             let alert = UIAlertController(title: "This song succesfuly added to your favorites", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default) { (action) in
-//                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
-            
-//                self.present(nextViewController, animated:true, completion:nil)
                 self.favoriteMusicTableView.reloadData()
             }
             alert.addAction(action)

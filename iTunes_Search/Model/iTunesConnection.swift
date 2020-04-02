@@ -56,6 +56,8 @@ class iTunesConnection {
                 let trackViewUrl = resultDict?["trackViewUrl"] as? String  ?? ""
                 let album = AlbumModel(title: albumTitle, artist: artist, genre: genre, artworkURL:artworkUrl, trackViewUrl: trackViewUrl)
                 sharedAlbum.append(album)
+            }else{
+                delegate?.didFailWithError(error: Error.self as! Error)
             }
             return sharedAlbum
         }catch{

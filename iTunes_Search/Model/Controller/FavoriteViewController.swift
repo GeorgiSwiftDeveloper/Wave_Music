@@ -10,47 +10,59 @@ import UIKit
 protocol SelectedAlbumFromFavorites {
     func selectedAlbum(album: AlbumModel)
 }
-class FavoriteViewController: UIViewController {
+class FavoriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
     
 
-    var favoriteAlbum = [AlbumModel]()
+    var favoriteMovieAlbum = [MoviesModel]()
     var delegate: SelectedAlbumFromFavorites?
-
-//    @IBOutlet weak var tableview: UITableView!
+    var futureMoviesModelConnection = FutureMoviesModel()
+    
+    @IBOutlet weak var tableview: UITableView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//
-//        self.tableview.delegate = self
-//        self.tableview.dataSource = self
-        // Do any additional setup after loading the view.
+        self.tableview.delegate = self
+        self.tableview.dataSource = self
+          futureMoviesModelConnection.delegate = self
+        self.futureMoviesModelConnection.fetchiTunes()
+        self.tableview.reloadData()
     }
     
 
-//     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return favoriteAlbum.count
-//      }
-//
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteAlbumTableViewCell
-//        cell?.confiigurationCell(albums: favoriteAlbum[indexPath.row])
-//
-//        return cell!
-//    }
-//
-//     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == UITableViewCell.EditingStyle.delete {
-//            favoriteAlbum.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let indexPath = tableView.indexPathForSelectedRow
-//
-//        let currentCell = tableView.cellForRow(at: indexPath!) as? FavoriteAlbumTableViewCell
-//
-//        self.dismiss(animated: true, completion: nil)
-//    }
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return favoriteMovieAlbum.count
+      }
+
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? FutureMoviesTableViewCell
+        cell?.confiigurationCell(movieAlbums: favoriteMovieAlbum[indexPath.row])
+
+        return cell!
+    }
+
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            favoriteMovieAlbum.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
+    }
+}
+
+extension FavoriteViewController: MovieManagerDelegate {
+    func didUpdateAlbum(_ albumManager: FutureMoviesModel, album: [MoviesModel]) {
+          
+         DispatchQueue.main.async {
+            self.favoriteMovieAlbum.append(contentsOf: album)
+            print(self.favoriteMovieAlbum.count)
+           self.tableview.reloadData()
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        print("Cann't fidn movie list ")
+    }
 }
