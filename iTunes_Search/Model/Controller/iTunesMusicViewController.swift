@@ -8,16 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class iTunesMusicViewController: UIViewController {
     
     @IBOutlet weak var singerNameLabel: UILabel!
     @IBOutlet weak var artWorkImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
-//    @IBOutlet weak var urlForSong: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
-//    @IBOutlet weak var saveToFavorites: UILabel!
     
     
     var iTunesConnectionManager = iTunesConnection()
@@ -37,41 +35,37 @@ class ViewController: UIViewController {
     }
     
     func customizeUI(){
-       
+        searchTextField.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        searchTextField.layer.cornerRadius = 8.0
     }
-    @IBAction func searchButtonAction(_ sender: Any) {
-         searchTextField.endEditing(true)
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                   let nextViewController = storyBoard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
-                   nextViewController.favoriteAlbum.append(contentsOf: self.favoriteAlbum)
-                   self.present(nextViewController, animated:true, completion:nil)
-        self.favoriteButton.setTitle("", for: .normal)
-    }
+
     
     @IBAction func searchAction(_ sender: Any) {
-         searchTextField.endEditing(true)
-        self.favoriteButton.isUserInteractionEnabled = true
+        searchTextField.endEditing(true)
         self.favoriteButton.setTitle("", for: .normal)
         self.favoriteButton.setTitle("", for: .normal)
     }
     
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Favorite", message: nil, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default) { (action) in
-            self.favoriteButton.isUserInteractionEnabled = false
-            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
-            nextViewController.favoriteAlbum.append(contentsOf: self.favoriteAlbum)
-            self.navigationController?.pushViewController(nextViewController, animated: true)
-            
+        if self.favoriteAlbum.count > 0{
+            favoriteButton.isUserInteractionEnabled = true
+            let alert = UIAlertController(title: "Favorite", message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default) { (action) in
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
+                nextViewController.favoriteAlbum.append(contentsOf: self.favoriteAlbum)
+                self.present(nextViewController, animated:true, completion:nil)
+            }
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }else{
+            favoriteButton.isUserInteractionEnabled = false
         }
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
     }
 }
 
-extension ViewController: AlbumManagerDelegate, SelectedAlbumFromFavorites {
+extension iTunesMusicViewController: AlbumManagerDelegate, SelectedAlbumFromFavorites {
     
     func didUpdateAlbum(_ albumManager: iTunesConnection, album: [AlbumModel]) {
         
@@ -80,13 +74,11 @@ extension ViewController: AlbumManagerDelegate, SelectedAlbumFromFavorites {
             let titleLabel = album[0].title
             let genreLabel = album[0].genre
             let artWorkImage = UIImage(data: NSData(contentsOf: URL(string:album[0].artworkURL!)!)! as Data)
-//            let urlForSong = album[0].trackViewUrl
             
             self.singerNameLabel.text = singerName
             self.titleLabel.text = titleLabel
             self.genreLabel.text = genreLabel
             self.artWorkImageView.image = artWorkImage
-//            self.urlForSong.text = urlForSong
             
             self.favoriteAlbum.append(contentsOf: album)
             
@@ -103,7 +95,7 @@ extension ViewController: AlbumManagerDelegate, SelectedAlbumFromFavorites {
     }
 }
 
-extension ViewController: UITextFieldDelegate {
+extension iTunesMusicViewController: UITextFieldDelegate {
     
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
