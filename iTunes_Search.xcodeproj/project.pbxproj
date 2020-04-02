@@ -67,8 +67,8 @@
 				6A1375C12433D09E0086113D /* AppDelegate.swift */,
 				6A1375C32433D09E0086113D /* SceneDelegate.swift */,
 				6A1375E3243435160086113D /* Model */,
-				6A1375C72433D09E0086113D /* Main.storyboard */,
 				6A1375CA2433D09F0086113D /* Assets.xcassets */,
+				6A1375C72433D09E0086113D /* Main.storyboard */,
 				6A1375CC2433D09F0086113D /* LaunchScreen.storyboard */,
 				6A1375CF2433D09F0086113D /* Info.plist */,
 			);

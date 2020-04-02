@@ -15,9 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var urlForSong: UILabel!
+//    @IBOutlet weak var urlForSong: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
-    @IBOutlet weak var saveToFavorites: UILabel!
+//    @IBOutlet weak var saveToFavorites: UILabel!
     
     
     var iTunesConnectionManager = iTunesConnection()
@@ -31,9 +31,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         iTunesConnectionManager.delegate = self
+        iTunesConnectionManager.delegate = self
         searchTextField.delegate = self
-        
+        customizeUI()
+    }
+    
+    func customizeUI(){
+       
     }
     @IBAction func searchButtonAction(_ sender: Any) {
          searchTextField.endEditing(true)
@@ -47,7 +51,6 @@ class ViewController: UIViewController {
     @IBAction func searchAction(_ sender: Any) {
          searchTextField.endEditing(true)
         self.favoriteButton.isUserInteractionEnabled = true
-        self.saveToFavorites.text = "Save to Favorites"
         self.favoriteButton.setTitle("", for: .normal)
         self.favoriteButton.setTitle("", for: .normal)
     }
@@ -56,14 +59,11 @@ class ViewController: UIViewController {
     @IBAction func favoriteButtonPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Favorite", message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default) { (action) in
-            self.favoriteButton.setTitle("Add to Favorites", for: .normal)
-            self.saveToFavorites.text = ""
             self.favoriteButton.isUserInteractionEnabled = false
-            self.favoriteButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             let nextViewController = storyBoard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
             nextViewController.favoriteAlbum.append(contentsOf: self.favoriteAlbum)
-            self.present(nextViewController, animated:true, completion:nil)
+            self.navigationController?.pushViewController(nextViewController, animated: true)
             
         }
         alert.addAction(action)
@@ -80,13 +80,13 @@ extension ViewController: AlbumManagerDelegate, SelectedAlbumFromFavorites {
             let titleLabel = album[0].title
             let genreLabel = album[0].genre
             let artWorkImage = UIImage(data: NSData(contentsOf: URL(string:album[0].artworkURL!)!)! as Data)
-            let urlForSong = album[0].trackViewUrl
+//            let urlForSong = album[0].trackViewUrl
             
             self.singerNameLabel.text = singerName
             self.titleLabel.text = titleLabel
             self.genreLabel.text = genreLabel
             self.artWorkImageView.image = artWorkImage
-            self.urlForSong.text = urlForSong
+//            self.urlForSong.text = urlForSong
             
             self.favoriteAlbum.append(contentsOf: album)
             
