@@ -47,7 +47,7 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let indexPath = tableView.indexPathForSelectedRow //optional, to get from any UIButton for example
+        let indexPath = tableView.indexPathForSelectedRow 
 
         let currentCell = tableView.cellForRow(at: indexPath!) as? FavoriteAlbumTableViewCell
         

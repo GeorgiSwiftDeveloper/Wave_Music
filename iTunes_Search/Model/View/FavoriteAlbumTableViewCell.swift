@@ -21,7 +21,12 @@ class FavoriteAlbumTableViewCell: UITableViewCell {
     
     
     func confiigurationCell(albums: AlbumModel) {
-        self.songImageView.image = UIImage(data: NSData(contentsOf: URL(string:albums.artworkURL!)!)! as Data)
+        if albums.artworkURL != "" {
+              self.songImageView.image = UIImage(data: NSData(contentsOf: URL(string:albums.artworkURL!)!)! as Data)
+
+        }else{
+              self.songImageView.image = UIImage(named: "")
+        }
         self.songNameLabel.text = albums.title
         self.singerNameLabel.text = albums.artist
         self.genre = albums.genre!

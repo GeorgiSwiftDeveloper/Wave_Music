@@ -22,7 +22,6 @@ class iTunesMusicViewController: UIViewController {
     var selectedAlbumManager = FavoriteViewController()
     
     var favoriteAlbum = [AlbumModel]()
-//    var selectedAlbum = [AlbumModel]()
 
     
     
@@ -68,7 +67,7 @@ class iTunesMusicViewController: UIViewController {
     }
 }
 
-extension iTunesMusicViewController: AlbumManagerDelegate, SelectedAlbumFromFavorites {
+extension iTunesMusicViewController: AlbumManagerDelegate {
     
     func didUpdateAlbum(_ albumManager: iTunesConnection, album: [AlbumModel]) {
         
@@ -76,14 +75,21 @@ extension iTunesMusicViewController: AlbumManagerDelegate, SelectedAlbumFromFavo
             let singerName = album[0].artist
             let titleLabel = album[0].title
             let genreLabel = album[0].genre
-            let artWorkImage = UIImage(data: NSData(contentsOf: URL(string:album[0].artworkURL!)!)! as Data)
+            if album[0].artworkURL != "" {
+                let artWorkImage = UIImage(data: NSData(contentsOf: URL(string:album[0].artworkURL!)!)! as Data)
+                 self.artWorkImageView.image = artWorkImage
+            }else{
+                 self.artWorkImageView.image = UIImage(named: "song-logo-png-")
+            }
+         
             
             self.singerNameLabel.text = singerName
             self.titleLabel.text = titleLabel
             self.genreLabel.text = genreLabel
-            self.artWorkImageView.image = artWorkImage
+            if  album[0].artworkURL != "" {
+               self.favoriteAlbum.append(contentsOf: album)
+            }
             
-            self.favoriteAlbum.append(contentsOf: album)
             
         }
     }
@@ -92,10 +98,7 @@ extension iTunesMusicViewController: AlbumManagerDelegate, SelectedAlbumFromFavo
     func didFailWithError(error: Error) {
        
     }
-    
-    func selectedAlbum(album: AlbumModel) {
-//        self.selectedAlbum.append(album)
-    }
+
 }
 
 extension iTunesMusicViewController: UITextFieldDelegate {
@@ -139,6 +142,13 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
         
         return cell!
     }
+    
+      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+         if editingStyle == UITableViewCell.EditingStyle.delete {
+             favoriteAlbum.remove(at: indexPath.row)
+             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+         }
+     }
     
     
     
