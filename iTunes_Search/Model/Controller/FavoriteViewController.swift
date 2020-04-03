@@ -39,8 +39,9 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? FutureMoviesTableViewCell
-        cell?.confiigurationCell(movieAlbums: favoriteMovieAlbum[indexPath.row])
-
+        DispatchQueue.main.async {
+            cell?.confiigurationCell(movieAlbums: self.favoriteMovieAlbum[indexPath.row])
+        }
         return cell!
     }
 
@@ -54,11 +55,9 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
 
 extension FavoriteViewController: MovieManagerDelegate {
     func didUpdateAlbum(_ albumManager: FutureMoviesModel, album: [MoviesModel]) {
-          
-         DispatchQueue.main.async {
-            self.favoriteMovieAlbum.append(contentsOf: album)
-            print(self.favoriteMovieAlbum.count)
-           self.tableview.reloadData()
+        self.favoriteMovieAlbum.append(contentsOf: album)
+        DispatchQueue.main.async {
+            self.tableview.reloadData()
         }
     }
     

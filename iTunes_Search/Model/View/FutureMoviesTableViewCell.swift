@@ -17,6 +17,7 @@ class FutureMoviesTableViewCell: UITableViewCell {
     
     
     func confiigurationCell(movieAlbums: MoviesModel) {
+        
         let posterPath = movieAlbums.poster_path
         let baseUrl = "https://image.tmdb.org/t/p/w500"
         let imageUrl = URL(string: baseUrl + posterPath!)
