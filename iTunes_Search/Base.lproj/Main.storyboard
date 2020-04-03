@@ -151,23 +151,23 @@
                                         </prototypes>
                                     </tableView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search iThunes Music" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-aa-DUM">
-                                        <rect key="frame" x="15" y="140" width="316" height="34"/>
+                                        <rect key="frame" x="15" y="140" width="320" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="34" id="Cbt-0h-OZJ"/>
-                                            <constraint firstAttribute="width" constant="316" id="g3g-V9-yT1"/>
+                                            <constraint firstAttribute="width" constant="320" id="1dT-5t-Bi2"/>
+                                            <constraint firstAttribute="height" constant="40" id="aTB-Tc-IST"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="go"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PmC-Vg-Gz6">
-                                        <rect key="frame" x="336" y="146" width="31" height="22"/>
+                                        <rect key="frame" x="365" y="141" width="35" height="33.666666666666671"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="6PL-Ip-Ygz"/>
-                                            <constraint firstAttribute="width" constant="31" id="AOL-C2-G1O"/>
+                                            <constraint firstAttribute="width" constant="35" id="pxA-jm-pfN"/>
+                                            <constraint firstAttribute="height" constant="35" id="uh7-uU-kqo"/>
                                         </constraints>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="magnifyingglass" catalog="system">
+                                        <state key="normal" backgroundImage="location.circle.fill" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -179,15 +179,15 @@
                                 <constraints>
                                     <constraint firstItem="IK4-hp-NKv" firstAttribute="centerY" secondItem="aUv-fA-lUJ" secondAttribute="centerY" id="1Td-C2-rUe"/>
                                     <constraint firstItem="vdw-02-S01" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" constant="15" id="3qj-3R-Lh5"/>
-                                    <constraint firstItem="TOu-aa-DUM" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" constant="15" id="CNx-g0-TAz"/>
                                     <constraint firstItem="WI7-Yw-3Vb" firstAttribute="centerY" secondItem="vdw-02-S01" secondAttribute="centerY" id="FQT-1h-mJ8"/>
-                                    <constraint firstItem="PmC-Vg-Gz6" firstAttribute="centerY" secondItem="TOu-aa-DUM" secondAttribute="centerY" id="J6V-ta-DyB"/>
+                                    <constraint firstItem="PmC-Vg-Gz6" firstAttribute="leading" secondItem="TOu-aa-DUM" secondAttribute="trailing" constant="30" id="GOV-Ta-hcJ"/>
                                     <constraint firstAttribute="bottom" secondItem="6je-dD-fXC" secondAttribute="bottom" id="OEo-Lf-Ben"/>
-                                    <constraint firstItem="TOu-aa-DUM" firstAttribute="top" secondItem="vdw-02-S01" secondAttribute="bottom" constant="50" id="YAG-Sv-43v"/>
                                     <constraint firstItem="IK4-hp-NKv" firstAttribute="centerX" secondItem="aUv-fA-lUJ" secondAttribute="centerX" id="aZT-gG-r23"/>
-                                    <constraint firstAttribute="trailing" secondItem="PmC-Vg-Gz6" secondAttribute="trailing" constant="8" id="cKG-8Z-d2z"/>
+                                    <constraint firstItem="TOu-aa-DUM" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" constant="15" id="aey-Dm-jcu"/>
+                                    <constraint firstItem="PmC-Vg-Gz6" firstAttribute="top" secondItem="WI7-Yw-3Vb" secondAttribute="bottom" constant="50" id="d5Z-hT-Ngu"/>
                                     <constraint firstItem="vdw-02-S01" firstAttribute="top" secondItem="aUv-fA-lUJ" secondAttribute="top" constant="50" id="eoc-7z-iNr"/>
                                     <constraint firstAttribute="trailing" secondItem="6je-dD-fXC" secondAttribute="trailing" id="gOb-vL-ztn"/>
+                                    <constraint firstItem="TOu-aa-DUM" firstAttribute="top" secondItem="vdw-02-S01" secondAttribute="bottom" constant="50" id="jtE-ac-Zqg"/>
                                     <constraint firstItem="6je-dD-fXC" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" id="jxk-ks-O7W"/>
                                     <constraint firstAttribute="trailing" secondItem="WI7-Yw-3Vb" secondAttribute="trailing" constant="8" id="ptR-fY-2Pz"/>
                                 </constraints>
@@ -308,7 +308,7 @@
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="film.fill" catalog="system" width="128" height="93"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <image name="music.note.list" catalog="system" width="128" height="113"/>
         <image name="song-logo-png-" width="200" height="200"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
