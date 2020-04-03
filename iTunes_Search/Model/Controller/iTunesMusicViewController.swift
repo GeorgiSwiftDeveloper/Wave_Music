@@ -22,7 +22,7 @@ class iTunesMusicViewController: UIViewController {
     var selectedAlbumManager = FavoriteViewController()
     
     var favoriteAlbum = [AlbumModel]()
-
+   var lastObject = [AlbumModel]()
     
     
     override func viewDidLoad() {
@@ -50,7 +50,7 @@ class iTunesMusicViewController: UIViewController {
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
         if self.favoriteAlbum.count > 0{
-            favoriteButton.isUserInteractionEnabled = true
+            
             let alert = UIAlertController(title: "This song succesfuly added to your favorites", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default) { (action) in
                 self.favoriteMusicTableView.reloadData()
@@ -58,11 +58,11 @@ class iTunesMusicViewController: UIViewController {
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
         }else{
-            let alert = UIAlertController(title: "There is no music that we can add to your favorites, please search music ", message: nil, preferredStyle: .alert)
-                       let emptyAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            let erorrAlert = UIAlertController(title: "There is no music that we can add to your favorites, please search music ", message: nil, preferredStyle: .alert)
+            let emptyAction = UIAlertAction(title: "OK", style: .default) { (action) in
             }
-            alert.addAction(emptyAction)
-            present(alert, animated: true, completion: nil)
+            erorrAlert.addAction(emptyAction)
+            present(erorrAlert, animated: true, completion: nil)
         }
     }
 }
@@ -86,8 +86,9 @@ extension iTunesMusicViewController: AlbumManagerDelegate {
             self.singerNameLabel.text = singerName
             self.titleLabel.text = titleLabel
             self.genreLabel.text = genreLabel
-            if  album[0].artworkURL != "" {
+            if  album.count != 0 {
                self.favoriteAlbum.append(contentsOf: album)
+
             }
             
             
