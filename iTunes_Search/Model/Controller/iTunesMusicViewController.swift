@@ -10,7 +10,7 @@ import UIKit
 
 class iTunesMusicViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var favoriteButton: UIButton!
+//    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
     
     var iTunesConnectionManager = iTunesConnection()
@@ -38,27 +38,27 @@ class iTunesMusicViewController: UIViewController {
     
     @IBAction func searchAction(_ sender: Any) {
         searchTextField.endEditing(true)
-        self.favoriteButton.setTitle("", for: .normal)
-        self.favoriteButton.setTitle("", for: .normal)
+//        self.favoriteButton.setTitle("", for: .normal)
+//        self.favoriteButton.setTitle("", for: .normal)
     }
     
     
-    @IBAction func favoriteButtonPressed(_ sender: Any) {
-        if self.favoriteAlbum.count > 0{
-            
-            let alert = UIAlertController(title: "This song succesfuly added to your favorites", message: nil, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default) { (action) in
-            }
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        }else{
-            let erorrAlert = UIAlertController(title: "There is no music that we can add to your favorites, please search music ", message: nil, preferredStyle: .alert)
-            let emptyAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            }
-            erorrAlert.addAction(emptyAction)
-            present(erorrAlert, animated: true, completion: nil)
-        }
-    }
+//    @IBAction func favoriteButtonPressed(_ sender: Any) {
+//        if self.favoriteAlbum.count > 0{
+//            
+//            let alert = UIAlertController(title: "This song succesfuly added to your favorites", message: nil, preferredStyle: .alert)
+//            let action = UIAlertAction(title: "OK", style: .default) { (action) in
+//            }
+//            alert.addAction(action)
+//            present(alert, animated: true, completion: nil)
+//        }else{
+//            let erorrAlert = UIAlertController(title: "There is no music that we can add to your favorites, please search music ", message: nil, preferredStyle: .alert)
+//            let emptyAction = UIAlertAction(title: "OK", style: .default) { (action) in
+//            }
+//            erorrAlert.addAction(emptyAction)
+//            present(erorrAlert, animated: true, completion: nil)
+//        }
+//    }
 }
 
 extension iTunesMusicViewController: AlbumManagerDelegate {
