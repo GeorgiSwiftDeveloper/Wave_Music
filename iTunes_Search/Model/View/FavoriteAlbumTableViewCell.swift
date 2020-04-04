@@ -19,6 +19,9 @@ class FavoriteAlbumTableViewCell: UITableViewCell {
     var title = String()
     var artist = String()
     
+    @IBOutlet weak var favoriteButton: UIButton!
+    var fromViewController : iTunesMusicViewController?
+    
     
     func confiigurationCell(albums: AlbumModel) {
         if albums.artworkURL != "" {
@@ -42,5 +45,4 @@ class FavoriteAlbumTableViewCell: UITableViewCell {
         
 
     }
-
 }

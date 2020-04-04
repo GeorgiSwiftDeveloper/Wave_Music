@@ -10,7 +10,6 @@ import UIKit
 
 class iTunesMusicViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
-//    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
     
     var iTunesConnectionManager = iTunesConnection()
@@ -38,27 +37,7 @@ class iTunesMusicViewController: UIViewController {
     
     @IBAction func searchAction(_ sender: Any) {
         searchTextField.endEditing(true)
-//        self.favoriteButton.setTitle("", for: .normal)
-//        self.favoriteButton.setTitle("", for: .normal)
     }
-    
-    
-//    @IBAction func favoriteButtonPressed(_ sender: Any) {
-//        if self.favoriteAlbum.count > 0{
-//            
-//            let alert = UIAlertController(title: "This song succesfuly added to your favorites", message: nil, preferredStyle: .alert)
-//            let action = UIAlertAction(title: "OK", style: .default) { (action) in
-//            }
-//            alert.addAction(action)
-//            present(alert, animated: true, completion: nil)
-//        }else{
-//            let erorrAlert = UIAlertController(title: "There is no music that we can add to your favorites, please search music ", message: nil, preferredStyle: .alert)
-//            let emptyAction = UIAlertAction(title: "OK", style: .default) { (action) in
-//            }
-//            erorrAlert.addAction(emptyAction)
-//            present(erorrAlert, animated: true, completion: nil)
-//        }
-//    }
 }
 
 extension iTunesMusicViewController: AlbumManagerDelegate {
@@ -70,8 +49,6 @@ extension iTunesMusicViewController: AlbumManagerDelegate {
                self.favoriteAlbum.append(contentsOf: album)
                self.favoriteMusicTableView.reloadData()
             }
-            
-            
         }
     }
 
@@ -121,7 +98,7 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteAlbumTableViewCell
         cell?.confiigurationCell(albums: favoriteAlbum[indexPath.row])
-        
+        cell?.favoriteButton.addTarget(self, action: #selector(showFavoriteAlertFunction), for: .touchUpInside)
         return cell!
     }
     
@@ -131,6 +108,18 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
              tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
          }
      }
+    
+    @objc func showFavoriteAlertFunction() {
+        let alert = UIAlertController(title: "Do you want to add in your favorite list ?", message: nil, preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "YES", style: .default) { (action) in
+        }
+        
+        let cancelAction = UIAlertAction(title: "NO", style: .cancel) { (action) in
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(yesAction)
+        present(alert, animated: true, completion: nil)
+    }
     
     
     

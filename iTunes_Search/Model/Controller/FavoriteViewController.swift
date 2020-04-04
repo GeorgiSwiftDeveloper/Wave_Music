@@ -62,6 +62,6 @@ extension FavoriteViewController: MovieManagerDelegate {
     }
     
     func didFailWithError(error: Error) {
-        print("Cann't fidn movie list ")
+        print("Cann't find movie ")
     }
 }
