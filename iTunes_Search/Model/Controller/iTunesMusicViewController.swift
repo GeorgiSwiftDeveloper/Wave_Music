@@ -10,10 +10,10 @@ import UIKit
 
 class iTunesMusicViewController: UIViewController {
     
-    @IBOutlet weak var singerNameLabel: UILabel!
-    @IBOutlet weak var artWorkImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var genreLabel: UILabel!
+//    @IBOutlet weak var singerNameLabel: UILabel!
+//    @IBOutlet weak var artWorkImageView: UIImageView!
+//    @IBOutlet weak var titleLabel: UILabel!
+//    @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
@@ -53,7 +53,7 @@ class iTunesMusicViewController: UIViewController {
             
             let alert = UIAlertController(title: "This song succesfuly added to your favorites", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default) { (action) in
-                self.favoriteMusicTableView.reloadData()
+//                self.favoriteMusicTableView.reloadData()
             }
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -72,23 +72,24 @@ extension iTunesMusicViewController: AlbumManagerDelegate {
     func didUpdateAlbum(_ albumManager: iTunesConnection, album: [AlbumModel]) {
         
         DispatchQueue.main.async {
-            let singerName = album[0].artist
-            let titleLabel = album[0].title
-            let genreLabel = album[0].genre
-            if album[0].artworkURL != "" {
-                let artWorkImage = UIImage(data: NSData(contentsOf: URL(string:album[0].artworkURL!)!)! as Data)
-                 self.artWorkImageView.image = artWorkImage
-            }else{
-                 self.artWorkImageView.image = UIImage(named: "song-logo-png-")
-            }
+//            let singerName = album[0].artist
+//            let titleLabel = album[0].title
+//            let genreLabel = album[0].genre
+//            if album[0].artworkURL != "" {
+//                let artWorkImage = UIImage(data: NSData(contentsOf: URL(string:album[0].artworkURL!)!)! as Data)
+//                 self.artWorkImageView.image = artWorkImage
+//            }else{
+//                 self.artWorkImageView.image = UIImage(named: "song-logo-png-")
+//            }
          
             
-            self.singerNameLabel.text = singerName
-            self.titleLabel.text = titleLabel
-            self.genreLabel.text = genreLabel
+//            self.singerNameLabel.text = singerName
+//            self.titleLabel.text = titleLabel
+//            self.genreLabel.text = genreLabel
+            
             if  album.count != 0 {
                self.favoriteAlbum.append(contentsOf: album)
-
+                 self.favoriteMusicTableView.reloadData()
             }
             
             

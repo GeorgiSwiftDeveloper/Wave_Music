@@ -48,14 +48,17 @@ class iTunesConnection {
             let itunesDict = try JSONSerialization.jsonObject(with: itunesData, options: .mutableContainers) as? [String:Any]
             let results = (itunesDict! as NSDictionary).object(forKey: "results") as? [Dictionary<String,AnyObject>]
             if results != nil {
-                let resultDict = results?.first
+                for _ in 0..<results!.count{
+                    
+                let resultDict = results?.randomElement()
                 let artist = resultDict?["artistName"] as? String ?? ""
                 let artworkUrl = resultDict?["artworkUrl100"] as? String ?? ""
                 let albumTitle = resultDict?["collectionName"] as? String ?? ""
                 let genre = resultDict?["primaryGenreName"] as? String  ?? ""
                 let trackViewUrl = resultDict?["trackViewUrl"] as? String  ?? ""
                 let album = AlbumModel(title: albumTitle, artist: artist, genre: genre, artworkURL:artworkUrl, trackViewUrl: trackViewUrl)
-                sharedAlbum.append(album)
+                    sharedAlbum.append(album)
+                }
             }else{
                 delegate?.didFailWithError(error: Error.self as! Error)
             }

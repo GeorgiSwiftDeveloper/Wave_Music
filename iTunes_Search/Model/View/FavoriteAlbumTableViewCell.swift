@@ -33,7 +33,7 @@ class FavoriteAlbumTableViewCell: UITableViewCell {
         self.artworkURL = albums.artworkURL!
         self.title = albums.title!
         self.artist = albums.artist!
-        self.artworkURL = albums.trackViewUrl!
+        self.trackViewUrl = albums.trackViewUrl!
         
         self.songNameLabel.numberOfLines = 0
         self.songNameLabel.font = UIFont(name: "Verdana", size: 12.0)
