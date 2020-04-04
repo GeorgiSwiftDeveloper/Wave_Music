@@ -97,9 +97,13 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteAlbumTableViewCell
-        cell?.confiigurationCell(albums: favoriteAlbum[indexPath.row])
-        cell?.favoriteButton.addTarget(self, action: #selector(showFavoriteAlertFunction), for: .touchUpInside)
-        return cell!
+        if favoriteAlbum.count != 0 {
+            cell?.confiigurationCell(albums: favoriteAlbum[indexPath.row])
+            cell?.favoriteButton.addTarget(self, action: #selector(showFavoriteAlertFunction), for: .touchUpInside)
+            return cell!
+        }else{
+            return cell!
+        }
     }
     
       func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
