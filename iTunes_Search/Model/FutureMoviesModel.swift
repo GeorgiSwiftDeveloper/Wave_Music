@@ -60,7 +60,6 @@ class FutureMoviesModel: NSObject {
                     let poster_path = resultDict?["poster_path"] as? String ?? ""
                     let overview = resultDict?["overview"] as? String ?? ""
                     let release_date = resultDict?["release_date"] as? String  ?? ""
-                   print(poster_path)
                     let album = MoviesModel(title: title, poster_path: poster_path, release_date: release_date, overview: overview)
                     sharedAlbum.append(album)
                 }else{

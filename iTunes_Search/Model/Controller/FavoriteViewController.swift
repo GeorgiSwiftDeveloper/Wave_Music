@@ -38,11 +38,14 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? FutureMoviesTableViewCell
-        DispatchQueue.main.async {
-            cell?.confiigurationCell(movieAlbums: self.favoriteMovieAlbum[indexPath.row])
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? FutureMoviesTableViewCell {
+            DispatchQueue.main.async {
+                cell.confiigurationCell(movieAlbums: self.favoriteMovieAlbum[indexPath.row])
+            }
+            return cell
+        }else {
+            return FutureMoviesTableViewCell()
         }
-        return cell!
     }
 
      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

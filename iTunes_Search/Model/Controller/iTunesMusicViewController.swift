@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import CoreData
+
+protocol SelectedMusicDelegate {
+    func selectedMusicObject(_ selected: [AlbumModel])
+}
 
 class iTunesMusicViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
@@ -16,8 +21,9 @@ class iTunesMusicViewController: UIViewController {
     var selectedAlbumManager = FavoriteViewController()
     
     var favoriteAlbum = [AlbumModel]()
-   var lastObject = [AlbumModel]()
+    var lastObject = [AlbumModel]()
     
+    var selectedMusicDelegate: SelectedMusicDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,14 +102,17 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteAlbumTableViewCell
-        if favoriteAlbum.count != 0 {
-            cell?.confiigurationCell(albums: favoriteAlbum[indexPath.row])
-            cell?.favoriteButton.addTarget(self, action: #selector(showFavoriteAlertFunction), for: .touchUpInside)
-            return cell!
-        }else{
-            return cell!
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteAlbumTableViewCell {
+            DispatchQueue.main.async {
+                cell.favoriteButton.tag = indexPath.row;
+                cell.confiigurationCell(albums: self.favoriteAlbum[indexPath.row])
+                cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
+            }
+            return cell
+        }else {
+            return FavoriteAlbumTableViewCell()
         }
+        
     }
     
       func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -113,9 +122,21 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
          }
      }
     
-    @objc func showFavoriteAlertFunction() {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
+    }
+    
+    @objc func showFavoriteAlertFunction(sender: UIButton) {
         let alert = UIAlertController(title: "Do you want to add in your favorite list ?", message: nil, preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "YES", style: .default) { (action) in
+            
+            let selectedIndex = IndexPath(row: sender.tag, section: 0)
+            self.favoriteMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+            let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex) as! FavoriteAlbumTableViewCell
+            let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl)
+            var selectedMusicArray = [AlbumModel]()
+            selectedMusicArray.append(selectedMusic)
+//            self.selectedMusicDelegate?.selectedMusicObject(selectedMusicArray)
         }
         
         let cancelAction = UIAlertAction(title: "NO", style: .cancel) { (action) in

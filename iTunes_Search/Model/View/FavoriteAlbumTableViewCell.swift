@@ -20,7 +20,6 @@ class FavoriteAlbumTableViewCell: UITableViewCell {
     var artist = String()
     
     @IBOutlet weak var favoriteButton: UIButton!
-    var fromViewController : iTunesMusicViewController?
     
     
     func confiigurationCell(albums: AlbumModel) {

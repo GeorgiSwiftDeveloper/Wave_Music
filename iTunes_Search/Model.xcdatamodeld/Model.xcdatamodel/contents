@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E266" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="SelectedAlbumModel" representedClassName="SelectedAlbumModel" syncable="YES" codeGenerationType="class">
+        <attribute name="singerName" optional="YES" attributeType="String"/>
+        <attribute name="songImage" optional="YES" attributeType="String"/>
+        <attribute name="songTitle" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="SelectedAlbumModel" positionX="-63" positionY="-18" width="128" height="28"/>
+    </elements>
+</model>
