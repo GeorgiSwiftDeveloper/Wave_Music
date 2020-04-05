@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "136-1363276_download-free-photo-report-music-background-designs-hd.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
