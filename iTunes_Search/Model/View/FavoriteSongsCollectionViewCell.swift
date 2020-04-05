@@ -23,6 +23,12 @@ class FavoriteSongsCollectionViewCell: UICollectionViewCell {
           }else{
                 self.favorteSongImageView.image = UIImage(named: "")
           }
+      
+        favorteSongImageView.layer.borderWidth = 1
+        favorteSongImageView.layer.masksToBounds = false
+        favorteSongImageView.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        favorteSongImageView.layer.cornerRadius = self.favorteSongImageView.frame.height/2 
+        favorteSongImageView.clipsToBounds = true
       }
     
 }

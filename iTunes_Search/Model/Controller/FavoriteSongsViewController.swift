@@ -61,8 +61,8 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favoriiteSongsCell", for: indexPath) as? FavoriteSongsCollectionViewCell {
            cell.confiigurationCell(albums: favoriteMusicArray[indexPath.row])
             cell.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            cell.layer.borderWidth = 0.5
-            cell.layer.cornerRadius = 3.0
+            cell.layer.borderWidth = 1
+            cell.layer.cornerRadius = 5.0
                 return cell
             }else {
                 return FavoriteSongsCollectionViewCell()

@@ -29,19 +29,27 @@ class FavoriteAlbumTableViewCell: UITableViewCell {
         }else{
               self.songImageView.image = UIImage(named: "")
         }
+        
+        
+       DispatchQueue.main.async {
         self.songNameLabel.text = albums.title
-        self.singerNameLabel.text = albums.artist
-        self.genre = albums.genre!
-        self.artworkURL = albums.artworkURL!
-        self.title = albums.title!
-        self.artist = albums.artist!
-        self.trackViewUrl = albums.trackViewUrl!
-        
-        self.songNameLabel.numberOfLines = 0
-        self.songNameLabel.font = UIFont(name: "Verdana", size: 12.0)
-        self.songNameLabel.adjustsFontSizeToFitWidth = true
-        self.songNameLabel.minimumScaleFactor = 0.5
-        
-
+            self.singerNameLabel.text = albums.artist
+            self.genre = albums.genre!
+            self.artworkURL = albums.artworkURL!
+            self.title = albums.title!
+            self.artist = albums.artist!
+            self.trackViewUrl = albums.trackViewUrl!
+            
+            self.songNameLabel.numberOfLines = 0
+            self.songNameLabel.font = UIFont(name: "Verdana", size: 12.0)
+            self.songNameLabel.adjustsFontSizeToFitWidth = true
+            self.songNameLabel.minimumScaleFactor = 0.5
+            
+        self.songImageView.layer.borderWidth = 1
+        self.songImageView.layer.masksToBounds = false
+        self.songImageView.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.songImageView.layer.cornerRadius = self.songImageView.frame.height/2 
+        self.songImageView.clipsToBounds = true
+        }
     }
 }
