@@ -12,7 +12,7 @@ import CoreData
 protocol SelectedMusicDelegate {
     func selectedMusicObject(_ selected: [AlbumModel])
 }
-
+let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 class iTunesMusicViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
@@ -22,7 +22,7 @@ class iTunesMusicViewController: UIViewController {
     
     var favoriteAlbum = [AlbumModel]()
     var lastObject = [AlbumModel]()
-    
+     var selectedMusic = [SelectedAlbumModel]()
     var selectedMusicDelegate: SelectedMusicDelegate?
     
     override func viewDidLoad() {
@@ -137,6 +137,14 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
             var selectedMusicArray = [AlbumModel]()
             selectedMusicArray.append(selectedMusic)
 //            self.selectedMusicDelegate?.selectedMusicObject(selectedMusicArray)
+            var newCategory = SelectedAlbumModel(context: context!)
+                              
+                      newCategory.singerName = selectedCell.artist
+                      newCategory.songTitle = selectedCell.title
+                      newCategory.songImage = selectedCell.artworkURL
+                      self.selectedMusic.append(newCategory)
+                              
+                      self.saveItems()
         }
         
         let cancelAction = UIAlertAction(title: "NO", style: .cancel) { (action) in
@@ -147,5 +155,13 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     
-    
+    func saveItems() {
+              do{
+                  try context?.save()
+              }catch{
+                  print("Can't save items ")
+              }
+              
+          }
+          
 }

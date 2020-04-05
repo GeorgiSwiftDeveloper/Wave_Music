@@ -22,7 +22,7 @@
 		6A48ECC624366802007A82D6 /* MoviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC524366802007A82D6 /* MoviesModel.swift */; };
 		6ABFE2272439099C000217B5 /* FavoriteSongsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE2262439099C000217B5 /* FavoriteSongsCollectionViewCell.swift */; };
 		6ABFE229243909DD000217B5 /* FavoriteSongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */; };
-		6ACE9D3724399C25008009C3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6ACE9D3524399C25008009C3 /* Model.xcdatamodeld */; };
+		6ACE9D3724399C25008009C3 /* SelectedObjectModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6ACE9D3524399C25008009C3 /* SelectedObjectModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +80,7 @@
 				6A1375C32433D09E0086113D /* SceneDelegate.swift */,
 				6A1375E3243435160086113D /* Model */,
 				6A1375CA2433D09F0086113D /* Assets.xcassets */,
-				6ACE9D3524399C25008009C3 /* Model.xcdatamodeld */,
+				6ACE9D3524399C25008009C3 /* SelectedObjectModel.xcdatamodeld */,
 				6A1375C72433D09E0086113D /* Main.storyboard */,
 				6A1375CC2433D09F0086113D /* LaunchScreen.storyboard */,
 				6A1375CF2433D09F0086113D /* Info.plist */,
@@ -203,7 +203,7 @@
 				6A1375D62433D0D80086113D /* iTunesConnection.swift in Sources */,
 				6A1375C22433D09E0086113D /* AppDelegate.swift in Sources */,
 				6A1375E924344AB40086113D /* FavoriteViewController.swift in Sources */,
-				6ACE9D3724399C25008009C3 /* Model.xcdatamodeld in Sources */,
+				6ACE9D3724399C25008009C3 /* SelectedObjectModel.xcdatamodeld in Sources */,
 				6A1375C42433D09E0086113D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,13 +404,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		6ACE9D3524399C25008009C3 /* Model.xcdatamodeld */ = {
+		6ACE9D3524399C25008009C3 /* SelectedObjectModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				6ACE9D3624399C25008009C3 /* Model.xcdatamodel */,
 			);
 			currentVersion = 6ACE9D3624399C25008009C3 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			path = SelectedObjectModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -329,7 +329,7 @@
                                         <connections>
                                             <outlet property="favoriteSongArtistNameUILabel" destination="zRY-RZ-nVg" id="Zyi-qY-a6O"/>
                                             <outlet property="favoriteSongNameLabel" destination="LRq-7x-nn3" id="WLj-ac-mGe"/>
-                                            <outlet property="favorteSongImageView" destination="NXD-hD-hMj" id="Nvy-70-hdg"/>
+                                            <outlet property="favorteSongImageView" destination="69N-oM-a9r" id="wre-Be-aRn"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

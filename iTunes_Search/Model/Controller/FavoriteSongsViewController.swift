@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, SelectedMusicDelegate {
+import CoreData
+class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
 
  
 
@@ -16,31 +16,44 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     var iTunesConnectionManager = iTunesMusicViewController()
     var recivieSelectedMusic = [AlbumModel]()
-    
+        var favoriteMusicArray = [SelectedAlbumModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-         iTunesConnectionManager.selectedMusicDelegate = self
         self.favoriteCollectionView.delegate = self
         self.favoriteCollectionView.dataSource = self
         self.favoriteCollectionView.reloadData()
+        self.fetchRequest()
     }
     
 
     
-     func selectedMusicObject(_ selected: [AlbumModel]) {
-        recivieSelectedMusic = selected
-        self.favoriteCollectionView.reloadData()
-      }
+ 
      
+       override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+           self.fetchRequest()
+           self.favoriteCollectionView.reloadData()
+       }
+       
+       
+    func fetchRequest() {
+        let request:NSFetchRequest<SelectedAlbumModel> = SelectedAlbumModel.fetchRequest()
+        do{
+            favoriteMusicArray = try (context?.fetch(request))!
+        }catch{
+            print("error")
+        }
+        self.favoriteCollectionView.reloadData()
+    }
  
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recivieSelectedMusic.count
+        return favoriteMusicArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favoriiteSongsCell", for: indexPath) as? FavoriteSongsCollectionViewCell {
-            cell.confiigurationCell(albums: recivieSelectedMusic[indexPath.row])
+           cell.confiigurationCell(albums: favoriteMusicArray[indexPath.row])
                 return cell
             }else {
                 return FavoriteSongsCollectionViewCell()
