@@ -22,8 +22,14 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
         super.viewDidLoad()
         self.favoriteCollectionView.delegate = self
         self.favoriteCollectionView.dataSource = self
-        self.favoriteCollectionView.reloadData()
+         self.favoriteCollectionView.reloadData()
         self.fetchRequest()
+//
+//        let layout = self.favoriteCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+//        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+//        layout.minimumInteritemSpacing = 5
+//        layout.itemSize = CGSize(width:(self.favoriteCollectionView.frame.size.width - 20) / 2, height: self.favoriteCollectionView.frame.size.height/3)
+//          self.favoriteCollectionView.reloadData()
     }
     
 
@@ -54,6 +60,8 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favoriiteSongsCell", for: indexPath) as? FavoriteSongsCollectionViewCell {
            cell.confiigurationCell(albums: favoriteMusicArray[indexPath.row])
+            cell.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            cell.layer.borderWidth = 0.5
                 return cell
             }else {
                 return FavoriteSongsCollectionViewCell()
