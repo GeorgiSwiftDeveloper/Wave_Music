@@ -1,5 +1,7 @@
-use_frameworks!
+ platform :ios, '10.0'
+
 target 'iTunes_Search' do
-   platform :ios, '7.0'
-pod "AFNetworking", "~> 2.0"
+  use_frameworks!
+    pod 'FRadioPlayer'
+
 end

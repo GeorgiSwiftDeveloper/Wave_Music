@@ -592,7 +592,7 @@
             </objects>
             <point key="canvasLocation" x="5684" y="204.67980295566502"/>
         </scene>
-        <!--Radio_Stations-->
+        <!--Radio Station View Controller-->
         <scene sceneID="Yyz-B0-5h3">
             <objects>
                 <viewController id="3zV-ej-YX4" customClass="RadioStationViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
@@ -708,7 +708,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eke-KE-HWa"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Radio_Stations" id="3Yi-pp-jnh">
+                    <navigationItem key="navigationItem" id="3Yi-pp-jnh">
                         <barButtonItem key="leftBarButtonItem" image="icon-hamburger" id="zN0-Iq-3o6"/>
                     </navigationItem>
                     <connections>
