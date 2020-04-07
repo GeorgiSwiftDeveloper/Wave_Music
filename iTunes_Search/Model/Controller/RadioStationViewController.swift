@@ -14,6 +14,7 @@ class RadioStationViewController: UIViewController, UITableViewDelegate, UITable
     
     
      @IBOutlet weak var tableView: UITableView!
+     var listOfRadioStations =  [RadioModel]()
     
     
         let radioConnection = ReadDataFromStationJSONList()
@@ -21,7 +22,14 @@ class RadioStationViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         radioConnection.readStationJSONList(fileName: "station") { (radioJsonList, error) in
-            let a = radioJsonList?[1].name
+            if error != nil  {
+                print(error?.localizedDescription as Any)
+                return
+            }
+            if  let radioJsonList = radioJsonList {
+                self.listOfRadioStations = radioJsonList
+                self.tableView.reloadData()
+            }
         }
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -29,13 +37,13 @@ class RadioStationViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          return 0
+        return listOfRadioStations.count
       }
       
       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
           if let cell = tableView.dequeueReusableCell(withIdentifier: "StationCell", for: indexPath) as? StationRadioTableViewCell {
                    DispatchQueue.main.async {
-                       
+                    cell.confiigurationCell(radioLsit: self.listOfRadioStations[indexPath.row])
                    }
                    return cell
                }else {

@@ -26,5 +26,11 @@ class StationRadioTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func confiigurationCell(radioLsit: RadioModel) {
+        stationNameLabel.text = radioLsit.name
+        stationDescLabel.text = radioLsit.desc
+        stationImageView.image = UIImage(named: radioLsit.imageURL)
+      }
 
 }

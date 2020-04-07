@@ -26,10 +26,9 @@ class ReadDataFromStationJSONList {
                     let desc = radioJsonList.station[i].desc
                     let longDesc = radioJsonList.station[i].longDesc
                     
-                     var returnRadioList = RadioModel(name: name, streamURL: streamURL, imageURL: imageURL, desc: desc, longDesc: longDesc)
+                    let returnRadioList = RadioModel(name: name, streamURL: streamURL, imageURL: imageURL, desc: desc, longDesc: longDesc)
                     listOfRadioStation.append(returnRadioList)
                 }
-//                print(radioJsonList.station[1].name)
                 loadStationList(listOfRadioStation,nil)
             } catch {
                 // Handle error here
