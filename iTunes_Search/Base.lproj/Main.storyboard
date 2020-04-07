@@ -24,7 +24,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="8j2-DH-Sf8"/>
                         <segue destination="XEs-D6-LBO" kind="relationship" relationship="viewControllers" id="rXh-LW-Vt3"/>
                         <segue destination="Htc-C7-YKe" kind="relationship" relationship="viewControllers" id="HEl-g3-u9L"/>
-                        <segue destination="3zV-ej-YX4" kind="relationship" relationship="viewControllers" id="wtk-Aj-F1m"/>
+                        <segue destination="k7t-tx-TXM" kind="relationship" relationship="viewControllers" id="wtk-Aj-F1m"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NQW-6Q-aE5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -569,9 +569,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kum-GT-NfJ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4742" y="205"/>
+            <point key="canvasLocation" x="5684" y="204.67980295566502"/>
         </scene>
-        <!--Swift Radio-->
+        <!--The Classics-->
         <scene sceneID="Yyz-B0-5h3">
             <objects>
                 <viewController id="3zV-ej-YX4" customClass="RadioStationViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
@@ -582,15 +582,15 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="hPw-pq-NW7">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xgb-gg-B8X">
-                                <rect key="frame" x="0.0" y="44" width="375" height="641"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xgb-gg-B8X">
+                                <rect key="frame" x="0.0" y="88" width="375" height="597"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StationCell" rowHeight="90" id="YrX-4J-5xT" customClass="SectonTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StationCell" rowHeight="100" id="YrX-4J-5xT" customClass="SectonTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YrX-4J-5xT" id="zXf-gd-ImE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stationImage" translatesAutoresizingMaskIntoConstraints="NO" id="w0G-nD-TV0">
@@ -652,15 +652,12 @@
                                                     <constraint firstAttribute="width" constant="40" id="sWt-Xa-4oY"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1r-uS-f24" userLabel="Now Playing Button">
-                                                <rect key="frame" x="40" y="5.6666666666666288" width="335" height="33"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="nowPlaying"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Choose a station above to begin">
-                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a station above to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4G-eS-fH1">
+                                                <rect key="frame" x="40" y="10.666666666666629" width="335" height="23"/>
+                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -690,8 +687,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eke-KE-HWa"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="My Radio" image="antenna.radiowaves.left.and.right" catalog="system" selectedImage="antenna.radiowaves.left.and.right" id="ZTF-W1-8RS"/>
-                    <navigationItem key="navigationItem" title="Swift Radio" id="3Yi-pp-jnh">
+                    <navigationItem key="navigationItem" title="The Classics" id="3Yi-pp-jnh">
                         <barButtonItem key="leftBarButtonItem" image="icon-hamburger" id="zN0-Iq-3o6"/>
                     </navigationItem>
                     <connections>
@@ -700,7 +696,27 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hmL-CO-72y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3756" y="205"/>
+            <point key="canvasLocation" x="4698.3999999999996" y="204.67980295566502"/>
+        </scene>
+        <!--My Radio-->
+        <scene sceneID="fTU-uF-xvd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="k7t-tx-TXM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="My Radio" image="antenna.radiowaves.left.and.right" catalog="system" selectedImage="antenna.radiowaves.left.and.right" id="ZTF-W1-8RS"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="umm-sm-J7m">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="0.79335218559999998" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="3zV-ej-YX4" kind="relationship" relationship="rootViewController" id="vsg-zp-TRY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6gG-a9-n23" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3756" y="204.67980295566502"/>
         </scene>
     </scenes>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -720,7 +736,7 @@
         <image name="musicImage" width="2400" height="1549"/>
         <image name="radiowaves.left" catalog="system" width="90" height="128"/>
         <image name="star.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="stationImage" width="128" height="128"/>
+        <image name="stationImage" width="120" height="75"/>
         <image name="vol-max" width="16.666666030883789" height="14"/>
         <image name="vol-min" width="11" height="12.666666984558105"/>
     </resources>
