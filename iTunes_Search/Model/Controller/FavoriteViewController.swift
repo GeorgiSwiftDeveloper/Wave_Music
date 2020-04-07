@@ -41,6 +41,8 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
         if let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? FutureMoviesTableViewCell {
             DispatchQueue.main.async {
                 cell.confiigurationCell(movieAlbums: self.favoriteMovieAlbum[indexPath.row])
+                self.tableview.separatorStyle = .singleLine
+                self.tableview.separatorColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
             }
             return cell
         }else {
@@ -58,8 +60,8 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
 
 extension FavoriteViewController: MovieManagerDelegate {
     func didUpdateAlbum(_ albumManager: FutureMoviesModel, album: [MoviesModel]) {
-        self.favoriteMovieAlbum.append(contentsOf: album)
         DispatchQueue.main.async {
+            self.favoriteMovieAlbum.append(contentsOf: album)
             self.tableview.reloadData()
         }
     }

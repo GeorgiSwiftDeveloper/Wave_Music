@@ -10,7 +10,8 @@ import UIKit
 import CoreData
 class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
 
- 
+    @IBOutlet weak var navigationForMusic: UINavigationItem!
+    
 
 
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
@@ -40,6 +41,8 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
            super.viewWillAppear(animated)
            self.fetchRequest()
            self.favoriteCollectionView.reloadData()
+      
+
        }
        
        

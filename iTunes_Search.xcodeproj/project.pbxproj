@@ -23,6 +23,7 @@
 		6ABFE2272439099C000217B5 /* FavoriteSongsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE2262439099C000217B5 /* FavoriteSongsCollectionViewCell.swift */; };
 		6ABFE229243909DD000217B5 /* FavoriteSongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */; };
 		6ACE9D3724399C25008009C3 /* SelectedObjectModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6ACE9D3524399C25008009C3 /* SelectedObjectModel.xcdatamodeld */; };
+		6AD0FD24243C2064006BF086 /* RadioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD0FD23243C2064006BF086 /* RadioPlayerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		6ABFE2262439099C000217B5 /* FavoriteSongsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSongsCollectionViewCell.swift; sourceTree = "<group>"; };
 		6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSongsViewController.swift; sourceTree = "<group>"; };
 		6ACE9D3624399C25008009C3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		6AD0FD23243C2064006BF086 /* RadioPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioPlayerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				6A1375C52433D09E0086113D /* iTunesMusicViewController.swift */,
 				6A1375E824344AB40086113D /* FavoriteViewController.swift */,
 				6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */,
+				6AD0FD23243C2064006BF086 /* RadioPlayerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				6A1375EB24344C760086113D /* FavoriteAlbumTableViewCell.swift in Sources */,
 				6A1375C62433D09E0086113D /* iTunesMusicViewController.swift in Sources */,
 				6A48ECC624366802007A82D6 /* MoviesModel.swift in Sources */,
+				6AD0FD24243C2064006BF086 /* RadioPlayerViewController.swift in Sources */,
 				6ABFE229243909DD000217B5 /* FavoriteSongsViewController.swift in Sources */,
 				6A1375DE2433F7370086113D /* AlbumModel.swift in Sources */,
 				6A48ECC424366485007A82D6 /* FutureMoviesModel.swift in Sources */,
