@@ -24,7 +24,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="8j2-DH-Sf8"/>
                         <segue destination="XEs-D6-LBO" kind="relationship" relationship="viewControllers" id="rXh-LW-Vt3"/>
                         <segue destination="Htc-C7-YKe" kind="relationship" relationship="viewControllers" id="HEl-g3-u9L"/>
-                        <segue destination="OZP-fc-9RZ" kind="relationship" relationship="viewControllers" id="k7f-KY-wsC"/>
+                        <segue destination="3zV-ej-YX4" kind="relationship" relationship="viewControllers" id="wtk-Aj-F1m"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NQW-6Q-aE5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -527,6 +527,16 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Radio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrd-nc-7Dk">
+                                <rect key="frame" x="62.666666666666657" y="59" width="249.99999999999997" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="6jB-jc-LJl"/>
+                                    <constraint firstAttribute="width" constant="250" id="bpa-m8-a81"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -538,11 +548,13 @@
                             <constraint firstItem="YaZ-gi-TQd" firstAttribute="top" secondItem="klK-kG-VrH" secondAttribute="bottom" constant="30" id="Diw-zy-ZxA"/>
                             <constraint firstItem="klK-kG-VrH" firstAttribute="leading" secondItem="31Z-Wf-Oz7" secondAttribute="leading" id="NNa-tS-eDX"/>
                             <constraint firstItem="klK-kG-VrH" firstAttribute="trailing" secondItem="31Z-Wf-Oz7" secondAttribute="trailing" id="SPU-ZP-zai"/>
+                            <constraint firstItem="yrd-nc-7Dk" firstAttribute="centerX" secondItem="klK-kG-VrH" secondAttribute="centerX" id="aUa-02-P7H"/>
                             <constraint firstItem="a0F-vl-INR" firstAttribute="leading" secondItem="lBd-G2-g72" secondAttribute="leading" constant="12" id="eoc-6T-lsn"/>
                             <constraint firstItem="Cu5-gI-uj9" firstAttribute="leading" secondItem="lBd-G2-g72" secondAttribute="leading" id="hcv-Qp-Tca"/>
                             <constraint firstItem="lBd-G2-g72" firstAttribute="trailing" secondItem="YZJ-eK-kCF" secondAttribute="trailing" constant="12" id="iLT-p9-X3k"/>
                             <constraint firstItem="klK-kG-VrH" firstAttribute="leading" secondItem="lBd-G2-g72" secondAttribute="leading" constant="70" id="k5e-B4-klJ"/>
                             <constraint firstItem="YaZ-gi-TQd" firstAttribute="centerX" secondItem="EsF-ZR-GeD" secondAttribute="centerX" id="sPs-Ug-UnZ"/>
+                            <constraint firstItem="yrd-nc-7Dk" firstAttribute="top" secondItem="lBd-G2-g72" secondAttribute="top" constant="15" id="uJL-yY-aQW"/>
                             <constraint firstAttribute="bottom" secondItem="Cu5-gI-uj9" secondAttribute="bottom" id="v7K-Vm-PQh"/>
                             <constraint firstItem="a0F-vl-INR" firstAttribute="top" secondItem="YaZ-gi-TQd" secondAttribute="bottom" constant="12" id="vh6-Sz-d8K"/>
                             <constraint firstItem="31Z-Wf-Oz7" firstAttribute="top" secondItem="klK-kG-VrH" secondAttribute="bottom" constant="-32" id="xcO-vJ-eO5"/>
@@ -557,11 +569,144 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kum-GT-NfJ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3818" y="205"/>
+            <point key="canvasLocation" x="4742" y="205"/>
+        </scene>
+        <!--Swift Radio-->
+        <scene sceneID="Yyz-B0-5h3">
+            <objects>
+                <viewController id="3zV-ej-YX4" customClass="RadioStationViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dsH-eq-OpV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="hPw-pq-NW7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xgb-gg-B8X">
+                                <rect key="frame" x="0.0" y="44" width="375" height="641"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StationCell" rowHeight="90" id="YrX-4J-5xT" customClass="SectonTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YrX-4J-5xT" id="zXf-gd-ImE">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stationImage" translatesAutoresizingMaskIntoConstraints="NO" id="w0G-nD-TV0">
+                                                    <rect key="frame" x="8" y="8" width="120" height="75"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="75" id="AYS-9u-RHi"/>
+                                                        <constraint firstAttribute="width" constant="120" id="qvu-5W-2Yq"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2Tx-LJ-vPN" userLabel="Labels Stack View">
+                                                    <rect key="frame" x="136" y="22.333333333333332" width="216" height="46.333333333333343"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Station Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DcO-0E-xWW">
+                                                            <rect key="frame" x="0.0" y="0.0" width="216" height="20.333333333333332"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Gc-C5-kvk">
+                                                            <rect key="frame" x="0.0" y="28.333333333333329" width="216" height="18"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="w0G-nD-TV0" firstAttribute="leading" secondItem="zXf-gd-ImE" secondAttribute="leading" constant="8" id="1VI-wj-MKD"/>
+                                                <constraint firstItem="w0G-nD-TV0" firstAttribute="top" secondItem="zXf-gd-ImE" secondAttribute="top" constant="8" id="ebD-D3-x5D"/>
+                                                <constraint firstItem="2Tx-LJ-vPN" firstAttribute="centerY" secondItem="w0G-nD-TV0" secondAttribute="centerY" id="f7z-Sk-XLH"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2Tx-LJ-vPN" secondAttribute="trailing" constant="8" id="xkD-je-8JQ"/>
+                                                <constraint firstItem="2Tx-LJ-vPN" firstAttribute="leading" secondItem="w0G-nD-TV0" secondAttribute="trailing" constant="8" id="xn2-WA-Glz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.1175440177" green="0.11671449239999999" blue="0.1412996352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="stationDescLabel" destination="1Gc-C5-kvk" id="TRg-ik-oB9"/>
+                                            <outlet property="stationImageView" destination="w0G-nD-TV0" id="apg-H7-0I2"/>
+                                            <outlet property="stationNameLabel" destination="DcO-0E-xWW" id="tiE-lb-06y"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="3zV-ej-YX4" id="Rv9-aX-7FH"/>
+                                    <outlet property="delegate" destination="3zV-ej-YX4" id="m0U-it-uJb"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98p-VJ-0du">
+                                <rect key="frame" x="0.0" y="685" width="375" height="44"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Chq-XP-SmA" userLabel="NowPlaying Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NowPlayingBars" translatesAutoresizingMaskIntoConstraints="NO" id="iNK-jE-pxf" userLabel="Playing Animation Image View">
+                                                <rect key="frame" x="0.0" y="2" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="CKw-l0-5wM"/>
+                                                    <constraint firstAttribute="width" constant="40" id="sWt-Xa-4oY"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1r-uS-f24" userLabel="Now Playing Button">
+                                                <rect key="frame" x="40" y="5.6666666666666288" width="335" height="33"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="nowPlaying"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Choose a station above to begin">
+                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1175440177" green="0.11671449239999999" blue="0.1412996352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Ams-q3-OlA"/>
+                                    <constraint firstAttribute="bottom" secondItem="Chq-XP-SmA" secondAttribute="bottom" id="Eag-D0-GTE"/>
+                                    <constraint firstItem="Chq-XP-SmA" firstAttribute="leading" secondItem="98p-VJ-0du" secondAttribute="leading" id="QF3-pw-QCb"/>
+                                    <constraint firstAttribute="trailing" secondItem="Chq-XP-SmA" secondAttribute="trailing" id="buw-6C-8jO"/>
+                                    <constraint firstItem="Chq-XP-SmA" firstAttribute="top" secondItem="98p-VJ-0du" secondAttribute="top" id="oWD-2v-bof"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Xgb-gg-B8X" firstAttribute="top" secondItem="eke-KE-HWa" secondAttribute="top" id="368-Vu-Y0v"/>
+                            <constraint firstItem="eke-KE-HWa" firstAttribute="trailing" secondItem="98p-VJ-0du" secondAttribute="trailing" id="6jO-mh-tMX"/>
+                            <constraint firstItem="98p-VJ-0du" firstAttribute="top" secondItem="Xgb-gg-B8X" secondAttribute="bottom" id="Aw9-x9-fA5"/>
+                            <constraint firstItem="eke-KE-HWa" firstAttribute="trailing" secondItem="hPw-pq-NW7" secondAttribute="trailing" id="Fii-Of-tQK"/>
+                            <constraint firstItem="Xgb-gg-B8X" firstAttribute="leading" secondItem="eke-KE-HWa" secondAttribute="leading" id="Fin-FZ-VDB"/>
+                            <constraint firstItem="eke-KE-HWa" firstAttribute="trailing" secondItem="Xgb-gg-B8X" secondAttribute="trailing" id="Ibh-2e-eih"/>
+                            <constraint firstAttribute="bottom" secondItem="hPw-pq-NW7" secondAttribute="bottom" id="ZuY-fD-3it"/>
+                            <constraint firstItem="98p-VJ-0du" firstAttribute="leading" secondItem="eke-KE-HWa" secondAttribute="leading" id="apo-r8-Bmg"/>
+                            <constraint firstItem="hPw-pq-NW7" firstAttribute="leading" secondItem="eke-KE-HWa" secondAttribute="leading" id="dKw-rS-hk6"/>
+                            <constraint firstItem="eke-KE-HWa" firstAttribute="bottom" secondItem="98p-VJ-0du" secondAttribute="bottom" id="oUd-GX-dRy"/>
+                            <constraint firstItem="hPw-pq-NW7" firstAttribute="top" secondItem="dsH-eq-OpV" secondAttribute="top" id="vqn-II-CrG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eke-KE-HWa"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="My Radio" image="antenna.radiowaves.left.and.right" catalog="system" selectedImage="antenna.radiowaves.left.and.right" id="ZTF-W1-8RS"/>
+                    <navigationItem key="navigationItem" title="Swift Radio" id="3Yi-pp-jnh">
+                        <barButtonItem key="leftBarButtonItem" image="icon-hamburger" id="zN0-Iq-3o6"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="Xgb-gg-B8X" id="V9u-T7-xAe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hmL-CO-72y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3756" y="205"/>
         </scene>
     </scenes>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
+        <image name="NowPlayingBars" width="19.666666030883789" height="19"/>
+        <image name="antenna.radiowaves.left.and.right" catalog="system" width="128" height="109"/>
         <image name="background" width="320" height="568"/>
         <image name="btn-next" width="44" height="44"/>
         <image name="btn-pause" width="44" height="44"/>
@@ -569,11 +714,13 @@
         <image name="btn-previous" width="44" height="44"/>
         <image name="btn-stop" width="44" height="44"/>
         <image name="film.fill" catalog="system" width="128" height="93"/>
+        <image name="icon-hamburger" width="22" height="16"/>
         <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <image name="music.note.list" catalog="system" width="128" height="113"/>
         <image name="musicImage" width="2400" height="1549"/>
         <image name="radiowaves.left" catalog="system" width="90" height="128"/>
         <image name="star.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="stationImage" width="128" height="128"/>
         <image name="vol-max" width="16.666666030883789" height="14"/>
         <image name="vol-min" width="11" height="12.666666984558105"/>
     </resources>

@@ -25,12 +25,6 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
         self.favoriteCollectionView.dataSource = self
          self.favoriteCollectionView.reloadData()
         self.fetchRequest()
-//
-//        let layout = self.favoriteCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-//        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-//        layout.minimumInteritemSpacing = 5
-//        layout.itemSize = CGSize(width:(self.favoriteCollectionView.frame.size.width - 20) / 2, height: self.favoriteCollectionView.frame.size.height/3)
-//          self.favoriteCollectionView.reloadData()
     }
     
 
