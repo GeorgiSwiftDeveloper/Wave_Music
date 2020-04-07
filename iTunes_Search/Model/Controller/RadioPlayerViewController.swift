@@ -14,6 +14,12 @@ class RadioPlayerViewController: UIViewController {
     @IBOutlet weak var radioSongNameLabel: UILabel!
     @IBOutlet weak var radioSongArtistNameLabel: UILabel!
     
+    @IBOutlet weak var goBackRadioButton: UIButton!
+    @IBOutlet weak var playRadioButton: UIButton!
+    @IBOutlet weak var stopRadioButton: UIButton!
+    @IBOutlet weak var goForwardRadioButton: UIButton!
+    
+    
     
     var selectedRadioImage = UIImage()
     var selectedRadioName = String()
@@ -23,9 +29,21 @@ class RadioPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.radioSongNameLabel.text = selectedRadioName
-          self.radioSongArtistNameLabel.text = selectedRadioDesc
+        self.radioSongArtistNameLabel.text = selectedRadioDesc
         self.radioSongImageView.image = selectedRadioImage
-        // Do any additional setup after loading the view.
-    
+
     }
+    
+    @IBAction func goBackAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func playRadioAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func stopRadioAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func goForwardAction(_ sender: Any) {
+    }
+    
 }
