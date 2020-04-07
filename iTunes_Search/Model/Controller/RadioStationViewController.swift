@@ -11,7 +11,9 @@ import UIKit
 class RadioStationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
-    
+    var selectedRadioImage = String()
+    var selectedRadioName = String()
+    var selectedRadioDesc = String()
     
      @IBOutlet weak var tableView: UITableView!
      var listOfRadioStations =  [RadioModel]()
@@ -40,15 +42,30 @@ class RadioStationViewController: UIViewController, UITableViewDelegate, UITable
         return listOfRadioStations.count
       }
       
-      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          if let cell = tableView.dequeueReusableCell(withIdentifier: "StationCell", for: indexPath) as? StationRadioTableViewCell {
-                   DispatchQueue.main.async {
-                    cell.confiigurationCell(radioLsit: self.listOfRadioStations[indexPath.row])
-                   }
-                   return cell
-               }else {
-                   return StationRadioTableViewCell()
-               }   }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "StationCell", for: indexPath) as? StationRadioTableViewCell {
+            DispatchQueue.main.async {
+                cell.confiigurationCell(radioLsit: self.listOfRadioStations[indexPath.row])
+            }
+            return cell
+        }else {
+            return StationRadioTableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Get current cell data
+        let indexPath = tableView.indexPathForSelectedRow
+        let currentCell = tableView.cellForRow(at: indexPath!) as? StationRadioTableViewCell
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "RadioPlayerViewController") as! RadioPlayerViewController
+        if let checkRadioName = currentCell?.stationNameLabel.text, let checkRadioDesc =  currentCell?.stationDescLabel.text, let checkRadioImage = currentCell?.stationImageView.image {
+             nextViewController.selectedRadioName = checkRadioName
+             nextViewController.selectedRadioDesc = checkRadioName
+            nextViewController.selectedRadioImage = checkRadioImage
+        }
+        self.present(nextViewController, animated:true, completion:nil)
+    }
 
 
 }

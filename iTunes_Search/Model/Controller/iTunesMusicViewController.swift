@@ -134,15 +134,14 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
             let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl)
             var selectedMusicArray = [AlbumModel]()
             selectedMusicArray.append(selectedMusic)
-//            self.selectedMusicDelegate?.selectedMusicObject(selectedMusicArray)
             var newCategory = SelectedAlbumModel(context: context!)
-                              
-                      newCategory.singerName = selectedCell.artist
-                      newCategory.songTitle = selectedCell.title
-                      newCategory.songImage = selectedCell.artworkURL
-                      self.selectedMusic.append(newCategory)
-                              
-                      self.saveItems()
+            
+            newCategory.singerName = selectedCell.artist
+            newCategory.songTitle = selectedCell.title
+            newCategory.songImage = selectedCell.artworkURL
+            self.selectedMusic.append(newCategory)
+            
+            self.saveItems()
         }
         
         let cancelAction = UIAlertAction(title: "NO", style: .cancel) { (action) in
