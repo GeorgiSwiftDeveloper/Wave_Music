@@ -21,7 +21,7 @@ class RadioStationViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         radioConnection.readStationJSONList(fileName: "station") { (radioJsonList, error) in
-            print(radioJsonList?.station[0].name as Any)
+            let a = radioJsonList?[1].name
         }
         self.tableView.delegate = self
         self.tableView.dataSource = self
