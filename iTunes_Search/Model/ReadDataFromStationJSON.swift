@@ -11,7 +11,6 @@ import Foundation
 class ReadDataFromStationJSONList {
     func readStationJSONList(fileName: String?, loadStationList: @escaping(_ returnStationList: [RadioModel]?, _ returnError: Error? ) -> ()){
         if let path = Bundle.main.path(forResource: fileName, ofType: "json") {
-//            var stock = RadioModel(name: <#T##String#>, streamURL: <#T##String#>, imageURL: <#T##String#>, desc: <#T##String#>, longDesc: <#T##String#>)
             do {
                 var listOfRadioStation = [RadioModel]()
                 
@@ -31,7 +30,6 @@ class ReadDataFromStationJSONList {
                 }
                 loadStationList(listOfRadioStation,nil)
             } catch {
-                // Handle error here
                 loadStationList(nil,error)
             }
         }

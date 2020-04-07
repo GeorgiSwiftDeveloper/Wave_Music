@@ -26,7 +26,7 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         self.tableview.delegate = self
         self.tableview.dataSource = self
-          futureMoviesModelConnection.delegate = self
+        futureMoviesModelConnection.delegate = self
         self.futureMoviesModelConnection.fetchiTunes()
         self.tableview.reloadData()
     }

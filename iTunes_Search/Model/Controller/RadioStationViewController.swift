@@ -9,17 +9,12 @@
 import UIKit
 
 class RadioStationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    
-    var selectedRadioImage = String()
-    var selectedRadioName = String()
-    var selectedRadioDesc = String()
     
      @IBOutlet weak var tableView: UITableView!
      var listOfRadioStations =  [RadioModel]()
     
     
-        let radioConnection = ReadDataFromStationJSONList()
+    let radioConnection = ReadDataFromStationJSONList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,14 +49,14 @@ class RadioStationViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Get current cell data
+        // Get selected row  data
         let indexPath = tableView.indexPathForSelectedRow
         let currentCell = tableView.cellForRow(at: indexPath!) as? StationRadioTableViewCell
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextViewController = storyBoard.instantiateViewController(withIdentifier: "RadioPlayerViewController") as! RadioPlayerViewController
         if let checkRadioName = currentCell?.stationNameLabel.text, let checkRadioDesc =  currentCell?.stationDescLabel.text, let checkRadioImage = currentCell?.stationImageView.image {
              nextViewController.selectedRadioName = checkRadioName
-             nextViewController.selectedRadioDesc = checkRadioName
+             nextViewController.selectedRadioDesc = checkRadioDesc
             nextViewController.selectedRadioImage = checkRadioImage
         }
         self.present(nextViewController, animated:true, completion:nil)
