@@ -8,14 +8,18 @@
 
 import UIKit
 
-class RadioModel: Codable {
+struct PlacesResponse : Decodable {
+    var station :[RadioModel]
+}
+
+class RadioModel: Decodable {
     var name: String
     var streamURL: String
     var imageURL: String
     var desc: String
     var longDesc: String
     
-    init(name: String, streamURL: String, imageURL: String, desc: String, longDesc: String = "") {
+    init(name: String, streamURL: String, imageURL: String, desc: String, longDesc: String) {
         self.name = name
         self.streamURL = streamURL
         self.imageURL = imageURL

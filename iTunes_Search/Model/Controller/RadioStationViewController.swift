@@ -16,14 +16,16 @@ class RadioStationViewController: UIViewController, UITableViewDelegate, UITable
      @IBOutlet weak var tableView: UITableView!
     
     
+        let radioConnection = ReadDataFromStationJSONList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
+        radioConnection.readStationJSONList(fileName: "station") { (radioJsonList, error) in
+            print(radioJsonList?.station[0].name as Any)
+        }
         self.tableView.delegate = self
         self.tableView.dataSource = self
+      
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,13 +33,13 @@ class RadioStationViewController: UIViewController, UITableViewDelegate, UITable
       }
       
       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          if let cell = tableView.dequeueReusableCell(withIdentifier: "StationCell", for: indexPath) as? SectonTableViewCell {
+          if let cell = tableView.dequeueReusableCell(withIdentifier: "StationCell", for: indexPath) as? StationRadioTableViewCell {
                    DispatchQueue.main.async {
                        
                    }
                    return cell
                }else {
-                   return SectonTableViewCell()
+                   return StationRadioTableViewCell()
                }   }
 
 

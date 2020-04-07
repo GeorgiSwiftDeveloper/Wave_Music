@@ -8,17 +8,17 @@
 
 import UIKit
 
-class SectonTableViewCell: UITableViewCell {
+class StationRadioTableViewCell: UITableViewCell {
     @IBOutlet weak var stationNameLabel: UILabel!
      @IBOutlet weak var stationDescLabel: UILabel!
      @IBOutlet weak var stationImageView: UIImageView!
     
     
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
