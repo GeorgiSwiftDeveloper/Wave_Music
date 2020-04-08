@@ -53,16 +53,16 @@ class RadioStationViewController: UIViewController, UITableViewDelegate, UITable
         let indexPath = tableView.indexPathForSelectedRow
         let currentCell = tableView.cellForRow(at: indexPath!) as? StationRadioTableViewCell
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "RadioPlayerViewController") as! RadioPlayerViewController
+        let radioPlayerViewController = storyBoard.instantiateViewController(withIdentifier: "RadioPlayerViewController") as! RadioPlayerViewController
         
-        if let checkRadioName = currentCell?.stationNameLabel.text, let checkRadioDesc =  currentCell?.stationDescLabel.text, let checkRadioImage = currentCell?.stationImageView.image {
-             nextViewController.selectedRadioName = checkRadioName
-             nextViewController.selectedRadioDesc = checkRadioDesc
-            nextViewController.selectedRadioImage = checkRadioImage
+        if let checkRadioName = currentCell?.stationNameLabel.text, let checkRadioDesc =  currentCell?.stationDescLabel.text, let checkRadioImage = currentCell?.stationImageView.image, let checkStreamUrl = currentCell?.stationStreamUrl {
+             radioPlayerViewController.selectedStreamUrl = checkStreamUrl
+             radioPlayerViewController.selectedRadioName = checkRadioName
+             radioPlayerViewController.selectedRadioDesc = checkRadioDesc
+             radioPlayerViewController.selectedRadioImage = checkRadioImage
         }
         self.navigationController?.navigationBar.topItem?.title = " "
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(nextViewController, animated: true)
+        self.navigationController?.pushViewController(radioPlayerViewController, animated: true)
         
     }
 

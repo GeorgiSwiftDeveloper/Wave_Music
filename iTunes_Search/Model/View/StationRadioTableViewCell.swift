@@ -10,8 +10,10 @@ import UIKit
 
 class StationRadioTableViewCell: UITableViewCell {
     @IBOutlet weak var stationNameLabel: UILabel!
-     @IBOutlet weak var stationDescLabel: UILabel!
-     @IBOutlet weak var stationImageView: UIImageView!
+    @IBOutlet weak var stationDescLabel: UILabel!
+    @IBOutlet weak var stationImageView: UIImageView!
+    var stationStreamUrl = String()
+    
     
     
     
@@ -28,6 +30,7 @@ class StationRadioTableViewCell: UITableViewCell {
     }
     
     func confiigurationCell(radioLsit: RadioModel) {
+        stationStreamUrl = radioLsit.streamURL
         stationNameLabel.text = radioLsit.name
         stationDescLabel.text = radioLsit.desc
         stationImageView.image = UIImage(named: radioLsit.imageURL)
