@@ -182,7 +182,6 @@
 				6A1375BA2433D09E0086113D /* Sources */,
 				6A1375BB2433D09E0086113D /* Frameworks */,
 				6A1375BC2433D09E0086113D /* Resources */,
-				9F47F4943B6DDB22B2056930 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -241,24 +240,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9F47F4943B6DDB22B2056930 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-iTunes_Search/Pods-iTunes_Search-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/FRadioPlayer/FRadioPlayer.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FRadioPlayer.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iTunes_Search/Pods-iTunes_Search-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		AF85A69936BDFFB4858F0831 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -447,13 +428,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CVH85UHVWD;
+				DEVELOPMENT_TEAM = 4XLSSR63Y5;
 				INFOPLIST_FILE = iTunes_Search/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "georgi.malkhasyan.iTunes-Search";
+				PRODUCT_BUNDLE_IDENTIFIER = "georgi.iTunes-Search";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -466,13 +448,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CVH85UHVWD;
+				DEVELOPMENT_TEAM = 4XLSSR63Y5;
 				INFOPLIST_FILE = iTunes_Search/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "georgi.malkhasyan.iTunes-Search";
+				PRODUCT_BUNDLE_IDENTIFIER = "georgi.iTunes-Search";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

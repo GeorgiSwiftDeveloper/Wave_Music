@@ -2,6 +2,6 @@
 
 target 'iTunes_Search' do
   use_frameworks!
-    pod 'FRadioPlayer'
+   
 
 end

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FRadioPlayer
 import AVFoundation
 class RadioPlayerViewController: UIViewController {
     
@@ -20,8 +19,10 @@ class RadioPlayerViewController: UIViewController {
     @IBOutlet weak var playRadioButton: UIButton!
     @IBOutlet weak var stopRadioButton: UIButton!
     @IBOutlet weak var goForwardRadioButton: UIButton!
+    @IBOutlet weak var sliderButtonOutlet: UISlider!
     
     var audioPlayer = AVPlayer()
+     var player = AVAudioPlayer()
     
     var selectedRadioImage = UIImage()
     var selectedRadioName = String()
@@ -60,17 +61,17 @@ class RadioPlayerViewController: UIViewController {
     }
     
     @IBAction func playRadioAction(_ sender: UIButton) {
-        if checkIfAudioisPause == true {
-            audioPlayer.play()
-        }else{
+        if checkIfAudioisPause == false {
             guard let url = NSURL(string: selectedStreamUrl) else { return}
             playThis(url: url)
+            checkIfAudioisPause = true
+        }else{
         }
     }
     
     @IBAction func stopRadioAction(_ sender: UIButton) {
-         audioPlayer.pause()
-        self.checkIfAudioisPause = true
+        audioPlayer.pause()
+        self.checkIfAudioisPause = false
     }
     
     @IBAction func goForwardAction(_ sender: Any) {

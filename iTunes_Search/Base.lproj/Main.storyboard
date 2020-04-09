@@ -125,17 +125,17 @@
                                         </prototypes>
                                     </tableView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search iThunes Music" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-aa-DUM">
-                                        <rect key="frame" x="15" y="115" width="320" height="40"/>
+                                        <rect key="frame" x="15" y="115" width="290" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="320" id="1dT-5t-Bi2"/>
+                                            <constraint firstAttribute="width" constant="290" id="1dT-5t-Bi2"/>
                                             <constraint firstAttribute="height" constant="40" id="aTB-Tc-IST"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="go"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PmC-Vg-Gz6">
-                                        <rect key="frame" x="365" y="118.66666666666666" width="35" height="33.666666666666671"/>
+                                        <rect key="frame" x="335" y="118.66666666666666" width="35" height="33.666666666666671"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="pxA-jm-pfN"/>
                                             <constraint firstAttribute="height" constant="35" id="uh7-uU-kqo"/>
@@ -271,7 +271,7 @@
             </objects>
             <point key="canvasLocation" x="1000.8" y="710.83743842364538"/>
         </scene>
-        <!--My Album-->
+        <!--Favorite Songs View Controller-->
         <scene sceneID="a0O-Db-qDa">
             <objects>
                 <viewController storyboardIdentifier="FavoriteSongsViewController" id="dhp-Vd-zyy" customClass="FavoriteSongsViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
@@ -367,7 +367,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Ur-yE-fRU"/>
                     </view>
-                    <navigationItem key="navigationItem" title="My Album" id="6z8-gZ-3JW"/>
+                    <navigationItem key="navigationItem" id="6z8-gZ-3JW"/>
                     <connections>
                         <outlet property="favoriteCollectionView" destination="LoF-Dm-i85" id="bUm-e2-Ogt"/>
                         <outlet property="navigationForMusic" destination="6z8-gZ-3JW" id="SCw-zy-pdD"/>
@@ -415,8 +415,8 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="180" id="eJc-YO-TMR"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="YaZ-gi-TQd" userLabel="Controls Stack View">
-                                <rect key="frame" x="79.666666666666686" y="384" width="216" height="45"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="YaZ-gi-TQd" userLabel="Controls Stack View">
+                                <rect key="frame" x="45" y="384" width="285" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEz-ew-Xti" userLabel="PreviousButton">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -433,7 +433,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ovz-Di-tBh" userLabel="PauseButton">
-                                        <rect key="frame" x="56.999999999999986" y="0.0" width="45" height="45"/>
+                                        <rect key="frame" x="80" y="0.0" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="RaS-0u-5yU"/>
                                             <constraint firstAttribute="height" constant="45" id="lQr-CN-BqP"/>
@@ -447,7 +447,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jx5-Ba-68m" userLabel="PauseButton">
-                                        <rect key="frame" x="114" y="0.0" width="45" height="45"/>
+                                        <rect key="frame" x="160" y="0.0" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="kWJ-gR-z3r"/>
                                             <constraint firstAttribute="width" constant="45" id="uMG-y4-ANw"/>
@@ -461,7 +461,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96u-T4-gjO" userLabel="NextButton">
-                                        <rect key="frame" x="171" y="0.0" width="45" height="45"/>
+                                        <rect key="frame" x="240" y="0.0" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="dDW-yP-qFH"/>
                                             <constraint firstAttribute="height" constant="45" id="uab-77-Amb"/>
@@ -489,10 +489,11 @@
                                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oo6-er-Qdu" userLabel="Volume View">
                                         <rect key="frame" x="26" y="0.0" width="299" height="60"/>
                                         <subviews>
-                                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7af-6N-pUX">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7af-6N-pUX">
                                                 <rect key="frame" x="6" y="15" width="287" height="31"/>
+                                                <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <action selector="sliderAction:" destination="OZP-fc-9RZ" eventType="valueChanged" id="hxk-KH-61w"/>
+                                                    <action selector="sliderAction:" destination="OZP-fc-9RZ" eventType="valueChanged" id="W1b-aO-B2n"/>
                                                 </connections>
                                             </slider>
                                         </subviews>
@@ -542,7 +543,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Radio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrd-nc-7Dk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GI Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrd-nc-7Dk">
                                 <rect key="frame" x="62.666666666666657" y="59" width="249.99999999999997" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="6jB-jc-LJl"/>
@@ -588,6 +589,7 @@
                         <outlet property="radioSongArtistNameLabel" destination="6ib-Ni-DiI" id="TXJ-xw-kNY"/>
                         <outlet property="radioSongImageView" destination="klK-kG-VrH" id="VNu-pl-ba3"/>
                         <outlet property="radioSongNameLabel" destination="X2d-WB-b0y" id="sKt-ak-HUO"/>
+                        <outlet property="sliderButtonOutlet" destination="7af-6N-pUX" id="0ob-24-JXa"/>
                         <outlet property="stopRadioButton" destination="jx5-Ba-68m" id="CUf-4W-ag1"/>
                     </connections>
                 </viewController>
