@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="0.70269363496932513" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.29452693320000001" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
@@ -286,16 +286,16 @@
                                     <size key="itemSize" width="91" height="171"/>
                                     <size key="headerReferenceSize" width="0.0" height="25"/>
                                     <size key="footerReferenceSize" width="0.0" height="85"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <imageView key="backgroundView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="musicImage" id="UYW-8K-Icd">
                                     <rect key="frame" x="0.0" y="-88" width="375" height="812"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.32369780539999998" green="0.1063579395" blue="0.574860394" alpha="0.80384873466257667" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.0" green="0.29452693320000001" blue="0.57488495110000004" alpha="0.848914398006135" colorSpace="custom" customColorSpace="sRGB"/>
                                 </imageView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favoriiteSongsCell" id="zSr-gX-pOj" customClass="FavoriteSongsCollectionViewCell" customModule="iTunes_Search" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="25" width="91" height="171"/>
+                                        <rect key="frame" x="15" y="25" width="91" height="171"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" id="0EG-rA-q3N">
                                             <rect key="frame" x="0.0" y="0.0" width="91" height="171"/>
@@ -407,6 +407,27 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Cu5-gI-uj9" userLabel="Background Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NowPlayingBars" translatesAutoresizingMaskIntoConstraints="NO" id="oda-OV-RaX" userLabel="Playing Animation Image View">
+                                <rect key="frame" x="22.666666666666671" y="655.66666666666663" width="110.00000000000001" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="OyY-wp-Vb3"/>
+                                    <constraint firstAttribute="width" constant="110" id="aYc-43-AZ7"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NowPlayingBars" translatesAutoresizingMaskIntoConstraints="NO" id="7v9-sU-kld" userLabel="Playing Animation Image View">
+                                <rect key="frame" x="242.66666666666663" y="655.66666666666663" width="110" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="6cn-fU-RPo"/>
+                                    <constraint firstAttribute="height" constant="64" id="dZq-O6-xeS"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NowPlayingBars" translatesAutoresizingMaskIntoConstraints="NO" id="ovJ-B7-y2a" userLabel="Playing Animation Image View">
+                                <rect key="frame" x="132.66666666666666" y="655.66666666666663" width="110" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="2Yz-Xq-fRW"/>
+                                    <constraint firstAttribute="height" constant="64" id="WIG-7j-Mas"/>
+                                </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="klK-kG-VrH" userLabel="AlbumArt">
                                 <rect key="frame" x="70" y="119" width="235" height="235"/>
@@ -557,22 +578,29 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YZJ-eK-kCF" firstAttribute="top" secondItem="a0F-vl-INR" secondAttribute="bottom" constant="12" id="3Gw-QJ-0ms"/>
+                            <constraint firstItem="7v9-sU-kld" firstAttribute="leading" secondItem="ovJ-B7-y2a" secondAttribute="trailing" id="5P4-lB-tns"/>
                             <constraint firstItem="klK-kG-VrH" firstAttribute="top" secondItem="lBd-G2-g72" secondAttribute="top" constant="75" id="7a6-g0-Tqy"/>
                             <constraint firstItem="lBd-G2-g72" firstAttribute="trailing" secondItem="Cu5-gI-uj9" secondAttribute="trailing" id="9eq-S9-jsP"/>
                             <constraint firstItem="lBd-G2-g72" firstAttribute="trailing" secondItem="klK-kG-VrH" secondAttribute="trailing" constant="70" id="ALp-gb-evD"/>
                             <constraint firstItem="lBd-G2-g72" firstAttribute="trailing" secondItem="a0F-vl-INR" secondAttribute="trailing" constant="12" id="DLk-rR-4Gh"/>
                             <constraint firstItem="YaZ-gi-TQd" firstAttribute="top" secondItem="klK-kG-VrH" secondAttribute="bottom" constant="30" id="Diw-zy-ZxA"/>
                             <constraint firstItem="klK-kG-VrH" firstAttribute="leading" secondItem="31Z-Wf-Oz7" secondAttribute="leading" id="NNa-tS-eDX"/>
+                            <constraint firstItem="7v9-sU-kld" firstAttribute="top" secondItem="YZJ-eK-kCF" secondAttribute="bottom" constant="60" id="OoQ-Gt-Bq7"/>
                             <constraint firstItem="klK-kG-VrH" firstAttribute="trailing" secondItem="31Z-Wf-Oz7" secondAttribute="trailing" id="SPU-ZP-zai"/>
                             <constraint firstItem="yrd-nc-7Dk" firstAttribute="centerX" secondItem="klK-kG-VrH" secondAttribute="centerX" id="aUa-02-P7H"/>
+                            <constraint firstItem="ovJ-B7-y2a" firstAttribute="top" secondItem="YZJ-eK-kCF" secondAttribute="bottom" constant="60" id="bsh-tL-hzQ"/>
+                            <constraint firstItem="lBd-G2-g72" firstAttribute="trailing" secondItem="7v9-sU-kld" secondAttribute="trailing" constant="22.5" id="eXt-So-oIJ"/>
                             <constraint firstItem="a0F-vl-INR" firstAttribute="leading" secondItem="lBd-G2-g72" secondAttribute="leading" constant="12" id="eoc-6T-lsn"/>
                             <constraint firstItem="Cu5-gI-uj9" firstAttribute="leading" secondItem="lBd-G2-g72" secondAttribute="leading" id="hcv-Qp-Tca"/>
                             <constraint firstItem="lBd-G2-g72" firstAttribute="trailing" secondItem="YZJ-eK-kCF" secondAttribute="trailing" constant="12" id="iLT-p9-X3k"/>
                             <constraint firstItem="klK-kG-VrH" firstAttribute="leading" secondItem="lBd-G2-g72" secondAttribute="leading" constant="70" id="k5e-B4-klJ"/>
+                            <constraint firstItem="oda-OV-RaX" firstAttribute="top" secondItem="YZJ-eK-kCF" secondAttribute="bottom" constant="60" id="oek-Ca-5Mj"/>
+                            <constraint firstItem="oda-OV-RaX" firstAttribute="leading" secondItem="lBd-G2-g72" secondAttribute="leading" constant="22.670000000000002" id="sIn-Bj-4dH"/>
                             <constraint firstItem="YaZ-gi-TQd" firstAttribute="centerX" secondItem="EsF-ZR-GeD" secondAttribute="centerX" id="sPs-Ug-UnZ"/>
                             <constraint firstItem="yrd-nc-7Dk" firstAttribute="top" secondItem="lBd-G2-g72" secondAttribute="top" constant="15" id="uJL-yY-aQW"/>
                             <constraint firstAttribute="bottom" secondItem="Cu5-gI-uj9" secondAttribute="bottom" id="v7K-Vm-PQh"/>
                             <constraint firstItem="a0F-vl-INR" firstAttribute="top" secondItem="YaZ-gi-TQd" secondAttribute="bottom" constant="12" id="vh6-Sz-d8K"/>
+                            <constraint firstItem="ovJ-B7-y2a" firstAttribute="leading" secondItem="oda-OV-RaX" secondAttribute="trailing" id="w34-pZ-avr"/>
                             <constraint firstItem="31Z-Wf-Oz7" firstAttribute="top" secondItem="klK-kG-VrH" secondAttribute="bottom" constant="-32" id="xcO-vJ-eO5"/>
                             <constraint firstItem="YZJ-eK-kCF" firstAttribute="leading" secondItem="lBd-G2-g72" secondAttribute="leading" constant="12" id="y8q-7M-v19"/>
                             <constraint firstItem="Cu5-gI-uj9" firstAttribute="top" secondItem="EsF-ZR-GeD" secondAttribute="top" id="zQ7-o3-Rtl"/>
@@ -586,11 +614,14 @@
                         <outlet property="goBackRadioButton" destination="YEz-ew-Xti" id="nAU-bs-TfD"/>
                         <outlet property="goForwardRadioButton" destination="96u-T4-gjO" id="3EV-GS-AyG"/>
                         <outlet property="playRadioButton" destination="ovz-Di-tBh" id="Qa4-Ek-ehO"/>
+                        <outlet property="playerImageAnimationView" destination="oda-OV-RaX" id="Vn3-vH-3Ov"/>
                         <outlet property="radioSongArtistNameLabel" destination="6ib-Ni-DiI" id="TXJ-xw-kNY"/>
                         <outlet property="radioSongImageView" destination="klK-kG-VrH" id="VNu-pl-ba3"/>
                         <outlet property="radioSongNameLabel" destination="X2d-WB-b0y" id="sKt-ak-HUO"/>
+                        <outlet property="secondPlayerImageAnimationView" destination="ovJ-B7-y2a" id="2vy-bt-9EC"/>
                         <outlet property="sliderButtonOutlet" destination="7af-6N-pUX" id="0ob-24-JXa"/>
                         <outlet property="stopRadioButton" destination="jx5-Ba-68m" id="CUf-4W-ag1"/>
+                        <outlet property="thirdPlayerImageAnimationView" destination="7v9-sU-kld" id="xhg-55-RAO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kum-GT-NfJ" sceneMemberID="firstResponder"/>

@@ -20,6 +20,9 @@ class RadioPlayerViewController: UIViewController {
     @IBOutlet weak var stopRadioButton: UIButton!
     @IBOutlet weak var goForwardRadioButton: UIButton!
     @IBOutlet weak var sliderButtonOutlet: UISlider!
+    @IBOutlet weak var playerImageAnimationView: UIImageView!
+    @IBOutlet weak var secondPlayerImageAnimationView: UIImageView!
+    @IBOutlet weak var thirdPlayerImageAnimationView: UIImageView!
     
     var audioPlayer = AVPlayer()
      var player = AVAudioPlayer()
@@ -40,6 +43,7 @@ class RadioPlayerViewController: UIViewController {
         self.radioSongNameLabel.text = selectedRadioName
         self.radioSongArtistNameLabel.text = selectedRadioDesc
         self.radioSongImageView.image = selectedRadioImage
+        self.playerImageAnimationView.image = UIImage(named: "NowPlayingBars")
     }
     
     func playThis(url: NSURL)
@@ -55,6 +59,32 @@ class RadioPlayerViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    
+    
+    func startAnimatePlayer()
+    {
+        let myimgArr = ["NowPlayingBars-0","NowPlayingBars-1","NowPlayingBars-2","NowPlayingBars-3"]
+        var images = [UIImage]()
+
+        for i in 0..<myimgArr.count
+        {
+            images.append(UIImage(named: myimgArr[i])!)
+        }
+
+        playerImageAnimationView.animationImages = images
+        playerImageAnimationView.animationDuration = 1.0
+        playerImageAnimationView.startAnimating()
+        
+        secondPlayerImageAnimationView.animationImages = images
+        secondPlayerImageAnimationView.animationDuration = 1.0
+        secondPlayerImageAnimationView.startAnimating()
+        
+        
+        thirdPlayerImageAnimationView.animationImages = images
+        thirdPlayerImageAnimationView.animationDuration = 1.0
+        thirdPlayerImageAnimationView.startAnimating()
+        
+    }
   
     @IBAction func goBackAction(_ sender: UIButton) {
         
@@ -64,6 +94,7 @@ class RadioPlayerViewController: UIViewController {
         if checkIfAudioisPause == false {
             guard let url = NSURL(string: selectedStreamUrl) else { return}
             playThis(url: url)
+            startAnimatePlayer()
             checkIfAudioisPause = true
         }else{
         }
@@ -71,6 +102,9 @@ class RadioPlayerViewController: UIViewController {
     
     @IBAction func stopRadioAction(_ sender: UIButton) {
         audioPlayer.pause()
+        playerImageAnimationView.stopAnimating()
+        secondPlayerImageAnimationView.stopAnimating()
+        thirdPlayerImageAnimationView.stopAnimating()
         self.checkIfAudioisPause = false
     }
     
