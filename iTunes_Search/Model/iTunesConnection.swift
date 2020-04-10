@@ -17,6 +17,7 @@ class iTunesConnection {
     var delegate: AlbumManagerDelegate?
     func fetchiTunes(name: String) {
         let url  =  "https://itunes.apple.com/search?term=\(name)&media=music"
+//                   let url = "https://api.deezer.com/search?q=album:\(name)"
         performRequest(with: url)
     }
     
@@ -47,6 +48,7 @@ class iTunesConnection {
             
             let itunesDict = try JSONSerialization.jsonObject(with: itunesData, options: .mutableContainers) as? [String:Any]
             let results = (itunesDict! as NSDictionary).object(forKey: "results") as? [Dictionary<String,AnyObject>]
+            print(itunesDict)
             if results != nil {
                 for _ in 0..<results!.count{
                     
@@ -56,7 +58,8 @@ class iTunesConnection {
                 let albumTitle = resultDict?["collectionName"] as? String ?? ""
                 let genre = resultDict?["primaryGenreName"] as? String  ?? ""
                 let trackViewUrl = resultDict?["trackViewUrl"] as? String  ?? ""
-                let album = AlbumModel(title: albumTitle, artist: artist, genre: genre, artworkURL:artworkUrl, trackViewUrl: trackViewUrl)
+                let previewUrl = resultDict?["previewUrl"] as? String  ?? ""
+                    let album = AlbumModel(title: albumTitle, artist: artist, genre: genre, artworkURL:artworkUrl, trackViewUrl: trackViewUrl, previewUrl: previewUrl)
                     sharedAlbum.append(album)
                 }
             }else{

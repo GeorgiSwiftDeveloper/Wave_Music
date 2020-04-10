@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-
+import AVFoundation
 protocol SelectedMusicDelegate {
     func selectedMusicObject(_ selected: [AlbumModel])
 }
@@ -22,8 +22,14 @@ class iTunesMusicViewController: UIViewController {
     
     var favoriteAlbum = [AlbumModel]()
     var lastObject = [AlbumModel]()
-     var selectedMusic = [SelectedAlbumModel]()
+    var selectedMusic = [SelectedAlbumModel]()
     var selectedMusicDelegate: SelectedMusicDelegate?
+    
+    
+    var audioPlayer = AVPlayer()
+    var player = AVAudioPlayer()
+    
+    var checkIfAudioisPause = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,8 +127,35 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
      }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+        let selectedIndex = tableView.indexPathForSelectedRow
+        let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex!) as! FavoriteAlbumTableViewCell
+        
+        print(selectedCell.previewUrl)
+        if checkIfAudioisPause == false {
+            guard let url = NSURL(string: selectedCell.previewUrl) else { return}
+            playThis(url: url)
+            checkIfAudioisPause = true
+        }else{
+            audioPlayer.pause()
+            checkIfAudioisPause = false
+        }
+
     }
+    
+    
+    func playThis(url: NSURL)
+       {
+           do {
+               let playerItem: AVPlayerItem = AVPlayerItem(url: url as URL)
+               audioPlayer = AVPlayer(playerItem: playerItem)
+               let playerLayer = AVPlayerLayer(player: audioPlayer)
+               playerLayer.frame = CGRect(x: 0, y: 0, width: 10, height: 50)
+               self.view.layer.addSublayer(playerLayer)
+               audioPlayer.play()
+           } catch  {
+               print(error.localizedDescription)
+           }
+       }
     
     @objc func showFavoriteAlertFunction(sender: UIButton) {
         let alert = UIAlertController(title: "Do you want to add in your favorite list ?", message: nil, preferredStyle: .alert)
@@ -131,7 +164,7 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
             let selectedIndex = IndexPath(row: sender.tag, section: 0)
             self.favoriteMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
             let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex) as! FavoriteAlbumTableViewCell
-            let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl)
+            let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl, previewUrl: selectedCell.previewUrl)
             var selectedMusicArray = [AlbumModel]()
             selectedMusicArray.append(selectedMusic)
             var newCategory = SelectedAlbumModel(context: context!)

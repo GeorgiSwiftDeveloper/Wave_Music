@@ -14,14 +14,16 @@ class AlbumModel: NSObject {
     var genre: String?
     var artworkURL: String?
     var trackViewUrl: String?
+    var previewUrl: String?
     
-    init(title: String, artist:String, genre:String,artworkURL:String, trackViewUrl: String) {
+    init(title: String, artist:String, genre:String,artworkURL:String, trackViewUrl: String,previewUrl: String) {
     
             self.title = title
             self.artist = artist
             self.genre = genre
             self.artworkURL = artworkURL
             self.trackViewUrl = trackViewUrl
+            self.previewUrl = previewUrl
     
         }
 }
