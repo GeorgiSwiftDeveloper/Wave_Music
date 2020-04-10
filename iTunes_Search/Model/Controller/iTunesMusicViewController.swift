@@ -186,12 +186,12 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     
     func saveItems() {
-              do{
-                  try context?.save()
-              }catch{
-                  print("Can't save items ")
-              }
-              
-          }
+        do{
+            try context?.save()
+        }catch{
+            print("Can't save items ")
+        }
+        
+    }
           
 }

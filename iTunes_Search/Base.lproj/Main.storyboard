@@ -57,11 +57,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="110" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6je-dD-fXC">
-                                        <rect key="frame" x="0.0" y="155" width="375" height="657"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="0.0" y="170" width="375" height="642"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="favoriteCell" rowHeight="110" id="gZ7-Jd-gG8" customClass="FavoriteAlbumTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteCell" rowHeight="110" id="gZ7-Jd-gG8" customClass="FavoriteAlbumTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="110"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gZ7-Jd-gG8" id="rVS-Ie-qA9">
@@ -160,7 +159,7 @@
                                     <constraint firstAttribute="bottom" secondItem="6je-dD-fXC" secondAttribute="bottom" id="OEo-Lf-Ben"/>
                                     <constraint firstItem="PmC-Vg-Gz6" firstAttribute="centerY" secondItem="TOu-aa-DUM" secondAttribute="centerY" id="Zkf-S2-whg"/>
                                     <constraint firstItem="TOu-aa-DUM" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" constant="15" id="aey-Dm-jcu"/>
-                                    <constraint firstItem="6je-dD-fXC" firstAttribute="top" secondItem="TOu-aa-DUM" secondAttribute="bottom" id="cjr-zR-PQM"/>
+                                    <constraint firstItem="6je-dD-fXC" firstAttribute="top" secondItem="TOu-aa-DUM" secondAttribute="bottom" constant="15" id="cjr-zR-PQM"/>
                                     <constraint firstItem="vdw-02-S01" firstAttribute="top" secondItem="aUv-fA-lUJ" secondAttribute="top" constant="50" id="eoc-7z-iNr"/>
                                     <constraint firstAttribute="trailing" secondItem="6je-dD-fXC" secondAttribute="trailing" id="gOb-vL-ztn"/>
                                     <constraint firstItem="TOu-aa-DUM" firstAttribute="top" secondItem="vdw-02-S01" secondAttribute="bottom" constant="25" id="jtE-ac-Zqg"/>
@@ -384,7 +383,6 @@
         <!--Navigation Controller-->
         <scene sceneID="82d-fc-TeJ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qOq-dF-S3a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Htc-C7-YKe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="Jkj-oR-d6w"/>
                     <toolbarItems/>
@@ -398,6 +396,7 @@
                         <segue destination="dhp-Vd-zyy" kind="relationship" relationship="rootViewController" id="x38-ub-lj1"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qOq-dF-S3a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1880.8" y="204.67980295566502"/>
         </scene>
