@@ -15,8 +15,9 @@ class AlbumModel: NSObject {
     var artworkURL: String?
     var trackViewUrl: String?
     var previewUrl: String?
+    var checkIfSelected: Bool?
     
-    init(title: String, artist:String, genre:String,artworkURL:String, trackViewUrl: String,previewUrl: String) {
+    init(title: String, artist:String, genre:String,artworkURL:String, trackViewUrl: String,previewUrl: String,checkIfSelected: Bool ) {
     
             self.title = title
             self.artist = artist
@@ -24,6 +25,7 @@ class AlbumModel: NSObject {
             self.artworkURL = artworkURL
             self.trackViewUrl = trackViewUrl
             self.previewUrl = previewUrl
+            self.checkIfSelected = checkIfSelected
     
         }
 }

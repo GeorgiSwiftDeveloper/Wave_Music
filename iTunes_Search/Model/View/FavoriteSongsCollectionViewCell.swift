@@ -11,7 +11,6 @@ import UIKit
 class FavoriteSongsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var favorteSongImageView: UIImageView!
     @IBOutlet weak var favoriteSongArtistNameUILabel: UILabel!
-    
     @IBOutlet weak var favoriteSongNameLabel: UILabel!
     
     

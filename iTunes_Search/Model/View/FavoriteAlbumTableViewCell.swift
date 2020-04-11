@@ -19,7 +19,7 @@ class FavoriteAlbumTableViewCell: UITableViewCell {
     var title = String()
     var artist = String()
     var previewUrl = String()
-    
+    var checkIfSelected =  Bool()
     @IBOutlet weak var favoriteButton: UIButton!
     
     
@@ -41,6 +41,7 @@ class FavoriteAlbumTableViewCell: UITableViewCell {
         self.artist = albums.artist!
         self.trackViewUrl = albums.trackViewUrl!
         self.previewUrl = albums.previewUrl!
+        
         self.songNameLabel.numberOfLines = 0
         self.songNameLabel.font = UIFont(name: "Verdana", size: 12.0)
         self.songNameLabel.adjustsFontSizeToFitWidth = true

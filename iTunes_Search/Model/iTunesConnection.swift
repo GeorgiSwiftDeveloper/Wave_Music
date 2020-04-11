@@ -59,7 +59,7 @@ class iTunesConnection {
                 let genre = resultDict?["primaryGenreName"] as? String  ?? ""
                 let trackViewUrl = resultDict?["trackViewUrl"] as? String  ?? ""
                 let previewUrl = resultDict?["previewUrl"] as? String  ?? ""
-                    let album = AlbumModel(title: albumTitle, artist: artist, genre: genre, artworkURL:artworkUrl, trackViewUrl: trackViewUrl, previewUrl: previewUrl)
+                    let album = AlbumModel(title: albumTitle, artist: artist, genre: genre, artworkURL:artworkUrl, trackViewUrl: trackViewUrl, previewUrl: previewUrl, checkIfSelected: false)
                     sharedAlbum.append(album)
                 }
             }else{
