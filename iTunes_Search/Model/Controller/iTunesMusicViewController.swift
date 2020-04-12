@@ -110,13 +110,13 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchMusicCell", for: indexPath) as? FavoriteAlbumTableViewCell {
-            if favoriteAlbum[indexPath.row].checkIfSelected == true{
-                 cell.accessoryType = .checkmark
-                print("a")
-            }else{
-                cell.accessoryType = .none
-                print("b")
-            }
+//            if favoriteAlbum[indexPath.row].checkIfSelected == true{
+//                 cell.accessoryType = .checkmark
+////                print("a")
+//            }else{
+//                cell.accessoryType = .none
+////                print("b")
+//            }
             cell.favoriteButton.tag = indexPath.row;
             cell.confiigurationCell(albums: self.favoriteAlbum[indexPath.row])
             cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
@@ -140,8 +140,6 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
         let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex!) as! FavoriteAlbumTableViewCell
         
         favoriteAlbum[indexPath.row].checkIfSelected = !favoriteAlbum[indexPath.row].checkIfSelected!
-        
-        self.favoriteMusicTableView.reloadData()
         favoriteMusicTableView.deselectRow(at: indexPath, animated: true)
         print(selectedCell.previewUrl)
         if checkIfAudioisPause == false {
@@ -152,6 +150,13 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
             audioPlayer.pause()
             checkIfAudioisPause = false
         }
+        
+       for row in 0..<tableView.numberOfRows(inSection: indexPath.section) {
+            if let cell = tableView.cellForRow(at: IndexPath(row: row, section: indexPath.section)) {
+                cell.accessoryType = row == indexPath.row ? .checkmark : .none
+            }
+        }
+         self.favoriteMusicTableView.reloadData()
 
     }
     
