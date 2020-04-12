@@ -30,7 +30,8 @@ class iTunesMusicViewController: UIViewController {
     var player = AVAudioPlayer()
     
     var checkIfAudioisPause = Bool()
-    
+    var selectedIndexPath: IndexPath?
+    var selectedIndex = Int()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -110,17 +111,18 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchMusicCell", for: indexPath) as? FavoriteAlbumTableViewCell {
-//            if favoriteAlbum[indexPath.row].checkIfSelected == true{
-//                 cell.accessoryType = .checkmark
-////                print("a")
-//            }else{
-//                cell.accessoryType = .none
-////                print("b")
-//            }
+            
+            if(indexPath.row == selectedIndex)
+            {
+                cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
+            }
+            else
+            {
+                cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            }
             cell.favoriteButton.tag = indexPath.row;
             cell.confiigurationCell(albums: self.favoriteAlbum[indexPath.row])
             cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
-        
             return cell
         }else {
             return FavoriteAlbumTableViewCell()
@@ -128,20 +130,14 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
         
     }
     
-      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-         if editingStyle == UITableViewCell.EditingStyle.delete {
-             favoriteAlbum.remove(at: indexPath.row)
-             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-         }
-     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedIndex = tableView.indexPathForSelectedRow
-        let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex!) as! FavoriteAlbumTableViewCell
+        var selectedIndexRow = tableView.indexPathForSelectedRow
+        let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndexRow!) as! FavoriteAlbumTableViewCell
         
-        favoriteAlbum[indexPath.row].checkIfSelected = !favoriteAlbum[indexPath.row].checkIfSelected!
-        favoriteMusicTableView.deselectRow(at: indexPath, animated: true)
-        print(selectedCell.previewUrl)
+      selectedIndex = indexPath.row
+      tableView.reloadData()
         if checkIfAudioisPause == false {
             guard let url = NSURL(string: selectedCell.previewUrl) else { return}
             playThis(url: url)
@@ -150,15 +146,11 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
             audioPlayer.pause()
             checkIfAudioisPause = false
         }
-        
-       for row in 0..<tableView.numberOfRows(inSection: indexPath.section) {
-            if let cell = tableView.cellForRow(at: IndexPath(row: row, section: indexPath.section)) {
-                cell.accessoryType = row == indexPath.row ? .checkmark : .none
-            }
-        }
-         self.favoriteMusicTableView.reloadData()
-
     }
+    
+
+
+
     
     
     func playThis(url: NSURL)
