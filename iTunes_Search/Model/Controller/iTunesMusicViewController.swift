@@ -59,7 +59,7 @@ extension iTunesMusicViewController: AlbumManagerDelegate {
         DispatchQueue.main.async {
             if  album.count != 0 {
                self.favoriteAlbum.append(contentsOf: album)
-                self.favoriteAlbum[0].checkIfSelected = true
+                self.favoriteAlbum[0].checkIfSelected = false
                self.favoriteMusicTableView.reloadData()
             }
         }
@@ -138,11 +138,9 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndex = tableView.indexPathForSelectedRow
         let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex!) as! FavoriteAlbumTableViewCell
-        if favoriteAlbum[indexPath.row].checkIfSelected == true{
-            favoriteAlbum[indexPath.row].checkIfSelected = false
-        }else{
-            favoriteAlbum[indexPath.row].checkIfSelected = true
-        }
+        
+        favoriteAlbum[indexPath.row].checkIfSelected = !favoriteAlbum[indexPath.row].checkIfSelected!
+        
         self.favoriteMusicTableView.reloadData()
         favoriteMusicTableView.deselectRow(at: indexPath, animated: true)
         print(selectedCell.previewUrl)
