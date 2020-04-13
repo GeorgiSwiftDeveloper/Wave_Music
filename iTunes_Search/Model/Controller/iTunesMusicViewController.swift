@@ -30,7 +30,7 @@ class iTunesMusicViewController: UIViewController {
     var player = AVAudioPlayer()
     
     var checkIfAudioisPause = Bool()
-    var selectedIndexPath: IndexPath?
+    var selectedIndexPatArray =  [Int]()
     var selectedIndex = Int()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,18 +137,16 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var selectedIndexRow = tableView.indexPathForSelectedRow
-        let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndexRow!) as! FavoriteAlbumTableViewCell
-        
-      selectedIndex = indexPath.row
-      tableView.reloadData()
-        if checkIfAudioisPause == false {
-            guard let url = NSURL(string: selectedCell.previewUrl) else { return}
-            playThis(url: url)
-            checkIfAudioisPause = true
-        }else{
-            audioPlayer.pause()
-            checkIfAudioisPause = false
+//        let selectedIndexRow = tableView.indexPathForSelectedRow
+//        let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndexRow!) as! FavoriteAlbumTableViewCell
+        selectedIndex = indexPath.row
+        tableView.reloadData()
+        audioPlayer.pause()
+        if  let audio = favoriteAlbum[indexPath.row].previewUrl           {
+            do {
+                guard let url = NSURL(string: audio) else { return}
+                playThis(url: url as URL)
+            }
         }
     }
     
@@ -157,17 +155,15 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
 
     
     
-    func playThis(url: NSURL)
+    func playThis(url: URL)
        {
            do {
-               let playerItem: AVPlayerItem = AVPlayerItem(url: url as URL)
+            let playerItem: AVPlayerItem = AVPlayerItem(url: url as URL)
                audioPlayer = AVPlayer(playerItem: playerItem)
                let playerLayer = AVPlayerLayer(player: audioPlayer)
                playerLayer.frame = CGRect(x: 0, y: 0, width: 10, height: 50)
                self.view.layer.addSublayer(playerLayer)
                audioPlayer.play()
-           } catch  {
-               print(error.localizedDescription)
            }
        }
     
@@ -181,7 +177,7 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
             let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl, previewUrl: selectedCell.previewUrl, checkIfSelected: false)
             var selectedMusicArray = [AlbumModel]()
             selectedMusicArray.append(selectedMusic)
-            var newCategory = SelectedAlbumModel(context: context!)
+            let newCategory = SelectedAlbumModel(context: context!)
             
             newCategory.singerName = selectedCell.artist
             newCategory.songTitle = selectedCell.title
