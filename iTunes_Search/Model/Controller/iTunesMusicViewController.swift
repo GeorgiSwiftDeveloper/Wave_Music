@@ -27,6 +27,8 @@ class iTunesMusicViewController: UIViewController {
     var selectedMusic = [SelectedAlbumModel]()
     var selectedMusicDelegate: SelectedMusicDelegate?
     
+  
+    var containerViewControler = ContainerViewControllerForiTunesMusic()
     
     var audioPlayer = AVPlayer()
     
@@ -148,8 +150,8 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let selectedIndexRow = tableView.indexPathForSelectedRow
-//        let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndexRow!) as! FavoriteAlbumTableViewCell
+        let selectedIndexRow = tableView.indexPathForSelectedRow
+        let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndexRow!) as! FavoriteAlbumTableViewCell
         selectedIndex = indexPath.row
         tableView.reloadData()
         audioPlayer.pause()
@@ -159,7 +161,17 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
                 playThis(url: url as URL)
             }
         }
-         self.containerViewController.isHidden = false
+        self.containerViewController.isHidden = false
+      
+        UserDefaults.standard.set(selectedCell.artist, forKey: "artist")
+          UserDefaults.standard.set(selectedCell.title, forKey: "song")
+        UserDefaults.standard.set(selectedCell.artworkURL, forKey: "image")
+        NotificationCenter.default.post(name: Notification.Name("getValue"), object: nil)
+        let thickness: CGFloat = 2.0
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.containerViewController.frame.size.width, height: thickness)
+        topBorder.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7027655291)
+        containerViewController.layer.addSublayer(topBorder)
     }
     
 

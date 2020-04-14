@@ -94,14 +94,14 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WI7-Yw-3Vb">
-                                                            <rect key="frame" x="345" y="46" width="20" height="18.666666666666671"/>
+                                                            <rect key="frame" x="345" y="47" width="20" height="17"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="dJB-Fn-QAf"/>
                                                                 <constraint firstAttribute="height" constant="20" id="hdu-tw-gYN"/>
                                                             </constraints>
                                                             <color key="tintColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <state key="normal" title="" backgroundImage="star.circle.fill" catalog="system"/>
+                                                            <state key="normal" title="" backgroundImage="suit.heart" catalog="system"/>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -131,16 +131,16 @@
                                     <containerView opaque="NO" contentMode="scaleToFill" id="IRR-or-fSc">
                                         <rect key="frame" x="0.0" y="475" width="375" height="254"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.29452693320000001" blue="0.57488495110000004" alpha="0.84891439800000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="0.80055358512269936" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="jdA-yT-Zfj" kind="embed" id="hQY-QB-raF"/>
+                                            <segue destination="jdA-yT-Zfj" kind="embed" identifier="EmbedSegue" id="AWB-OD-qRj"/>
                                         </connections>
                                     </containerView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search iThunes Music" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-aa-DUM">
                                         <rect key="frame" x="15" y="115" width="290" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="290" id="1dT-5t-Bi2"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="290" id="1dT-5t-Bi2"/>
                                             <constraint firstAttribute="height" constant="40" id="aTB-Tc-IST"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -171,8 +171,10 @@
                                     <constraint firstItem="6je-dD-fXC" firstAttribute="top" secondItem="TOu-aa-DUM" secondAttribute="bottom" constant="15" id="cjr-zR-PQM"/>
                                     <constraint firstItem="vdw-02-S01" firstAttribute="top" secondItem="aUv-fA-lUJ" secondAttribute="top" constant="50" id="eoc-7z-iNr"/>
                                     <constraint firstAttribute="trailing" secondItem="6je-dD-fXC" secondAttribute="trailing" id="gOb-vL-ztn"/>
+                                    <constraint firstItem="IRR-or-fSc" firstAttribute="centerX" secondItem="6je-dD-fXC" secondAttribute="centerX" id="j5x-pv-iiW"/>
                                     <constraint firstItem="TOu-aa-DUM" firstAttribute="top" secondItem="vdw-02-S01" secondAttribute="bottom" constant="25" id="jtE-ac-Zqg"/>
                                     <constraint firstItem="6je-dD-fXC" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" id="jxk-ks-O7W"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vdw-02-S01" secondAttribute="trailing" constant="20" symbolic="YES" id="xPz-cD-5r6"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -775,18 +777,18 @@
         <!--Container View Controller Fori Tunes Music-->
         <scene sceneID="CcJ-zJ-E3k">
             <objects>
-                <viewController id="jdA-yT-Zfj" customClass="ContainerViewControllerForiTunesMusic" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TestContainer" modalPresentationStyle="formSheet" id="jdA-yT-Zfj" customClass="ContainerViewControllerForiTunesMusic" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gZ4-gN-bAf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="254"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5Y-aL-JhA">
-                                <rect key="frame" x="340" y="10" width="30" height="30"/>
+                                <rect key="frame" x="330" y="11.666666666666663" width="30" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="HA6-gx-0oT"/>
                                     <constraint firstAttribute="height" constant="30" id="NPN-rK-cXw"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="btn-close">
+                                <state key="normal" backgroundImage="clear.fill" catalog="system">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -830,7 +832,7 @@
                                             <constraint firstAttribute="height" constant="45" id="kE9-EN-8CT"/>
                                             <constraint firstAttribute="width" constant="45" id="mCn-OY-oyD"/>
                                         </constraints>
-                                        <state key="normal" image="btn-stop">
+                                        <state key="normal" image="btn-pause">
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <state key="selected" image="btn-pause"/>
@@ -864,23 +866,24 @@
                                     <constraint firstAttribute="height" constant="70" id="yEi-x0-KGc"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jaki" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ogn-tQ-z3c">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jaki" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ogn-tQ-z3c">
                                 <rect key="frame" x="31" y="118" width="313" height="23"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jaki" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cNx-mj-Hf2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jaki" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cNx-mj-Hf2">
                                 <rect key="frame" x="31" y="90" width="313" height="23"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.29452693320000001" blue="0.57488495110000004" alpha="0.84891439800000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.82919143021472397" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="D5Y-aL-JhA" firstAttribute="leading" secondItem="Dax-d9-fOC" secondAttribute="trailing" constant="105" id="2Rb-V5-lP0"/>
                             <constraint firstAttribute="bottomMargin" secondItem="bYG-QR-QwD" secondAttribute="bottom" constant="20" id="8OP-kN-i8s"/>
                             <constraint firstItem="ogn-tQ-z3c" firstAttribute="top" secondItem="cNx-mj-Hf2" secondAttribute="bottom" constant="5" id="9Ky-oK-Djh"/>
                             <constraint firstItem="cNx-mj-Hf2" firstAttribute="top" secondItem="Dax-d9-fOC" secondAttribute="bottom" constant="10" id="9vm-q9-MO0"/>
@@ -890,17 +893,22 @@
                             <constraint firstItem="Dax-d9-fOC" firstAttribute="leading" secondItem="gZ4-gN-bAf" secondAttribute="leading" constant="155" id="dbq-F5-XVo"/>
                             <constraint firstItem="ogn-tQ-z3c" firstAttribute="leading" secondItem="gZ4-gN-bAf" secondAttribute="leadingMargin" constant="15" id="fV2-Uz-TJQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cNx-mj-Hf2" secondAttribute="trailing" constant="15" id="mPR-f6-fAx"/>
-                            <constraint firstAttribute="trailing" secondItem="D5Y-aL-JhA" secondAttribute="trailing" constant="5" id="nQe-ga-62h"/>
+                            <constraint firstAttribute="trailing" secondItem="D5Y-aL-JhA" secondAttribute="trailing" constant="15" id="nQe-ga-62h"/>
                             <constraint firstItem="bYG-QR-QwD" firstAttribute="leading" secondItem="gZ4-gN-bAf" secondAttribute="leadingMargin" constant="29" id="q9u-AK-S95"/>
-                            <constraint firstItem="D5Y-aL-JhA" firstAttribute="leading" secondItem="Dax-d9-fOC" secondAttribute="trailing" constant="115" id="qc4-iS-8ue"/>
                             <constraint firstItem="D5Y-aL-JhA" firstAttribute="top" secondItem="gZ4-gN-bAf" secondAttribute="top" constant="10" id="veQ-7s-hjA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ogn-tQ-z3c" secondAttribute="trailing" constant="15" id="yht-Y5-mpm"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Fz7-bx-8vb"/>
                     </view>
+                    <connections>
+                        <outlet property="selectedMusicImageView" destination="Dax-d9-fOC" id="wxV-ma-7Aa"/>
+                        <outlet property="selectedSingerName" destination="cNx-mj-Hf2" id="5En-L5-wgV"/>
+                        <outlet property="selectedSongName" destination="ogn-tQ-z3c" id="8TT-gN-eHb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMY-PH-ThC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1776.8" y="-432.26600985221677"/>
+            <point key="canvasLocation" x="1879" y="-406"/>
         </scene>
     </scenes>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -909,18 +917,18 @@
         <image name="NowPlayingBars" width="19.666666030883789" height="19"/>
         <image name="antenna.radiowaves.left.and.right" catalog="system" width="128" height="109"/>
         <image name="background" width="320" height="568"/>
-        <image name="btn-close" width="22.666666030883789" height="22.666666030883789"/>
         <image name="btn-next" width="44" height="44"/>
         <image name="btn-pause" width="44" height="44"/>
         <image name="btn-play" width="44" height="44"/>
         <image name="btn-previous" width="44" height="44"/>
         <image name="btn-stop" width="44" height="44"/>
+        <image name="clear.fill" catalog="system" width="128" height="114"/>
         <image name="film.fill" catalog="system" width="128" height="93"/>
         <image name="icon-hamburger" width="22" height="16"/>
         <image name="music.note.list" catalog="system" width="128" height="113"/>
         <image name="radiowaves.left" catalog="system" width="90" height="128"/>
-        <image name="star.circle.fill" catalog="system" width="128" height="121"/>
         <image name="stationImage" width="120" height="75"/>
+        <image name="suit.heart" catalog="system" width="128" height="109"/>
         <image name="vol-max" width="16.666666030883789" height="14"/>
         <image name="vol-min" width="11" height="12.666666984558105"/>
     </resources>
