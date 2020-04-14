@@ -164,10 +164,10 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
         self.containerViewController.isHidden = false
       
         UserDefaults.standard.set(selectedCell.artist, forKey: "artist")
-          UserDefaults.standard.set(selectedCell.title, forKey: "song")
+        UserDefaults.standard.set(selectedCell.title, forKey: "title")
         UserDefaults.standard.set(selectedCell.artworkURL, forKey: "image")
-        NotificationCenter.default.post(name: Notification.Name("getValue"), object: nil)
-        let thickness: CGFloat = 2.0
+        NotificationCenter.default.post(name: Notification.Name("getValueFromSelectedRow"), object: nil)
+        let thickness: CGFloat = 3.0
         let topBorder = CALayer()
         topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.containerViewController.frame.size.width, height: thickness)
         topBorder.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7027655291)
