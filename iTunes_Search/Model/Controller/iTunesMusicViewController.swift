@@ -160,7 +160,6 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.songNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 cell.favoriteButton.isHidden = true
             }
-//            cell.favoriteButton.tag = indexPath.row;
             cell.confiigurationCell(albums: self.favoriteAlbum[indexPath.row])
             return cell
         }else {
@@ -201,10 +200,6 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
 
-
-
-    
-    
     func playThis(url: URL)
        {
            do {
@@ -218,30 +213,36 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
        }
     
     @objc func showFavoriteAlertFunction(sender: UIButton) {
-        let alert = UIAlertController(title: "Do you want to add in your favorite list ?", message: nil, preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "YES", style: .default) { (action) in
-            
-            let selectedIndex = IndexPath(row: sender.tag, section: 0)
-            self.favoriteMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-            let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex) as! FavoriteAlbumTableViewCell
-            let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl, previewUrl: selectedCell.previewUrl, checkIfSelected: false)
-            var selectedMusicArray = [AlbumModel]()
-            selectedMusicArray.append(selectedMusic)
-            let newCategory = SelectedAlbumModel(context: context!)
-            
-            newCategory.singerName = selectedCell.artist
-            newCategory.songTitle = selectedCell.title
-            newCategory.songImage = selectedCell.artworkURL
-            self.selectedMusic.append(newCategory)
-            
-            self.saveItems()
-        }
+        let selectedIndex = IndexPath(row: sender.tag, section: 0)
+        self.favoriteMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+        let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex) as! FavoriteAlbumTableViewCell
+        if selectedCell.favoriteButton.tintColor != #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1) {
+            let alert = UIAlertController(title: "Do you want to add in your favorite list ?", message: nil, preferredStyle: .alert)
+            let yesAction = UIAlertAction(title: "YES", style: .default) { (action) in
+                let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl, previewUrl: selectedCell.previewUrl, checkIfSelected: false)
+                var selectedMusicArray = [AlbumModel]()
+                selectedMusicArray.append(selectedMusic)
+                
+                let newCategory = SelectedAlbumModel(context: context!)
+                
+                selectedCell.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                selectedCell.favoriteButton.tintColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+                newCategory.singerName = selectedCell.artist
+                newCategory.songTitle = selectedCell.title
+                newCategory.songImage = selectedCell.artworkURL
+                self.selectedMusic.append(newCategory)
+                
+                self.saveItems()
+            }
         
-        let cancelAction = UIAlertAction(title: "NO", style: .cancel) { (action) in
+            let cancelAction = UIAlertAction(title: "NO", style: .cancel) { (action) in
+            }
+            alert.addAction(cancelAction)
+            alert.addAction(yesAction)
+            present(alert, animated: true, completion: nil)
+        }else{
+            selectedCell.favoriteButton.isUserInteractionEnabled = false
         }
-        alert.addAction(cancelAction)
-        alert.addAction(yesAction)
-        present(alert, animated: true, completion: nil)
     }
     
     
