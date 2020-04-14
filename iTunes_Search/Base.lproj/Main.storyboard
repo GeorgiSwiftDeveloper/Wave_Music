@@ -824,6 +824,7 @@
                                         </state>
                                         <state key="selected" image="btn-pause"/>
                                         <connections>
+                                            <action selector="playButtonAction:" destination="jdA-yT-Zfj" eventType="touchUpInside" id="Ae8-4J-qFd"/>
                                             <action selector="playRadioAction:" destination="OZP-fc-9RZ" eventType="touchUpInside" id="uwh-Z7-he6"/>
                                         </connections>
                                     </button>
@@ -838,6 +839,7 @@
                                         </state>
                                         <state key="selected" image="btn-pause"/>
                                         <connections>
+                                            <action selector="pauseButtonAction:" destination="jdA-yT-Zfj" eventType="touchUpInside" id="CQ1-Kc-UOV"/>
                                             <action selector="stopRadioAction:" destination="OZP-fc-9RZ" eventType="touchUpInside" id="cIC-d7-eCl"/>
                                         </connections>
                                     </button>
@@ -899,6 +901,7 @@
                                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="sliderAction:" destination="OZP-fc-9RZ" eventType="valueChanged" id="Mno-ed-v6T"/>
+                                                    <action selector="volumeSliderAction:" destination="jdA-yT-Zfj" eventType="valueChanged" id="ntL-wR-odX"/>
                                                 </connections>
                                             </slider>
                                         </subviews>

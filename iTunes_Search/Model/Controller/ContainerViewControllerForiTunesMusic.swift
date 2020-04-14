@@ -8,9 +8,6 @@
 
 import UIKit
 
-protocol CancelContainerViewDelegate {
-    func cancelContainerVeiw(cancel: Bool)
-}
 class ContainerViewControllerForiTunesMusic: UIViewController {
 
   
@@ -19,7 +16,6 @@ class ContainerViewControllerForiTunesMusic: UIViewController {
     @IBOutlet weak var selectedSongName: UILabel!
     
     var filterListVC: iTunesMusicViewController!
-    var delegateCon: CancelContainerViewDelegate?
 
     
     override func viewDidLoad() {
@@ -43,9 +39,20 @@ class ContainerViewControllerForiTunesMusic: UIViewController {
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        delegateCon?.cancelContainerVeiw(cancel: true)
-        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierCnacel"), object: nil)
     }
   
-
+    @IBAction func pauseButtonAction(_ sender: Any) {
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierPauseSong"), object: nil)
+    }
+    
+    @IBAction func playButtonAction(_ sender: Any) {
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierPlaySong"), object: nil)
+    }
+    
+    @IBAction func volumeSliderAction(_ sender: UISlider) {
+         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
+         UserDefaults.standard.set(sender.value, forKey: "volume")
+    }
+    
 }

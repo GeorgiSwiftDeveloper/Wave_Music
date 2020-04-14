@@ -26,6 +26,7 @@ class iTunesMusicViewController: UIViewController {
     var lastObject = [AlbumModel]()
     var selectedMusic = [SelectedAlbumModel]()
     var selectedMusicDelegate: SelectedMusicDelegate?
+    var selectedSong = String()
     
   
     var containerViewControler = ContainerViewControllerForiTunesMusic()
@@ -43,14 +44,33 @@ class iTunesMusicViewController: UIViewController {
         self.favoriteMusicTableView.delegate = self
         self.favoriteMusicTableView.dataSource = self
         customizeUI()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifier"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierCancel"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPause(notification:)), name: Notification.Name("NotificationIdentifierPauseSong"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPlay(notification:)), name: Notification.Name("NotificationIdentifierPlaySong"), object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationVolume(notification:)), name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
     }
     
     
     
     @objc func methodOfReceivedNotification(notification: Notification) {
-         self.containerViewController.isHidden = true
-         audioPlayer.pause()
+        self.containerViewController.isHidden = true
+        audioPlayer.pause()
+    }
+    
+    @objc func methodOfReceivedNotificationPause(notification: Notification) {
+        audioPlayer.pause()
+    }
+    
+    @objc func methodOfReceivedNotificationPlay(notification: Notification) {
+        do {
+            guard let url = NSURL(string: selectedSong) else { return}
+            playThis(url: url as URL)
+        }
+    }
+    
+    @objc func methodOfReceivedNotificationVolume(notification: Notification) {
+        let volume = UserDefaults.standard.float(forKey: "volume")
+        audioPlayer.volume = volume
     }
     
     func customizeUI(){
@@ -161,11 +181,13 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
                 playThis(url: url as URL)
             }
         }
+        selectedSong = favoriteAlbum[indexPath.row].previewUrl!
         self.containerViewController.isHidden = false
       
         UserDefaults.standard.set(selectedCell.artist, forKey: "artist")
         UserDefaults.standard.set(selectedCell.title, forKey: "title")
         UserDefaults.standard.set(selectedCell.artworkURL, forKey: "image")
+        UserDefaults.standard.set(audioPlayer.volume, forKey: "volume")
         NotificationCenter.default.post(name: Notification.Name("getValueFromSelectedRow"), object: nil)
         let thickness: CGFloat = 3.0
         let topBorder = CALayer()
