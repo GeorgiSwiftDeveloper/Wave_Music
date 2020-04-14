@@ -93,7 +93,7 @@
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WI7-Yw-3Vb">
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WI7-Yw-3Vb">
                                                             <rect key="frame" x="345" y="47" width="20" height="17"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -797,7 +797,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="35" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bYG-QR-QwD" userLabel="Controls Stack View">
-                                <rect key="frame" x="45" y="189" width="291" height="45"/>
+                                <rect key="frame" x="45" y="189" width="285" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXi-Rb-2xD" userLabel="PreviousButton">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -844,7 +844,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lq7-GC-Dht" userLabel="NextButton">
-                                        <rect key="frame" x="240" y="0.0" width="51" height="45"/>
+                                        <rect key="frame" x="240" y="0.0" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="9bB-3m-PL8"/>
                                             <constraint firstAttribute="height" constant="45" id="DIX-ft-dQa"/>
@@ -870,21 +870,21 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jaki" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ogn-tQ-z3c">
-                                <rect key="frame" x="31" y="118" width="319" height="23"/>
+                                <rect key="frame" x="31" y="118" width="313" height="23"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jaki" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cNx-mj-Hf2">
-                                <rect key="frame" x="31" y="90" width="319" height="23"/>
+                                <rect key="frame" x="31" y="90" width="313" height="23"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1U2-Fj-Rrr" userLabel="Volume Stack View">
-                                <rect key="frame" x="15" y="154" width="351" height="25"/>
+                                <rect key="frame" x="15" y="154" width="345" height="25"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vol-min" translatesAutoresizingMaskIntoConstraints="NO" id="zSl-6B-aYX">
                                         <rect key="frame" x="0.0" y="4.6666666666666572" width="18" height="16"/>
@@ -894,10 +894,10 @@
                                         </constraints>
                                     </imageView>
                                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f5d-wT-bdb" userLabel="Volume View">
-                                        <rect key="frame" x="26" y="0.0" width="299" height="25"/>
+                                        <rect key="frame" x="26" y="0.0" width="293" height="25"/>
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qG7-5Q-410">
-                                                <rect key="frame" x="6" y="-2.3333333333333428" width="287" height="31"/>
+                                                <rect key="frame" x="6" y="-2.3333333333333428" width="281" height="31"/>
                                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="sliderAction:" destination="OZP-fc-9RZ" eventType="valueChanged" id="Mno-ed-v6T"/>
@@ -914,7 +914,7 @@
                                         </constraints>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vol-max" translatesAutoresizingMaskIntoConstraints="NO" id="Z0h-LK-97G">
-                                        <rect key="frame" x="333" y="4.6666666666666572" width="18" height="16"/>
+                                        <rect key="frame" x="327" y="4.6666666666666572" width="18" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="g37-Y4-drg"/>
                                             <constraint firstAttribute="width" constant="18" id="phx-MI-sER"/>

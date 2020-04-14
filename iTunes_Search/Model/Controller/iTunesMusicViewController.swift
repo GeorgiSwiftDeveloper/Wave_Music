@@ -44,7 +44,7 @@ class iTunesMusicViewController: UIViewController {
         self.favoriteMusicTableView.delegate = self
         self.favoriteMusicTableView.dataSource = self
         customizeUI()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierCancel"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierCnacel"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPause(notification:)), name: Notification.Name("NotificationIdentifierPauseSong"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPlay(notification:)), name: Notification.Name("NotificationIdentifierPlaySong"), object: nil)
          NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationVolume(notification:)), name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
@@ -150,16 +150,18 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
                 cell.singerNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
                 cell.songNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
+                    cell.favoriteButton.isHidden = false
             }
             else
             {
                 cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 cell.singerNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 cell.songNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                cell.favoriteButton.isHidden = true
             }
-            cell.favoriteButton.tag = indexPath.row;
+//            cell.favoriteButton.tag = indexPath.row;
             cell.confiigurationCell(albums: self.favoriteAlbum[indexPath.row])
-            cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
             return cell
         }else {
             return FavoriteAlbumTableViewCell()
@@ -181,6 +183,8 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
                 playThis(url: url as URL)
             }
         }
+        selectedCell.favoriteButton.tag = indexPath.row;
+        
         selectedSong = favoriteAlbum[indexPath.row].previewUrl!
         self.containerViewController.isHidden = false
       
