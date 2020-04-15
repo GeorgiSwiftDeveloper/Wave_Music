@@ -19,7 +19,6 @@ class iTunesMusicViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
     @IBOutlet weak var containerViewController: UIView!
-    @IBOutlet weak var superView: UIView!
     
 //    @IBOutlet weak var nowPlayingImageView: UIImageView!
     
@@ -100,6 +99,7 @@ extension iTunesMusicViewController: AlbumManagerDelegate {
             if  album.count != 0 {
                self.favoriteAlbum.append(contentsOf: album)
                self.favoriteAlbum[0].checkIfSelected = false
+               self.favoriteMusicTableView.isHidden = false
                self.favoriteMusicTableView.reloadData()
             }
         }
@@ -140,7 +140,7 @@ extension iTunesMusicViewController: UITextFieldDelegate {
             self.favoriteAlbum = []
             iTunesConnectionManager.fetchiTunes(name: songName)
         }else{
-            let alert = UIAlertController(title: "Please enter music name", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "No Playlists Found \n Add playists to Wave by tapping the search field", message: nil, preferredStyle: .alert)
             
             let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
             }
@@ -180,7 +180,7 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
             DispatchQueue.main.async {
                 if(indexPath.row == self.selectedIndex)
                 {
-                    cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
+                    cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 0.8004936733)
                     cell.singerNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
                     cell.songNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
                     cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
