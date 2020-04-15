@@ -19,6 +19,7 @@ class iTunesMusicViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
     @IBOutlet weak var containerViewController: UIView!
+    @IBOutlet weak var superView: UIView!
     
 //    @IBOutlet weak var nowPlayingImageView: UIImageView!
     
@@ -35,7 +36,7 @@ class iTunesMusicViewController: UIViewController {
     
     var audioPlayer = AVPlayer()
     
-    var checkIfAudioisPause = Bool()
+    var checkIfEmptySearchText = Bool()
     var selectedIndexPatArray =  [Int]()
     var selectedIndex = Int()
     
@@ -46,6 +47,7 @@ class iTunesMusicViewController: UIViewController {
         self.favoriteMusicTableView.delegate = self
         self.favoriteMusicTableView.dataSource = self
         customizeUI()
+        addDoneButtonOnKeyboard()
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierCnacel"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPause(notification:)), name: Notification.Name("NotificationIdentifierPauseSong"), object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPlay(notification:)), name: Notification.Name("NotificationIdentifierPlaySong"), object: nil)
@@ -123,22 +125,49 @@ extension iTunesMusicViewController: UITextFieldDelegate {
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
+            checkIfEmptySearchText = false
             return true
         } else {
             textField.placeholder = "Type something"
-            return false
+            checkIfEmptySearchText = true
+            return true
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        if let songName = searchTextField.text {
+        if let songName = searchTextField.text , checkIfEmptySearchText == false{
             self.favoriteAlbum = []
             iTunesConnectionManager.fetchiTunes(name: songName)
+        }else{
+            let alert = UIAlertController(title: "Please enter music name", message: nil, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            }
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
         }
         
         searchTextField.text = ""
         
+    }
+    
+    func addDoneButtonOnKeyboard(){
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+
+        searchTextField.inputAccessoryView = doneToolbar
+    }
+
+    @objc func doneButtonAction(){
+        searchTextField.resignFirstResponder()
     }
 }
 extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
@@ -148,21 +177,22 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchMusicCell", for: indexPath) as? FavoriteAlbumTableViewCell {
-            
-            if(indexPath.row == selectedIndex)
-            {
-                cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
-                cell.singerNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                cell.songNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
+            DispatchQueue.main.async {
+                if(indexPath.row == self.selectedIndex)
+                {
+                    cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
+                    cell.singerNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                    cell.songNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                    cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
                     cell.favoriteButton.isHidden = false
-            }
-            else
-            {
-                cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                cell.singerNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                cell.songNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                cell.favoriteButton.isHidden = true
+                }
+                else
+                {
+                    cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    cell.singerNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                    cell.songNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                    cell.favoriteButton.isHidden = true
+                }
             }
             cell.confiigurationCell(albums: self.favoriteAlbum[indexPath.row])
             return cell
@@ -177,9 +207,12 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndexRow = tableView.indexPathForSelectedRow
         let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndexRow!) as! FavoriteAlbumTableViewCell
+        
         selectedIndex = indexPath.row
         tableView.reloadData()
+        
         audioPlayer.pause()
+        
         if  let audio = favoriteAlbum[indexPath.row].previewUrl           {
             do {
                 guard let url = NSURL(string: audio) else { return}
@@ -220,7 +253,7 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
         let selectedIndex = IndexPath(row: sender.tag, section: 0)
         self.favoriteMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex) as! FavoriteAlbumTableViewCell
-        if selectedCell.favoriteButton.tintColor != #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1) {
+        if selectedCell.favoriteButton.tintColor != #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1){
             let alert = UIAlertController(title: "Do you want to add in your favorite list ?", message: nil, preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "YES", style: .default) { (action) in
                 let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl, previewUrl: selectedCell.previewUrl, checkIfSelected: false)
