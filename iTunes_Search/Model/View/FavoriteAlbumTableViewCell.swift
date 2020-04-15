@@ -47,9 +47,9 @@ class FavoriteAlbumTableViewCell: UITableViewCell {
         self.songNameLabel.adjustsFontSizeToFitWidth = true
         self.songNameLabel.minimumScaleFactor = 0.5
         
-        self.songImageView.layer.borderWidth = 1
+        self.songImageView.layer.borderWidth = 1.5
         self.songImageView.layer.masksToBounds = false
-        self.songImageView.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.songImageView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.songImageView.layer.cornerRadius = self.songImageView.frame.height/2 
         self.songImageView.clipsToBounds = true
         }

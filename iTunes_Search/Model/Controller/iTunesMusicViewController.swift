@@ -20,6 +20,8 @@ class iTunesMusicViewController: UIViewController {
     @IBOutlet weak var favoriteMusicTableView: UITableView!
     @IBOutlet weak var containerViewController: UIView!
     
+//    @IBOutlet weak var nowPlayingImageView: UIImageView!
+    
     var iTunesConnectionManager = iTunesConnection()
     var selectedAlbumManager = FavoriteViewController()
     var favoriteAlbum = [AlbumModel]()
@@ -46,7 +48,7 @@ class iTunesMusicViewController: UIViewController {
         customizeUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierCnacel"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPause(notification:)), name: Notification.Name("NotificationIdentifierPauseSong"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPlay(notification:)), name: Notification.Name("NotificationIdentifierPlaySong"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPlay(notification:)), name: Notification.Name("NotificationIdentifierPlaySong"), object: nil)
          NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationVolume(notification:)), name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
     }
     
@@ -61,12 +63,14 @@ class iTunesMusicViewController: UIViewController {
         audioPlayer.pause()
     }
     
-    @objc func methodOfReceivedNotificationPlay(notification: Notification) {
-        do {
-            guard let url = NSURL(string: selectedSong) else { return}
-            playThis(url: url as URL)
-        }
-    }
+//    @objc func methodOfReceivedNotificationPlay(notification: Notification) {
+////        if checkIfAudioisPause == true{
+//        do {
+//            guard let url = NSURL(string: selectedSong) else { return}
+//            playThis(url: url as URL)
+//            }
+////        }
+//    }
     
     @objc func methodOfReceivedNotificationVolume(notification: Notification) {
         let volume = UserDefaults.standard.float(forKey: "volume")
@@ -183,7 +187,7 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
             }
         }
         selectedCell.favoriteButton.tag = indexPath.row;
-        
+//        self.startAnimatePlayer()
         selectedSong = favoriteAlbum[indexPath.row].previewUrl!
         self.containerViewController.isHidden = false
       
@@ -225,8 +229,8 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 let newCategory = SelectedAlbumModel(context: context!)
                 
-                selectedCell.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                selectedCell.favoriteButton.tintColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+                selectedCell.favoriteButton.setImage(UIImage(systemName: "checkmark.seal"), for: .normal)
+                selectedCell.favoriteButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 newCategory.singerName = selectedCell.artist
                 newCategory.songTitle = selectedCell.title
                 newCategory.songImage = selectedCell.artworkURL
