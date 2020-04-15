@@ -14,13 +14,13 @@ protocol SelectedMusicDelegate {
 }
 let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
-class iThunesMusicViewController: UIViewController {
+class iTunesMusicViewController: UIViewController {
     
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
     @IBOutlet weak var containerViewController: UIView!
     
-    var iThunesConnectionManager = iThunesConnection()
+    var iTunesConnectionManager = iTunesConnection()
     var selectedAlbumManager = FavoriteViewController()
     var favoriteAlbum = [AlbumModel]()
     var lastObject = [AlbumModel]()
@@ -39,7 +39,7 @@ class iThunesMusicViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        iThunesConnectionManager.delegate = self
+        iTunesConnectionManager.delegate = self
         searchTextField.delegate = self
         self.favoriteMusicTableView.delegate = self
         self.favoriteMusicTableView.dataSource = self
@@ -81,9 +81,9 @@ class iThunesMusicViewController: UIViewController {
     
 }
 
-extension iThunesMusicViewController: AlbumManagerDelegate {
+extension iTunesMusicViewController: AlbumManagerDelegate {
     
-    func didUpdateAlbum(_ albumManager: iThunesConnection, album: [AlbumModel]) {
+    func didUpdateAlbum(_ albumManager: iTunesConnection, album: [AlbumModel]) {
         
         DispatchQueue.main.async {
             if  album.count != 0 {
@@ -104,7 +104,7 @@ extension iThunesMusicViewController: AlbumManagerDelegate {
     
 }
 
-extension iThunesMusicViewController: UITextFieldDelegate {
+extension iTunesMusicViewController: UITextFieldDelegate {
     
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
@@ -130,7 +130,7 @@ extension iThunesMusicViewController: UITextFieldDelegate {
         
         if let songName = searchTextField.text , checkIfEmptySearchText == false{
             self.favoriteAlbum = []
-            iThunesConnectionManager.fetchiTunes(name: songName)
+            iTunesConnectionManager.fetchiTunes(name: songName)
         }else{
             let alert = UIAlertController(title: "No Playlists Found \n Add playists to Wave by tapping the search field", message: nil, preferredStyle: .alert)
             
@@ -162,7 +162,7 @@ extension iThunesMusicViewController: UITextFieldDelegate {
         searchTextField.resignFirstResponder()
     }
 }
-extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
+extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoriteAlbum.count
     }
@@ -248,7 +248,7 @@ extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource
         self.favoriteMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex) as! FavoriteAlbumTableViewCell
         if selectedCell.favoriteButton.tintColor != #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1){
-            let alert = UIAlertController(title: "Do you want to add \(selectedCell.title) in your favorite list ?", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Do you want to add \n \(selectedCell.title) \n in your favorite list?", message: nil, preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "YES", style: .default) { (action) in
                 let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl, previewUrl: selectedCell.previewUrl, checkIfSelected: false)
                 var selectedMusicArray = [AlbumModel]()

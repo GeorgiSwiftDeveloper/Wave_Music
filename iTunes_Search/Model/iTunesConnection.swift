@@ -9,11 +9,11 @@
 import UIKit
 
 protocol AlbumManagerDelegate {
-    func didUpdateAlbum(_ albumManager:iThunesConnection, album: [AlbumModel])
+    func didUpdateAlbum(_ albumManager:iTunesConnection, album: [AlbumModel])
     func didFailWithError(error: Error)
 }
 
-class iThunesConnection {
+class iTunesConnection {
     var delegate: AlbumManagerDelegate?
     func fetchiTunes(name: String) {
         let url  =  "https://itunes.apple.com/search?term=\(name)&media=music"
@@ -47,7 +47,7 @@ class iThunesConnection {
             
             let itunesDict = try JSONSerialization.jsonObject(with: itunesData, options: .mutableContainers) as? [String:Any]
             let results = (itunesDict! as NSDictionary).object(forKey: "results") as? [Dictionary<String,AnyObject>]
-//            print(itunesDict)
+            print(itunesDict)
             if results != nil {
                 for _ in 0..<results!.count{
                     

@@ -34,7 +34,7 @@
         <!--Search-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="iThunesMusicViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="iTunesMusicViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -158,7 +158,7 @@
                                             <segue destination="jdA-yT-Zfj" kind="embed" identifier="EmbedSegue" id="AWB-OD-qRj"/>
                                         </connections>
                                     </containerView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search iThunes Music" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-aa-DUM">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search iTunes Music" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-aa-DUM">
                                         <rect key="frame" x="15" y="130" width="300" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -802,10 +802,10 @@
             </objects>
             <point key="canvasLocation" x="3756" y="204.67980295566502"/>
         </scene>
-        <!--Container View Controller Fori Thunes Music-->
+        <!--Container View Controller Fori Tunes Music-->
         <scene sceneID="CcJ-zJ-E3k">
             <objects>
-                <viewController storyboardIdentifier="TestContainer" modalPresentationStyle="formSheet" id="jdA-yT-Zfj" customClass="ContainerViewControllerForiThunesMusic" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TestContainer" modalPresentationStyle="formSheet" id="jdA-yT-Zfj" customClass="ContainerViewControllerForiTunesMusic" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gZ4-gN-bAf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="254"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
