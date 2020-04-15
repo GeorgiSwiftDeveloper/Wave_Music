@@ -258,7 +258,7 @@ extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource
         self.favoriteMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex) as! FavoriteAlbumTableViewCell
         if selectedCell.favoriteButton.tintColor != #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1){
-            let alert = UIAlertController(title: "Do you want to add in your favorite list ?", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Do you want to add \(selectedCell.title) in your favorite list ?", message: nil, preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "YES", style: .default) { (action) in
                 let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl, previewUrl: selectedCell.previewUrl, checkIfSelected: false)
                 var selectedMusicArray = [AlbumModel]()
@@ -271,6 +271,7 @@ extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource
                 newCategory.singerName = selectedCell.artist
                 newCategory.songTitle = selectedCell.title
                 newCategory.songImage = selectedCell.artworkURL
+                newCategory.selectedSongUrl = selectedCell.previewUrl
                 self.selectedMusic.append(newCategory)
                 
                 self.saveItems()

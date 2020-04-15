@@ -8,16 +8,17 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
     
     @IBOutlet weak var navigationForMusic: UINavigationItem!
-    
-    
-    
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
+    
     var iThunesConnectionManager = iThunesMusicViewController()
     var recivieSelectedMusic = [AlbumModel]()
     var favoriteMusicArray = [SelectedAlbumModel]()
+    
+    var audioPlayer = AVPlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,32 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
             return FavoriteSongsCollectionViewCell()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if  let audio = favoriteMusicArray[indexPath.row].selectedSongUrl        {
+            do {
+                guard let url = NSURL(string: audio) else { return}
+                playThis(url: url as NSURL)
+            }
+        }
+    }
+    
+    func playThis(url: NSURL)
+    {
+        do {
+            let playerItem: AVPlayerItem = AVPlayerItem(url: url as URL)
+            audioPlayer = AVPlayer(playerItem: playerItem)
+            let playerLayer = AVPlayerLayer(player: audioPlayer)
+            playerLayer.frame = CGRect(x: 0, y: 0, width: 10, height: 50)
+            self.view.layer.addSublayer(playerLayer)
+            audioPlayer.play()
+        } catch  {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+    
     
     
 }
