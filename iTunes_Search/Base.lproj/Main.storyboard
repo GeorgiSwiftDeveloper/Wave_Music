@@ -971,6 +971,7 @@
                     </view>
                     <connections>
                         <outlet property="containerView" destination="gZ4-gN-bAf" id="0fu-Zc-xMZ"/>
+                        <outlet property="pauseButtonSelected" destination="zSl-1K-9n2" id="abd-77-2oi"/>
                         <outlet property="selectedMusicImageView" destination="Dax-d9-fOC" id="wxV-ma-7Aa"/>
                         <outlet property="selectedSingerName" destination="cNx-mj-Hf2" id="5En-L5-wgV"/>
                         <outlet property="selectedSongName" destination="ogn-tQ-z3c" id="8TT-gN-eHb"/>

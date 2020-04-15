@@ -9,22 +9,26 @@
 import UIKit
 
 class ContainerViewControllerForiThunesMusic: UIViewController {
-
-  
+    
+    
     @IBOutlet weak var selectedMusicImageView: UIImageView!
     @IBOutlet weak var selectedSingerName: UILabel!
     @IBOutlet weak var selectedSongName: UILabel!
     @IBOutlet var containerView: UIView!
+    @IBOutlet weak var pauseButtonSelected: UIButton!
     
     @IBOutlet weak var songAnimationImageView: UIImageView!
     var filterListVC: iThunesMusicViewController!
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-          NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("getValueFromSelectedRow"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("getValueFromSelectedRow"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSelectedSong(notification:)), name: Notification.Name("NotificationIdentifierSelectedSong"), object: nil)
+    }
+    
+    @objc func NotificationIdentifierSelectedSong(notification: Notification) {
+        pauseButtonSelected.sendActions(for: .touchUpInside)
     }
     
     func startAnimatePlayer()
@@ -53,10 +57,10 @@ class ContainerViewControllerForiThunesMusic: UIViewController {
         if image != "" {
             self.selectedMusicImageView.image = UIImage(data: NSData(contentsOf: URL(string:image!)!)! as Data)
             self.selectedMusicImageView.layer.borderWidth = 1.5
-             self.selectedMusicImageView.layer.masksToBounds = false
-             self.selectedMusicImageView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-             self.selectedMusicImageView.layer.cornerRadius = self.selectedMusicImageView.frame.height/2
-             self.selectedMusicImageView.clipsToBounds = true
+            self.selectedMusicImageView.layer.masksToBounds = false
+            self.selectedMusicImageView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            self.selectedMusicImageView.layer.cornerRadius = self.selectedMusicImageView.frame.height/2
+            self.selectedMusicImageView.clipsToBounds = true
         }
         startAnimatePlayer()
     }
@@ -64,19 +68,15 @@ class ContainerViewControllerForiThunesMusic: UIViewController {
     @IBAction func cancelButtonTapped(_ sender: Any) {
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierCnacel"), object: nil)
     }
-  
+    
     @IBAction func pauseButtonAction(_ sender: Any) {
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierPauseSong"), object: nil)
         songAnimationImageView.stopAnimating()
     }
     
-//    @IBAction func playButtonAction(_ sender: Any) {
-//        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierPlaySong"), object: nil)
-//    }
-    
     @IBAction func volumeSliderAction(_ sender: UISlider) {
-         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
-         UserDefaults.standard.set(sender.value, forKey: "volume")
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
+        UserDefaults.standard.set(sender.value, forKey: "volume")
     }
     
 }

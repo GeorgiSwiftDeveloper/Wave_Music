@@ -15,6 +15,7 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     
     var iThunesConnectionManager = iThunesMusicViewController()
+    var containerViewController = ContainerViewControllerForiThunesMusic()
     var recivieSelectedMusic = [AlbumModel]()
     var favoriteMusicArray = [SelectedAlbumModel]()
     
@@ -66,6 +67,10 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSelectedSong"), object: nil)
+
+        
+        audioPlayer.pause()
         if  let audio = favoriteMusicArray[indexPath.row].selectedSongUrl        {
             do {
                 guard let url = NSURL(string: audio) else { return}

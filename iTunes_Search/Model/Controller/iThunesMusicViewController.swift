@@ -15,12 +15,10 @@ protocol SelectedMusicDelegate {
 let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
 class iThunesMusicViewController: UIViewController {
-
+    
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
     @IBOutlet weak var containerViewController: UIView!
-    
-//    @IBOutlet weak var nowPlayingImageView: UIImageView!
     
     var iThunesConnectionManager = iThunesConnection()
     var selectedAlbumManager = FavoriteViewController()
@@ -30,8 +28,8 @@ class iThunesMusicViewController: UIViewController {
     var selectedMusicDelegate: SelectedMusicDelegate?
     var selectedSong = String()
     
-  
-
+    
+    
     
     var audioPlayer = AVPlayer()
     
@@ -49,8 +47,7 @@ class iThunesMusicViewController: UIViewController {
         addDoneButtonOnKeyboard()
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierCnacel"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPause(notification:)), name: Notification.Name("NotificationIdentifierPauseSong"), object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPlay(notification:)), name: Notification.Name("NotificationIdentifierPlaySong"), object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationVolume(notification:)), name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationVolume(notification:)), name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
     }
     
     
@@ -64,15 +61,6 @@ class iThunesMusicViewController: UIViewController {
         audioPlayer.pause()
     }
     
-//    @objc func methodOfReceivedNotificationPlay(notification: Notification) {
-////        if checkIfAudioisPause == true{
-//        do {
-//            guard let url = NSURL(string: selectedSong) else { return}
-//            playThis(url: url as URL)
-//            }
-////        }
-//    }
-    
     @objc func methodOfReceivedNotificationVolume(notification: Notification) {
         let volume = UserDefaults.standard.float(forKey: "volume")
         audioPlayer.volume = volume
@@ -85,12 +73,12 @@ class iThunesMusicViewController: UIViewController {
         searchTextField.layer.cornerRadius = searchTextField.frame.size.height/2
         searchTextField.clipsToBounds = true
     }
-
+    
     
     @IBAction func searchAction(_ sender: Any) {
         searchTextField.endEditing(true)
     }
-     
+    
 }
 
 extension iThunesMusicViewController: AlbumManagerDelegate {
@@ -99,19 +87,21 @@ extension iThunesMusicViewController: AlbumManagerDelegate {
         
         DispatchQueue.main.async {
             if  album.count != 0 {
-               self.favoriteAlbum.append(contentsOf: album)
-               self.favoriteAlbum[0].checkIfSelected = false
-               self.favoriteMusicTableView.isHidden = false
-               self.favoriteMusicTableView.reloadData()
+                self.favoriteAlbum.append(contentsOf: album)
+                self.favoriteAlbum[0].checkIfSelected = false
+                self.favoriteMusicTableView.isHidden = false
+                self.favoriteMusicTableView.reloadData()
             }
         }
     }
-
+    
     
     func didFailWithError(error: Error) {
-       
+        
     }
-
+    
+    
+    
 }
 
 extension iThunesMusicViewController: UITextFieldDelegate {
@@ -157,24 +147,24 @@ extension iThunesMusicViewController: UITextFieldDelegate {
     func addDoneButtonOnKeyboard(){
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
-
+        
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
-
+        
         let items = [flexSpace, done]
         doneToolbar.items = items
         doneToolbar.sizeToFit()
-
+        
         searchTextField.inputAccessoryView = doneToolbar
     }
-
+    
     @objc func doneButtonAction(){
         searchTextField.resignFirstResponder()
     }
 }
 extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return favoriteAlbum.count
+        return favoriteAlbum.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -224,10 +214,10 @@ extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource
             }
         }
         selectedCell.favoriteButton.tag = indexPath.row;
-//        self.startAnimatePlayer()
+        //        self.startAnimatePlayer()
         selectedSong = favoriteAlbum[indexPath.row].previewUrl!
         self.containerViewController.isHidden = false
-      
+        
         UserDefaults.standard.set(selectedCell.artist, forKey: "artist")
         UserDefaults.standard.set(selectedCell.title, forKey: "title")
         UserDefaults.standard.set(selectedCell.artworkURL, forKey: "image")
@@ -240,18 +230,18 @@ extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource
         containerViewController.layer.addSublayer(topBorder)
     }
     
-
+    
     func playThis(url: URL)
-       {
-           do {
+    {
+        do {
             let playerItem: AVPlayerItem = AVPlayerItem(url: url as URL)
-               audioPlayer = AVPlayer(playerItem: playerItem)
-               let playerLayer = AVPlayerLayer(player: audioPlayer)
-               playerLayer.frame = CGRect(x: 0, y: 0, width: 10, height: 50)
-               self.view.layer.addSublayer(playerLayer)
-               audioPlayer.play()
-           }
-       }
+            audioPlayer = AVPlayer(playerItem: playerItem)
+            let playerLayer = AVPlayerLayer(player: audioPlayer)
+            playerLayer.frame = CGRect(x: 0, y: 0, width: 10, height: 50)
+            self.view.layer.addSublayer(playerLayer)
+            audioPlayer.play()
+        }
+    }
     
     @objc func showFavoriteAlertFunction(sender: UIButton) {
         let selectedIndex = IndexPath(row: sender.tag, section: 0)
@@ -276,7 +266,7 @@ extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource
                 
                 self.saveItems()
             }
-        
+            
             let cancelAction = UIAlertAction(title: "NO", style: .cancel) { (action) in
             }
             alert.addAction(cancelAction)
@@ -296,5 +286,5 @@ extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource
         }
         
     }
-          
+    
 }
