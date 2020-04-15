@@ -9,11 +9,11 @@
 import UIKit
 
 protocol AlbumManagerDelegate {
-    func didUpdateAlbum(_ albumManager:iTunesConnection, album: [AlbumModel])
+    func didUpdateAlbum(_ albumManager:iThunesConnection, album: [AlbumModel])
     func didFailWithError(error: Error)
 }
 
-class iTunesConnection {
+class iThunesConnection {
     var delegate: AlbumManagerDelegate?
     func fetchiTunes(name: String) {
         let url  =  "https://itunes.apple.com/search?term=\(name)&media=music"

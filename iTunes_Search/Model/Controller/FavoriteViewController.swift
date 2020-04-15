@@ -14,9 +14,9 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
   
     
 
-    var favoriteMovieAlbum = [MoviesModel]()
+    var favoriteMovieAlbum = [MuviesModel]()
     var delegate: SelectedAlbumFromFavorites?
-    var futureMoviesModelConnection = FutureMoviesModel()
+    var futureMoviesModelConnection = FutureMuviesModel()
     
     @IBOutlet weak var tableview: UITableView!
     
@@ -38,7 +38,7 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? FutureMoviesTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "muvieCell", for: indexPath) as? FutureMuviesTableViewCell {
             DispatchQueue.main.async {
                 cell.confiigurationCell(movieAlbums: self.favoriteMovieAlbum[indexPath.row])
                 self.tableview.separatorStyle = .singleLine
@@ -46,7 +46,7 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
             }
             return cell
         }else {
-            return FutureMoviesTableViewCell()
+            return FutureMuviesTableViewCell()
         }
     }
 
@@ -58,8 +58,8 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     }
 }
 
-extension FavoriteViewController: MovieManagerDelegate {
-    func didUpdateAlbum(_ albumManager: FutureMoviesModel, album: [MoviesModel]) {
+extension FavoriteViewController: MuvieManagerDelegate {
+    func didUpdateAlbum(_ albumManager: FutureMuviesModel, album: [MuviesModel]) {
         DispatchQueue.main.async {
             self.favoriteMovieAlbum.append(contentsOf: album)
             self.tableview.reloadData()

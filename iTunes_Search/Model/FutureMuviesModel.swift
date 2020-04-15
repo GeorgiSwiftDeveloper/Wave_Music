@@ -10,15 +10,15 @@ import UIKit
 
 
 
-protocol MovieManagerDelegate {
-    func didUpdateAlbum(_ albumManager:FutureMoviesModel, album: [MoviesModel])
+protocol MuvieManagerDelegate {
+    func didUpdateAlbum(_ albumManager:FutureMuviesModel, album: [MuviesModel])
     func didFailWithError(error: Error)
 }
 
 
-class FutureMoviesModel: NSObject {
+class FutureMuviesModel: NSObject {
 
-    var delegate: MovieManagerDelegate?
+    var delegate: MuvieManagerDelegate?
 
     func fetchiTunes() {
            let url  =  "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -46,9 +46,9 @@ class FutureMoviesModel: NSObject {
            }
        }
        
-       func parseJSON(_ itunesData:Data) -> [MoviesModel]? {
+       func parseJSON(_ itunesData:Data) -> [MuviesModel]? {
            do{
-               var sharedAlbum = [MoviesModel]()
+               var sharedAlbum = [MuviesModel]()
                
                let itunesDict = try JSONSerialization.jsonObject(with: itunesData, options: .mutableContainers) as? [String:Any]
                let results = (itunesDict! as NSDictionary).object(forKey: "results") as? [Dictionary<String,AnyObject>]
@@ -60,7 +60,7 @@ class FutureMoviesModel: NSObject {
                     let poster_path = resultDict?["poster_path"] as? String ?? ""
                     let overview = resultDict?["overview"] as? String ?? ""
                     let release_date = resultDict?["release_date"] as? String  ?? ""
-                    let album = MoviesModel(title: title, poster_path: poster_path, release_date: release_date, overview: overview)
+                    let album = MuviesModel(title: title, poster_path: poster_path, release_date: release_date, overview: overview)
                     sharedAlbum.append(album)
                 }else{
                     delegate?.didFailWithError(error: Error.self as! Error)

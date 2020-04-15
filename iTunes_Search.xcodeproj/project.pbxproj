@@ -9,18 +9,18 @@
 /* Begin PBXBuildFile section */
 		6A1375C22433D09E0086113D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375C12433D09E0086113D /* AppDelegate.swift */; };
 		6A1375C42433D09E0086113D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375C32433D09E0086113D /* SceneDelegate.swift */; };
-		6A1375C62433D09E0086113D /* iTunesMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375C52433D09E0086113D /* iTunesMusicViewController.swift */; };
+		6A1375C62433D09E0086113D /* iThunesMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375C52433D09E0086113D /* iThunesMusicViewController.swift */; };
 		6A1375C92433D09E0086113D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A1375C72433D09E0086113D /* Main.storyboard */; };
 		6A1375CB2433D09F0086113D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A1375CA2433D09F0086113D /* Assets.xcassets */; };
 		6A1375CE2433D09F0086113D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A1375CC2433D09F0086113D /* LaunchScreen.storyboard */; };
-		6A1375D62433D0D80086113D /* iTunesConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375D52433D0D80086113D /* iTunesConnection.swift */; };
+		6A1375D62433D0D80086113D /* iThunesConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375D52433D0D80086113D /* iThunesConnection.swift */; };
 		6A1375DE2433F7370086113D /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375DD2433F7370086113D /* AlbumModel.swift */; };
 		6A1375E924344AB40086113D /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375E824344AB40086113D /* FavoriteViewController.swift */; };
 		6A1375EB24344C760086113D /* FavoriteAlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375EA24344C760086113D /* FavoriteAlbumTableViewCell.swift */; };
-		6A41345D2444DFB000970C41 /* ContainerViewControllerForiTunesMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41345C2444DFB000970C41 /* ContainerViewControllerForiTunesMusic.swift */; };
-		6A48ECC22436643B007A82D6 /* FutureMoviesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC12436643B007A82D6 /* FutureMoviesTableViewCell.swift */; };
-		6A48ECC424366485007A82D6 /* FutureMoviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC324366485007A82D6 /* FutureMoviesModel.swift */; };
-		6A48ECC624366802007A82D6 /* MoviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC524366802007A82D6 /* MoviesModel.swift */; };
+		6A41345D2444DFB000970C41 /* ContainerViewControllerForiThunesMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41345C2444DFB000970C41 /* ContainerViewControllerForiThunesMusic.swift */; };
+		6A48ECC22436643B007A82D6 /* FutureMuviesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */; };
+		6A48ECC424366485007A82D6 /* FutureMuviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC324366485007A82D6 /* FutureMuviesModel.swift */; };
+		6A48ECC624366802007A82D6 /* MuviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC524366802007A82D6 /* MuviesModel.swift */; };
 		6ABFE2272439099C000217B5 /* FavoriteSongsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE2262439099C000217B5 /* FavoriteSongsCollectionViewCell.swift */; };
 		6ABFE229243909DD000217B5 /* FavoriteSongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */; };
 		6ACE9D3724399C25008009C3 /* SelectedObjectModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6ACE9D3524399C25008009C3 /* SelectedObjectModel.xcdatamodeld */; };
@@ -38,19 +38,19 @@
 		6A1375BE2433D09E0086113D /* iTunes_Search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTunes_Search.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A1375C12433D09E0086113D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A1375C32433D09E0086113D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6A1375C52433D09E0086113D /* iTunesMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesMusicViewController.swift; sourceTree = "<group>"; };
+		6A1375C52433D09E0086113D /* iThunesMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iThunesMusicViewController.swift; sourceTree = "<group>"; };
 		6A1375C82433D09E0086113D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6A1375CA2433D09F0086113D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A1375CD2433D09F0086113D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A1375CF2433D09F0086113D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6A1375D52433D0D80086113D /* iTunesConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesConnection.swift; sourceTree = "<group>"; };
+		6A1375D52433D0D80086113D /* iThunesConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iThunesConnection.swift; sourceTree = "<group>"; };
 		6A1375DD2433F7370086113D /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
 		6A1375E824344AB40086113D /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		6A1375EA24344C760086113D /* FavoriteAlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAlbumTableViewCell.swift; sourceTree = "<group>"; };
-		6A41345C2444DFB000970C41 /* ContainerViewControllerForiTunesMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerForiTunesMusic.swift; sourceTree = "<group>"; };
-		6A48ECC12436643B007A82D6 /* FutureMoviesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureMoviesTableViewCell.swift; sourceTree = "<group>"; };
-		6A48ECC324366485007A82D6 /* FutureMoviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureMoviesModel.swift; sourceTree = "<group>"; };
-		6A48ECC524366802007A82D6 /* MoviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesModel.swift; sourceTree = "<group>"; };
+		6A41345C2444DFB000970C41 /* ContainerViewControllerForiThunesMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerForiThunesMusic.swift; sourceTree = "<group>"; };
+		6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureMuviesTableViewCell.swift; sourceTree = "<group>"; };
+		6A48ECC324366485007A82D6 /* FutureMuviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureMuviesModel.swift; sourceTree = "<group>"; };
+		6A48ECC524366802007A82D6 /* MuviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuviesModel.swift; sourceTree = "<group>"; };
 		6ABFE2262439099C000217B5 /* FavoriteSongsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSongsCollectionViewCell.swift; sourceTree = "<group>"; };
 		6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSongsViewController.swift; sourceTree = "<group>"; };
 		6ACE9D3624399C25008009C3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -114,10 +114,10 @@
 			isa = PBXGroup;
 			children = (
 				6A1375DD2433F7370086113D /* AlbumModel.swift */,
-				6A48ECC524366802007A82D6 /* MoviesModel.swift */,
+				6A48ECC524366802007A82D6 /* MuviesModel.swift */,
 				6AD0FD30243C2DF4006BF086 /* RadioModel.swift */,
-				6A48ECC324366485007A82D6 /* FutureMoviesModel.swift */,
-				6A1375D52433D0D80086113D /* iTunesConnection.swift */,
+				6A48ECC324366485007A82D6 /* FutureMuviesModel.swift */,
+				6A1375D52433D0D80086113D /* iThunesConnection.swift */,
 				6AD0FD36243C4350006BF086 /* ReadDataFromStationJSON.swift */,
 				6A1375E52434354F0086113D /* View */,
 				6A1375E4243435300086113D /* Controller */,
@@ -128,8 +128,8 @@
 		6A1375E4243435300086113D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				6A41345C2444DFB000970C41 /* ContainerViewControllerForiTunesMusic.swift */,
-				6A1375C52433D09E0086113D /* iTunesMusicViewController.swift */,
+				6A41345C2444DFB000970C41 /* ContainerViewControllerForiThunesMusic.swift */,
+				6A1375C52433D09E0086113D /* iThunesMusicViewController.swift */,
 				6A1375E824344AB40086113D /* FavoriteViewController.swift */,
 				6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */,
 				6AD0FD25243C24D5006BF086 /* RadioStationViewController.swift */,
@@ -142,7 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				6A1375EA24344C760086113D /* FavoriteAlbumTableViewCell.swift */,
-				6A48ECC12436643B007A82D6 /* FutureMoviesTableViewCell.swift */,
+				6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */,
 				6ABFE2262439099C000217B5 /* FavoriteSongsCollectionViewCell.swift */,
 				6AD0FD2C243C2B30006BF086 /* StationRadioTableViewCell.swift */,
 			);
@@ -270,22 +270,22 @@
 			files = (
 				6AD0FD26243C24D5006BF086 /* RadioStationViewController.swift in Sources */,
 				6A1375EB24344C760086113D /* FavoriteAlbumTableViewCell.swift in Sources */,
-				6A1375C62433D09E0086113D /* iTunesMusicViewController.swift in Sources */,
-				6A48ECC624366802007A82D6 /* MoviesModel.swift in Sources */,
+				6A1375C62433D09E0086113D /* iThunesMusicViewController.swift in Sources */,
+				6A48ECC624366802007A82D6 /* MuviesModel.swift in Sources */,
 				6AD0FD24243C2064006BF086 /* RadioPlayerViewController.swift in Sources */,
 				6ABFE229243909DD000217B5 /* FavoriteSongsViewController.swift in Sources */,
 				6AD0FD37243C4350006BF086 /* ReadDataFromStationJSON.swift in Sources */,
 				6A1375DE2433F7370086113D /* AlbumModel.swift in Sources */,
-				6A48ECC424366485007A82D6 /* FutureMoviesModel.swift in Sources */,
+				6A48ECC424366485007A82D6 /* FutureMuviesModel.swift in Sources */,
 				6AD0FD2D243C2B30006BF086 /* StationRadioTableViewCell.swift in Sources */,
-				6A48ECC22436643B007A82D6 /* FutureMoviesTableViewCell.swift in Sources */,
+				6A48ECC22436643B007A82D6 /* FutureMuviesTableViewCell.swift in Sources */,
 				6AD0FD31243C2DF4006BF086 /* RadioModel.swift in Sources */,
 				6ABFE2272439099C000217B5 /* FavoriteSongsCollectionViewCell.swift in Sources */,
-				6A1375D62433D0D80086113D /* iTunesConnection.swift in Sources */,
+				6A1375D62433D0D80086113D /* iThunesConnection.swift in Sources */,
 				6A1375C22433D09E0086113D /* AppDelegate.swift in Sources */,
 				6A1375E924344AB40086113D /* FavoriteViewController.swift in Sources */,
 				6ACE9D3724399C25008009C3 /* SelectedObjectModel.xcdatamodeld in Sources */,
-				6A41345D2444DFB000970C41 /* ContainerViewControllerForiTunesMusic.swift in Sources */,
+				6A41345D2444DFB000970C41 /* ContainerViewControllerForiThunesMusic.swift in Sources */,
 				6A1375C42433D09E0086113D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -34,7 +34,7 @@
         <!--Search-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="iTunesMusicViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="iThunesMusicViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -107,7 +107,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2J-iB-uEH">
-                                                            <rect key="frame" x="118" y="56" width="247" height="40"/>
+                                                            <rect key="frame" x="118" y="56" width="232" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="ffD-Ky-akD"/>
                                                             </constraints>
@@ -133,7 +133,7 @@
                                                         <constraint firstItem="Qoo-0t-9s7" firstAttribute="top" secondItem="rVS-Ie-qA9" secondAttribute="topMargin" id="JWz-t2-Fvs"/>
                                                         <constraint firstItem="r2J-iB-uEH" firstAttribute="top" secondItem="Qoo-0t-9s7" secondAttribute="bottom" constant="5" id="KPy-wY-rd0"/>
                                                         <constraint firstItem="tUA-cb-KJv" firstAttribute="leading" secondItem="rVS-Ie-qA9" secondAttribute="leadingMargin" id="Ld2-Q4-avI"/>
-                                                        <constraint firstAttribute="trailing" secondItem="r2J-iB-uEH" secondAttribute="trailing" constant="10" id="Nvp-a9-lFC"/>
+                                                        <constraint firstAttribute="trailing" secondItem="r2J-iB-uEH" secondAttribute="trailing" constant="25" id="Nvp-a9-lFC"/>
                                                         <constraint firstItem="Qoo-0t-9s7" firstAttribute="trailing" secondItem="rVS-Ie-qA9" secondAttribute="trailingMargin" id="YcC-MP-pJI"/>
                                                         <constraint firstItem="Qoo-0t-9s7" firstAttribute="leading" secondItem="tUA-cb-KJv" secondAttribute="trailing" constant="15" id="bHY-Qn-tev"/>
                                                         <constraint firstAttribute="trailing" secondItem="WI7-Yw-3Vb" secondAttribute="trailing" constant="10" id="dvb-yo-eGI"/>
@@ -150,7 +150,7 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" id="IRR-or-fSc">
+                                    <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" id="IRR-or-fSc">
                                         <rect key="frame" x="0.0" y="475" width="375" height="254"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="0.80055358512269936" colorSpace="custom" customColorSpace="sRGB"/>
@@ -158,9 +158,10 @@
                                             <segue destination="jdA-yT-Zfj" kind="embed" identifier="EmbedSegue" id="AWB-OD-qRj"/>
                                         </connections>
                                     </containerView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search iThunes Music" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-aa-DUM">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search iThunes Music" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-aa-DUM">
                                         <rect key="frame" x="15" y="130" width="300" height="34"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert" returnKeyType="search"/>
                                     </textField>
@@ -239,7 +240,7 @@
                                 <color key="backgroundColor" red="1" green="0.58431372550000005" blue="0.0" alpha="0.79843270705521474" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="movieCell" rowHeight="150" id="kTX-ZT-dqm" customClass="FutureMoviesTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="muvieCell" rowHeight="150" id="kTX-ZT-dqm" customClass="FutureMuviesTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kTX-ZT-dqm" id="GIN-g7-ofb">
@@ -801,10 +802,10 @@
             </objects>
             <point key="canvasLocation" x="3756" y="204.67980295566502"/>
         </scene>
-        <!--Container View Controller Fori Tunes Music-->
+        <!--Container View Controller Fori Thunes Music-->
         <scene sceneID="CcJ-zJ-E3k">
             <objects>
-                <viewController storyboardIdentifier="TestContainer" modalPresentationStyle="formSheet" id="jdA-yT-Zfj" customClass="ContainerViewControllerForiTunesMusic" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TestContainer" modalPresentationStyle="formSheet" id="jdA-yT-Zfj" customClass="ContainerViewControllerForiThunesMusic" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gZ4-gN-bAf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="254"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -969,6 +970,7 @@
                         <viewLayoutGuide key="safeArea" id="Fz7-bx-8vb"/>
                     </view>
                     <connections>
+                        <outlet property="containerView" destination="gZ4-gN-bAf" id="0fu-Zc-xMZ"/>
                         <outlet property="selectedMusicImageView" destination="Dax-d9-fOC" id="wxV-ma-7Aa"/>
                         <outlet property="selectedSingerName" destination="cNx-mj-Hf2" id="5En-L5-wgV"/>
                         <outlet property="selectedSongName" destination="ogn-tQ-z3c" id="8TT-gN-eHb"/>

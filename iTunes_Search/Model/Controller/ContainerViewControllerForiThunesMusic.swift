@@ -8,15 +8,16 @@
 
 import UIKit
 
-class ContainerViewControllerForiTunesMusic: UIViewController {
+class ContainerViewControllerForiThunesMusic: UIViewController {
 
   
     @IBOutlet weak var selectedMusicImageView: UIImageView!
     @IBOutlet weak var selectedSingerName: UILabel!
     @IBOutlet weak var selectedSongName: UILabel!
+    @IBOutlet var containerView: UIView!
     
     @IBOutlet weak var songAnimationImageView: UIImageView!
-    var filterListVC: iTunesMusicViewController!
+    var filterListVC: iThunesMusicViewController!
 
     
     override func viewDidLoad() {

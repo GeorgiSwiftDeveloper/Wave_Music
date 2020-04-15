@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FutureMoviesTableViewCell: UITableViewCell {
+class FutureMuviesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var moviewName: UILabel!
@@ -16,7 +16,7 @@ class FutureMoviesTableViewCell: UITableViewCell {
     
     
     
-    func confiigurationCell(movieAlbums: MoviesModel) {
+    func confiigurationCell(movieAlbums: MuviesModel) {
         let posterPath = movieAlbums.poster_path
         let baseUrl = "https://image.tmdb.org/t/p/w500"
         let imageUrl = URL(string: baseUrl + posterPath!)

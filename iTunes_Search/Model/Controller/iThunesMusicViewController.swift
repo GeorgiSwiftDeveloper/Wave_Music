@@ -14,7 +14,7 @@ protocol SelectedMusicDelegate {
 }
 let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
-class iTunesMusicViewController: UIViewController {
+class iThunesMusicViewController: UIViewController {
 
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
@@ -22,7 +22,7 @@ class iTunesMusicViewController: UIViewController {
     
 //    @IBOutlet weak var nowPlayingImageView: UIImageView!
     
-    var iTunesConnectionManager = iTunesConnection()
+    var iThunesConnectionManager = iThunesConnection()
     var selectedAlbumManager = FavoriteViewController()
     var favoriteAlbum = [AlbumModel]()
     var lastObject = [AlbumModel]()
@@ -31,7 +31,7 @@ class iTunesMusicViewController: UIViewController {
     var selectedSong = String()
     
   
-    var containerViewControler = ContainerViewControllerForiTunesMusic()
+
     
     var audioPlayer = AVPlayer()
     
@@ -41,7 +41,7 @@ class iTunesMusicViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        iTunesConnectionManager.delegate = self
+        iThunesConnectionManager.delegate = self
         searchTextField.delegate = self
         self.favoriteMusicTableView.delegate = self
         self.favoriteMusicTableView.dataSource = self
@@ -80,8 +80,10 @@ class iTunesMusicViewController: UIViewController {
     
     func customizeUI(){
         containerViewController.isHidden = true
-        searchTextField.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        searchTextField.layer.cornerRadius = 8.0
+        searchTextField.layer.borderColor = #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1)
+        searchTextField.layer.borderWidth = 1
+        searchTextField.layer.cornerRadius = searchTextField.frame.size.height/2
+        searchTextField.clipsToBounds = true
     }
 
     
@@ -91,9 +93,9 @@ class iTunesMusicViewController: UIViewController {
      
 }
 
-extension iTunesMusicViewController: AlbumManagerDelegate {
+extension iThunesMusicViewController: AlbumManagerDelegate {
     
-    func didUpdateAlbum(_ albumManager: iTunesConnection, album: [AlbumModel]) {
+    func didUpdateAlbum(_ albumManager: iThunesConnection, album: [AlbumModel]) {
         
         DispatchQueue.main.async {
             if  album.count != 0 {
@@ -112,7 +114,7 @@ extension iTunesMusicViewController: AlbumManagerDelegate {
 
 }
 
-extension iTunesMusicViewController: UITextFieldDelegate {
+extension iThunesMusicViewController: UITextFieldDelegate {
     
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
@@ -128,7 +130,7 @@ extension iTunesMusicViewController: UITextFieldDelegate {
             checkIfEmptySearchText = false
             return true
         } else {
-            textField.placeholder = "Type something"
+            textField.placeholder = "Type music name"
             checkIfEmptySearchText = true
             return true
         }
@@ -138,7 +140,7 @@ extension iTunesMusicViewController: UITextFieldDelegate {
         
         if let songName = searchTextField.text , checkIfEmptySearchText == false{
             self.favoriteAlbum = []
-            iTunesConnectionManager.fetchiTunes(name: songName)
+            iThunesConnectionManager.fetchiTunes(name: songName)
         }else{
             let alert = UIAlertController(title: "No Playlists Found \n Add playists to Wave by tapping the search field", message: nil, preferredStyle: .alert)
             
@@ -170,7 +172,7 @@ extension iTunesMusicViewController: UITextFieldDelegate {
         searchTextField.resignFirstResponder()
     }
 }
-extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
+extension iThunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        return favoriteAlbum.count
     }
@@ -212,6 +214,8 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
         tableView.reloadData()
         
         audioPlayer.pause()
+        
+        self.containerViewController.isHidden = false
         
         if  let audio = favoriteAlbum[indexPath.row].previewUrl           {
             do {

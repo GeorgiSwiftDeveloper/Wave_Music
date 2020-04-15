@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MoviesModel: NSObject {
+class MuviesModel: NSObject {
     var title: String?
     var poster_path: String?
     var release_date: String?

@@ -15,7 +15,7 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
     
     
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
-    var iTunesConnectionManager = iTunesMusicViewController()
+    var iThunesConnectionManager = iThunesMusicViewController()
     var recivieSelectedMusic = [AlbumModel]()
     var favoriteMusicArray = [SelectedAlbumModel]()
     
