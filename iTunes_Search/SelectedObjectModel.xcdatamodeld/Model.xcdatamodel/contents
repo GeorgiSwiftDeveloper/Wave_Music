@@ -10,7 +10,7 @@
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playlistId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
-        <attribute name="tiitle" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <elements>

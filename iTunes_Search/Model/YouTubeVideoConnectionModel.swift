@@ -34,6 +34,7 @@ class  YouTubeVideoConnection {
         let parameters = ["part":"snippet","playlistId":UPLOADS_PLAYLIST_ID, "key":API_KEY]
         AF.request(YouTubeUrl, parameters: parameters).responseJSON { response in
             if let JSON = response.value as? [String: Any] {
+                print(JSON)
                 let listOfVideos = JSON["items"] as! NSArray
                 var videoObjArray = [Video]()
                 
@@ -44,7 +45,7 @@ class  YouTubeVideoConnection {
                     youTubeVideo.videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String
                     youTubeVideo.videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.description") as! String
                     youTubeVideo.videoPlaylistId =  (videos as AnyObject).value(forKeyPath:"snippet.playlistId") as! String
-                    youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as! String
+                    youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.medium.url") as! String
                     
                     videoObjArray.append(youTubeVideo)
                 }
