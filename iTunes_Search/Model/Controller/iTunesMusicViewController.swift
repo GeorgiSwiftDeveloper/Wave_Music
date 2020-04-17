@@ -182,7 +182,7 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
                 {
                     cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                     cell.singerNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    cell.songNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                    cell.songNameLabel.textColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
                     cell.favoriteButton.isHidden = true
                 }
             }
