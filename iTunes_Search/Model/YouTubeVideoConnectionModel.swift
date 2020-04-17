@@ -38,7 +38,7 @@ class  YouTubeVideoConnection {
                 var videoObjArray = [Video]()
                 
                 for videos in listOfVideos {
-                                            print(videos)
+//                                            print(videos)
                     var youTubeVideo  = Video()
                     youTubeVideo.videoId = (videos as AnyObject).value(forKeyPath: "snippet.resourceId.videoId") as! String
                     youTubeVideo.videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String

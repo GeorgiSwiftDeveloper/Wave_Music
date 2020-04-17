@@ -18,6 +18,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var genreTitle: GenreModel?
     var videoArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
+    var arrrayInt = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,15 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             }else{
                 DispatchQueue.main.async{
                 self.videoArray = loadVideolist!
+                    for songIndex in 0..<self.videoArray.count{
+                    let title =   self.videoArray[songIndex].videoTitle
+                    let description =  self.videoArray[songIndex].videoDescription
+                    let image =  self.videoArray[songIndex].videoImageUrl
+                    let playlistId = self.videoArray[songIndex].videoPlaylistId
+                    let videoId =  self.videoArray[songIndex].videoId
+                    
+                    }
+                
                 self.genreTableView.reloadData()
             }
         }
@@ -49,6 +59,8 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if let cell = tableView.dequeueReusableCell(withIdentifier: "genreCell", for: indexPath) as? GenreVideoTableViewCell {
         cell.configureGenreCell(videoArray[indexPath.row])
+        arrrayInt = indexPath.row
+//        print(arrrayInt)
         return cell
     }else {
         return GenreVideoTableViewCell()

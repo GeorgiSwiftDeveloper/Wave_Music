@@ -6,7 +6,15 @@
         <attribute name="songImage" optional="YES" attributeType="String"/>
         <attribute name="songTitle" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="YouTubeDataModel" representedClassName="YouTubeDataModel" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="playlistId" optional="YES" attributeType="String"/>
+        <attribute name="songDescription" optional="YES" attributeType="String"/>
+        <attribute name="tiitle" optional="YES" attributeType="String"/>
+        <attribute name="videoId" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="SelectedAlbumModel" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="YouTubeDataModel" positionX="-63" positionY="9" width="128" height="118"/>
     </elements>
 </model>
