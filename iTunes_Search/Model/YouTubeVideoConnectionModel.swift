@@ -14,16 +14,16 @@ class  YouTubeVideoConnection {
     
     
     let API_KEY = "AIzaSyASK8aArpUEg1OnKYTSYUoqyHqBQicQfHE"
-    let UPLOADS_PLAYLIST_ID = "PL3-sRm8xAzY-556lOpSGH6wVzyofoGpzU"
-    let UPLOADS_PLAYLIST_ID_HIP_HOP = "PLAPo1R_GVX4IZGbDvUH60bOwIOnZplZzM"
-    let UPLOADS_PLAYLIST_ID_POP = "PLMC9KNkIncKtGvr2kFRuXBVmBev6cAJ2u"
-    let UPLOADS_PLAYLIST_ID_ROCK = "PL6Lt9p1lIRZ311J9ZHuzkR5A3xesae2pk"
-    let UPLOADS_PLAYLIST_ID_R_B = "PLFbWuc6jwPGeqFkoDBq87CcmlurwrlEGv"
-    let UPLOADS_PLAYLIST_ID_DANCE = "PL64E6BD94546734D8"
-    let UPLOADS_PLAYLIST_ID_ELECTRONIC = "PLFPg_IUxqnZNnACUGsfn50DySIOVSkiKI"
-    let UPLOADS_PLAYLIST_ID_JAZZ = "PL8F6B0753B2CCA128"
-    let UPLOADS_PLAYLIST_ID_INSTRUMENTAL = "PLsUMoyJKBqcn7dk3jC3i1023Ie-BntpgF"
-    let UPLOADS_PLAYLIST_ID_BLUES = "PLjzeyhEA84sQKuXp-rpM1dFuL2aQM_a3S"
+    var UPLOADS_PLAYLIST_ID = ""
+    //    let UPLOADS_PLAYLIST_ID_HIP_HOP = "PLAPo1R_GVX4IZGbDvUH60bOwIOnZplZzM"
+    //    let UPLOADS_PLAYLIST_ID_POP = "PLMC9KNkIncKtGvr2kFRuXBVmBev6cAJ2u"
+    //    let UPLOADS_PLAYLIST_ID_ROCK = "PL6Lt9p1lIRZ311J9ZHuzkR5A3xesae2pk"
+    //    let UPLOADS_PLAYLIST_ID_R_B = "PLFbWuc6jwPGeqFkoDBq87CcmlurwrlEGv"
+    //    let UPLOADS_PLAYLIST_ID_DANCE = "PL64E6BD94546734D8"
+    //    let UPLOADS_PLAYLIST_ID_ELECTRONIC = "PLFPg_IUxqnZNnACUGsfn50DySIOVSkiKI"
+    //    let UPLOADS_PLAYLIST_ID_JAZZ = "PL8F6B0753B2CCA128"
+    //    let UPLOADS_PLAYLIST_ID_INSTRUMENTAL = "PLsUMoyJKBqcn7dk3jC3i1023Ie-BntpgF"
+    //    let UPLOADS_PLAYLIST_ID_BLUES = "PLjzeyhEA84sQKuXp-rpM1dFuL2aQM_a3S"
     
     let YouTubeUrl = "https://www.googleapis.com/youtube/v3/playlistItems?maxResults=50"
     
@@ -31,6 +31,31 @@ class  YouTubeVideoConnection {
     var videoArray = [Video]()
     
     func getFeedVideos(genreType: String?, loadStationList: @escaping(_ returnStationList: [Video]?, _ returnError: Error? ) -> ()) {
+        
+        switch genreType {
+        case "Rap":
+            UPLOADS_PLAYLIST_ID = "PL3-sRm8xAzY-556lOpSGH6wVzyofoGpzU"
+        case "Hip-Hop":
+            UPLOADS_PLAYLIST_ID = "PLAPo1R_GVX4IZGbDvUH60bOwIOnZplZzM"
+        case "Pop":
+            UPLOADS_PLAYLIST_ID = "PLMC9KNkIncKtGvr2kFRuXBVmBev6cAJ2u"
+        case "Rock":
+            UPLOADS_PLAYLIST_ID = "PL6Lt9p1lIRZ311J9ZHuzkR5A3xesae2pk"
+        case "R&B":
+            UPLOADS_PLAYLIST_ID = "PLFbWuc6jwPGeqFkoDBq87CcmlurwrlEGv"
+        case "Dance":
+            UPLOADS_PLAYLIST_ID = "PL64E6BD94546734D8"
+        case "Electronic":
+            UPLOADS_PLAYLIST_ID = "PLFPg_IUxqnZNnACUGsfn50DySIOVSkiKI"
+        case "Jazz":
+            UPLOADS_PLAYLIST_ID = "PL8F6B0753B2CCA128"
+        case "Instrumental":
+            UPLOADS_PLAYLIST_ID = "PLsUMoyJKBqcn7dk3jC3i1023Ie-BntpgF"
+        case "Blues":
+            UPLOADS_PLAYLIST_ID = "PLjzeyhEA84sQKuXp-rpM1dFuL2aQM_a3S"
+        default:
+            break
+        }
         let parameters = ["part":"snippet","playlistId":UPLOADS_PLAYLIST_ID, "key":API_KEY]
         AF.request(YouTubeUrl, parameters: parameters).responseJSON { response in
             if let JSON = response.value as? [String: Any] {
@@ -39,7 +64,6 @@ class  YouTubeVideoConnection {
                 var videoObjArray = [Video]()
                 
                 for videos in listOfVideos {
-//                                            print(videos)
                     var youTubeVideo  = Video()
                     youTubeVideo.videoId = (videos as AnyObject).value(forKeyPath: "snippet.resourceId.videoId") as! String
                     youTubeVideo.videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String

@@ -21,9 +21,36 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var getYouTubeData  = YouTubeVideoConnection()
     var arrrayInt = Int()
     var checkifDataIsEmpty = true
+    
+    var entityName = String()
+    
     var isEmpty: Bool {
+        switch genreTitle?.genreTitle {
+        case "Rap":
+            entityName = "YouTubeDataModel"
+        case "Hip-Hop":
+            entityName = "YouTubeHipHopData"
+        case "Pop":
+            entityName = "YouTubePopData"
+        case "Rock":
+            entityName = "YouTubeRockData"
+        case "R&B":
+            entityName = "YouTubeRBData"
+        case "Dance":
+            entityName = "YouTubeDanceData"
+        case "Electronic":
+            entityName = "YouTubeElectronicData"
+        case "Jazz":
+            entityName = "YouTubeJazzData"
+        case "Instrumental":
+            entityName = "YouTubeInstrumentalData"
+        case "Instrumental":
+            entityName = "YouTubeBluesData"
+        default:
+            break
+        }
         do {
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "YouTubeDataModel")
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
             let count  = try context?.count(for: request)
             return count == 0
         } catch {
@@ -35,7 +62,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         topGenreLabelText.text  = "Top \(genreTitle!.genreTitle) Song's"
         genreTableView.delegate = self
         genreTableView.dataSource = self
-        
+        print(genreTitle?.genreTitle)
         if isEmpty{
             self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle) { (loadVideolist, error) in
                 if error != nil {
@@ -50,7 +77,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                             let playlistId = self.videoArray[songIndex].videoPlaylistId
                             let videoId =  self.videoArray[songIndex].videoId
                             
-                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId)
+                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle)
                             
                         }
                         self.genreTableView.reloadData()
@@ -65,8 +92,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                     if videoList != nil {
                         self.videoArray.append(videoList!)
                         self.genreTableView.reloadData()
-                    }else{
-                        //                    self.checkifDataIsEmpty = false
                     }
                 }
             }
@@ -74,15 +99,38 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String) {
-        let entity = NSEntityDescription.entity(forEntityName: "YouTubeDataModel", in: context!)
+    func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String) {
+        switch genreTitle {
+        case "Rap":
+            entityName = "YouTubeDataModel"
+        case "Hip-Hop":
+            entityName = "YouTubeHipHopData"
+        case "Pop":
+            entityName = "YouTubePopData"
+        case "Rock":
+            entityName = "YouTubeRockData"
+        case "R&B":
+            entityName = "YouTubeRBData"
+        case "Dance":
+            entityName = "YouTubeDanceData"
+        case "Electronic":
+            entityName = "YouTubeElectronicData"
+        case "Jazz":
+            entityName = "YouTubeJazzData"
+        case "Instrumental":
+            entityName = "YouTubeInstrumentalData"
+        case "Blues":
+            entityName = "YouTubeBluesData"
+        default:
+            break
+        }
+        let entity = NSEntityDescription.entity(forEntityName: entityName, in: context!)
         let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-        //        checkifDataIsEmpty = true
         newEntity.setValue(title, forKey: "title")
         newEntity.setValue(image, forKey: "image")
         newEntity.setValue(videoId, forKey: "videoId")
         newEntity.setValue(description, forKey: "songDescription")
-        newEntity.setValue(playlistId, forKey: "playlistId")
+        newEntity.setValue(playlistId, forKey: "playListId")
         do {
             try context?.save()
         } catch {
@@ -91,7 +139,31 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "YouTubeDataModel")
+        switch genreTitle?.genreTitle {
+        case "Rap":
+            entityName = "YouTubeDataModel"
+        case "Hip-Hop":
+            entityName = "YouTubeHipHopData"
+        case "Pop":
+            entityName = "YouTubePopData"
+        case "Rock":
+            entityName = "YouTubeRockData"
+        case "R&B":
+            entityName = "YouTubeRBData"
+        case "Dance":
+            entityName = "YouTubeDanceData"
+        case "Electronic":
+            entityName = "YouTubeElectronicData"
+        case "Jazz":
+            entityName = "YouTubeJazzData"
+        case "Instrumental":
+            entityName = "YouTubeInstrumentalData"
+        case "Blues":
+            entityName = "YouTubeBluesData"
+        default:
+            break
+        }
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         //request.predicate = NSPredicate(format: "age = %@", "12")
         request.returnsObjectsAsFaults = false
         do {
@@ -101,7 +173,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 let image = data.value(forKey: "image") as! String
                 let videoId = data.value(forKey: "videoId") as! String
                 let songDescription = data.value(forKey: "songDescription") as! String
-                let playlistId = data.value(forKey: "playlistId") as! String
+                let playlistId = data.value(forKey: "playListId") as! String
                 let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image)
                 loadVideoList(fetchedVideoList,nil)
             }
@@ -125,8 +197,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "genreCell", for: indexPath) as? GenreVideoTableViewCell {
             cell.configureGenreCell(videoArray[indexPath.row])
-            //        arrrayInt = indexPath.row
-            //        print(arrrayInt)
             return cell
         }else {
             return GenreVideoTableViewCell()

@@ -16,7 +16,7 @@ class DataService {
         GenreModel(genreImage: "hiphop.jpg", genreTitle: "Hip-Hop"),
         GenreModel(genreImage: "pop.jpg", genreTitle: "Pop"),
         GenreModel(genreImage: "rock1.jpg", genreTitle: "Rock"),
-        GenreModel(genreImage: "r&b.jpg", genreTitle: "R&B/Soul"),
+        GenreModel(genreImage: "r&b.jpg", genreTitle: "R&B"),
         GenreModel(genreImage: "dance.jpg", genreTitle: "Dance"),
         GenreModel(genreImage: "electro.jpg", genreTitle: "Electronic"),
         GenreModel(genreImage: "jazz.jpg", genreTitle: "Jazz"),
