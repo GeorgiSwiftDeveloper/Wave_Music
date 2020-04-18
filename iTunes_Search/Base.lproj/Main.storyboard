@@ -495,11 +495,45 @@
                     <connections>
                         <outlet property="genreTableView" destination="xp2-09-Jqn" id="W2t-Wh-T0f"/>
                         <outlet property="topGenreLabelText" destination="WuZ-97-Hyv" id="JYo-gx-CKC"/>
+                        <segue destination="cEs-ne-ilU" kind="show" identifier="youTubeSegue" id="Drs-JO-srt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Se9-C7-Yz3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2821.5999999999999" y="1014.5320197044335"/>
+        </scene>
+        <!--You Tube View Controller-->
+        <scene sceneID="aDn-4f-7bT">
+            <objects>
+                <viewController id="cEs-ne-ilU" customClass="YouTubeViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yOF-IO-Oqn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNB-pc-0sw">
+                                <rect key="frame" x="0.0" y="88" width="375" height="300"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="qsq-1b-nLH"/>
+                                </constraints>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Bld-Bi-Xt9" firstAttribute="trailing" secondItem="FNB-pc-0sw" secondAttribute="trailing" id="27O-6s-sTt"/>
+                            <constraint firstItem="FNB-pc-0sw" firstAttribute="leading" secondItem="Bld-Bi-Xt9" secondAttribute="leading" id="8VF-or-CPe"/>
+                            <constraint firstItem="FNB-pc-0sw" firstAttribute="top" secondItem="Bld-Bi-Xt9" secondAttribute="top" id="dPP-vO-VeH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Bld-Bi-Xt9"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nAB-gf-aW6"/>
+                    <connections>
+                        <outlet property="loadYouTubeVideo" destination="FNB-pc-0sw" id="HVh-cM-MUP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q9N-5T-jyP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3636" y="1017.4876847290641"/>
         </scene>
         <!--Now Playing View-->
         <scene sceneID="mZG-lF-4QO">
@@ -1067,7 +1101,7 @@
         <image name="music.note.list" catalog="system" width="128" height="113"/>
         <image name="radiowaves.left" catalog="system" width="90" height="128"/>
         <image name="rock" width="1080" height="1620"/>
-        <image name="star.circle" catalog="system" width="32" height="32"/>
+        <image name="star.circle" catalog="system" width="128" height="121"/>
         <image name="stationImage" width="120" height="75"/>
         <image name="vol-max" width="16.666666030883789" height="14"/>
         <image name="vol-min" width="11" height="12.666666984558105"/>

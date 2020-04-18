@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import CoreData
+import YouTubePlayer
+
 //let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 class GenreListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -44,7 +46,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             entityName = "YouTubeJazzData"
         case "Instrumental":
             entityName = "YouTubeInstrumentalData"
-        case "Instrumental":
+        case "Blues":
             entityName = "YouTubeBluesData"
         default:
             break
@@ -62,11 +64,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         topGenreLabelText.text  = "Top \(genreTitle!.genreTitle) Song's"
         genreTableView.delegate = self
         genreTableView.dataSource = self
-        print(genreTitle?.genreTitle)
+//        print(genreTitle?.genreTitle)
         if isEmpty{
             self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle) { (loadVideolist, error) in
                 if error != nil {
-                    print(error?.localizedDescription)
+                    print(error?.localizedDescription as Any)
                 }else{
                     DispatchQueue.main.async{
                         self.videoArray = loadVideolist!
@@ -87,7 +89,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         }else{
             self.fetchFromCoreData { (videoList, error) in
                 if error != nil {
-                    print(error?.localizedDescription)
+                    print(error?.localizedDescription as Any)
                 }else{
                     if videoList != nil {
                         self.videoArray.append(videoList!)
@@ -203,5 +205,38 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//           let selectedIndexRow = tableView.indexPathForSelectedRow
+//        let selectedCell = self.genreTableView.cellForRow(at: selectedIndexRow!) as! GenreVideoTabletiewCell
+        let selectedVideoId = videoArray[indexPath.row]
+           print(selectedVideoId.videoId)
+        self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
+//           selectedIndex = indexPath.row
+//           tableView.reloadData()
+           
+//           //        self.startAnimatePlayer()
+//           selectedSong = favoriteAlbum[indexPath.row].previewUrl!
+//           self.containerViewController.isHidden = false
+//
+//           UserDefaults.standard.set(selectedCell.artist, forKey: "artist")
+//           UserDefaults.standard.set(selectedCell.title, forKey: "title")
+//           UserDefaults.standard.set(selectedCell.artworkURL, forKey: "image")
+//           UserDefaults.standard.set(audioPlayer.volume, forKey: "volume")
+//           NotificationCenter.default.post(name: Notification.Name("getValueFromSelectedRow"), object: nil)
+//           let thickness: CGFloat = 3.0
+//           let topBorder = CALayer()
+//           topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.containerViewController.frame.size.width, height: thickness)
+//           topBorder.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7027655291)
+//           containerViewController.layer.addSublayer(topBorder)
+       }
+    
+    
+    override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "youTubeSegue" {
+              let genreVC = segue.destination as! YouTubeViewController
+                genreVC.genreTitle  = sender as? Video
+            }
+        }
     
 }
