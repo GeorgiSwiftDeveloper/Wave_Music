@@ -28,6 +28,7 @@
 		6A5A0CDE244969AE005150D2 /* YouTubeVideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDD244969AE005150D2 /* YouTubeVideoModel.swift */; };
 		6A5A0CE0244970D1005150D2 /* YouTubeVideoConnectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDF244970D1005150D2 /* YouTubeVideoConnectionModel.swift */; };
 		6A5A0CE2244971E0005150D2 /* GenreVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */; };
+		6A5FFEF1244D4E62006382DD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A5FFEF0244D4E61006382DD /* WebKit.framework */; };
 		6ABFE2272439099C000217B5 /* FavoriteSongsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE2262439099C000217B5 /* FavoriteSongsCollectionViewCell.swift */; };
 		6ABFE229243909DD000217B5 /* FavoriteSongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */; };
 		6ACE9D3724399C25008009C3 /* SelectedObjectModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6ACE9D3524399C25008009C3 /* SelectedObjectModel.xcdatamodeld */; };
@@ -65,6 +66,7 @@
 		6A5A0CDD244969AE005150D2 /* YouTubeVideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoModel.swift; sourceTree = "<group>"; };
 		6A5A0CDF244970D1005150D2 /* YouTubeVideoConnectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoConnectionModel.swift; sourceTree = "<group>"; };
 		6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreVideoTableViewCell.swift; sourceTree = "<group>"; };
+		6A5FFEF0244D4E61006382DD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6ABFE2262439099C000217B5 /* FavoriteSongsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSongsCollectionViewCell.swift; sourceTree = "<group>"; };
 		6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSongsViewController.swift; sourceTree = "<group>"; };
 		6ACE9D3624399C25008009C3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A5FFEF1244D4E62006382DD /* WebKit.framework in Frameworks */,
 				A8145A3730B25A8A09E3F500 /* Pods_iTunes_Search.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,6 +184,7 @@
 		F275C05A9D8551F9331A93C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A5FFEF0244D4E61006382DD /* WebKit.framework */,
 				EC53BCB27ABE631EC4C31ECC /* Pods_iTunes_Search.framework */,
 			);
 			name = Frameworks;
@@ -480,6 +484,7 @@
 			baseConfigurationReference = 649055253496FD6A84C08557 /* Pods-iTunes_Search.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4XLSSR63Y5;
 				INFOPLIST_FILE = iTunes_Search/Info.plist;
@@ -488,8 +493,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.search.Wave-Music";
+				PRODUCT_BUNDLE_IDENTIFIER = "search.Wave-Music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -500,6 +506,7 @@
 			baseConfigurationReference = D783280CA611A76D44F6747C /* Pods-iTunes_Search.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4XLSSR63Y5;
 				INFOPLIST_FILE = iTunes_Search/Info.plist;
@@ -508,8 +515,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.search.Wave-Music";
+				PRODUCT_BUNDLE_IDENTIFIER = "search.Wave-Music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
