@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E266" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="SelectedAlbumModel" representedClassName="SelectedAlbumModel" syncable="YES" codeGenerationType="class">
         <attribute name="selectedSongUrl" optional="YES" attributeType="String"/>
         <attribute name="singerName" optional="YES" attributeType="String"/>
@@ -7,6 +7,7 @@
         <attribute name="songTitle" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeBluesData" representedClassName="YouTubeBluesData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -14,6 +15,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeDanceData" representedClassName="YouTubeDanceData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -21,6 +23,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeDataModel" representedClassName="YouTubeDataModel" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -28,6 +31,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeElectronicData" representedClassName="YouTubeElectronicData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -35,6 +39,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeHipHopData" representedClassName="YouTubeHipHopData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -42,6 +47,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeInstrumentalData" representedClassName="YouTubeInstrumentalData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -49,6 +55,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeJazzData" representedClassName="YouTubeJazzData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -56,6 +63,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubePopData" representedClassName="YouTubePopData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -63,6 +71,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeRBData" representedClassName="YouTubeRBData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -70,6 +79,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeRockData" representedClassName="YouTubeRockData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
         <attribute name="songDescription" optional="YES" attributeType="String"/>
@@ -78,15 +88,15 @@
     </entity>
     <elements>
         <element name="SelectedAlbumModel" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="YouTubeDataModel" positionX="-63" positionY="9" width="128" height="118"/>
-        <element name="YouTubeHipHopData" positionX="-63" positionY="36" width="128" height="118"/>
-        <element name="YouTubePopData" positionX="-54" positionY="45" width="128" height="118"/>
-        <element name="YouTubeRockData" positionX="-36" positionY="54" width="128" height="118"/>
-        <element name="YouTubeRBData" positionX="-18" positionY="63" width="128" height="118"/>
-        <element name="YouTubeDanceData" positionX="0" positionY="72" width="128" height="118"/>
-        <element name="YouTubeElectronicData" positionX="18" positionY="81" width="128" height="118"/>
-        <element name="YouTubeJazzData" positionX="36" positionY="90" width="128" height="118"/>
-        <element name="YouTubeInstrumentalData" positionX="-9" positionY="36" width="128" height="118"/>
-        <element name="YouTubeBluesData" positionX="0" positionY="45" width="128" height="118"/>
+        <element name="YouTubeBluesData" positionX="0" positionY="45" width="128" height="133"/>
+        <element name="YouTubeDanceData" positionX="0" positionY="72" width="128" height="133"/>
+        <element name="YouTubeDataModel" positionX="-63" positionY="9" width="128" height="133"/>
+        <element name="YouTubeElectronicData" positionX="18" positionY="81" width="128" height="133"/>
+        <element name="YouTubeHipHopData" positionX="-63" positionY="36" width="128" height="133"/>
+        <element name="YouTubeInstrumentalData" positionX="-9" positionY="36" width="128" height="133"/>
+        <element name="YouTubeJazzData" positionX="36" positionY="90" width="128" height="133"/>
+        <element name="YouTubePopData" positionX="-54" positionY="45" width="128" height="133"/>
+        <element name="YouTubeRBData" positionX="-18" positionY="63" width="128" height="133"/>
+        <element name="YouTubeRockData" positionX="-36" positionY="54" width="128" height="133"/>
     </elements>
 </model>

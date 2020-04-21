@@ -13,15 +13,10 @@ import AVKit
 import WebKit
 class YouTubeViewController: UIViewController, WKNavigationDelegate {
     
-    
-    @IBOutlet weak var loadYouTubeVideo: WKWebView?
-    
-    
-    
     var genreTitle: Video?
     var youTubeVideoWebView: WKWebView!
 
-    
+      var getYouTubeData  = GetSelectedPlayList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +26,10 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate {
         youTubeVideoWebView = WKWebView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 350), configuration: webConfiguration)
         self.view.addSubview(youTubeVideoWebView)
         loadYouTubeVideoUrl()
+//        getYouTubeData.getVideos(genreType: genreTitle?.videoPlaylistId) { (req, error) in
+//            print(req)
+//        }
+        print(genreTitle?.videoDescription)
     }
     
     

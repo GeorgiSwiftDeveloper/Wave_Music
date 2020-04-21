@@ -14,10 +14,5 @@ struct Video {
     var videoDescription = String()
     var videoPlaylistId = String()
     var videoImageUrl = String()
-    
-//    init(videoId: String,videoTitle:String,videoDescription:String,videoPlaylistId:String) {
-//        self.videoId = videoId
-//        self.videoTitle = videoTitle
-//
-//    }
+    var channelId = String()
 }

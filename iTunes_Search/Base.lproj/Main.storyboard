@@ -215,7 +215,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" image="music.note.list" catalog="system" selectedImage="music.note.list" id="oOB-5x-u6s"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="music.note" catalog="system" selectedImage="music.note" id="oOB-5x-u6s"/>
                     <navigationItem key="navigationItem" id="bNe-j1-HrP"/>
                     <connections>
                         <outlet property="containerViewController" destination="IRR-or-fSc" id="evH-eG-pCQ"/>
@@ -400,11 +400,11 @@
             </objects>
             <point key="canvasLocation" x="2823.1999999999998" y="204.67980295566502"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Genre Library-->
         <scene sceneID="82d-fc-TeJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Htc-C7-YKe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="Jkj-oR-d6w"/>
+                    <tabBarItem key="tabBarItem" title="Genre Library" image="music.note.list" catalog="system" selectedImage="music.note.list" id="Jkj-oR-d6w"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cpQ-6Z-15w">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -510,30 +510,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSS-0L-cvM">
-                                <rect key="frame" x="0.0" y="88" width="375" height="305"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sk8-FM-MEN">
+                                <rect key="frame" x="0.0" y="364" width="375" height="448"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="305" id="2pe-fM-0eP"/>
+                                    <constraint firstAttribute="height" constant="448" id="K0Y-yq-k10"/>
                                 </constraints>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="88" id="spf-S8-8nh">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="88"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="spf-S8-8nh" id="tjM-g2-xAu">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="dSS-0L-cvM" firstAttribute="leading" secondItem="Bld-Bi-Xt9" secondAttribute="leading" id="Agv-xl-v4m"/>
-                            <constraint firstItem="dSS-0L-cvM" firstAttribute="top" secondItem="Bld-Bi-Xt9" secondAttribute="top" id="KkO-7W-Oe0"/>
-                            <constraint firstItem="dSS-0L-cvM" firstAttribute="trailing" secondItem="Bld-Bi-Xt9" secondAttribute="trailing" id="soo-d1-Fga"/>
+                            <constraint firstItem="Sk8-FM-MEN" firstAttribute="leading" secondItem="Bld-Bi-Xt9" secondAttribute="leading" id="0jb-Nr-kA1"/>
+                            <constraint firstItem="Sk8-FM-MEN" firstAttribute="trailing" secondItem="Bld-Bi-Xt9" secondAttribute="trailing" id="8yQ-9G-69Z"/>
+                            <constraint firstAttribute="bottom" secondItem="Sk8-FM-MEN" secondAttribute="bottom" id="Pof-Yw-0He"/>
+                            <constraint firstItem="Sk8-FM-MEN" firstAttribute="centerX" secondItem="yOF-IO-Oqn" secondAttribute="centerX" id="xze-Wh-mBl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bld-Bi-Xt9"/>
                     </view>
                     <navigationItem key="navigationItem" id="nAB-gf-aW6"/>
-                    <connections>
-                        <outlet property="loadYouTubeVideo" destination="dSS-0L-cvM" id="aMp-RP-uvo"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9N-5T-jyP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1102,6 +1106,7 @@
         <image name="film.fill" catalog="system" width="128" height="93"/>
         <image name="icon-hamburger" width="22" height="16"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="music.note" catalog="system" width="97" height="128"/>
         <image name="music.note.list" catalog="system" width="128" height="113"/>
         <image name="radiowaves.left" catalog="system" width="90" height="128"/>
         <image name="rock" width="1080" height="1620"/>

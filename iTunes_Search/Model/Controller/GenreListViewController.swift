@@ -64,7 +64,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         topGenreLabelText.text  = "Top \(genreTitle!.genreTitle) Song's"
         genreTableView.delegate = self
         genreTableView.dataSource = self
-//        print(genreTitle?.genreTitle)
         if isEmpty{
             self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle) { (loadVideolist, error) in
                 if error != nil {
@@ -78,8 +77,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                             let image =  self.videoArray[songIndex].videoImageUrl
                             let playlistId = self.videoArray[songIndex].videoPlaylistId
                             let videoId =  self.videoArray[songIndex].videoId
+                            let channelId =  self.videoArray[songIndex].channelId
                             
-                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle)
+
+                            
+                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle, channelId: channelId)
                             
                         }
                         self.genreTableView.reloadData()
@@ -93,6 +95,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 }else{
                     if videoList != nil {
                         self.videoArray.append(videoList!)
+//                        print(videoList?.channelId as Any)
                         self.genreTableView.reloadData()
                     }
                 }
@@ -101,7 +104,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String) {
+    func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String, channelId: String) {
         switch genreTitle {
         case "Rap":
             entityName = "YouTubeDataModel"
@@ -133,6 +136,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         newEntity.setValue(videoId, forKey: "videoId")
         newEntity.setValue(description, forKey: "songDescription")
         newEntity.setValue(playlistId, forKey: "playListId")
+        newEntity.setValue(channelId, forKey: "channelId")
         do {
             try context?.save()
         } catch {
@@ -176,7 +180,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 let videoId = data.value(forKey: "videoId") as! String
                 let songDescription = data.value(forKey: "songDescription") as! String
                 let playlistId = data.value(forKey: "playListId") as! String
-                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image)
+                let channelId = data.value(forKey: "channelId") as! String
+                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image, channelId:channelId)
                 loadVideoList(fetchedVideoList,nil)
             }
             
@@ -185,12 +190,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             print("Failed")
         }
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videoArray.count
@@ -210,25 +209,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
 //           let selectedIndexRow = tableView.indexPathForSelectedRow
 //        let selectedCell = self.genreTableView.cellForRow(at: selectedIndexRow!) as! GenreVideoTabletiewCell
         let selectedVideoId = videoArray[indexPath.row]
-           print(selectedVideoId.videoId)
+//           print(selectedVideoId.videoId)
         self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
-//           selectedIndex = indexPath.row
-//           tableView.reloadData()
-           
-//           //        self.startAnimatePlayer()
-//           selectedSong = favoriteAlbum[indexPath.row].previewUrl!
-//           self.containerViewController.isHidden = false
-//
-//           UserDefaults.standard.set(selectedCell.artist, forKey: "artist")
-//           UserDefaults.standard.set(selectedCell.title, forKey: "title")
-//           UserDefaults.standard.set(selectedCell.artworkURL, forKey: "image")
-//           UserDefaults.standard.set(audioPlayer.volume, forKey: "volume")
-//           NotificationCenter.default.post(name: Notification.Name("getValueFromSelectedRow"), object: nil)
-//           let thickness: CGFloat = 3.0
-//           let topBorder = CALayer()
-//           topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.containerViewController.frame.size.width, height: thickness)
-//           topBorder.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7027655291)
-//           containerViewController.layer.addSublayer(topBorder)
        }
     
     
