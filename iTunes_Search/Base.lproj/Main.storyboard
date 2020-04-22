@@ -511,11 +511,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="110" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zkl-jD-esT">
-                                <rect key="frame" x="0.0" y="374" width="375" height="438"/>
+                                <rect key="frame" x="0.0" y="348" width="375" height="464"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="438" id="ZfR-y0-PNC"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="youTubeCell" rowHeight="110" id="5hG-Ss-m4l" customClass="YouTubeTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="110"/>
@@ -556,19 +553,34 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBG-mk-yGL">
+                                <rect key="frame" x="0.0" y="88" width="375" height="250"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="yzR-r2-deV"/>
+                                </constraints>
+                                <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="zkl-jD-esT" firstAttribute="trailing" secondItem="Bld-Bi-Xt9" secondAttribute="trailing" id="BRy-y1-mZU"/>
                             <constraint firstAttribute="bottom" secondItem="zkl-jD-esT" secondAttribute="bottom" id="CoO-r7-qpG"/>
+                            <constraint firstItem="mBG-mk-yGL" firstAttribute="top" secondItem="Bld-Bi-Xt9" secondAttribute="top" id="MpP-KB-gw2"/>
+                            <constraint firstItem="zkl-jD-esT" firstAttribute="top" secondItem="mBG-mk-yGL" secondAttribute="bottom" constant="10" id="QCt-ie-Of5"/>
+                            <constraint firstItem="mBG-mk-yGL" firstAttribute="trailing" secondItem="Bld-Bi-Xt9" secondAttribute="trailing" id="dMJ-MC-NMo"/>
+                            <constraint firstItem="mBG-mk-yGL" firstAttribute="leading" secondItem="Bld-Bi-Xt9" secondAttribute="leading" id="m59-as-ARM"/>
                             <constraint firstItem="zkl-jD-esT" firstAttribute="leading" secondItem="Bld-Bi-Xt9" secondAttribute="leading" id="z70-dR-DmF"/>
-                            <constraint firstItem="zkl-jD-esT" firstAttribute="centerX" secondItem="Bld-Bi-Xt9" secondAttribute="centerX" id="zra-uK-Yns"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bld-Bi-Xt9"/>
                     </view>
                     <navigationItem key="navigationItem" id="nAB-gf-aW6"/>
                     <connections>
                         <outlet property="selectedyouTubeVideoTableView" destination="zkl-jD-esT" id="bqZ-Vr-4Ty"/>
+                        <outlet property="youTubeWKWebView" destination="mBG-mk-yGL" id="xvW-aK-aOs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9N-5T-jyP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

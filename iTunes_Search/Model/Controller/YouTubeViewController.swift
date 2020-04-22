@@ -18,14 +18,13 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     
     var genreVideoID: Video?
     var selectedGenreTitle: GenreModel?
-    
-    var youTubeVideoWebView: WKWebView!
     var getYouTubeData  = YouTubeVideoConnection()
     var videoArray = [Video]()
     
     var entityName = String()
     
     @IBOutlet weak var selectedyouTubeVideoTableView: UITableView!
+    @IBOutlet weak var youTubeWKWebView: WKWebView!
     
     
     var isEmpty: Bool {
@@ -67,53 +66,52 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
         let webConfiguration = WKWebViewConfiguration()
         webConfiguration.allowsInlineMediaPlayback = true
         webConfiguration.mediaTypesRequiringUserActionForPlayback = []
-        youTubeVideoWebView = WKWebView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 350), configuration: webConfiguration)
-        self.view.addSubview(youTubeVideoWebView)
+        self.view.addSubview(youTubeWKWebView)
         
         loadYouTubeVideoUrl()
         
         selectedyouTubeVideoTableView.delegate = self
         selectedyouTubeVideoTableView.dataSource = self
         print(selectedGenreTitle?.genreTitle)
-//        if isEmpty{
-//            self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle, selectedViewController: "YouTubeViewController") { (loadVideolist, error) in
-//                if error != nil {
-//                    print(error?.localizedDescription as Any)
-//                }else{
-//                    DispatchQueue.main.async{
-//                        self.videoArray = loadVideolist!
-//                        for songIndex in 0..<self.videoArray.count{
-//                            let title =   self.videoArray[songIndex].videoTitle
-//                            let description =  self.videoArray[songIndex].videoDescription
-//                            let image =  self.videoArray[songIndex].videoImageUrl
-//                            let playlistId = self.videoArray[songIndex].videoPlaylistId
-//                            let videoId =  self.videoArray[songIndex].videoId
-//                            let channelId =  self.videoArray[songIndex].channelId
-//                            let genreTitle = self.videoArray[songIndex].genreTitle
-//
-//                            print(genreTitle)
-//
-//
-//                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle, channelId: channelId)
-//
-//                        }
-//                        self.selectedyouTubeVideoTableView.reloadData()
-//                    }
-//                }
-//            }
-//        }else{
-//            self.fetchFromCoreData { (videoList, error) in
-//                if error != nil {
-//                    print(error?.localizedDescription as Any)
-//                }else{
-//                    if videoList != nil {
-//                        self.videoArray.append(videoList!)
-//                        self.selectedyouTubeVideoTableView.reloadData()
-//                    }
-//                }
-//            }
-//
-//        }
+        if isEmpty{
+            self.getYouTubeData.getFeedVideos(genreType: self.selectedGenreTitle!.genreTitle, selectedViewController: "YouTubeViewController") { (loadVideolist, error) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }else{
+                    DispatchQueue.main.async{
+                        self.videoArray = loadVideolist!
+                        for songIndex in 0..<self.videoArray.count{
+                            let title =   self.videoArray[songIndex].videoTitle
+                            let description =  self.videoArray[songIndex].videoDescription
+                            let image =  self.videoArray[songIndex].videoImageUrl
+                            let playlistId = self.videoArray[songIndex].videoPlaylistId
+                            let videoId =  self.videoArray[songIndex].videoId
+                            let channelId =  self.videoArray[songIndex].channelId
+                            let genreTitle = self.videoArray[songIndex].genreTitle
+
+                            print(genreTitle)
+
+
+                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.selectedGenreTitle!.genreTitle, channelId: channelId)
+
+                        }
+                        self.selectedyouTubeVideoTableView.reloadData()
+                    }
+                }
+            }
+        }else{
+            self.fetchFromCoreData { (videoList, error) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }else{
+                    if videoList != nil {
+                        self.videoArray.append(videoList!)
+                        self.selectedyouTubeVideoTableView.reloadData()
+                    }
+                }
+            }
+
+        }
     }
     
     
@@ -245,6 +243,6 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
                 "</div>" +
                 "</body>" +
         "</html>"
-        youTubeVideoWebView.loadHTMLString(html, baseURL: URL(string: "http://www.youtube.com"))
+        youTubeWKWebView.loadHTMLString(html, baseURL: URL(string: "http://www.youtube.com"))
     }
 }
