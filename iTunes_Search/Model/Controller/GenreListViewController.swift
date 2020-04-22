@@ -215,7 +215,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "youTubeSegue" {
               let genreVC = segue.destination as! YouTubeViewController
-                genreVC.genreTitle  = sender as? Video
+                genreVC.genreVideoID  = sender as? Video
+                genreVC.selectedGenreTitle = genreTitle
             }
         }
     

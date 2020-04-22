@@ -16,8 +16,9 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     
     
     
-    var genreTitle: Video?
-    var genre: GenreModel?
+    var genreVideoID: Video?
+    var selectedGenreTitle: GenreModel?
+    
     var youTubeVideoWebView: WKWebView!
     var getYouTubeData  = YouTubeVideoConnection()
     var videoArray = [Video]()
@@ -28,7 +29,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     
     
     var isEmpty: Bool {
-        switch genreTitle?.genreTitle {
+        switch selectedGenreTitle?.genreTitle {
         case "Rap":
             entityName = "YouTubeDataModel"
         case "Hip-Hop":
@@ -73,7 +74,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
         
         selectedyouTubeVideoTableView.delegate = self
         selectedyouTubeVideoTableView.dataSource = self
-        print(genreTitle?.genreTitle)
+        print(selectedGenreTitle?.genreTitle)
 //        if isEmpty{
 //            self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle, selectedViewController: "YouTubeViewController") { (loadVideolist, error) in
 //                if error != nil {
@@ -160,7 +161,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
-        switch genreTitle?.genreTitle {
+        switch selectedGenreTitle?.genreTitle {
         case "Rap":
             entityName = "YouTubeDataModel"
         case "Hip-Hop":
@@ -239,7 +240,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
                 "   }" +
                 "</script>" +
                 "<div style='justify-content: center; align-items: center; display: flex; height: 100%;'>" +
-                "<iframe id='playerId' type='text/html' width='100%' height='100%' src='https://www.youtube.com/embed/\(genreTitle!.videoId)?" +
+                "<iframe id='playerId' type='text/html' width='100%' height='100%' src='https://www.youtube.com/embed/\(genreVideoID!.videoId)?" +
                 "enablejsapi=1&rel=0&playsinline=1&autoplay=0&showinfo=0&modestbranding=1' frameborder='0'>" +
                 "</div>" +
                 "</body>" +
