@@ -21,8 +21,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var videoArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
 
-  
-    
     var entityName = String()
     
     var isEmpty: Bool {

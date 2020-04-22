@@ -13,15 +13,14 @@ import AVKit
 import WebKit
 import CoreData
 class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableViewDelegate, UITableViewDataSource {
-    
-    
-    
+
     var genreVideoID: Video?
     var selectedGenreTitle: GenreModel?
     var getYouTubeData  = YouTubeVideoConnection()
     var videoArray = [Video]()
-    
+    var selectedIndex = Int()
     var entityName = String()
+    var checkIfRowisSelected = Bool()
     
     @IBOutlet weak var selectedyouTubeVideoTableView: UITableView!
     @IBOutlet weak var youTubeWKWebView: WKWebView!
@@ -72,6 +71,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
         
         selectedyouTubeVideoTableView.delegate = self
         selectedyouTubeVideoTableView.dataSource = self
+        checkIfRowisSelected = false
         print(selectedGenreTitle?.genreTitle)
         if isEmpty{
             self.getYouTubeData.getFeedVideos(genreType: self.selectedGenreTitle!.genreTitle, selectedViewController: "YouTubeViewController") { (loadVideolist, error) in
@@ -212,8 +212,33 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "youTubeCell", for: indexPath) as? YouTubeTableViewCell {
-            cell.configureGenreCell(videoArray[indexPath.row])
-
+            DispatchQueue.main.async {
+                if self.checkIfRowisSelected == false {
+                    if(self.genreVideoID?.videoId == self.videoArray[indexPath.row].videoId)
+                    {
+                        cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 0.8004936733)
+                        cell.singerNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                    }
+                    else
+                    {
+                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        cell.singerNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                    }
+                }else{
+                    if(indexPath.row == self.selectedIndex)
+                    {
+                        cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 0.8004936733)
+                        cell.singerNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                        
+                    }
+                    else
+                    {
+                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        cell.singerNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                    }
+                }
+            }
+               cell.configureGenreCell(videoArray[indexPath.row])
             return cell
         }else {
             return YouTubeTableViewCell()
@@ -221,7 +246,14 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         let selectedVideoId = videoArray[indexPath.row]
+        let selectedVideoId = videoArray[indexPath.row]
+        let selectedIndexRow = tableView.indexPathForSelectedRow
+    
+        selectedIndex = indexPath.row
+        checkIfRowisSelected = true
+        
+        selectedyouTubeVideoTableView.reloadData()
+        
         genreVideoID?.genreTitle = selectedVideoId.videoId
         loadYouTubeVideoUrl(genreVidoID: selectedVideoId.videoId)
         }

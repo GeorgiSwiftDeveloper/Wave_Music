@@ -514,7 +514,7 @@
                                 <rect key="frame" x="0.0" y="348" width="375" height="464"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="youTubeCell" rowHeight="110" id="5hG-Ss-m4l" customClass="YouTubeTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="youTubeCell" rowHeight="110" id="5hG-Ss-m4l" customClass="YouTubeTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5hG-Ss-m4l" id="rjQ-dF-onx">
@@ -546,6 +546,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="EXT-d4-bNO" secondAttribute="bottom" constant="35" id="gHv-rn-bBB"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="0.78806796395705525" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="singerNameLabel" destination="EXT-d4-bNO" id="RBN-2n-Jft"/>
                                             <outlet property="videoImageView" destination="Bat-Pi-Jiz" id="Oiy-E0-BX0"/>
