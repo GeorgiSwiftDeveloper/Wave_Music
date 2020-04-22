@@ -12,9 +12,10 @@ class GetSelectedPlayList {
      let API_KEY = "AIzaSyBI-iZ4gcuK_TB8vfRTLBdQjH2PvfX8GE4"
      var videoArray = [Video]()
     
-     let youTubeUrl = "https://www.googleapis.com/youtube/v3/playlistItems?maxResults=10"
+     let youTubeUrl = "https://www.googleapis.com/youtube/v3/playlists?maxResults=5"
             func getVideos(genreType: String?, loadStationList: @escaping(_ returnStationList: [Video]?, _ returnError: Error? ) -> ()) {
-                let parameters = ["part":"snippet","playlistId":genreType, "key":API_KEY]
+                let a  = "https://www.googleapis.com/youtube/v3/playlists"
+                let parameters = ["part":"snippet","channelId":"UC0C-w0YjGpqDXGB8IHb662A", "key":API_KEY]
                 AF.request(youTubeUrl, parameters: parameters).responseJSON { response in
                     if let JSON = response.value as? [String: Any] {
                         print(JSON)

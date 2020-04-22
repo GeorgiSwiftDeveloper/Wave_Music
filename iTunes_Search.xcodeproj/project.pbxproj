@@ -39,6 +39,7 @@
 		6AD0FD31243C2DF4006BF086 /* RadioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD0FD30243C2DF4006BF086 /* RadioModel.swift */; };
 		6AD0FD35243C426F006BF086 /* station.json in Resources */ = {isa = PBXBuildFile; fileRef = 6AD0FD34243C426E006BF086 /* station.json */; };
 		6AD0FD37243C4350006BF086 /* ReadDataFromStationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD0FD36243C4350006BF086 /* ReadDataFromStationJSON.swift */; };
+		6AD42A01245013BA00917123 /* YouTubeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD42A00245013BA00917123 /* YouTubeTableViewCell.swift */; };
 		A8145A3730B25A8A09E3F500 /* Pods_iTunes_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC53BCB27ABE631EC4C31ECC /* Pods_iTunes_Search.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		6AD0FD30243C2DF4006BF086 /* RadioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioModel.swift; sourceTree = "<group>"; };
 		6AD0FD34243C426E006BF086 /* station.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = station.json; sourceTree = "<group>"; };
 		6AD0FD36243C4350006BF086 /* ReadDataFromStationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDataFromStationJSON.swift; sourceTree = "<group>"; };
+		6AD42A00245013BA00917123 /* YouTubeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeTableViewCell.swift; sourceTree = "<group>"; };
 		D783280CA611A76D44F6747C /* Pods-iTunes_Search.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iTunes_Search.release.xcconfig"; path = "Pods/Target Support Files/Pods-iTunes_Search/Pods-iTunes_Search.release.xcconfig"; sourceTree = "<group>"; };
 		EC53BCB27ABE631EC4C31ECC /* Pods_iTunes_Search.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iTunes_Search.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -169,6 +171,7 @@
 			children = (
 				6A1375EA24344C760086113D /* FavoriteAlbumTableViewCell.swift */,
 				6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */,
+				6AD42A00245013BA00917123 /* YouTubeTableViewCell.swift */,
 				6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */,
 				6ABFE2262439099C000217B5 /* FavoriteSongsCollectionViewCell.swift */,
 				6AD0FD2C243C2B30006BF086 /* StationRadioTableViewCell.swift */,
@@ -330,6 +333,7 @@
 				6AD0FD37243C4350006BF086 /* ReadDataFromStationJSON.swift in Sources */,
 				6A1375DE2433F7370086113D /* AlbumModel.swift in Sources */,
 				6A48ECC424366485007A82D6 /* FutureMuviesModel.swift in Sources */,
+				6AD42A01245013BA00917123 /* YouTubeTableViewCell.swift in Sources */,
 				6AD0FD2D243C2B30006BF086 /* StationRadioTableViewCell.swift in Sources */,
 				6A48ECC22436643B007A82D6 /* FutureMuviesTableViewCell.swift in Sources */,
 				6AD0FD31243C2DF4006BF086 /* RadioModel.swift in Sources */,

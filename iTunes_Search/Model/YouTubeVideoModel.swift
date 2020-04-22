@@ -15,4 +15,5 @@ struct Video {
     var videoPlaylistId = String()
     var videoImageUrl = String()
     var channelId = String()
+    var genreTitle = String()
 }

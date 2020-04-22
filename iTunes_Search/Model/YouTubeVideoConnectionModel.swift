@@ -10,44 +10,79 @@ import Foundation
 import Alamofire
 
 class  YouTubeVideoConnection {
-    let API_KEY = "AIzaSyASK8aArpUEg1OnKYTSYUoqyHqBQicQfHE"
+    var API_KEY = "AIzaSyAqWrRqVd7SQy5VmIKHyQ_ocb7QQWQh47E"
     var UPLOADS_PLAYLIST_ID = ""
     
-    let YouTubeUrl = "https://www.googleapis.com/youtube/v3/playlistItems?maxResults=50"
+    let YouTubeUrl = "https://www.googleapis.com/youtube/v3/playlistItems?maxResults=5"
     
     var genreTitle: GenreModel?
     var videoArray = [Video]()
     
-    func getFeedVideos(genreType: String?, loadStationList: @escaping(_ returnStationList: [Video]?, _ returnError: Error? ) -> ()) {
+    func getFeedVideos(genreType: String?,selectedViewController: UIViewController, loadStationList: @escaping(_ returnStationList: [Video]?, _ returnError: Error? ) -> ()) {
+//        let genreListViewController = GenreListViewController()
+//        let youTubeViewController = YouTubeViewController()
         
-        switch genreType {
-        case "Rap":
-            UPLOADS_PLAYLIST_ID = "PL3-sRm8xAzY-556lOpSGH6wVzyofoGpzU"
-        case "Hip-Hop":
-            UPLOADS_PLAYLIST_ID = "PLAPo1R_GVX4IZGbDvUH60bOwIOnZplZzM"
-        case "Pop":
-            UPLOADS_PLAYLIST_ID = "PLMC9KNkIncKtGvr2kFRuXBVmBev6cAJ2u"
-        case "Classic Rock":
-            UPLOADS_PLAYLIST_ID = "PLNxOe-buLm6cz8UQ-hyG1nm3RTNBUBv3K"
-        case "R&B":
-            UPLOADS_PLAYLIST_ID = "PLFbWuc6jwPGeqFkoDBq87CcmlurwrlEGv"
-        case "Dance":
-            UPLOADS_PLAYLIST_ID = "PL64E6BD94546734D8"
-        case "Electronic":
-            UPLOADS_PLAYLIST_ID = "PLFPg_IUxqnZNnACUGsfn50DySIOVSkiKI"
-        case "Jazz":
-            UPLOADS_PLAYLIST_ID = "PL8F6B0753B2CCA128"
-        case "Instrumental":
-            UPLOADS_PLAYLIST_ID = "PLsUMoyJKBqcn7dk3jC3i1023Ie-BntpgF"
-        case "Blues":
-            UPLOADS_PLAYLIST_ID = "PLjzeyhEA84sQKuXp-rpM1dFuL2aQM_a3S"
+        switch selectedViewController {
+        case GenreListViewController():
+            API_KEY = "AIzaSyCFMsnq1bPn9azmGJXWorouExetqynFgok"
+            switch genreType {
+            case "Rap":
+                UPLOADS_PLAYLIST_ID = "PL3-sRm8xAzY-556lOpSGH6wVzyofoGpzU"
+            case "Hip-Hop":
+                UPLOADS_PLAYLIST_ID = "PLAPo1R_GVX4IZGbDvUH60bOwIOnZplZzM"
+            case "Pop":
+                UPLOADS_PLAYLIST_ID = "PLMC9KNkIncKtGvr2kFRuXBVmBev6cAJ2u"
+            case "Classic Rock":
+                UPLOADS_PLAYLIST_ID = "PLNxOe-buLm6cz8UQ-hyG1nm3RTNBUBv3K"
+            case "R&B":
+                UPLOADS_PLAYLIST_ID = "PLFbWuc6jwPGeqFkoDBq87CcmlurwrlEGv"
+            case "Dance":
+                UPLOADS_PLAYLIST_ID = "PL64E6BD94546734D8"
+            case "Electronic":
+                UPLOADS_PLAYLIST_ID = "PLFPg_IUxqnZNnACUGsfn50DySIOVSkiKI"
+            case "Jazz":
+                UPLOADS_PLAYLIST_ID = "PL8F6B0753B2CCA128"
+            case "Instrumental":
+                UPLOADS_PLAYLIST_ID = "PLsUMoyJKBqcn7dk3jC3i1023Ie-BntpgF"
+            case "Blues":
+                UPLOADS_PLAYLIST_ID = "PLjzeyhEA84sQKuXp-rpM1dFuL2aQM_a3S"
+            default:
+                break
+            }
+        case YouTubeViewController():
+            API_KEY = "AIzaSyCFMsnq1bPn9azmGJXWorouExetqynFgokR"
+            switch genreType {
+            case "Rap":
+                UPLOADS_PLAYLIST_ID = "PL-FVH5VWgRPHNz24zZ5_FLHQWoidN6O1d"
+            case "Hip-Hop":
+                UPLOADS_PLAYLIST_ID = "PLRZlMhcYkA2EQSwaeOeZnJ1nOfpZTsMuS"
+            case "Pop":
+                UPLOADS_PLAYLIST_ID = "PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10"
+            case "Classic Rock":
+                UPLOADS_PLAYLIST_ID = "PLNxOe-buLm6cz8UQ-hyG1nm3RTNBUBv3K"
+            case "R&B":
+                UPLOADS_PLAYLIST_ID = "PLplXQ2cg9B_okySP1Z7MTETWHRKCj1fJ-"
+            case "Dance":
+                UPLOADS_PLAYLIST_ID = "PLWlTX25IDqIwqowTsJmGhqxUWU_6qgG1W"
+            case "Electronic":
+                UPLOADS_PLAYLIST_ID = "PLw6eTMMKY24QLYfmrU2rB8x-lP5Fas2dY"
+            case "Jazz":
+                UPLOADS_PLAYLIST_ID = "PLGBuKfnErZlC8nMxwcNf7oaXhGfAnTwgt"
+            case "Instrumental":
+                UPLOADS_PLAYLIST_ID = "RDQMWJ8bhfD-OBA"
+            case "Blues":
+                UPLOADS_PLAYLIST_ID = "PL5NLp0DgIm9etmf1l7LdyyYQSGPUPngcB"
+            default:
+                break
+            }
         default:
             break
         }
+        
         let parameters = ["part":"snippet","playlistId":UPLOADS_PLAYLIST_ID, "key":API_KEY]
         AF.request(YouTubeUrl, parameters: parameters).responseJSON { response in
             if let JSON = response.value as? [String: Any] {
-//                print(JSON)
+                print(JSON)
                 let listOfVideos = JSON["items"] as! NSArray
                 var videoObjArray = [Video]()
                 
@@ -59,7 +94,7 @@ class  YouTubeVideoConnection {
                     youTubeVideo.videoPlaylistId =  (videos as AnyObject).value(forKeyPath:"snippet.playlistId") as! String
                     youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.medium.url") as! String
                     youTubeVideo.channelId =  (videos as AnyObject).value(forKeyPath:"snippet.channelId") as! String
-                    
+                    youTubeVideo.genreTitle = genreType!
                     videoObjArray.append(youTubeVideo)
                 }
                 

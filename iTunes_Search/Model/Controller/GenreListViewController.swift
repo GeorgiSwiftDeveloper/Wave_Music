@@ -21,8 +21,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var genreTitle: GenreModel?
     var videoArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
-    var arrrayInt = Int()
-    var checkifDataIsEmpty = true
+  
+  
     
     var entityName = String()
     
@@ -65,7 +65,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         genreTableView.delegate = self
         genreTableView.dataSource = self
         if isEmpty{
-            self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle) { (loadVideolist, error) in
+            self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle, selectedViewController: self) { (loadVideolist, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }else{
@@ -78,7 +78,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                             let playlistId = self.videoArray[songIndex].videoPlaylistId
                             let videoId =  self.videoArray[songIndex].videoId
                             let channelId =  self.videoArray[songIndex].channelId
+                            let genreTitle = self.videoArray[songIndex].genreTitle
                             
+                            print(genreTitle)
 
                             
                             self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle, channelId: channelId)
@@ -95,7 +97,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 }else{
                     if videoList != nil {
                         self.videoArray.append(videoList!)
-//                        print(videoList?.channelId as Any)
                         self.genreTableView.reloadData()
                     }
                 }
@@ -198,6 +199,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "genreCell", for: indexPath) as? GenreVideoTableViewCell {
             cell.configureGenreCell(videoArray[indexPath.row])
+            print(videoArray[indexPath.row].channelId)
             return cell
         }else {
             return GenreVideoTableViewCell()
@@ -206,10 +208,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//           let selectedIndexRow = tableView.indexPathForSelectedRow
-//        let selectedCell = self.genreTableView.cellForRow(at: selectedIndexRow!) as! GenreVideoTabletiewCell
         let selectedVideoId = videoArray[indexPath.row]
-//           print(selectedVideoId.videoId)
         self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
        }
     
