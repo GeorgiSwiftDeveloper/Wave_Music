@@ -68,7 +68,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
         webConfiguration.mediaTypesRequiringUserActionForPlayback = []
         self.view.addSubview(youTubeWKWebView)
         
-        loadYouTubeVideoUrl()
+        loadYouTubeVideoUrl(genreVidoID: genreVideoID!.videoId)
         
         selectedyouTubeVideoTableView.delegate = self
         selectedyouTubeVideoTableView.dataSource = self
@@ -213,15 +213,22 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "youTubeCell", for: indexPath) as? YouTubeTableViewCell {
             cell.configureGenreCell(videoArray[indexPath.row])
-            print(videoArray[indexPath.row].channelId)
+
             return cell
         }else {
             return YouTubeTableViewCell()
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         let selectedVideoId = videoArray[indexPath.row]
+        genreVideoID?.genreTitle = selectedVideoId.videoId
+        loadYouTubeVideoUrl(genreVidoID: selectedVideoId.videoId)
+        }
     
-    func loadYouTubeVideoUrl(){
+    
+    
+    func loadYouTubeVideoUrl(genreVidoID: String){
         let html =
             "<html>" +
                 "<body style='margin: 0;'>" +
@@ -238,7 +245,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
                 "   }" +
                 "</script>" +
                 "<div style='justify-content: center; align-items: center; display: flex; height: 100%;'>" +
-                "<iframe id='playerId' type='text/html' width='100%' height='100%' src='https://www.youtube.com/embed/\(genreVideoID!.videoId)?" +
+                "<iframe id='playerId' type='text/html' width='100%' height='100%' src='https://www.youtube.com/embed/\(genreVidoID)?" +
                 "enablejsapi=1&rel=0&playsinline=1&autoplay=0&showinfo=0&modestbranding=1' frameborder='0'>" +
                 "</div>" +
                 "</body>" +
