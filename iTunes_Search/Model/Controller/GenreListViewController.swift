@@ -11,7 +11,6 @@ import Alamofire
 import CoreData
 import YouTubePlayer
 
-//let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 class GenreListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
@@ -21,7 +20,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var genreTitle: GenreModel?
     var videoArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
-  
+
   
     
     var entityName = String()
@@ -65,7 +64,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         genreTableView.delegate = self
         genreTableView.dataSource = self
         if isEmpty{
-            self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle, selectedViewController: self) { (loadVideolist, error) in
+            self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }else{

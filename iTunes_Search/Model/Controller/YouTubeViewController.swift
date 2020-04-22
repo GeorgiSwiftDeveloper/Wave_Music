@@ -73,45 +73,46 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
         
         selectedyouTubeVideoTableView.delegate = self
         selectedyouTubeVideoTableView.dataSource = self
-        if isEmpty{
-            self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle, selectedViewController: self) { (loadVideolist, error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }else{
-                    DispatchQueue.main.async{
-                        self.videoArray = loadVideolist!
-                        for songIndex in 0..<self.videoArray.count{
-                            let title =   self.videoArray[songIndex].videoTitle
-                            let description =  self.videoArray[songIndex].videoDescription
-                            let image =  self.videoArray[songIndex].videoImageUrl
-                            let playlistId = self.videoArray[songIndex].videoPlaylistId
-                            let videoId =  self.videoArray[songIndex].videoId
-                            let channelId =  self.videoArray[songIndex].channelId
-                            let genreTitle = self.videoArray[songIndex].genreTitle
-                            
-                            print(genreTitle)
-                            
-                            
-                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle, channelId: channelId)
-                            
-                        }
-                        self.selectedyouTubeVideoTableView.reloadData()
-                    }
-                }
-            }
-        }else{
-            self.fetchFromCoreData { (videoList, error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }else{
-                    if videoList != nil {
-                        self.videoArray.append(videoList!)
-                        self.selectedyouTubeVideoTableView.reloadData()
-                    }
-                }
-            }
-            
-        }
+        print(genreTitle?.genreTitle)
+//        if isEmpty{
+//            self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle, selectedViewController: "YouTubeViewController") { (loadVideolist, error) in
+//                if error != nil {
+//                    print(error?.localizedDescription as Any)
+//                }else{
+//                    DispatchQueue.main.async{
+//                        self.videoArray = loadVideolist!
+//                        for songIndex in 0..<self.videoArray.count{
+//                            let title =   self.videoArray[songIndex].videoTitle
+//                            let description =  self.videoArray[songIndex].videoDescription
+//                            let image =  self.videoArray[songIndex].videoImageUrl
+//                            let playlistId = self.videoArray[songIndex].videoPlaylistId
+//                            let videoId =  self.videoArray[songIndex].videoId
+//                            let channelId =  self.videoArray[songIndex].channelId
+//                            let genreTitle = self.videoArray[songIndex].genreTitle
+//
+//                            print(genreTitle)
+//
+//
+//                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle, channelId: channelId)
+//
+//                        }
+//                        self.selectedyouTubeVideoTableView.reloadData()
+//                    }
+//                }
+//            }
+//        }else{
+//            self.fetchFromCoreData { (videoList, error) in
+//                if error != nil {
+//                    print(error?.localizedDescription as Any)
+//                }else{
+//                    if videoList != nil {
+//                        self.videoArray.append(videoList!)
+//                        self.selectedyouTubeVideoTableView.reloadData()
+//                    }
+//                }
+//            }
+//
+//        }
     }
     
     

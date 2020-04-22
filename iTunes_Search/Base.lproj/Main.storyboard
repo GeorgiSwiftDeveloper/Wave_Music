@@ -525,14 +525,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="EXT-d4-bNO">
-                                                    <rect key="frame" x="124" y="11" width="236" height="64"/>
+                                                    <rect key="frame" x="114" y="11" width="246" height="64"/>
                                                     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bat-Pi-Jiz">
-                                                    <rect key="frame" x="15" y="5" width="99" height="99"/>
+                                                    <rect key="frame" x="5" y="5" width="99" height="99"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="99" id="Wdu-3l-2QJ"/>
                                                         <constraint firstAttribute="height" constant="99" id="psE-c6-ybA"/>
@@ -541,7 +541,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="Bat-Pi-Jiz" secondAttribute="bottom" constant="6" id="O5x-di-QQZ"/>
-                                                <constraint firstItem="Bat-Pi-Jiz" firstAttribute="leading" secondItem="rjQ-dF-onx" secondAttribute="leading" constant="15" id="QKR-9J-iHO"/>
+                                                <constraint firstItem="Bat-Pi-Jiz" firstAttribute="leading" secondItem="rjQ-dF-onx" secondAttribute="leading" constant="5" id="QKR-9J-iHO"/>
                                                 <constraint firstItem="EXT-d4-bNO" firstAttribute="top" secondItem="rjQ-dF-onx" secondAttribute="top" constant="11" id="QZv-8d-0qh"/>
                                                 <constraint firstItem="Bat-Pi-Jiz" firstAttribute="top" secondItem="rjQ-dF-onx" secondAttribute="top" constant="5" id="Yqx-d0-Rp3"/>
                                                 <constraint firstAttribute="trailing" secondItem="EXT-d4-bNO" secondAttribute="trailing" constant="15" id="evS-Dp-fYm"/>

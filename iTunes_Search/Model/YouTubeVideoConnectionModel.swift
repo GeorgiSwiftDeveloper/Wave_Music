@@ -18,13 +18,13 @@ class  YouTubeVideoConnection {
     var genreTitle: GenreModel?
     var videoArray = [Video]()
     
-    func getFeedVideos(genreType: String?,selectedViewController: UIViewController, loadStationList: @escaping(_ returnStationList: [Video]?, _ returnError: Error? ) -> ()) {
+    func getFeedVideos(genreType: String?,selectedViewController: String, loadStationList: @escaping(_ returnStationList: [Video]?, _ returnError: Error? ) -> ()) {
 //        let genreListViewController = GenreListViewController()
 //        let youTubeViewController = YouTubeViewController()
         
         switch selectedViewController {
-        case GenreListViewController():
-            API_KEY = "AIzaSyCFMsnq1bPn9azmGJXWorouExetqynFgok"
+        case "GenreListViewController":
+            API_KEY = "AIzaSyDnZJailNum2kVdCTUPpK80O8ERYBqbnX4"
             switch genreType {
             case "Rap":
                 UPLOADS_PLAYLIST_ID = "PL3-sRm8xAzY-556lOpSGH6wVzyofoGpzU"
@@ -49,8 +49,8 @@ class  YouTubeVideoConnection {
             default:
                 break
             }
-        case YouTubeViewController():
-            API_KEY = "AIzaSyCFMsnq1bPn9azmGJXWorouExetqynFgokR"
+        case "YouTubeViewController":
+            API_KEY = "AIzaSyDnZJailNum2kVdCTUPpK80O8ERYBqbnX4"
             switch genreType {
             case "Rap":
                 UPLOADS_PLAYLIST_ID = "PL-FVH5VWgRPHNz24zZ5_FLHQWoidN6O1d"
