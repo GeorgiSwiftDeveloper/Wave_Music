@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import CoreData
-import YouTubePlayer
+
 
 class GenreListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     

@@ -46,8 +46,8 @@
             filePath = "iTunes_Search/Model/Controller/GenreListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "fetchFromCoreData(loadVideoList:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,10 +78,10 @@
             filePath = "iTunes_Search/Model/YouTubeVideoConnectionModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "getFeedVideos(genreType:selectedViewController:loadStationList:)"
-            landmarkType = "7">
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -94,10 +94,10 @@
             filePath = "iTunes_Search/Model/YouTubeVideoConnectionModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "getFeedVideos(genreType:selectedViewController:loadStationList:)"
-            landmarkType = "7">
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
