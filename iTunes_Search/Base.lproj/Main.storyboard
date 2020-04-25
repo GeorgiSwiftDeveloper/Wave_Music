@@ -610,8 +610,8 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfG-4O-DM8">
-                                        <rect key="frame" x="15" y="115" width="345" height="95"/>
-                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="16"/>
+                                        <rect key="frame" x="15" y="135" width="345" height="75"/>
+                                        <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -620,7 +620,7 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="9Ym-rC-bxX" secondAttribute="bottom" id="2d6-c9-8Af"/>
                                     <constraint firstItem="mfG-4O-DM8" firstAttribute="centerX" secondItem="WYA-Us-1D2" secondAttribute="centerX" id="Q1M-ta-azC"/>
-                                    <constraint firstItem="mfG-4O-DM8" firstAttribute="top" secondItem="WYA-Us-1D2" secondAttribute="top" constant="115" id="WYo-hY-j2S"/>
+                                    <constraint firstItem="mfG-4O-DM8" firstAttribute="top" secondItem="WYA-Us-1D2" secondAttribute="top" constant="135" id="WYo-hY-j2S"/>
                                     <constraint firstItem="mfG-4O-DM8" firstAttribute="leading" secondItem="WYA-Us-1D2" secondAttribute="leading" constant="15" id="XOt-Vp-s0n"/>
                                     <constraint firstAttribute="height" constant="210" id="Y0c-ey-wfb"/>
                                     <constraint firstAttribute="bottom" secondItem="mfG-4O-DM8" secondAttribute="bottom" id="bvg-0n-wFM"/>
@@ -630,43 +630,49 @@
                                     <constraint firstAttribute="trailing" secondItem="mfG-4O-DM8" secondAttribute="trailing" constant="15" id="ryS-rv-QQM"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="85" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zZm-xs-mJN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zZm-xs-mJN">
                                 <rect key="frame" x="0.0" y="298" width="375" height="431"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="85" id="roF-El-Ktg">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="85"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addToLibraryCell" rowHeight="65" id="roF-El-Ktg" customClass="MyLibraryTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="roF-El-Ktg" id="SfX-2R-dWI">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Library" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9c-85-7Gu">
-                                                    <rect key="frame" x="58" y="10" width="110" height="65"/>
+                                                    <rect key="frame" x="63" y="0.0" width="110" height="65"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="110" id="Vh8-ob-Dcd"/>
                                                         <constraint firstAttribute="height" constant="65" id="vlR-Kd-wUK"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R3T-yY-Xjx">
-                                                    <rect key="frame" x="15" y="26" width="25" height="33"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tray.and.arrow.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="R3T-yY-Xjx">
+                                                    <rect key="frame" x="15" y="19.666666666666668" width="30" height="24.000000000000004"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" red="1" green="0.58431372550000005" blue="0.0" alpha="0.79843270710000003" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="cKh-bk-N1s"/>
-                                                        <constraint firstAttribute="width" constant="25" id="i7w-gd-HkV"/>
+                                                        <constraint firstAttribute="height" constant="30" id="cKh-bk-N1s"/>
+                                                        <constraint firstAttribute="width" constant="30" id="i7w-gd-HkV"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="R3T-yY-Xjx" secondAttribute="bottom" constant="15" id="9f8-39-7gn"/>
-                                                <constraint firstItem="R3T-yY-Xjx" firstAttribute="top" secondItem="SfX-2R-dWI" secondAttribute="topMargin" constant="15" id="dzl-eR-czZ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="R3T-yY-Xjx" secondAttribute="bottom" constant="10" id="9f8-39-7gn"/>
+                                                <constraint firstItem="R3T-yY-Xjx" firstAttribute="top" secondItem="SfX-2R-dWI" secondAttribute="topMargin" constant="10" id="dzl-eR-czZ"/>
                                                 <constraint firstItem="R3T-yY-Xjx" firstAttribute="leading" secondItem="SfX-2R-dWI" secondAttribute="leadingMargin" id="hSH-GD-rg0"/>
                                                 <constraint firstItem="U9c-85-7Gu" firstAttribute="leading" secondItem="R3T-yY-Xjx" secondAttribute="trailing" constant="18" id="qLK-8f-ngy"/>
                                                 <constraint firstItem="U9c-85-7Gu" firstAttribute="centerY" secondItem="R3T-yY-Xjx" secondAttribute="centerY" id="zW9-Pz-WvR"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="imageLabel" destination="R3T-yY-Xjx" id="Rm4-yV-HkS"/>
+                                            <outlet property="titleLabel" destination="U9c-85-7Gu" id="n8h-uh-UsD"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -1263,6 +1269,7 @@
         <image name="rock" width="1080" height="1620"/>
         <image name="star.circle" catalog="system" width="128" height="121"/>
         <image name="stationImage" width="120" height="75"/>
+        <image name="tray.and.arrow.down.fill" catalog="system" width="128" height="114"/>
         <image name="vol-max" width="16.666666030883789" height="14"/>
         <image name="vol-min" width="11" height="12.666666984558105"/>
     </resources>

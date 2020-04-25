@@ -23,6 +23,10 @@ class AddSelectedMusicToWaveViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "Cencel", style: .plain, target: self, action: #selector(goBackAction))
         backButton.image = UIImage(named: "")
         navigationItem.setLeftBarButton(backButton, animated: false)
+        
+        self.playlistTableView.delegate = self
+        self.playlistTableView.dataSource = self
+        
         let imageUrl = URL(string: selectedMusicImage)
               do{
                   let data:NSData = try NSData(contentsOf: imageUrl!)
@@ -39,14 +43,23 @@ class AddSelectedMusicToWaveViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+}
+
+extension AddSelectedMusicToWaveViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "addToLibraryCell", for: indexPath) as? MyLibraryTableViewCell {
+            cell.titleLabel.text = "My Library"
+            cell.imageLabel.image = UIImage(systemName: "tray.and.arrow.down.fill")
+                   return cell
+               }else {
+                   return MyLibraryTableViewCell()
+               }
+    }
+    
+    
 }
