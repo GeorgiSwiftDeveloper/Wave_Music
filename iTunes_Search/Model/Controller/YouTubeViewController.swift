@@ -210,8 +210,14 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     @IBAction func addToPlaylistAction(_ sender: UIBarButtonItem) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextViewController = storyBoard.instantiateViewController(withIdentifier: "nextView") as! AddSelectedMusicToWaveViewController
-        nextViewController.selectedMusicImage = selectedVideo?.videoImageUrl as! String
-        nextViewController.selectedMusicLabel = selectedVideo?.videoTitle as! String
+        if selectedVideo != nil  {
+            nextViewController.selectedMusicImage = selectedVideo?.videoImageUrl as! String
+            nextViewController.selectedMusicLabel = selectedVideo?.videoTitle as! String
+        }else{
+            nextViewController.selectedMusicImage = genreVideoID?.videoImageUrl as! String
+            nextViewController.selectedMusicLabel = genreVideoID?.videoTitle as! String
+        }
+        
         
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
@@ -235,7 +241,9 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
                         cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                         cell.singerNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     }
-                }else{
+                }
+                
+                else{
                     if(indexPath.row == self.selectedIndex)
                     {
                         cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 0.8004936733)

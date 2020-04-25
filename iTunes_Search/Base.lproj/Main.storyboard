@@ -400,11 +400,11 @@
             </objects>
             <point key="canvasLocation" x="2823.1999999999998" y="204.67980295566502"/>
         </scene>
-        <!--Genre Library-->
+        <!--Genre-->
         <scene sceneID="82d-fc-TeJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Htc-C7-YKe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Genre Library" image="music.note.list" catalog="system" selectedImage="music.note.list" id="Jkj-oR-d6w"/>
+                    <tabBarItem key="tabBarItem" title="Genre" image="music.note.list" catalog="system" selectedImage="music.note.list" id="Jkj-oR-d6w"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cpQ-6Z-15w">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
