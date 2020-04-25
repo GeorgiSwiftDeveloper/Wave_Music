@@ -19,8 +19,6 @@ class  YouTubeVideoConnection {
     var videoArray = [Video]()
     
     func getFeedVideos(genreType: String?,selectedViewController: String, loadStationList: @escaping(_ returnStationList: [Video]?, _ returnError: Error? ) -> ()) {
-//        let genreListViewController = GenreListViewController()
-//        let youTubeViewController = YouTubeViewController()
         
         switch selectedViewController {
         case "GenreListViewController":

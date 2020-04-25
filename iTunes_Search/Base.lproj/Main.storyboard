@@ -578,15 +578,121 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bld-Bi-Xt9"/>
                     </view>
-                    <navigationItem key="navigationItem" id="nAB-gf-aW6"/>
+                    <navigationItem key="navigationItem" id="nAB-gf-aW6">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="87y-1C-Uue">
+                            <connections>
+                                <action selector="addToPlaylistAction:" destination="cEs-ne-ilU" id="gRB-hQ-ORA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="selectedyouTubeVideoTableView" destination="zkl-jD-esT" id="bqZ-Vr-4Ty"/>
                         <outlet property="youTubeWKWebView" destination="mBG-mk-yGL" id="xvW-aK-aOs"/>
+                        <segue destination="I1N-Nl-VQ1" kind="show" id="AYW-li-jI5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9N-5T-jyP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3636" y="1017.4876847290641"/>
+        </scene>
+        <!--Add to Wave-->
+        <scene sceneID="kPz-JJ-77T">
+            <objects>
+                <viewController storyboardIdentifier="nextView" id="I1N-Nl-VQ1" customClass="AddSelectedMusicToWaveViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gZi-98-Xvx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYA-Us-1D2">
+                                <rect key="frame" x="0.0" y="88" width="375" height="210"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Ym-rC-bxX">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfG-4O-DM8">
+                                        <rect key="frame" x="15" y="115" width="345" height="95"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="9Ym-rC-bxX" secondAttribute="bottom" id="2d6-c9-8Af"/>
+                                    <constraint firstItem="mfG-4O-DM8" firstAttribute="centerX" secondItem="WYA-Us-1D2" secondAttribute="centerX" id="Q1M-ta-azC"/>
+                                    <constraint firstItem="mfG-4O-DM8" firstAttribute="top" secondItem="WYA-Us-1D2" secondAttribute="top" constant="115" id="WYo-hY-j2S"/>
+                                    <constraint firstItem="mfG-4O-DM8" firstAttribute="leading" secondItem="WYA-Us-1D2" secondAttribute="leading" constant="15" id="XOt-Vp-s0n"/>
+                                    <constraint firstAttribute="height" constant="210" id="Y0c-ey-wfb"/>
+                                    <constraint firstAttribute="bottom" secondItem="mfG-4O-DM8" secondAttribute="bottom" id="bvg-0n-wFM"/>
+                                    <constraint firstItem="9Ym-rC-bxX" firstAttribute="top" secondItem="WYA-Us-1D2" secondAttribute="top" id="flQ-Cj-ZkO"/>
+                                    <constraint firstAttribute="trailing" secondItem="9Ym-rC-bxX" secondAttribute="trailing" id="hZB-4w-8qU"/>
+                                    <constraint firstItem="9Ym-rC-bxX" firstAttribute="leading" secondItem="WYA-Us-1D2" secondAttribute="leading" id="oV2-Oy-jXm"/>
+                                    <constraint firstAttribute="trailing" secondItem="mfG-4O-DM8" secondAttribute="trailing" constant="15" id="ryS-rv-QQM"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="85" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zZm-xs-mJN">
+                                <rect key="frame" x="0.0" y="298" width="375" height="431"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="85" id="roF-El-Ktg">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="85"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="roF-El-Ktg" id="SfX-2R-dWI">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Library" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9c-85-7Gu">
+                                                    <rect key="frame" x="58" y="10" width="110" height="65"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="110" id="Vh8-ob-Dcd"/>
+                                                        <constraint firstAttribute="height" constant="65" id="vlR-Kd-wUK"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R3T-yY-Xjx">
+                                                    <rect key="frame" x="15" y="26" width="25" height="33"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="cKh-bk-N1s"/>
+                                                        <constraint firstAttribute="width" constant="25" id="i7w-gd-HkV"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="R3T-yY-Xjx" secondAttribute="bottom" constant="15" id="9f8-39-7gn"/>
+                                                <constraint firstItem="R3T-yY-Xjx" firstAttribute="top" secondItem="SfX-2R-dWI" secondAttribute="topMargin" constant="15" id="dzl-eR-czZ"/>
+                                                <constraint firstItem="R3T-yY-Xjx" firstAttribute="leading" secondItem="SfX-2R-dWI" secondAttribute="leadingMargin" id="hSH-GD-rg0"/>
+                                                <constraint firstItem="U9c-85-7Gu" firstAttribute="leading" secondItem="R3T-yY-Xjx" secondAttribute="trailing" constant="18" id="qLK-8f-ngy"/>
+                                                <constraint firstItem="U9c-85-7Gu" firstAttribute="centerY" secondItem="R3T-yY-Xjx" secondAttribute="centerY" id="zW9-Pz-WvR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zZm-xs-mJN" firstAttribute="top" secondItem="WYA-Us-1D2" secondAttribute="bottom" id="0Nl-4E-iRj"/>
+                            <constraint firstItem="WYA-Us-1D2" firstAttribute="leading" secondItem="KGg-mS-oUx" secondAttribute="leading" id="4Mb-Dl-BKx"/>
+                            <constraint firstItem="zZm-xs-mJN" firstAttribute="trailing" secondItem="KGg-mS-oUx" secondAttribute="trailing" id="CaD-GD-jLf"/>
+                            <constraint firstItem="WYA-Us-1D2" firstAttribute="trailing" secondItem="KGg-mS-oUx" secondAttribute="trailing" id="OSJ-cU-SDo"/>
+                            <constraint firstItem="zZm-xs-mJN" firstAttribute="bottom" secondItem="KGg-mS-oUx" secondAttribute="bottom" id="ZS2-MB-Tfk"/>
+                            <constraint firstItem="zZm-xs-mJN" firstAttribute="leading" secondItem="KGg-mS-oUx" secondAttribute="leading" id="pR1-st-1xd"/>
+                            <constraint firstItem="WYA-Us-1D2" firstAttribute="top" secondItem="KGg-mS-oUx" secondAttribute="top" id="wZN-3p-by5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KGg-mS-oUx"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add to Wave" id="uhk-1d-NEV"/>
+                    <connections>
+                        <outlet property="playlistTableView" destination="zZm-xs-mJN" id="7eh-ct-oNL"/>
+                        <outlet property="selectedMusicImageView" destination="9Ym-rC-bxX" id="8fn-YZ-YL2"/>
+                        <outlet property="selectedMusicTitle" destination="mfG-4O-DM8" id="i6e-la-aCR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ueG-pS-p09" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4648.8000000000002" y="1015.2709359605911"/>
         </scene>
         <!--Now Playing View-->
         <scene sceneID="mZG-lF-4QO">

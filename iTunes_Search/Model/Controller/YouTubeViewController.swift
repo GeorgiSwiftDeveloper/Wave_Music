@@ -24,6 +24,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     @IBOutlet weak var selectedyouTubeVideoTableView: UITableView!
     @IBOutlet weak var youTubeWKWebView: WKWebView!
     
+     var selectedVideo: Video?
     
     var isEmpty: Bool {
         switch selectedGenreTitle?.genreTitle {
@@ -205,6 +206,17 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     }
     
     
+    
+    @IBAction func addToPlaylistAction(_ sender: UIBarButtonItem) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "nextView") as! AddSelectedMusicToWaveViewController
+        nextViewController.selectedMusicImage = selectedVideo?.videoImageUrl as! String
+        nextViewController.selectedMusicLabel = selectedVideo?.videoTitle as! String
+        
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videoArray.count
     }
@@ -246,8 +258,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedVideoId = videoArray[indexPath.row]
-        let selectedIndexRow = tableView.indexPathForSelectedRow
-    
+        selectedVideo = selectedVideoId as Video
         selectedIndex = indexPath.row
         checkIfRowisSelected = true
         
