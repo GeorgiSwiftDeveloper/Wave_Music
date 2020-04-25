@@ -22,6 +22,7 @@ class AddSelectedMusicToWaveViewController: UIViewController {
         super.viewDidLoad()
         let backButton = UIBarButtonItem(title: "Cencel", style: .plain, target: self, action: #selector(goBackAction))
         backButton.image = UIImage(named: "")
+        backButton.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         navigationItem.setLeftBarButton(backButton, animated: false)
         
         self.playlistTableView.delegate = self
