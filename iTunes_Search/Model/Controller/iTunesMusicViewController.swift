@@ -14,9 +14,8 @@ protocol SelectedMusicDelegate {
 }
 let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
-class iTunesMusicViewController: UIViewController {
+class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UISearchBarDelegate,UISearchResultsUpdating {
     
-    @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var favoriteMusicTableView: UITableView!
     @IBOutlet weak var containerViewController: UIView!
     
@@ -27,7 +26,7 @@ class iTunesMusicViewController: UIViewController {
     var selectedMusic = [SelectedAlbumModel]()
     var selectedMusicDelegate: SelectedMusicDelegate?
     var selectedSong = String()
-    
+    let searchController = UISearchController(searchResultsController: nil)
     
     
     
@@ -40,14 +39,45 @@ class iTunesMusicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         iTunesConnectionManager.delegate = self
-        searchTextField.delegate = self
         self.favoriteMusicTableView.delegate = self
         self.favoriteMusicTableView.dataSource = self
-        customizeUI()
-        addDoneButtonOnKeyboard()
+        setupNavBar()
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierCnacel"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPause(notification:)), name: Notification.Name("NotificationIdentifierPauseSong"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationVolume(notification:)), name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
+    }
+    
+    
+    func setupNavBar() {
+//         navigationController?.navigationBar.prefersLargeTitles = true
+         searchController.obscuresBackgroundDuringPresentation  = false
+         searchController.searchBar.placeholder = "Search"
+         searchController.searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+         searchController.searchBar.sizeToFit()
+         searchController.delegate = self
+         searchController.searchBar.delegate = self
+         searchController.searchBar.isHidden = false
+         navigationItem.searchController?.searchBar.delegate = self
+         navigationItem.searchController?.searchResultsUpdater = self
+         navigationItem.searchController = searchController
+         navigationItem.hidesSearchBarWhenScrolling = false
+     }
+    
+    
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+          print("search end editing.")
+          let songName = searchBar.text
+          iTunesConnectionManager.fetchiTunes(name: songName!)
+          searchBar.text = ""
+          searchController.isActive = false
+          
+      }
+    
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        print("update search results ... called here")
     }
     
     
@@ -64,19 +94,6 @@ class iTunesMusicViewController: UIViewController {
     @objc func methodOfReceivedNotificationVolume(notification: Notification) {
         let volume = UserDefaults.standard.float(forKey: "volume")
         audioPlayer.volume = volume
-    }
-    
-    func customizeUI(){
-        containerViewController.isHidden = true
-        searchTextField.layer.borderColor = #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1)
-        searchTextField.layer.borderWidth = 1
-        searchTextField.layer.cornerRadius = searchTextField.frame.size.height/2
-        searchTextField.clipsToBounds = true
-    }
-    
-    
-    @IBAction func searchAction(_ sender: Any) {
-        searchTextField.endEditing(true)
     }
     
 }
@@ -105,62 +122,39 @@ extension iTunesMusicViewController: AlbumManagerDelegate {
 }
 
 extension iTunesMusicViewController: UITextFieldDelegate {
+//    
+//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//        if textField.text != "" {
+//            checkIfEmptySearchText = false
+//            return true
+//        } else {
+//            textField.placeholder = "Type music name"
+//            checkIfEmptySearchText = true
+//            return true
+//        }
+//    }
     
-    @IBAction func searchPressed(_ sender: UIButton) {
-        searchTextField.endEditing(true)
-    }
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        
+//        if let songName = searchTextField.text , checkIfEmptySearchText == false{
+//            self.favoriteAlbum = []
+//            iTunesConnectionManager.fetchiTunes(name: songName)
+//        }else{
+//            let alert = UIAlertController(title: "No Playlists Found \n Add playists to Wave by tapping the search field", message: nil, preferredStyle: .alert)
+//            
+//            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+//            }
+//            alert.addAction(cancelAction)
+//            present(alert, animated: true, completion: nil)
+//        }
+//        
+//        searchTextField.text = ""
+//        
+//    }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchTextField.endEditing(true)
-        return true
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.text != "" {
-            checkIfEmptySearchText = false
-            return true
-        } else {
-            textField.placeholder = "Type music name"
-            checkIfEmptySearchText = true
-            return true
-        }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        if let songName = searchTextField.text , checkIfEmptySearchText == false{
-            self.favoriteAlbum = []
-            iTunesConnectionManager.fetchiTunes(name: songName)
-        }else{
-            let alert = UIAlertController(title: "No Playlists Found \n Add playists to Wave by tapping the search field", message: nil, preferredStyle: .alert)
-            
-            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-            }
-            alert.addAction(cancelAction)
-            present(alert, animated: true, completion: nil)
-        }
-        
-        searchTextField.text = ""
-        
-    }
-    
-    func addDoneButtonOnKeyboard(){
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        doneToolbar.barStyle = .default
-        
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
-        
-        let items = [flexSpace, done]
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-        
-        searchTextField.inputAccessoryView = doneToolbar
-    }
-    
-    @objc func doneButtonAction(){
-        searchTextField.resignFirstResponder()
-    }
+//    @objc func doneButtonAction(){
+//        searchTextField.resignFirstResponder()
+//    }
 }
 extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

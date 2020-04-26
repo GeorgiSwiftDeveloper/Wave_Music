@@ -20,11 +20,10 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     var selectedIndex = Int()
     var entityName = String()
     var checkIfRowisSelected = Bool()
+    var checkMyLibraryIsSelected = false
     
     @IBOutlet weak var selectedyouTubeVideoTableView: UITableView!
     @IBOutlet weak var youTubeWKWebView: WKWebView!
-    
-     var selectedVideo: Video?
     
     var isEmpty: Bool {
         switch selectedGenreTitle?.genreTitle {
@@ -74,6 +73,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
         checkIfRowisSelected = false
         self.navigationItem.backBarButtonItem?.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         print(selectedGenreTitle?.genreTitle)
+        if checkMyLibraryIsSelected == false{
         if isEmpty{
             self.getYouTubeData.getFeedVideos(genreType: self.selectedGenreTitle!.genreTitle, selectedViewController: "YouTubeViewController") { (loadVideolist, error) in
                 if error != nil {
@@ -112,6 +112,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
                 }
             }
 
+            }
         }
     }
     
@@ -211,15 +212,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     @IBAction func addToPlaylistAction(_ sender: UIBarButtonItem) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextViewController = storyBoard.instantiateViewController(withIdentifier: "nextView") as! AddSelectedMusicToWaveViewController
-        if selectedVideo != nil  {
-            nextViewController.selectedMusicImage = selectedVideo?.videoImageUrl as! String
-            nextViewController.selectedMusicLabel = selectedVideo?.videoTitle as! String
-        }else{
-            nextViewController.selectedMusicImage = genreVideoID?.videoImageUrl as! String
-            nextViewController.selectedMusicLabel = genreVideoID?.videoTitle as! String
-        }
-        
-        
+        nextViewController.selectedMusicData = genreVideoID
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
@@ -267,7 +260,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedVideoId = videoArray[indexPath.row]
-        selectedVideo = selectedVideoId as Video
+        genreVideoID = selectedVideoId as Video
         selectedIndex = indexPath.row
         checkIfRowisSelected = true
         

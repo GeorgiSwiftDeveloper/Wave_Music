@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="MiLibraryMusicData" representedClassName="MiLibraryMusicData" syncable="YES" codeGenerationType="class">
+        <attribute name="genreTitle" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="songDescription" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="videoId" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="SelectedAlbumModel" representedClassName="SelectedAlbumModel" syncable="YES" codeGenerationType="class">
         <attribute name="selectedSongUrl" optional="YES" attributeType="String"/>
         <attribute name="singerName" optional="YES" attributeType="String"/>
@@ -98,5 +105,6 @@
         <element name="YouTubePopData" positionX="-54" positionY="45" width="128" height="133"/>
         <element name="YouTubeRBData" positionX="-18" positionY="63" width="128" height="133"/>
         <element name="YouTubeRockData" positionX="-36" positionY="54" width="128" height="133"/>
+        <element name="MiLibraryMusicData" positionX="-9" positionY="81" width="128" height="118"/>
     </elements>
 </model>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddSelectedMusicToWaveViewController: UIViewController {
     
@@ -15,16 +16,14 @@ class AddSelectedMusicToWaveViewController: UIViewController {
     @IBOutlet weak var playlistTableView: UITableView!
     @IBOutlet weak var doneButton: UIButton!
     
-    
-    var selectedMusicImage = String()
-    var selectedMusicLabel = String()
+    var selectedMusicData: Video?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playlistTableView.delegate = self
         self.playlistTableView.dataSource = self
         customizeUI()
-        let imageUrl = URL(string: selectedMusicImage)
+        let imageUrl = URL(string: selectedMusicData!.videoImageUrl)
         do{
             let data:NSData = try NSData(contentsOf: imageUrl!)
             selectedMusicImageView.image =  UIImage(data: data as Data)
@@ -32,8 +31,7 @@ class AddSelectedMusicToWaveViewController: UIViewController {
         }catch{
             print("error")
         }
-        self.selectedMusicTitle.text = selectedMusicLabel
-        // Do any additional setup after loading the view.
+        self.selectedMusicTitle.text = selectedMusicData?.videoTitle
     }
     
     
@@ -59,6 +57,25 @@ class AddSelectedMusicToWaveViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    
+    
+    
+    @IBAction func addToMyLibrrary(_ sender: Any) {
+        
+        let entity = NSEntityDescription.entity(forEntityName: "MiLibraryMusicData", in: context!)
+        let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+        newEntity.setValue(selectedMusicData?.videoTitle, forKey: "title")
+        newEntity.setValue(selectedMusicData?.videoImageUrl, forKey: "image")
+        newEntity.setValue(selectedMusicData?.videoId, forKey: "videoId")
+        do {
+            try context?.save()
+            print("data has been saved ")
+            self.navigationController?.popViewController(animated: true)
+            self.tabBarController?.tabBar.isHidden = false
+        } catch {
+            print("Failed saving")
+        }
+    }
     
 }
 
