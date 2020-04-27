@@ -15,21 +15,21 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     @IBOutlet weak var mainLibraryTableView: UITableView!
     @IBOutlet weak var topMusicTableView: UITableView!
     
-    var myLibraryListArray = [Video]()
+    var myLibraryListArray = [MiLibraryMusicData]()
     var topHitsArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
     
     
     
     var isEntityIsEmpty: Bool {
-           do {
-               let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
-               let count  = try context?.count(for: request)
-               return count == 0
-           } catch {
-               return true
-           }
-       }
+        do {
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
+            let count  = try context?.count(for: request)
+            return count == 0
+        } catch {
+            return true
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -45,25 +45,25 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         
         if isEntityIsEmpty{
             self.getYouTubeData.getFeedVideos(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
-            if error != nil  {
-                print("erorr")
-            }else{
-                DispatchQueue.main.async{
-                    self.topHitsArray = loadVideolist!
-                    for songIndex in 0..<self.topHitsArray.count{
-                        let title =   self.topHitsArray[songIndex].videoTitle
-                        let description =  self.topHitsArray[songIndex].videoDescription
-                        let image =  self.topHitsArray[songIndex].videoImageUrl
-                        let playlistId = self.topHitsArray[songIndex].videoPlaylistId
-                        let videoId =  self.topHitsArray[songIndex].videoId
-                        let channelId =  self.topHitsArray[songIndex].channelId
-    
-                        self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
-                        self.topMusicTableView.reloadData()
+                if error != nil  {
+                    print("erorr")
+                }else{
+                    DispatchQueue.main.async{
+                        self.topHitsArray = loadVideolist!
+                        for songIndex in 0..<self.topHitsArray.count{
+                            let title =   self.topHitsArray[songIndex].videoTitle
+                            let description =  self.topHitsArray[songIndex].videoDescription
+                            let image =  self.topHitsArray[songIndex].videoImageUrl
+                            let playlistId = self.topHitsArray[songIndex].videoPlaylistId
+                            let videoId =  self.topHitsArray[songIndex].videoId
+                            let channelId =  self.topHitsArray[songIndex].channelId
+                            
+                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
+                            self.topMusicTableView.reloadData()
+                        }
                     }
                 }
             }
-        }
         }else{
             self.fetchFromCoreData { (videoList, error) in
                 if error != nil {
@@ -76,7 +76,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 }
             }
         }
-}
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
@@ -88,43 +88,43 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
-           let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
-           //request.predicate = NSPredicate(format: "age = %@", "12")
-           request.returnsObjectsAsFaults = false
-           do {
-               let result = try context?.fetch(request)
-               for data in result as! [NSManagedObject] {
-                   let title = data.value(forKey: "title") as! String
-                   let image = data.value(forKey: "image") as! String
-                   let videoId = data.value(forKey: "videoId") as! String
-                   let songDescription = data.value(forKey: "songDescription") as! String
-                   let playlistId = data.value(forKey: "playListId") as! String
-                   let channelId = data.value(forKey: "channelId") as! String
-                   let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image, channelId:channelId)
-                   loadVideoList(fetchedVideoList,nil)
-               }
-               
-           } catch {
-               loadVideoList(nil,error)
-               print("Failed")
-           }
-       }
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
+        //request.predicate = NSPredicate(format: "age = %@", "12")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context?.fetch(request)
+            for data in result as! [NSManagedObject] {
+                let title = data.value(forKey: "title") as! String
+                let image = data.value(forKey: "image") as! String
+                let videoId = data.value(forKey: "videoId") as! String
+                let songDescription = data.value(forKey: "songDescription") as! String
+                let playlistId = data.value(forKey: "playListId") as! String
+                let channelId = data.value(forKey: "channelId") as! String
+                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image, channelId:channelId)
+                loadVideoList(fetchedVideoList,nil)
+            }
+            
+        } catch {
+            loadVideoList(nil,error)
+            print("Failed")
+        }
+    }
     
     func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String, channelId: String) {
-           let entity = NSEntityDescription.entity(forEntityName: "TopHitsModel", in: context!)
-           let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-           newEntity.setValue(title, forKey: "title")
-           newEntity.setValue(image, forKey: "image")
-           newEntity.setValue(videoId, forKey: "videoId")
-           newEntity.setValue(description, forKey: "songDescription")
-           newEntity.setValue(playlistId, forKey: "playListId")
-           newEntity.setValue(channelId, forKey: "channelId")
-           do {
-               try context?.save()
-           } catch {
-               print("Failed saving")
-           }
-       }
+        let entity = NSEntityDescription.entity(forEntityName: "TopHitsModel", in: context!)
+        let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+        newEntity.setValue(title, forKey: "title")
+        newEntity.setValue(image, forKey: "image")
+        newEntity.setValue(videoId, forKey: "videoId")
+        newEntity.setValue(description, forKey: "songDescription")
+        newEntity.setValue(playlistId, forKey: "playListId")
+        newEntity.setValue(channelId, forKey: "channelId")
+        do {
+            try context?.save()
+        } catch {
+            print("Failed saving")
+        }
+    }
     
     
     func setupNavBar() {
@@ -164,12 +164,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         do {
             let result = try context?.fetch(request)
             for data in result as! [NSManagedObject] {
-                let title = data.value(forKey: "title") as! String
-                let image = data.value(forKey: "image") as! String
-                let videoId = data.value(forKey: "videoId") as! String
-                
-                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: "", videoPlaylistId: "", videoImageUrl: image, channelId: "", genreTitle: "")
-                myLibraryListArray.append(fetchedVideoList)
+                myLibraryListArray.append(data as! MiLibraryMusicData)
                 mainLibraryTableView.reloadData()
             }
             
@@ -192,7 +187,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         var titleName = ""
         switch tableView {
         case mainLibraryTableView:
-         titleName = "My Library"
+            titleName = "My Library"
         case topMusicTableView:
             titleName = "Top Hit's"
         default:
@@ -204,14 +199,14 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowsInSection = 1
-              switch tableView {
-              case mainLibraryTableView:
-                numberOfRowsInSection = myLibraryListArray.count
-              case topMusicTableView:
-                   numberOfRowsInSection = topHitsArray.count
-              default:
-                  break
-              }
+        switch tableView {
+        case mainLibraryTableView:
+            numberOfRowsInSection = myLibraryListArray.count
+        case topMusicTableView:
+            numberOfRowsInSection = topHitsArray.count
+        default:
+            break
+        }
         return numberOfRowsInSection
     }
     
@@ -233,12 +228,12 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         var cell = UITableViewCell()
         switch tableView {
         case mainLibraryTableView:
-          let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
-          libraryMusicCell.configureGenreCell(myLibraryListArray[indexPath.row])
-        cell = libraryMusicCell
+            let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
+            libraryMusicCell.configureGenreCell(myLibraryListArray[indexPath.row])
+            cell = libraryMusicCell
         case topMusicTableView:
             let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "TopHitsTableViewCell", for: indexPath) as? TopHitsTableViewCell)!
-                 libraryMusicCell.configureGenreCell(topHitsArray[indexPath.row])
+            libraryMusicCell.configureGenreCell(topHitsArray[indexPath.row])
             cell = libraryMusicCell
         default:
             break
@@ -250,10 +245,12 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         switch tableView {
         case mainLibraryTableView:
             let selectedVideoId = myLibraryListArray[indexPath.row]
+            var videoId = Video()
+            videoId.videoId = selectedVideoId.videoId!
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             let nextViewController = storyBoard.instantiateViewController(withIdentifier: "loadVideoVC") as! YouTubeViewController
             nextViewController.checkMyLibraryIsSelected = true
-            nextViewController.genreVideoID = selectedVideoId
+            nextViewController.genreVideoID = videoId
             self.present(nextViewController, animated: true, completion: nil)
         case topMusicTableView:
             let selectedVideoId = topHitsArray[indexPath.row]
@@ -267,7 +264,19 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if tableView == topMusicTableView{
+            return false
+        }
+        return true
+    }
     
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
+                myLibraryListArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+            }
+    }
     
 }

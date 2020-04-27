@@ -90,7 +90,15 @@ class AddSelectedMusicToWaveViewController: UIViewController {
                     self.doneButton.isEnabled = false
                     self.doneButton.alpha = 0.75;
                 }
+                
+                let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
+                     self.navigationController?.popViewController(animated: true)
+                     self.tabBarController?.selectedIndex = 0
+                     self.tabBarController?.tabBar.isHidden = false
+                }
+                
                 alert.addAction(action)
+                alert.addAction(libraryAction)
                 present(alert, animated: true, completion: nil)
                 
             }

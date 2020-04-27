@@ -34,7 +34,7 @@
         <!--My Library View Controller-->
         <scene sceneID="4Cb-M2-FgM">
             <objects>
-                <viewController id="DxU-Cy-zeP" customClass="MyLibraryViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="myLibeary" id="DxU-Cy-zeP" customClass="MyLibraryViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="n2I-F1-oFT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -738,7 +738,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zZm-xs-mJN">
-                                <rect key="frame" x="0.0" y="333" width="375" height="296"/>
+                                <rect key="frame" x="0.0" y="333" width="375" height="246"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="addToLibraryCell" rowHeight="65" id="roF-El-Ktg" customClass="MyLibraryTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
@@ -785,7 +785,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-2F-td5">
-                                <rect key="frame" x="22.666666666666657" y="654" width="330" height="50"/>
+                                <rect key="frame" x="22.666666666666657" y="604" width="330" height="50"/>
                                 <color key="backgroundColor" red="0.078997415793354328" green="0.19376249350900013" blue="0.2943468169761273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="330" id="YK0-p3-rCp"/>
@@ -805,7 +805,7 @@
                             <constraint firstItem="zZm-xs-mJN" firstAttribute="top" secondItem="WYA-Us-1D2" secondAttribute="bottom" constant="15" id="0Nl-4E-iRj"/>
                             <constraint firstItem="WYA-Us-1D2" firstAttribute="leading" secondItem="KGg-mS-oUx" secondAttribute="leading" id="4Mb-Dl-BKx"/>
                             <constraint firstItem="zZm-xs-mJN" firstAttribute="trailing" secondItem="KGg-mS-oUx" secondAttribute="trailing" id="CaD-GD-jLf"/>
-                            <constraint firstItem="KGg-mS-oUx" firstAttribute="bottom" secondItem="zZm-xs-mJN" secondAttribute="bottom" constant="100" id="Nvm-aY-SJt"/>
+                            <constraint firstItem="KGg-mS-oUx" firstAttribute="bottom" secondItem="zZm-xs-mJN" secondAttribute="bottom" constant="150" id="Nvm-aY-SJt"/>
                             <constraint firstItem="WYA-Us-1D2" firstAttribute="trailing" secondItem="KGg-mS-oUx" secondAttribute="trailing" id="OSJ-cU-SDo"/>
                             <constraint firstItem="3iw-2F-td5" firstAttribute="centerX" secondItem="gZi-98-Xvx" secondAttribute="centerX" id="YrK-C8-hXU"/>
                             <constraint firstItem="zZm-xs-mJN" firstAttribute="leading" secondItem="KGg-mS-oUx" secondAttribute="leading" id="pR1-st-1xd"/>
