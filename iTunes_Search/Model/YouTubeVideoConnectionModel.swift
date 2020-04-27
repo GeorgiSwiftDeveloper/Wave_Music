@@ -48,6 +48,14 @@ class  YouTubeVideoConnection {
             default:
                 break
             }
+        case "MyLibraryViewController":
+            API_KEY = "AIzaSyD_ftHSeTLdHnAqtUv-pnWW8jOXv5TFZg8"
+            switch genreType {
+            case "Hits":
+                UPLOADS_PLAYLIST_ID = "PLLdPJGHquctFFaYNmcSIZVjpHxjO9dZTS"
+            default:
+                break
+            }
         case "YouTubeViewController":
             API_KEY = "AIzaSyCFMsnq1bPn9azmGJXWorouExetqynFgok"
             switch genreType {

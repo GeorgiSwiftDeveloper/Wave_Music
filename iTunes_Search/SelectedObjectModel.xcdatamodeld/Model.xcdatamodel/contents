@@ -13,6 +13,15 @@
         <attribute name="songImage" optional="YES" attributeType="String"/>
         <attribute name="songTitle" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="TopHitsModel" representedClassName="TopHitsModel" syncable="YES" codeGenerationType="class">
+        <attribute name="attribute4" optional="YES" attributeType="String"/>
+        <attribute name="channelId" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="playListId" optional="YES" attributeType="String"/>
+        <attribute name="songDescription" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="videoId" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="YouTubeBluesData" representedClassName="YouTubeBluesData" syncable="YES" codeGenerationType="class">
         <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
@@ -106,5 +115,6 @@
         <element name="YouTubeRBData" positionX="-18" positionY="63" width="128" height="133"/>
         <element name="YouTubeRockData" positionX="-36" positionY="54" width="128" height="133"/>
         <element name="MiLibraryMusicData" positionX="-9" positionY="81" width="128" height="118"/>
+        <element name="TopHitsModel" positionX="0" positionY="90" width="128" height="148"/>
     </elements>
 </model>

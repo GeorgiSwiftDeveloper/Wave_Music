@@ -13,16 +13,6 @@ class GenreVideoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var videoImageView: UIImageView!
     @IBOutlet weak var singerNameLabel: UILabel!
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-
-//    func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
     
     func configureGenreCell(_ video: Video){
         

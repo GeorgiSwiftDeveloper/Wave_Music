@@ -97,7 +97,7 @@ extension AddSelectedMusicToWaveViewController: UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndexRow = tableView.indexPathForSelectedRow
         let selectedCell = self.playlistTableView.cellForRow(at: selectedIndexRow!) as! MyLibraryTableViewCell
-        selectedCell.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+        selectedCell.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         selectedCell.titleLabel.textColor = UIColor.white
         
     }
