@@ -59,6 +59,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         topGenreLabelText.text  = "Top \(genreTitle!.genreTitle) Song's"
+        topGenreLabelText.textColor = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
         genreTableView.delegate = self
         genreTableView.dataSource = self
         if isEmpty{

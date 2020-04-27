@@ -247,13 +247,24 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedVideoId = myLibraryListArray[indexPath.row]
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "loadVideoVC") as! YouTubeViewController
-        nextViewController.checkMyLibraryIsSelected = true
-        nextViewController.genreVideoID = selectedVideoId
-        self.present(nextViewController, animated: true, completion: nil)
-        
+        switch tableView {
+        case mainLibraryTableView:
+            let selectedVideoId = myLibraryListArray[indexPath.row]
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "loadVideoVC") as! YouTubeViewController
+            nextViewController.checkMyLibraryIsSelected = true
+            nextViewController.genreVideoID = selectedVideoId
+            self.present(nextViewController, animated: true, completion: nil)
+        case topMusicTableView:
+            let selectedVideoId = topHitsArray[indexPath.row]
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "loadVideoVC") as! YouTubeViewController
+            nextViewController.checkMyLibraryIsSelected = true
+            nextViewController.genreVideoID = selectedVideoId
+            self.present(nextViewController, animated: true, completion: nil)
+        default:
+            break
+        }
     }
     
     

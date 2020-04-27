@@ -36,6 +36,8 @@ class AddSelectedMusicToWaveViewController: UIViewController {
     
     
     func customizeUI(){
+        self.doneButton.isEnabled = true
+        self.doneButton.alpha = 1;
         self.tabBarController?.tabBar.isHidden = true
         let backButton = UIBarButtonItem(title: "Cencel", style: .plain, target: self, action: #selector(goBackAction))
         backButton.image = UIImage(named: "")
@@ -61,21 +63,42 @@ class AddSelectedMusicToWaveViewController: UIViewController {
     
     
     @IBAction func addToMyLibrrary(_ sender: Any) {
-        
-        let entity = NSEntityDescription.entity(forEntityName: "MiLibraryMusicData", in: context!)
-        let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-        newEntity.setValue(selectedMusicData?.videoTitle, forKey: "title")
-        newEntity.setValue(selectedMusicData?.videoImageUrl, forKey: "image")
-        newEntity.setValue(selectedMusicData?.videoId, forKey: "videoId")
-        do {
-            try context?.save()
-            print("data has been saved ")
-            self.navigationController?.popViewController(animated: true)
-            self.tabBarController?.tabBar.isHidden = false
-        } catch {
-            print("Failed saving")
-        }
-    }
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MiLibraryMusicData")
+        let predicate = NSPredicate(format: "title == %@", selectedMusicData!.videoTitle as CVarArg)
+        request.predicate = predicate
+        request.fetchLimit = 1
+
+        do{
+            let count = try context?.count(for: request)
+            if(count == 0){
+            // no matching object
+                let entity = NSEntityDescription.entity(forEntityName: "MiLibraryMusicData", in: context!)
+                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                newEntity.setValue(selectedMusicData?.videoTitle, forKey: "title")
+                newEntity.setValue(selectedMusicData?.videoImageUrl, forKey: "image")
+                newEntity.setValue(selectedMusicData?.videoId, forKey: "videoId")
+                
+                try context?.save()
+                           print("data has been saved ")
+                           self.navigationController?.popViewController(animated: true)
+                           self.tabBarController?.tabBar.isHidden = false
+            }
+            else{
+            // at least one matching object exists
+                let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                    self.doneButton.isEnabled = false
+                    self.doneButton.alpha = 0.75;
+                }
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+                
+            }
+          }
+        catch let error as NSError {
+             print("Could not fetch \(error), \(error.userInfo)")
+          }
+   }
     
 }
 
@@ -97,7 +120,7 @@ extension AddSelectedMusicToWaveViewController: UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndexRow = tableView.indexPathForSelectedRow
         let selectedCell = self.playlistTableView.cellForRow(at: selectedIndexRow!) as! MyLibraryTableViewCell
-        selectedCell.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        selectedCell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
         selectedCell.titleLabel.textColor = UIColor.white
         
     }
