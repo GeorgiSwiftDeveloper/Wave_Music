@@ -43,39 +43,39 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.topMusicTableView.delegate = self
         self.topMusicTableView.dataSource = self
         
-//        if isEntityIsEmpty{
-//            self.getYouTubeData.getFeedVideos(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
-//            if error != nil  {
-//                print("erorr")
-//            }else{
-//                DispatchQueue.main.async{
-//                    self.topHitsArray = loadVideolist!
-//                    for songIndex in 0..<self.topHitsArray.count{
-//                        let title =   self.topHitsArray[songIndex].videoTitle
-//                        let description =  self.topHitsArray[songIndex].videoDescription
-//                        let image =  self.topHitsArray[songIndex].videoImageUrl
-//                        let playlistId = self.topHitsArray[songIndex].videoPlaylistId
-//                        let videoId =  self.topHitsArray[songIndex].videoId
-//                        let channelId =  self.topHitsArray[songIndex].channelId
-//    
-//                        self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
-//                        self.topMusicTableView.reloadData()
-//                    }
-//                }
-//            }
-//        }
-//        }else{
-//            self.fetchFromCoreData { (videoList, error) in
-//                if error != nil {
-//                    print(error?.localizedDescription as Any)
-//                }else{
-//                    if videoList != nil {
-//                        self.topHitsArray.append(videoList!)
-//                        self.topMusicTableView.reloadData()
-//                    }
-//                }
-//            }
-//        }
+        if isEntityIsEmpty{
+            self.getYouTubeData.getFeedVideos(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
+            if error != nil  {
+                print("erorr")
+            }else{
+                DispatchQueue.main.async{
+                    self.topHitsArray = loadVideolist!
+                    for songIndex in 0..<self.topHitsArray.count{
+                        let title =   self.topHitsArray[songIndex].videoTitle
+                        let description =  self.topHitsArray[songIndex].videoDescription
+                        let image =  self.topHitsArray[songIndex].videoImageUrl
+                        let playlistId = self.topHitsArray[songIndex].videoPlaylistId
+                        let videoId =  self.topHitsArray[songIndex].videoId
+                        let channelId =  self.topHitsArray[songIndex].channelId
+    
+                        self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
+                        self.topMusicTableView.reloadData()
+                    }
+                }
+            }
+        }
+        }else{
+            self.fetchFromCoreData { (videoList, error) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }else{
+                    if videoList != nil {
+                        self.topHitsArray.append(videoList!)
+                        self.topMusicTableView.reloadData()
+                    }
+                }
+            }
+        }
 }
     
     override func viewWillAppear(_ animated: Bool) {
