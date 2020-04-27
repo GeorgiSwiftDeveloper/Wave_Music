@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A0B39AC04AC82982106EF1CCAC527F62"
-               BlueprintName = "FRadioPlayer"
+               BlueprintIdentifier = "628B8D585C0AA7E53A0218AEFFA1C77F"
+               BlueprintName = "Pods-iTunes_Search"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "FRadioPlayer.framework">
+               BuildableName = "Pods-iTunes_Search.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

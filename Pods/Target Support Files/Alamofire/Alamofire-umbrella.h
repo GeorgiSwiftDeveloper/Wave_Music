@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double FRadioPlayerVersionNumber;
-FOUNDATION_EXPORT const unsigned char FRadioPlayerVersionString[];
+FOUNDATION_EXPORT double AlamofireVersionNumber;
+FOUNDATION_EXPORT const unsigned char AlamofireVersionString[];
 
