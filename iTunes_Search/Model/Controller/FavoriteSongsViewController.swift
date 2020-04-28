@@ -60,12 +60,12 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
 //    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DataService.instance.getGenreArray().count
+        return GenreModelService.instance.getGenreArray().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favoriiteSongsCell", for: indexPath) as? FavoriteSongsCollectionViewCell {
-            cell.confiigurationCell(DataService.instance.getGenreArray()[indexPath.row])
+            cell.confiigurationCell(GenreModelService.instance.getGenreArray()[indexPath.row])
             cell.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             cell.layer.borderWidth = 1
             cell.layer.cornerRadius = 5.0
@@ -80,7 +80,7 @@ class FavoriteSongsViewController: UIViewController,UICollectionViewDelegate,UIC
         
 //        indexpath = indexPath.row
 //        print(indexpath)
-        let selectedGenreRow = DataService.instance.getGenreArray()[indexPath.row]
+        let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
         print(selectedGenreRow.genreTitle)
         
         self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)

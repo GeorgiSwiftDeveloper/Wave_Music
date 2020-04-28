@@ -8,8 +8,8 @@
 
 import Foundation
 
-class DataService {
-    static let instance = DataService()
+class GenreModelService {
+    static let instance = GenreModelService()
     
     let genreArray = [
         GenreModel(genreImage: "rap.jpg", genreTitle: "Rap"),

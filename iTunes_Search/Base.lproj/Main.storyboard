@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kEB-Wj-v1n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xG8-CZ-7In">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
@@ -11,7 +11,8 @@
         <!--Tab Bar Controller-->
         <scene sceneID="jYh-pp-Pbd">
             <objects>
-                <tabBarController id="kEB-Wj-v1n" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="myTabbarControllerID" id="kEB-Wj-v1n" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="TLO-W3-NT0"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x34-iM-SA2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -36,11 +37,11 @@
             <objects>
                 <viewController storyboardIdentifier="myLibeary" id="DxU-Cy-zeP" customClass="MyLibraryViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="n2I-F1-oFT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
-                                <rect key="frame" x="0.0" y="407" width="375" height="405"/>
+                                <rect key="frame" x="0.0" y="353" width="375" height="405"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="405" id="dJ6-9g-jdr"/>
                                 </constraints>
@@ -85,7 +86,7 @@
                                 </prototypes>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Eaa-fO-ywh">
-                                <rect key="frame" x="0.0" y="88" width="375" height="304"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="282"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TopHitsTableViewCell" rowHeight="75" id="wA5-tS-Pzn" customClass="TopHitsTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
@@ -149,16 +150,16 @@
             </objects>
             <point key="canvasLocation" x="2453.5999999999999" y="-602.21674876847294"/>
         </scene>
-        <!--View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="F6Z-C3-Yoa">
             <objects>
-                <viewController id="xG8-CZ-7In" sceneMemberID="viewController">
+                <viewController id="xG8-CZ-7In" customClass="WelcomeViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0bM-s3-nmR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tma-kp-XMg">
-                                <rect key="frame" x="31" y="294" width="313" height="224"/>
+                                <rect key="frame" x="31" y="311" width="313" height="190"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add tracks to your library by searching songs, and adding them to favorites" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRi-gj-M90">
                                         <rect key="frame" x="21" y="88" width="271" height="62.333333333333343"/>
@@ -166,8 +167,8 @@
                                             <constraint firstAttribute="height" constant="62.329999999999998" id="2G3-JY-niE"/>
                                             <constraint firstAttribute="width" constant="271" id="6CI-Yh-qv1"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
-                                        <color key="textColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To Wave" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEk-HX-k0R">
@@ -181,44 +182,77 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.29452693320000001" blue="0.57488495110000004" alpha="0.84891439800000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.055641226469999999" green="0.04475600272" blue="0.12941986320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="cEk-HX-k0R" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" constant="20" id="1ll-WX-Rhl"/>
+                                    <constraint firstAttribute="height" constant="190" id="9yc-KU-gZF"/>
                                     <constraint firstItem="vRi-gj-M90" firstAttribute="top" secondItem="cEk-HX-k0R" secondAttribute="bottom" constant="15" id="CIt-ew-id4"/>
                                     <constraint firstItem="vRi-gj-M90" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" constant="21" id="JhM-HB-juf"/>
                                     <constraint firstAttribute="trailing" secondItem="vRi-gj-M90" secondAttribute="trailing" constant="21" id="Rmw-kS-4xG"/>
+                                    <constraint firstItem="vRi-gj-M90" firstAttribute="top" secondItem="cEk-HX-k0R" secondAttribute="bottom" constant="15" id="e1H-Fk-z9U"/>
                                     <constraint firstItem="cEk-HX-k0R" firstAttribute="top" secondItem="tma-kp-XMg" secondAttribute="top" constant="50" id="g8W-OP-XMB"/>
                                     <constraint firstAttribute="trailing" secondItem="cEk-HX-k0R" secondAttribute="trailing" constant="20" id="yHT-9n-zZ9"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6G-jM-TyB">
+                                <rect key="frame" x="91" y="581" width="193" height="47"/>
+                                <color key="backgroundColor" red="0.054032526910000003" green="0.73140662909999998" blue="0.82746869329999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="GWH-yy-Ok9"/>
+                                    <constraint firstAttribute="width" constant="193" id="WSx-if-Zkq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="20"/>
+                                <state key="normal" title="NEXT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonAction:" destination="xG8-CZ-7In" eventType="touchUpInside" id="anb-qq-jUl"/>
+                                    <segue destination="kEB-Wj-v1n" kind="presentation" identifier="myTabbarControllerID" id="xRX-jN-L01"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wave-1" translatesAutoresizingMaskIntoConstraints="NO" id="vEp-Zf-ceL">
+                                <rect key="frame" x="112.66666666666669" y="153" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="K0s-t7-eHd"/>
+                                    <constraint firstAttribute="height" constant="150" id="fqW-Mp-Nor"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.29452693320000001" blue="0.57488495110000004" alpha="0.84891439800000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.066793154470000005" green="0.058581960400000001" blue="0.154105189" alpha="0.81801188650000001" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="tma-kp-XMg" firstAttribute="leading" secondItem="FvA-br-4lD" secondAttribute="leading" constant="31" id="KIc-GX-bed"/>
+                            <constraint firstItem="B6G-jM-TyB" firstAttribute="leading" secondItem="FvA-br-4lD" secondAttribute="leading" constant="91" id="Ks5-b1-7bb"/>
                             <constraint firstItem="tma-kp-XMg" firstAttribute="centerY" secondItem="0bM-s3-nmR" secondAttribute="centerY" id="MdK-0K-d5a"/>
                             <constraint firstItem="tma-kp-XMg" firstAttribute="centerX" secondItem="0bM-s3-nmR" secondAttribute="centerX" id="Vz5-dj-Hgo"/>
-                            <constraint firstItem="tma-kp-XMg" firstAttribute="top" secondItem="FvA-br-4lD" secondAttribute="top" constant="250" id="vAv-kR-vyj"/>
+                            <constraint firstItem="FvA-br-4lD" firstAttribute="trailing" secondItem="B6G-jM-TyB" secondAttribute="trailing" constant="91" id="auH-4U-0rH"/>
+                            <constraint firstItem="tma-kp-XMg" firstAttribute="top" secondItem="vEp-Zf-ceL" secondAttribute="bottom" constant="8" id="fWx-2G-Ae8"/>
+                            <constraint firstItem="vEp-Zf-ceL" firstAttribute="centerX" secondItem="0bM-s3-nmR" secondAttribute="centerX" id="syT-xC-6nX"/>
+                            <constraint firstItem="B6G-jM-TyB" firstAttribute="top" secondItem="tma-kp-XMg" secondAttribute="bottom" constant="80" id="yaO-2n-bAW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FvA-br-4lD"/>
                     </view>
+                    <connections>
+                        <outlet property="contentView" destination="tma-kp-XMg" id="vU0-PG-H6H"/>
+                        <outlet property="nextButton" destination="B6G-jM-TyB" id="kuS-kz-MJs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w8b-T3-u3P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-946" y="205"/>
+            <point key="canvasLocation" x="-946.39999999999998" y="204.67980295566502"/>
         </scene>
         <!--iTunes Music View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="iTunesMusicViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUv-fA-lUJ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                                 <subviews>
                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="110" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6je-dD-fXC">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -290,7 +324,7 @@
                                         </prototypes>
                                     </tableView>
                                     <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" id="IRR-or-fSc">
-                                        <rect key="frame" x="0.0" y="475" width="375" height="254"/>
+                                        <rect key="frame" x="0.0" y="421" width="375" height="254"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="0.80055358512269936" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
@@ -419,11 +453,11 @@
             <objects>
                 <viewController storyboardIdentifier="FavoriteSongsViewController" id="dhp-Vd-zyy" customClass="FavoriteSongsViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="afr-wl-t0b">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LoF-Dm-i85">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="15" minimumInteritemSpacing="15" id="JVb-ja-Jig">
                                     <size key="itemSize" width="176" height="188"/>
@@ -502,7 +536,7 @@
                     <tabBarItem key="tabBarItem" title="Playlists" image="music.note.list" catalog="system" selectedImage="music.note.list" id="Jkj-oR-d6w"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cpQ-6Z-15w">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
@@ -520,11 +554,11 @@
             <objects>
                 <viewController id="b5Q-pR-8Co" customClass="GenreListViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ApF-hR-E8W">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="110" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xp2-09-Jqn">
-                                <rect key="frame" x="0.0" y="173" width="375" height="639"/>
+                                <rect key="frame" x="0.0" y="141" width="375" height="617"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="genreCell" rowHeight="110" id="Fr9-HG-2Et" customClass="GenreVideoTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
@@ -567,7 +601,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Genre" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuZ-97-Hyv">
-                                <rect key="frame" x="15" y="103" width="138.33333333333334" height="55"/>
+                                <rect key="frame" x="15" y="71" width="138.33333333333334" height="55"/>
                                 <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -602,11 +636,11 @@
             <objects>
                 <viewController storyboardIdentifier="loadVideoVC" id="cEs-ne-ilU" customClass="YouTubeViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yOF-IO-Oqn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="110" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zkl-jD-esT">
-                                <rect key="frame" x="0.0" y="348" width="375" height="464"/>
+                                <rect key="frame" x="0.0" y="316" width="375" height="442"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="youTubeCell" rowHeight="110" id="5hG-Ss-m4l" customClass="YouTubeTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
@@ -650,7 +684,7 @@
                                 </prototypes>
                             </tableView>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBG-mk-yGL">
-                                <rect key="frame" x="0.0" y="88" width="375" height="250"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="250"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="yzR-r2-deV"/>
@@ -696,11 +730,11 @@
             <objects>
                 <viewController storyboardIdentifier="nextView" id="I1N-Nl-VQ1" customClass="AddSelectedMusicToWaveViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gZi-98-Xvx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYA-Us-1D2">
-                                <rect key="frame" x="0.0" y="88" width="375" height="230"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="230"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Ym-rC-bxX">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="230"/>
@@ -738,7 +772,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zZm-xs-mJN">
-                                <rect key="frame" x="0.0" y="333" width="375" height="246"/>
+                                <rect key="frame" x="0.0" y="301" width="375" height="224"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="addToLibraryCell" rowHeight="65" id="roF-El-Ktg" customClass="MyLibraryTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
@@ -785,8 +819,8 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-2F-td5">
-                                <rect key="frame" x="22.666666666666657" y="604" width="330" height="50"/>
-                                <color key="backgroundColor" red="0.078997415793354328" green="0.19376249350900013" blue="0.2943468169761273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <rect key="frame" x="22.666666666666657" y="550" width="330" height="50"/>
+                                <color key="backgroundColor" red="0.0" green="0.34135352759999998" blue="0.52416842409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="330" id="YK0-p3-rCp"/>
                                     <constraint firstAttribute="height" constant="50" id="mao-j8-Zoq"/>
@@ -1052,14 +1086,14 @@
             <objects>
                 <viewController id="3zV-ej-YX4" customClass="RadioStationViewController" customModule="iTunes_Search" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dsH-eq-OpV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="07012019-18" translatesAutoresizingMaskIntoConstraints="NO" id="hPw-pq-NW7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xgb-gg-B8X">
-                                <rect key="frame" x="0.0" y="88" width="375" height="597"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="575"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StationCell" rowHeight="100" id="YrX-4J-5xT" customClass="StationRadioTableViewCell" customModule="iTunes_Search" customModuleProvider="target">
@@ -1116,7 +1150,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98p-VJ-0du">
-                                <rect key="frame" x="0.0" y="685" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="631" width="375" height="44"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Chq-XP-SmA" userLabel="NowPlaying Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1182,7 +1216,7 @@
                     <tabBarItem key="tabBarItem" title="My Radio" image="antenna.radiowaves.left.and.right" catalog="system" selectedImage="antenna.radiowaves.left.and.right" id="ZTF-W1-8RS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="umm-sm-J7m">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
@@ -1383,7 +1417,7 @@
                     <tabBarItem key="tabBarItem" title="My Library" image="tray.and.arrow.up.fill" catalog="system" selectedImage="tray.and.arrow.up.fill" id="H2U-I3-HmW"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="nDk-Ja-WYw">
-                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1402,7 +1436,7 @@
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="oOB-5x-u6s"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xpG-V2-RCg">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1438,5 +1472,6 @@
         <image name="tray.and.arrow.up.fill" catalog="system" width="128" height="114"/>
         <image name="vol-max" width="16.666666030883789" height="14"/>
         <image name="vol-min" width="11" height="12.666666984558105"/>
+        <image name="wave-1" width="512" height="512"/>
     </resources>
 </document>
