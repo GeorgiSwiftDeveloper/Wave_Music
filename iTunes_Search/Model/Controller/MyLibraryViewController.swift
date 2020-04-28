@@ -10,6 +10,10 @@ import UIKit
 import CoreData
 
 class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        print("F")
+    }
+    
     let searchController = UISearchController(searchResultsController: nil)
     
     @IBOutlet weak var mainLibraryTableView: UITableView!
@@ -146,15 +150,49 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("search end editing.")
+        
+//        myLibraryListArray = []
+//        fetchMyLibraryList()
         searchBar.text = ""
         searchController.isActive = false
         
     }
     
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        print("update search results ... called here")
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty == false{
+            fetchSearchSong(searchBar, searchText: searchText)
+        }else{
+            myLibraryListArray = []
+            fetchMyLibraryList()
+            
+        }
     }
+    
+    
+    func fetchSearchSong(_ searchBar: UISearchBar, searchText: String) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MiLibraryMusicData")
+        let predicate = NSPredicate(format: "title contains[c]%@", searchBar.text! as CVarArg)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        
+        do{
+            let count = try context?.count(for: request)
+            if(count == 0){
+                // no matching object
+                print("no match")
+            }else{
+                let fetchResult = try context?.fetch(request) as? [MiLibraryMusicData]
+                myLibraryListArray = []
+                myLibraryListArray = fetchResult!
+                mainLibraryTableView.reloadData()
+                print("match")
+            }
+        }
+        catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+    }
+    
     
     
     func fetchMyLibraryList(){
@@ -272,11 +310,11 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
-                myLibraryListArray.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                
-            }
+        if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
+            myLibraryListArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+        }
     }
     
 }
