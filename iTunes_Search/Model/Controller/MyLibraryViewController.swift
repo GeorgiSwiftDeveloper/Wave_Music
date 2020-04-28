@@ -153,9 +153,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         
 //        myLibraryListArray = []
 //        fetchMyLibraryList()
-        searchBar.text = ""
-        searchController.isActive = false
-        
+//        searchBar.text = ""
+//        searchController.isActive = false
+//        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
