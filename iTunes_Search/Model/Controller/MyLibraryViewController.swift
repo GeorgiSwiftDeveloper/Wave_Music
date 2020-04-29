@@ -134,7 +134,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func setupNavBar() {
         //        navigationController?.navigationBar.prefersLargeTitles = true
         //        searchController.obscuresBackgroundDuringPresentation  = false
-        searchController.searchBar.placeholder = "My Library search"
+        searchController.searchBar.placeholder = "search My Library"
         searchController.searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
         searchController.searchBar.sizeToFit()
         searchController.delegate = self
@@ -155,7 +155,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
 //        fetchMyLibraryList()
 //        searchBar.text = ""
 //        searchController.isActive = false
-//        
+//
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -197,7 +197,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func fetchMyLibraryList(){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MiLibraryMusicData")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
         request.returnsObjectsAsFaults = false
         do {
             let result = try context?.fetch(request)
@@ -259,8 +258,30 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 20)!
         header.textLabel?.textColor = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
+        
+        if tableView == topMusicTableView{
+            
+
+        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))  // create button
+        button.tag = section
+        button.setTitle("See more", for: .normal)
+        button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
+        button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
+            button.addTarget(self, action: #selector(destinationTopHitsVC), for: .touchUpInside)  // add selector
+        header.addSubview(button)
+        }
     }
     
+    @objc func destinationTopHitsVC(){
+        self.performSegue(withIdentifier: "TopHitsMusic", sender: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TopHitsMusic" {
+            if  let nc = segue.destination as? TopHitsMusicViewController {
+               nc.navigationItem.title = "Top Tracks"
+            }
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
