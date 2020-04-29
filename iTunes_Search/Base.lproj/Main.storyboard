@@ -131,6 +131,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addToFavoriteButton" destination="RCy-Kc-7q1" id="8fb-zu-cmD"/>
                                             <outlet property="topHitImageView" destination="phh-lC-FYK" id="huO-wL-slo"/>
                                             <outlet property="topHitSongTitle" destination="X8T-QJ-LyI" id="WS1-B0-4fl"/>
                                         </connections>

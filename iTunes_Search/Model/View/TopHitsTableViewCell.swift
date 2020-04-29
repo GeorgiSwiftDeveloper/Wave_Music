@@ -12,9 +12,13 @@ class TopHitsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var topHitSongTitle: UILabel!
     @IBOutlet weak var topHitImageView: UIImageView!
-    
+    @IBOutlet weak var addToFavoriteButton: UIButton!
+    var videoID = String()
+    var videoImageUrl = String()
     func configureGenreCell(_ video: Video){
         
+        videoID = video.videoId
+        videoImageUrl = video.videoImageUrl
         topHitSongTitle.text = video.videoTitle
         let imageUrl = URL(string: video.videoImageUrl)
         do{

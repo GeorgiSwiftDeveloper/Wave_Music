@@ -38,7 +38,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         setupNavBar()
         mainLibraryTableView.alwaysBounceVertical = false
@@ -151,11 +151,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("search end editing.")
         
-//        myLibraryListArray = []
-//        fetchMyLibraryList()
-//        searchBar.text = ""
-//        searchController.isActive = false
-//
+        //        myLibraryListArray = []
+        //        fetchMyLibraryList()
+        //        searchBar.text = ""
+        //        searchController.isActive = false
+        //
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -261,14 +261,14 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         if tableView == topMusicTableView{
             
-
-        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))  // create button
-        button.tag = section
-        button.setTitle("See more", for: .normal)
-        button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
-        button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
+            
+            let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))  // create button
+            button.tag = section
+            button.setTitle("See more", for: .normal)
+            button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
+            button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
             button.addTarget(self, action: #selector(destinationTopHitsVC), for: .touchUpInside)  // add selector
-        header.addSubview(button)
+            header.addSubview(button)
         }
     }
     
@@ -278,7 +278,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TopHitsMusic" {
             if  let nc = segue.destination as? TopHitsMusicViewController {
-               nc.navigationItem.title = "Top Tracks"
+                nc.navigationItem.title = "Top Tracks"
             }
         }
     }
@@ -291,13 +291,58 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             libraryMusicCell.configureGenreCell(myLibraryListArray[indexPath.row])
             cell = libraryMusicCell
         case topMusicTableView:
-            let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "TopHitsTableViewCell", for: indexPath) as? TopHitsTableViewCell)!
-            libraryMusicCell.configureGenreCell(topHitsArray[indexPath.row])
-            cell = libraryMusicCell
+            let  topHitsMusicCell = (tableView.dequeueReusableCell(withIdentifier: "TopHitsTableViewCell", for: indexPath) as? TopHitsTableViewCell)!
+            topHitsMusicCell.configureGenreCell(topHitsArray[indexPath.row])
+            topHitsMusicCell.addToFavoriteButton.tag = indexPath.row;
+            topHitsMusicCell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
+            cell = topHitsMusicCell
         default:
             break
         }
         return cell
+    }
+    
+    @objc func addToFavoriteTapped(sender: UIButton){
+        let selectedIndex = IndexPath(row: sender.tag, section: 0)
+        self.topMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+        let selectedCell = self.topMusicTableView.cellForRow(at: selectedIndex) as! TopHitsTableViewCell
+        
+        print(selectedCell.videoImageUrl)
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MiLibraryMusicData")
+        let predicate = NSPredicate(format: "title == %@", selectedCell.topHitSongTitle.text! as CVarArg)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        
+        do{
+            let count = try context?.count(for: request)
+            if(count == 0){
+                // no matching object
+                let entity = NSEntityDescription.entity(forEntityName: "MiLibraryMusicData", in: context!)
+                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                newEntity.setValue(selectedCell.topHitSongTitle.text, forKey: "title")
+                newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
+                newEntity.setValue(selectedCell.videoID, forKey: "videoId")
+                
+                try context?.save()
+                print("data has been saved ")
+                self.fetchMyLibraryList()
+            }
+            else{
+                // at least one matching object exists
+                let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                }
+                
+                
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+                
+            }
+        }
+        catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
