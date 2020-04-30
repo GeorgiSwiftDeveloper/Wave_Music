@@ -40,7 +40,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
   let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
         
         if countrySelected != "" {
-            genreListNSLayoutTopContraint.constant = 300
+            genreListNSLayoutTopContraint.constant = 200
             countySelectedCollectionView.isHidden = false
             self.countySelectedCollectionView.reloadData()
         }else{
@@ -84,12 +84,12 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
           case countySelectedCollectionView:
                  if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCollectionCell", for: indexPath) as? SelectedCoutryCollectionViewCell {
                       let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
-                       cell.selectedCountryName.text = "\(countrySelected!) Top Hits"
+                       cell.selectedCountryName.text = "\(countrySelected!)\n Top Hits 2020"
                     
-                    cell.selectedCountryImageView.layer.borderWidth = 2
+                    cell.selectedCountryImageView.layer.borderWidth = 3
                     cell.selectedCountryImageView.layer.masksToBounds = false
-                    cell.selectedCountryImageView.layer.borderColor = #colorLiteral(red: 0.06832780689, green: 0.05848973244, blue: 0.1592237353, alpha: 0.823224214)
-                    cell.selectedCountryImageView.layer.shadowOpacity = 2
+                    cell.selectedCountryImageView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    cell.selectedCountryImageView.layer.shadowOpacity = 3
                     cell.selectedCountryImageView.layer.shadowPath = UIBezierPath(rect:cell.selectedCountryImageView.bounds).cgPath
                     cell.selectedCountryImageView.layer.shadowRadius = 5
                     cell.selectedCountryImageView.layer.shadowOffset = .zero

@@ -92,6 +92,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             self.myLibraryListArray = []
             self.fetchMyLibraryList()
         }
+        
+        mainLibraryTableView.reloadData()
     }
     
     
