@@ -19,7 +19,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" red="0.0" green="0.34135352759999998" blue="0.52416842409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.066666666669999999" green="0.058823529409999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBar>
                     <connections>
                         <segue destination="3vx-5L-wM2" kind="relationship" relationship="viewControllers" id="zDI-vg-BmX"/>
@@ -256,14 +256,14 @@
                                 <rect key="frame" x="31" y="206" width="313" height="400"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRi-gj-M90">
-                                        <rect key="frame" x="15" y="73" width="283" height="135"/>
+                                        <rect key="frame" x="15" y="93" width="283" height="115"/>
                                         <string key="text">Choose your Country and we will create separate folder for you. Add tracks to your library by searching songs, and adding them to favorites.</string>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To Wave Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEk-HX-k0R">
-                                        <rect key="frame" x="20" y="50" width="273" height="23"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To Wave " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEk-HX-k0R">
+                                        <rect key="frame" x="20" y="70" width="273" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="YKm-Xm-hBO"/>
                                         </constraints>
@@ -282,7 +282,7 @@
                                 <constraints>
                                     <constraint firstItem="RAC-px-thp" firstAttribute="top" secondItem="vRi-gj-M90" secondAttribute="bottom" id="45g-gD-RUx"/>
                                     <constraint firstItem="vRi-gj-M90" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" constant="15" id="8xp-jw-yTA"/>
-                                    <constraint firstItem="cEk-HX-k0R" firstAttribute="top" secondItem="tma-kp-XMg" secondAttribute="top" constant="50" id="Jf9-Vg-IDC"/>
+                                    <constraint firstItem="cEk-HX-k0R" firstAttribute="top" secondItem="tma-kp-XMg" secondAttribute="top" constant="70" id="Jf9-Vg-IDC"/>
                                     <constraint firstAttribute="width" constant="313" id="LFv-jI-wv1"/>
                                     <constraint firstItem="RAC-px-thp" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" id="O2A-9w-9Nx"/>
                                     <constraint firstItem="vRi-gj-M90" firstAttribute="top" secondItem="cEk-HX-k0R" secondAttribute="bottom" id="Syh-GY-s8C"/>
@@ -295,7 +295,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6G-jM-TyB">
-                                <rect key="frame" x="55" y="666" width="265" height="47"/>
+                                <rect key="frame" x="55" y="691" width="265" height="47"/>
                                 <color key="backgroundColor" red="0.0" green="0.34135352759999998" blue="0.52416842409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="47" id="Stl-ct-vfg"/>
@@ -311,21 +311,34 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wave-1" translatesAutoresizingMaskIntoConstraints="NO" id="vEp-Zf-ceL">
-                                <rect key="frame" x="112.66666666666669" y="66" width="150" height="150"/>
+                                <rect key="frame" x="112.66666666666669" y="114" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="3Ky-rF-8lB"/>
                                     <constraint firstAttribute="height" constant="150" id="bGl-Vy-C3S"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rm2-bo-QD4">
+                                <rect key="frame" x="15" y="54" width="49" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="eKD-yF-ict"/>
+                                    <constraint firstAttribute="height" constant="30" id="xmR-Vn-2OO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="12"/>
+                                <state key="normal" title="Skip">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.066793154470000005" green="0.058581960400000001" blue="0.154105189" alpha="0.81801188650000001" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="tma-kp-XMg" firstAttribute="centerY" secondItem="0bM-s3-nmR" secondAttribute="centerY" id="1Ay-zh-O08"/>
                             <constraint firstItem="B6G-jM-TyB" firstAttribute="centerX" secondItem="tma-kp-XMg" secondAttribute="centerX" id="1bt-ht-w9k"/>
                             <constraint firstItem="vEp-Zf-ceL" firstAttribute="centerX" secondItem="tma-kp-XMg" secondAttribute="centerX" id="H1z-IL-67w"/>
-                            <constraint firstItem="B6G-jM-TyB" firstAttribute="top" secondItem="tma-kp-XMg" secondAttribute="bottom" constant="60" id="ZdA-ir-bu4"/>
-                            <constraint firstItem="vEp-Zf-ceL" firstAttribute="top" secondItem="FvA-br-4lD" secondAttribute="top" constant="22" id="fAV-Gq-x3T"/>
+                            <constraint firstItem="Rm2-bo-QD4" firstAttribute="leading" secondItem="FvA-br-4lD" secondAttribute="leading" constant="15" id="W0L-40-1dX"/>
+                            <constraint firstItem="B6G-jM-TyB" firstAttribute="top" secondItem="tma-kp-XMg" secondAttribute="bottom" constant="85" id="ZdA-ir-bu4"/>
+                            <constraint firstItem="vEp-Zf-ceL" firstAttribute="top" secondItem="FvA-br-4lD" secondAttribute="top" constant="70" id="fAV-Gq-x3T"/>
                             <constraint firstItem="tma-kp-XMg" firstAttribute="centerX" secondItem="0bM-s3-nmR" secondAttribute="centerX" id="hNW-gU-7M1"/>
+                            <constraint firstItem="Rm2-bo-QD4" firstAttribute="top" secondItem="FvA-br-4lD" secondAttribute="top" constant="10" id="jgk-dP-OAN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FvA-br-4lD"/>
                     </view>
@@ -557,7 +570,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LoF-Dm-i85">
                                 <rect key="frame" x="0.0" y="256" width="375" height="502"/>
-                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="25" minimumInteritemSpacing="25" id="JVb-ja-Jig">
                                     <size key="itemSize" width="113" height="158"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -606,7 +619,7 @@
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gmr-4I-N1B">
                                 <rect key="frame" x="0.0" y="56" width="375" height="200"/>
-                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="RRe-5G-H5D"/>
                                 </constraints>
@@ -624,7 +637,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="326" height="181"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heandphonesImage" translatesAutoresizingMaskIntoConstraints="NO" id="ojR-kW-jZp">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head-" translatesAutoresizingMaskIntoConstraints="NO" id="ojR-kW-jZp">
                                                     <rect key="frame" x="5" y="5" width="316" height="171"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="316" id="Emf-4K-N2a"/>
@@ -632,9 +645,9 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="heT-dN-Kp0">
-                                                    <rect key="frame" x="124" y="74.666666666666671" width="78.333333333333314" height="31.666666666666671"/>
-                                                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="26"/>
-                                                    <color key="textColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <rect key="frame" x="124" y="75.333333333333329" width="78.333333333333314" height="30.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="26"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1698,7 +1711,7 @@
         <image name="btn-stop" width="44" height="44"/>
         <image name="clear.fill" catalog="system" width="128" height="114"/>
         <image name="film.fill" catalog="system" width="128" height="93"/>
-        <image name="heandphonesImage" width="6000" height="4000"/>
+        <image name="head-" width="5874" height="3921"/>
         <image name="icon-hamburger" width="22" height="16"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="music.note.list" catalog="system" width="128" height="113"/>

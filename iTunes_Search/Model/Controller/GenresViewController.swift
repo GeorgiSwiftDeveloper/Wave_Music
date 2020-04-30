@@ -71,7 +71,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        var cell = UICollectionViewCell()
+        let cell = UICollectionViewCell()
           switch collectionView {
           case favoriteCollectionView:
            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
@@ -88,12 +88,12 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
                     
                     cell.selectedCountryImageView.layer.borderWidth = 3
                     cell.selectedCountryImageView.layer.masksToBounds = false
-                    cell.selectedCountryImageView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    cell.selectedCountryImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
                     cell.selectedCountryImageView.layer.shadowOpacity = 3
                     cell.selectedCountryImageView.layer.shadowPath = UIBezierPath(rect:cell.selectedCountryImageView.bounds).cgPath
                     cell.selectedCountryImageView.layer.shadowRadius = 5
                     cell.selectedCountryImageView.layer.shadowOffset = .zero
-                    cell.selectedCountryImageView.layer.cornerRadius = 8.0
+                    cell.selectedCountryImageView.layer.cornerRadius = 10.0
                     cell.selectedCountryImageView.clipsToBounds = true
                        return cell
                    }else {
@@ -106,11 +106,18 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     }
     
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
-//        print(selectedGenreRow.genreTitle)
-//        
-//        self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
-//        
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        switch collectionView {
+        case favoriteCollectionView:
+            let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
+            print(selectedGenreRow.genreTitle)
+            
+            self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
+        case countySelectedCollectionView:
+            print("a")
+        default:
+            break
+        }
+    }
 }

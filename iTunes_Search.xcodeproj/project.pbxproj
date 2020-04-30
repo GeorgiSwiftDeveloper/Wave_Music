@@ -25,6 +25,8 @@
 		6A48ECC22436643B007A82D6 /* FutureMuviesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */; };
 		6A48ECC424366485007A82D6 /* FutureMuviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC324366485007A82D6 /* FutureMuviesModel.swift */; };
 		6A48ECC624366802007A82D6 /* MuviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC524366802007A82D6 /* MuviesModel.swift */; };
+		6A4923F7245B3516008B8911 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A5FFEF0244D4E61006382DD /* WebKit.framework */; };
+		6A4923FA245B3518008B8911 /* Pods_iTunes_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D4A304F8316D1B993148DF /* Pods_iTunes_Search.framework */; };
 		6A4FD82D244B8D37000A8533 /* YouTubeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4FD82C244B8D37000A8533 /* YouTubeViewController.swift */; };
 		6A5227D22453AABA00D77850 /* AddSelectedMusicToWaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5227D12453AABA00D77850 /* AddSelectedMusicToWaveViewController.swift */; };
 		6A5227D42453CEAE00D77850 /* MyLibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5227D32453CEAE00D77850 /* MyLibraryTableViewCell.swift */; };
@@ -37,7 +39,6 @@
 		6A5A0CDE244969AE005150D2 /* YouTubeVideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDD244969AE005150D2 /* YouTubeVideoModel.swift */; };
 		6A5A0CE0244970D1005150D2 /* YouTubeVideoConnectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDF244970D1005150D2 /* YouTubeVideoConnectionModel.swift */; };
 		6A5A0CE2244971E0005150D2 /* GenreVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */; };
-		6A5FFEF1244D4E62006382DD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A5FFEF0244D4E61006382DD /* WebKit.framework */; };
 		6ABFE2272439099C000217B5 /* GenresCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */; };
 		6ABFE229243909DD000217B5 /* GenresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE228243909DD000217B5 /* GenresViewController.swift */; };
 		6ACE9D3724399C25008009C3 /* SelectedObjectModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6ACE9D3524399C25008009C3 /* SelectedObjectModel.xcdatamodeld */; };
@@ -48,7 +49,6 @@
 		6AD0FD35243C426F006BF086 /* station.json in Resources */ = {isa = PBXBuildFile; fileRef = 6AD0FD34243C426E006BF086 /* station.json */; };
 		6AD0FD37243C4350006BF086 /* ReadDataFromStationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD0FD36243C4350006BF086 /* ReadDataFromStationJSON.swift */; };
 		6AD42A01245013BA00917123 /* YouTubeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD42A00245013BA00917123 /* YouTubeTableViewCell.swift */; };
-		A1B419E7CCF7CA9A7B5A9899 /* Pods_iTunes_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D4A304F8316D1B993148DF /* Pods_iTunes_Search.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,8 +105,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A5FFEF1244D4E62006382DD /* WebKit.framework in Frameworks */,
-				A1B419E7CCF7CA9A7B5A9899 /* Pods_iTunes_Search.framework in Frameworks */,
+				6A4923FA245B3518008B8911 /* Pods_iTunes_Search.framework in Frameworks */,
+				6A4923F7245B3516008B8911 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,7 +530,7 @@
 			baseConfigurationReference = 649055253496FD6A84C08557 /* Pods-iTunes_Search.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4XLSSR63Y5;
 				INFOPLIST_FILE = iTunes_Search/Info.plist;
@@ -552,7 +552,7 @@
 			baseConfigurationReference = D783280CA611A76D44F6747C /* Pods-iTunes_Search.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4XLSSR63Y5;
 				INFOPLIST_FILE = iTunes_Search/Info.plist;
