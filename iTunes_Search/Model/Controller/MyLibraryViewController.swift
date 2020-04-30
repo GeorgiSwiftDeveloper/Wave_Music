@@ -26,6 +26,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var topHits = true
     var myLibrary = true
     
+    var sectionButton = UIButton()
+    
+    
     var isEntityIsEmpty: Bool {
         do {
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -94,7 +97,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
         request.returnsObjectsAsFaults = false
         do {
             let result = try context?.fetch(request)
@@ -250,7 +252,16 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 65
+          var rowHeiight = 0
+             switch tableView {
+             case topMusicTableView:
+                 rowHeiight = 65
+             case mainLibraryTableView:
+                 rowHeiight = 40
+             default:
+                 break
+             }
+        return CGFloat(rowHeiight)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
@@ -268,13 +279,14 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             header.addSubview(button)
             button.addTarget(self, action: #selector(destinationTopHitsVC), for: .touchUpInside)
         }else{
-            if myLibraryListArray.count >= 5{
+            if myLibraryListArray.count >= 4{
             let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))  // create button
                    button.tag = section
                    button.setTitle("See more", for: .normal)
                    button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
                    button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
                    header.addSubview(button)
+                   sectionButton = button
                  button.addTarget(self, action: #selector(destinationMyLibraryVC), for: .touchUpInside)
             }
         }
@@ -412,6 +424,9 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         context?.delete(myLibraryListArray[indexPath.row])
         do{
             try context?.save()
+            if myLibraryListArray.count <= 4 {
+                sectionButton.isHidden = true
+            }
         }catch {
             print("Could not remove post \(error.localizedDescription)")
         }
