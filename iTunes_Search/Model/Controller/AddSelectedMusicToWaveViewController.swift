@@ -63,7 +63,7 @@ class AddSelectedMusicToWaveViewController: UIViewController {
     
     
     @IBAction func addToMyLibrrary(_ sender: Any) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MiLibraryMusicData")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         let predicate = NSPredicate(format: "title == %@", selectedMusicData!.videoTitle as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
@@ -72,7 +72,7 @@ class AddSelectedMusicToWaveViewController: UIViewController {
             let count = try context?.count(for: request)
             if(count == 0){
             // no matching object
-                let entity = NSEntityDescription.entity(forEntityName: "MiLibraryMusicData", in: context!)
+                let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
                 let newEntity = NSManagedObject(entity: entity!, insertInto: context)
                 newEntity.setValue(selectedMusicData?.videoTitle, forKey: "title")
                 newEntity.setValue(selectedMusicData?.videoImageUrl, forKey: "image")

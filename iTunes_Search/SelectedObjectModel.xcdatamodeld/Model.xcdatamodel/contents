@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="MiLibraryMusicData" representedClassName="MiLibraryMusicData" syncable="YES" codeGenerationType="class">
+    <entity name="MyLibraryMusicData" representedClassName="MyLibraryMusicData" syncable="YES" codeGenerationType="class">
         <attribute name="genreTitle" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
@@ -103,7 +103,7 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="MiLibraryMusicData" positionX="-9" positionY="81" width="128" height="133"/>
+        <element name="MyLibraryMusicData" positionX="-9" positionY="81" width="128" height="133"/>
         <element name="SelectedAlbumModel" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="TopHitsModel" positionX="0" positionY="90" width="128" height="133"/>
         <element name="YouTubeBluesData" positionX="0" positionY="45" width="128" height="133"/>

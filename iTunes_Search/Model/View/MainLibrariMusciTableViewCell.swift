@@ -29,7 +29,7 @@ class MainLibrariMusciTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureGenreCell(_ video: MiLibraryMusicData){
+    func configureGenreCell(_ video: MyLibraryMusicData){
         
         musicTitleLabel.text = video.title
         let imageUrl = URL(string: video.image!)

@@ -53,7 +53,7 @@
 /* Begin PBXFileReference section */
 		34D4A304F8316D1B993148DF /* Pods_iTunes_Search.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iTunes_Search.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		649055253496FD6A84C08557 /* Pods-iTunes_Search.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iTunes_Search.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iTunes_Search/Pods-iTunes_Search.debug.xcconfig"; sourceTree = "<group>"; };
-		6A1375BE2433D09E0086113D /* iTunes_Search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTunes_Search.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A1375BE2433D09E0086113D /* Wave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wave.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A1375C12433D09E0086113D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A1375C32433D09E0086113D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6A1375C52433D09E0086113D /* iTunesMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesMusicViewController.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		6A1375BF2433D09E0086113D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6A1375BE2433D09E0086113D /* iTunes_Search.app */,
+				6A1375BE2433D09E0086113D /* Wave.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,10 +165,10 @@
 			isa = PBXGroup;
 			children = (
 				6A4165792457FB2E00910513 /* WelcomeViewController.swift */,
-				6A41345C2444DFB000970C41 /* ContainerViewControllerForiTunesMusic.swift */,
 				6A5227D52453DB4D00D77850 /* MyLibraryViewController.swift */,
 				6A41657B2458EF0C00910513 /* TopHitsMusicViewController.swift */,
 				6A1375C52433D09E0086113D /* iTunesMusicViewController.swift */,
+				6A41345C2444DFB000970C41 /* ContainerViewControllerForiTunesMusic.swift */,
 				6A1375E824344AB40086113D /* FavoriteViewController.swift */,
 				6ABFE228243909DD000217B5 /* FavoriteSongsViewController.swift */,
 				6A5A0CD92448CFB7005150D2 /* GenreListViewController.swift */,
@@ -253,7 +253,7 @@
 			);
 			name = iTunes_Search;
 			productName = iTunes_Search;
-			productReference = 6A1375BE2433D09E0086113D /* iTunes_Search.app */;
+			productReference = 6A1375BE2433D09E0086113D /* Wave.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -536,7 +536,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "search.Wave-Music";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Wave;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -558,7 +558,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "search.Wave-Music";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Wave;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

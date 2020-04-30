@@ -15,6 +15,9 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
     @IBOutlet weak var pickerView: UIPickerView!
     var countryArray = ["United States","Armenia","Argentina","Austria","Australia","Belgium","Bulgaria","Brazil","Canada","Germany","Spain","France","Georgia","India","Italy","Poland","Russia","Ukraine"]
     
+    var valueSelected = String()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
               pickerView.delegate  = self
@@ -24,13 +27,13 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
     
     func updateUI(){
           self.pickerView.setValue(UIColor.white, forKeyPath: "textColor")
-          nextButton.layer.cornerRadius = 5
-          nextButton.layer.borderWidth = 0.75
+          nextButton.layer.cornerRadius = 8
+          nextButton.layer.borderWidth = 2
           nextButton.layer.masksToBounds = false
-          nextButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-          nextButton.layer.shadowOpacity = 2
+          nextButton.layer.shadowColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+          nextButton.layer.shadowOpacity = 3
           nextButton.layer.shadowPath = UIBezierPath(rect: nextButton.bounds).cgPath
-          nextButton.layer.shadowRadius = 6
+          nextButton.layer.shadowRadius = 8
           nextButton.layer.shadowOffset = .zero
           nextButton.clipsToBounds = true
       }
@@ -57,10 +60,18 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
            return countryArray[row]
        }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        self.valueSelected = countryArray[row] as String
+       
+        print(valueSelected)
+     }
+    
 
     @IBAction func nextButtonAction(_ sender: UIButton) {
         if let tabbar = (storyboard?.instantiateViewController(withIdentifier: "myTabbarControllerID") as? UITabBarController) {
             tabbar.modalPresentationStyle = .fullScreen
+             UserDefaults.standard.set(valueSelected, forKey: "countrySelected")
              self.present(tabbar, animated: true, completion: nil)
          }
     }

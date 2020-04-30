@@ -19,11 +19,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     @IBOutlet weak var mainLibraryTableView: UITableView!
     @IBOutlet weak var topMusicTableView: UITableView!
     
-    var myLibraryListArray = [MiLibraryMusicData]()
+    var myLibraryListArray = [MyLibraryMusicData]()
     var topHitsArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
     
-    
+    var topHits = true
+    var myLibrary = true
     
     var isEntityIsEmpty: Bool {
         do {
@@ -170,7 +171,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func fetchSearchSong(_ searchBar: UISearchBar, searchText: String) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MiLibraryMusicData")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         let predicate = NSPredicate(format: "title contains[c]%@", searchBar.text! as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
@@ -181,7 +182,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 // no matching object
                 print("no match")
             }else{
-                let fetchResult = try context?.fetch(request) as? [MiLibraryMusicData]
+                let fetchResult = try context?.fetch(request) as? [MyLibraryMusicData]
                 myLibraryListArray = []
                 myLibraryListArray = fetchResult!
                 mainLibraryTableView.reloadData()
@@ -196,12 +197,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func fetchMyLibraryList(){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MiLibraryMusicData")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         request.returnsObjectsAsFaults = false
         do {
             let result = try context?.fetch(request)
             for data in result as! [NSManagedObject] {
-                myLibraryListArray.append(data as! MiLibraryMusicData)
+                myLibraryListArray.append(data as! MyLibraryMusicData)
                 mainLibraryTableView.reloadData()
             }
             
@@ -258,30 +259,53 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 20)!
         header.textLabel?.textColor = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
-        
         if tableView == topMusicTableView{
-            
-            
             let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))  // create button
             button.tag = section
             button.setTitle("See more", for: .normal)
             button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
             button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
-            button.addTarget(self, action: #selector(destinationTopHitsVC), for: .touchUpInside)  // add selector
             header.addSubview(button)
+            button.addTarget(self, action: #selector(destinationTopHitsVC), for: .touchUpInside)
+        }else{
+            if myLibraryListArray.count >= 5{
+            let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))  // create button
+                   button.tag = section
+                   button.setTitle("See more", for: .normal)
+                   button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
+                   button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
+                   header.addSubview(button)
+                 button.addTarget(self, action: #selector(destinationMyLibraryVC), for: .touchUpInside)
+            }
         }
     }
+    
     
     @objc func destinationTopHitsVC(){
         self.performSegue(withIdentifier: "TopHitsMusic", sender: nil)
     }
+    
+    
+    @objc func destinationMyLibraryVC(){
+        self.performSegue(withIdentifier: "MyLibraryMusic", sender: nil)
+      }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TopHitsMusic" {
             if  let nc = segue.destination as? TopHitsMusicViewController {
                 nc.navigationItem.title = "Top Tracks"
+                nc.checkTable = false
+            }
+        }else if segue.identifier == "MyLibraryMusic" {
+            if  let nc = segue.destination as? TopHitsMusicViewController {
+                nc.navigationItem.title = "My Library"
+                nc.checkTable = true
             }
         }
     }
+    
+  
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
@@ -309,7 +333,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         print(selectedCell.videoImageUrl)
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MiLibraryMusicData")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         let predicate = NSPredicate(format: "title == %@", selectedCell.topHitSongTitle.text! as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
@@ -318,12 +342,12 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             let count = try context?.count(for: request)
             if(count == 0){
                 // no matching object
-                let entity = NSEntityDescription.entity(forEntityName: "MiLibraryMusicData", in: context!)
+                let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
                 let newEntity = NSManagedObject(entity: entity!, insertInto: context)
                 newEntity.setValue(selectedCell.topHitSongTitle.text, forKey: "title")
                 newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
                 newEntity.setValue(selectedCell.videoID, forKey: "videoId")
-                
+                myLibraryListArray = []
                 try context?.save()
                 print("data has been saved ")
                 self.fetchMyLibraryList()
@@ -377,10 +401,21 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
+             removePostRow(atIndexPath: indexPath)
             myLibraryListArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
     }
+    
+    func removePostRow(atIndexPath indexPath: IndexPath) {
+        context?.delete(myLibraryListArray[indexPath.row])
+        do{
+            try context?.save()
+        }catch {
+            print("Could not remove post \(error.localizedDescription)")
+        }
+    }
+
     
 }
