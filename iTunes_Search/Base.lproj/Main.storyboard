@@ -550,7 +550,7 @@
         <!--Genres-->
         <scene sceneID="a0O-Db-qDa">
             <objects>
-                <viewController storyboardIdentifier="FavoriteSongsViewController" id="dhp-Vd-zyy" customClass="FavoriteSongsViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FavoriteSongsViewController" id="dhp-Vd-zyy" customClass="GenresViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="afr-wl-t0b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -565,7 +565,7 @@
                                     <inset key="sectionInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favoriiteSongsCell" id="zSr-gX-pOj" customClass="FavoriteSongsCollectionViewCell" customModule="Wave" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="genreCollectionCell" id="zSr-gX-pOj" customClass="GenresCollectionViewCell" customModule="Wave" customModuleProvider="target">
                                         <rect key="frame" x="99.666666666666671" y="30" width="176" height="188"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" id="0EG-rA-q3N">
@@ -597,8 +597,8 @@
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="176" height="188"/>
                                         <connections>
-                                            <outlet property="favoriteSongNameLabel" destination="LRq-7x-nn3" id="WLj-ac-mGe"/>
-                                            <outlet property="favorteSongImageView" destination="69N-oM-a9r" id="wre-Be-aRn"/>
+                                            <outlet property="genreImageView" destination="69N-oM-a9r" id="wre-Be-aRn"/>
+                                            <outlet property="genreNameLabel" destination="LRq-7x-nn3" id="WLj-ac-mGe"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
