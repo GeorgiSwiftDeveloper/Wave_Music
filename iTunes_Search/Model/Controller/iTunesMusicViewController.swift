@@ -241,6 +241,7 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
         let selectedIndex = IndexPath(row: sender.tag, section: 0)
         self.favoriteMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex) as! FavoriteAlbumTableViewCell
+        
         if selectedCell.favoriteButton.tintColor != #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1){
             let alert = UIAlertController(title: "Do you want to add \n \(selectedCell.title) \n in your favorite list?", message: nil, preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "YES", style: .default) { (action) in

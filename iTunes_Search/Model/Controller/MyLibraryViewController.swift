@@ -53,7 +53,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     let cardHandleAreaHeight:CGFloat = 160
     
-    var cardVisible = false
+    var cardVisible = true
     var nextState:CardState {
         return cardVisible ? .collapsed : .expanded
     }
@@ -128,10 +128,14 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
            
            cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
            self.addChild(cardViewController)
+           
            self.view.addSubview(cardViewController.view)
            
-           cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight, width: self.view.bounds.width, height: cardHeight)
+           cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight - 650, width: self.view.bounds.width, height: cardHeight)
            
+        self.visualEffectView.effect = UIBlurEffect(style: .dark)
+           self.cardViewController.view.layer.cornerRadius = 12
+          self.navigationController?.navigationBar.isHidden = true
            cardViewController.view.clipsToBounds = true
            
            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyLibraryViewController.handleCardTap(recognzier:)))
@@ -184,7 +188,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                          webConfiguration.allowsInlineMediaPlayback = true
                          webConfiguration.mediaTypesRequiringUserActionForPlayback = []
                         
-                    self.webView = WKWebView(frame: CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 215), configuration: webConfiguration)
+                    self.webView = WKWebView(frame: CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 220), configuration: webConfiguration)
                      self.web(web: self.webView)
                     
                      self.cardViewController.view.addSubview(self.webView)
@@ -320,8 +324,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func setupNavBar() {
-        //        navigationController?.navigationBar.prefersLargeTitles = true
-        //        searchController.obscuresBackgroundDuringPresentation  = false
         searchController.searchBar.placeholder = "search My Library"
         searchController.searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
         searchController.searchBar.sizeToFit()
