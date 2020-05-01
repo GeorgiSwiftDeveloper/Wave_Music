@@ -113,6 +113,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
             print(selectedGenreRow.genreTitle)
             
+            
             self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
         case countySelectedCollectionView:
             print("a")

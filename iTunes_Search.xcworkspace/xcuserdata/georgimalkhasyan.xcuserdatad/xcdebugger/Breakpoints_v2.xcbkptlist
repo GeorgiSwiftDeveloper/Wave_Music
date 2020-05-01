@@ -110,8 +110,8 @@
             filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "searchBar(_:textDidChange:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,9 +126,25 @@
             filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "427"
-            endingLineNumber = "427"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
             landmarkName = "removePostRow(atIndexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FE5FF331-D2FC-4A21-8A38-DE4942B57A8E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "animateTransitionIfNeeded(state:duration:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

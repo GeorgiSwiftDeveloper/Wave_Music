@@ -793,7 +793,7 @@
                     <connections>
                         <outlet property="genreTableView" destination="xp2-09-Jqn" id="W2t-Wh-T0f"/>
                         <outlet property="topGenreLabelText" destination="WuZ-97-Hyv" id="JYo-gx-CKC"/>
-                        <segue destination="cEs-ne-ilU" kind="show" identifier="youTubeSegue" id="Drs-JO-srt"/>
+                        <segue destination="cEs-ne-ilU" kind="modal" identifier="youTubeSegue" id="Drs-JO-srt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Se9-C7-Yz3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -809,7 +809,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zkl-jD-esT">
-                                <rect key="frame" x="0.0" y="316" width="375" height="442"/>
+                                <rect key="frame" x="0.0" y="275" width="375" height="483"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="youTubeCell" rowHeight="75" id="5hG-Ss-m4l" customClass="YouTubeTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -852,25 +852,60 @@
                                 </prototypes>
                             </tableView>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBG-mk-yGL">
-                                <rect key="frame" x="0.0" y="56" width="375" height="250"/>
+                                <rect key="frame" x="0.0" y="45" width="375" height="230"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="yzR-r2-deV"/>
+                                    <constraint firstAttribute="width" constant="375" id="2W2-ic-NZT"/>
+                                    <constraint firstAttribute="height" constant="230" id="kCT-HX-7IN"/>
                                 </constraints>
                                 <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yyd-vg-t5K">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillProportionally" alignment="center" spacing="115" translatesAutoresizingMaskIntoConstraints="NO" id="d1L-pv-5Ac">
+                                        <rect key="frame" x="6" y="11.666666666666664" width="363.33333333333331" height="22"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jY-7B-1sb">
+                                                <rect key="frame" x="0.0" y="0.0" width="19.333333333333332" height="22"/>
+                                                <color key="tintColor" red="0.0" green="0.29452693320000001" blue="0.57488495110000004" alpha="0.84891439800000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" image="arrow.down.square.fill" catalog="system"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wave Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pON-cb-Nfs">
+                                                <rect key="frame" x="134.33333333333334" y="2.3333333333333339" width="93" height="17.333333333333329"/>
+                                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.34135352759999998" blue="0.52416842409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAn-YY-Lrb">
+                                                <rect key="frame" x="342.33333333333331" y="0.0" width="21" height="22"/>
+                                                <state key="normal" image="text.badge.star" catalog="system"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="d1L-pv-5Ac" firstAttribute="centerX" secondItem="Yyd-vg-t5K" secondAttribute="centerX" id="GaP-ft-8Rv"/>
+                                    <constraint firstItem="d1L-pv-5Ac" firstAttribute="centerY" secondItem="Yyd-vg-t5K" secondAttribute="centerY" id="y9n-2O-Ne2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Yyd-vg-t5K" firstAttribute="trailing" secondItem="Bld-Bi-Xt9" secondAttribute="trailing" id="2E8-vp-TIX"/>
+                            <constraint firstItem="mBG-mk-yGL" firstAttribute="leading" secondItem="Bld-Bi-Xt9" secondAttribute="leading" id="5Ha-Wb-S2E"/>
+                            <constraint firstItem="mBG-mk-yGL" firstAttribute="top" secondItem="Yyd-vg-t5K" secondAttribute="bottom" id="B0Z-CX-EsP"/>
                             <constraint firstItem="zkl-jD-esT" firstAttribute="trailing" secondItem="Bld-Bi-Xt9" secondAttribute="trailing" id="BRy-y1-mZU"/>
                             <constraint firstAttribute="bottom" secondItem="zkl-jD-esT" secondAttribute="bottom" id="CoO-r7-qpG"/>
-                            <constraint firstItem="mBG-mk-yGL" firstAttribute="top" secondItem="Bld-Bi-Xt9" secondAttribute="top" id="MpP-KB-gw2"/>
-                            <constraint firstItem="zkl-jD-esT" firstAttribute="top" secondItem="mBG-mk-yGL" secondAttribute="bottom" constant="10" id="QCt-ie-Of5"/>
-                            <constraint firstItem="mBG-mk-yGL" firstAttribute="trailing" secondItem="Bld-Bi-Xt9" secondAttribute="trailing" id="dMJ-MC-NMo"/>
-                            <constraint firstItem="mBG-mk-yGL" firstAttribute="leading" secondItem="Bld-Bi-Xt9" secondAttribute="leading" id="m59-as-ARM"/>
+                            <constraint firstItem="mBG-mk-yGL" firstAttribute="top" secondItem="Bld-Bi-Xt9" secondAttribute="top" constant="45" id="OTG-hV-RD4"/>
+                            <constraint firstItem="zkl-jD-esT" firstAttribute="top" secondItem="mBG-mk-yGL" secondAttribute="bottom" id="Tig-HR-io6"/>
+                            <constraint firstItem="Yyd-vg-t5K" firstAttribute="top" secondItem="Bld-Bi-Xt9" secondAttribute="top" id="WzQ-Mf-gck"/>
+                            <constraint firstItem="Yyd-vg-t5K" firstAttribute="leading" secondItem="Bld-Bi-Xt9" secondAttribute="leading" id="aiH-C0-BhM"/>
+                            <constraint firstItem="mBG-mk-yGL" firstAttribute="trailing" secondItem="Bld-Bi-Xt9" secondAttribute="trailing" id="vF7-Sl-Hhr"/>
                             <constraint firstItem="zkl-jD-esT" firstAttribute="leading" secondItem="Bld-Bi-Xt9" secondAttribute="leading" id="z70-dR-DmF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bld-Bi-Xt9"/>
@@ -902,7 +937,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYA-Us-1D2">
-                                <rect key="frame" x="0.0" y="56" width="375" height="230"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="230"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Ym-rC-bxX">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="230"/>
@@ -940,7 +975,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zZm-xs-mJN">
-                                <rect key="frame" x="0.0" y="301" width="375" height="224"/>
+                                <rect key="frame" x="0.0" y="245" width="375" height="329"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="addToLibraryCell" rowHeight="65" id="roF-El-Ktg" customClass="MyLibraryTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -987,7 +1022,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-2F-td5">
-                                <rect key="frame" x="22.666666666666657" y="550" width="330" height="50"/>
+                                <rect key="frame" x="22.666666666666657" y="599" width="330" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.34135352759999998" blue="0.52416842409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="330" id="YK0-p3-rCp"/>
@@ -1703,6 +1738,7 @@
         <image name="07012019-18" width="5000" height="4000"/>
         <image name="NowPlayingBars" width="19.666666030883789" height="19"/>
         <image name="antenna.radiowaves.left.and.right" catalog="system" width="128" height="109"/>
+        <image name="arrow.down.square.fill" catalog="system" width="128" height="114"/>
         <image name="background" width="320" height="568"/>
         <image name="btn-next" width="44" height="44"/>
         <image name="btn-pause" width="44" height="44"/>
@@ -1720,6 +1756,7 @@
         <image name="square.stack.3d.up.fill" catalog="system" width="128" height="124"/>
         <image name="star.circle" catalog="system" width="128" height="121"/>
         <image name="stationImage" width="120" height="75"/>
+        <image name="text.badge.star" catalog="system" width="128" height="109"/>
         <image name="tray.and.arrow.down.fill" catalog="system" width="128" height="114"/>
         <image name="vol-max" width="16.666666030883789" height="14"/>
         <image name="vol-min" width="11" height="12.666666984558105"/>

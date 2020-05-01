@@ -216,6 +216,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
               let genreVC = segue.destination as! YouTubeViewController
                 genreVC.genreVideoID  = sender as? Video
                 genreVC.selectedGenreTitle = genreTitle
+                 genreVC.modalPresentationStyle = .fullScreen
             }
         }
     
