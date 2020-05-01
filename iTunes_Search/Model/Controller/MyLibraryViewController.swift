@@ -9,7 +9,8 @@
 import UIKit
 import CoreData
 import WebKit
-class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate {
+import  YoutubePlayer_in_WKWebView
+class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         print("F")
     }
@@ -22,13 +23,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var myLibraryListArray = [MyLibraryMusicData]()
     var topHitsArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
-    var webView = WKWebView()
+    var webView = WKYTPlayerView()
     
     var topHits = true
     var myLibrary = true
     var genreVideoID: String?
     var sectionButton = UIButton()
     
+    var playButton = UIButton()
+    var pauseButton = UIButton()
+    var checkIfPaused = Bool()
     
     var isEntityIsEmpty: Bool {
         do {
@@ -49,11 +53,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var cardViewController:CardViewController!
     var visualEffectView:UIVisualEffectView!
     
-    let cardHeight:CGFloat = 830
+    let cardHeight:CGFloat = 850
     
-    let cardHandleAreaHeight:CGFloat = 160
+    let cardHandleAreaHeight:CGFloat = 190
     
-    var cardVisible = true
+    var cardVisible = false
     var nextState:CardState {
         return cardVisible ? .collapsed : .expanded
     }
@@ -76,6 +80,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.topMusicTableView.delegate = self
         self.topMusicTableView.dataSource = self
         
+        getYouTubeResluts()
+    }
+    
+    
+    func getYouTubeResluts(){
         if isEntityIsEmpty{
             self.getYouTubeData.getFeedVideos(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
                 if error != nil  {
@@ -121,31 +130,44 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         mainLibraryTableView.reloadData()
     }
     
-    func setupCard() {
-           visualEffectView = UIVisualEffectView()
-           visualEffectView.frame = self.view.frame
-           self.view.addSubview(visualEffectView)
-           
-           cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
-           self.addChild(cardViewController)
-           
-           self.view.addSubview(cardViewController.view)
-           
-           cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight - 650, width: self.view.bounds.width, height: cardHeight)
-           
-        self.visualEffectView.effect = UIBlurEffect(style: .dark)
-           self.cardViewController.view.layer.cornerRadius = 12
-          self.navigationController?.navigationBar.isHidden = true
-           cardViewController.view.clipsToBounds = true
-           
-           let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyLibraryViewController.handleCardTap(recognzier:)))
-           let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MyLibraryViewController.handleCardPan(recognizer:)))
-           
-           cardViewController.headerView.addGestureRecognizer(tapGestureRecognizer)
-           cardViewController.headerView.addGestureRecognizer(panGestureRecognizer)
+    func setupCard(sellectedCell: TopHitsTableViewCell) {
+//        visualEffectView = UIVisualEffectView()
+//        visualEffectView.frame = self.view.frame
+//        self.view.addSubview(visualEffectView)
+        cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
+        cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.addChild(cardViewController)
+        
+        self.view.addSubview(cardViewController.view)
+        
+          cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight, width: self.view.bounds.width, height: cardHeight)
+        cardViewController.view.clipsToBounds = true
+        self.webView = WKYTPlayerView(frame: CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 220))
+        self.cardViewController.view.addSubview(self.webView)
+        let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
+                                              "origin": "https://www.youtube.com"]
+        self.webView.load(withVideoId: genreVideoID!, playerVars: playerVars)
+        self.webView.delegate = self
+    
+        self.webView.isHidden = true
+        
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyLibraryViewController.handleCardTap(recognzier:)))
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MyLibraryViewController.handleCardPan(recognizer:)))
+        
+        cardViewController.headerView.addGestureRecognizer(tapGestureRecognizer)
+        sellectedCell.addGestureRecognizer(panGestureRecognizer)
            
            
        }
+    
+    func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
+        webView.playVideo();
+    }
+    
+    
+    
+    
 
        @objc
        func handleCardTap(recognzier:UITapGestureRecognizer) {
@@ -181,22 +203,21 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 switch state {
                 case .expanded:
                     self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight
-                      self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
+                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
+                    self.playButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
+               
+//                    self.playButton.backgroundColor = UIColor.black
+                    self.playButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
+                    self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+                    self.cardViewController.view.addSubview(self.playButton)
                     self.navigationController?.navigationBar.isHidden = true
                     self.webView.isHidden = false
-                       let webConfiguration = WKWebViewConfiguration()
-                         webConfiguration.allowsInlineMediaPlayback = true
-                         webConfiguration.mediaTypesRequiringUserActionForPlayback = []
-                        
-                    self.webView = WKWebView(frame: CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 220), configuration: webConfiguration)
-                     self.web(web: self.webView)
-                    
-                     self.cardViewController.view.addSubview(self.webView)
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
-                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
+                      self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
                     self.webView.isHidden = true
-                     self.navigationController?.navigationBar.isHidden = false
+//                    self.visualEffectView.removeFromSuperview()
+                    self.navigationController?.navigationBar.isHidden = false
                 }
             }
             
@@ -224,15 +245,31 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
+                    break
+//                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
                 case .collapsed:
-                    self.visualEffectView.effect = nil
+                    break
+//                    self.visualEffectView.effect = nil
                 }
             }
             
             blurAnimator.startAnimation()
             runningAnimations.append(blurAnimator)
             
+        }
+    }
+    
+    
+    @objc func playAndPauseButtonAction(sender: UIButton){
+        if checkIfPaused == false {
+            webView.pauseVideo()
+             self.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
+             
+            checkIfPaused = true
+        }else{
+            webView.playVideo()
+            self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+            checkIfPaused = false
         }
     }
     
@@ -257,32 +294,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         }
     }
-    
-    func web(web: WKWebView){
-        let html =
-                   "<html>" +
-                       "<body style='margin: 0;'>" +
-                       "<script type='text/javascript' src='http://www.youtube.com/iframe_api'></script>" +
-                       "<script type='text/javascript'> " +
-                       "   function onYouTubeIframeAPIReady() {" +
-                       "      ytplayer = new YT.Player('playerId',{events:{'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange}}) " +
-                       "   } " +
-                       "   function onPlayerReady(a) {" +
-                       "       window.location = 'br.com.tntstudios.youtubeplayer://state=6'; " +
-                       "   }" +
-                       "   function onPlayerStateChange(d) {" +
-                       "       window.location = 'br.com.tntstudios.youtubeplayer://state=' + d.data; " +
-                       "   }" +
-                       "</script>" +
-                       "<div style='justify-content: center; align-items: center; display: flex; height: 100%;'>" +
-                       "<iframe id='playerId' type='text/html' width='100%' height='100%' src='https://www.youtube.com/embed/\(genreVideoID!)?" +
-                       "enablejsapi=1&rel=0&playsinline=1&autoplay=0&showinfo=0&modestbranding=1' frameborder='0'>" +
-                       "</div>" +
-                       "</body>" +
-               "</html>"
-               web.loadHTMLString(html, baseURL: URL(string: "http://www.youtube.com"))
-    }
-    
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -341,11 +352,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("search end editing.")
         
-        //        myLibraryListArray = []
-        //        fetchMyLibraryList()
-        //        searchBar.text = ""
-        //        searchController.isActive = false
-        //
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -439,15 +445,15 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-          var rowHeiight = 0
-             switch tableView {
-             case topMusicTableView:
-                 rowHeiight = 65
-             case mainLibraryTableView:
-                 rowHeiight = 40
-             default:
-                 break
-             }
+        var rowHeiight = 0
+        switch tableView {
+        case topMusicTableView:
+            rowHeiight = 65
+        case mainLibraryTableView:
+            rowHeiight = 40
+        default:
+            break
+        }
         return CGFloat(rowHeiight)
     }
     
@@ -458,7 +464,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 20)!
         header.textLabel?.textColor = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
         if tableView == topMusicTableView{
-            let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))  // create button
+            let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))
             button.tag = section
             button.setTitle("See more", for: .normal)
             button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
@@ -467,14 +473,14 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             button.addTarget(self, action: #selector(destinationTopHitsVC), for: .touchUpInside)
         }else{
             if myLibraryListArray.count >= 4{
-            let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))  // create button
-                   button.tag = section
-                   button.setTitle("See more", for: .normal)
-                   button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
-                   button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
-                   header.addSubview(button)
-                   sectionButton = button
-                 button.addTarget(self, action: #selector(destinationMyLibraryVC), for: .touchUpInside)
+                let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))
+                button.tag = section
+                button.setTitle("See more", for: .normal)
+                button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
+                button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
+                header.addSubview(button)
+                sectionButton = button
+                button.addTarget(self, action: #selector(destinationMyLibraryVC), for: .touchUpInside)
             }
         }
     }
@@ -487,7 +493,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     @objc func destinationMyLibraryVC(){
         self.performSegue(withIdentifier: "MyLibraryMusic", sender: nil)
-      }
+    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -504,7 +510,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-  
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
@@ -582,20 +588,23 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             self.present(nextViewController, animated: true, completion: nil)
         case topMusicTableView:
             let selectedVideoId = topHitsArray[indexPath.row]
+            webView.load(withVideoId: "")
+            let sellectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-          
-            setupCard()
-          
-//            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "loadVideoVC") as! YouTubeViewController
-//            nextViewController.checkMyLibraryIsSelected = true
-//            nextViewController.genreVideoID = selectedVideoId
-//            self.present(nextViewController, animated: true, completion: nil)
+            self.setupCard(sellectedCell: sellectedCell)
+     
+            //            setupCard()
+//                        if view.isDescendant(of: cardViewController.view) {
+//                            cardViewController.view.removeFromSuperview()
+//                              self.visualEffectView.removeFromSuperview()
+//                        } else {
+//                            view.addSubview(cardViewController.view)
+//                    }
         default:
             break
         }
     }
-
+    
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if tableView == topMusicTableView{
@@ -606,7 +615,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
-             removePostRow(atIndexPath: indexPath)
+            removePostRow(atIndexPath: indexPath)
             myLibraryListArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
@@ -624,6 +633,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             print("Could not remove post \(error.localizedDescription)")
         }
     }
-
+    
     
 }

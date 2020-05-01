@@ -101,6 +101,7 @@
 		6AD0FD34243C426E006BF086 /* station.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = station.json; sourceTree = "<group>"; };
 		6AD0FD36243C4350006BF086 /* ReadDataFromStationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDataFromStationJSON.swift; sourceTree = "<group>"; };
 		6AD42A00245013BA00917123 /* YouTubeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeTableViewCell.swift; sourceTree = "<group>"; };
+		6AFF2AF5245C9927007883A2 /* YouTubePlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YouTubePlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D783280CA611A76D44F6747C /* Pods-iTunes_Search.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iTunes_Search.release.xcconfig"; path = "Pods/Target Support Files/Pods-iTunes_Search/Pods-iTunes_Search.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,6 +229,7 @@
 		F275C05A9D8551F9331A93C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6AFF2AF5245C9927007883A2 /* YouTubePlayer.framework */,
 				6A5FFEF0244D4E61006382DD /* WebKit.framework */,
 				34D4A304F8316D1B993148DF /* Pods_iTunes_Search.framework */,
 			);
@@ -322,10 +324,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-iTunes_Search/Pods-iTunes_Search-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/YoutubePlayer-in-WKWebView/YoutubePlayer_in_WKWebView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YoutubePlayer_in_WKWebView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
