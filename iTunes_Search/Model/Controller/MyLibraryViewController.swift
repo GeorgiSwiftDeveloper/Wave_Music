@@ -33,6 +33,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var playButton = UIButton()
     var musicLabelText = UILabel()
     var checkIfPaused = Bool()
+    var checkCardView = Bool()
     
     var isEntityIsEmpty: Bool {
         do {
@@ -134,10 +135,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
 //        visualEffectView = UIVisualEffectView()
 //        visualEffectView.frame = self.view.frame
 //        self.view.addSubview(visualEffectView)
+        checkCardView = true
         cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
         cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        cardViewController.view.layer.opacity = 0.95
         self.addChild(cardViewController)
-        
         self.view.addSubview(cardViewController.view)
         
           cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight, width: self.view.bounds.width, height: cardHeight)
@@ -227,7 +229,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                     self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
                     
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
-                    self.musicLabelText.frame = CGRect(x: 0, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width), height: 50)
+                    self.musicLabelText.frame = CGRect(x: 5, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
                     
                     
                     
@@ -241,7 +243,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                       self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
                     
                     self.playButton.frame = CGRect(x: self.cardViewController.view.frame.size.width - self.playButton.frame.size.width - 10, y: 48, width: 50, height: 50)
-                    self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 70), height: 50)
+                    self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 80), height: 50)
 
 
                     self.musicLabelText.numberOfLines = 0
@@ -624,12 +626,15 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             webView.load(withVideoId: "")
             let sellectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
+           
+            if checkCardView{
+                self.cardViewController.view.removeFromSuperview()
+                checkCardView = false
+            }
             self.setupCard(sellectedCell: sellectedCell)
             self.musicLabelText.text = selectedVideoId.videoTitle
-            self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 130, y: 48, width: 50, height: 50)
-            self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 70), height: 50)
-
-
+            self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 140, y: 48, width: 50, height: 50)
+            self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 80), height: 50)
             self.musicLabelText.numberOfLines = 0
             self.musicLabelText.textAlignment = .left
             self.musicLabelText.font = UIFont(name: "Verdana", size: 12)
