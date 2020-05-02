@@ -31,7 +31,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var sectionButton = UIButton()
     
     var playButton = UIButton()
-    var pauseButton = UIButton()
+    var musicLabelText = UILabel()
     var checkIfPaused = Bool()
     
     var isEntityIsEmpty: Bool {
@@ -147,10 +147,31 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
                                               "origin": "https://www.youtube.com"]
         self.webView.load(withVideoId: genreVideoID!, playerVars: playerVars)
+        
         self.webView.delegate = self
-    
         self.webView.isHidden = true
         
+        self.musicLabelText.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.musicLabelText.numberOfLines = 0
+        self.musicLabelText.textAlignment = .center
+        self.cardViewController.view.addSubview(self.musicLabelText)
+
+        
+        
+        self.playButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
+        self.cardViewController.view.addSubview(self.playButton)
+        
+        checkIfPaused = true
+        if checkIfPaused == false {
+                  webView.pauseVideo()
+                   self.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
+                   
+                  checkIfPaused = true
+              }else{
+                  webView.playVideo()
+                  self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+                  checkIfPaused = false
+              }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyLibraryViewController.handleCardTap(recognzier:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MyLibraryViewController.handleCardPan(recognizer:)))
@@ -204,19 +225,31 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 case .expanded:
                     self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight
                     self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
+                    
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
-               
-//                    self.playButton.backgroundColor = UIColor.black
-                    self.playButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
-                    self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-                    self.cardViewController.view.addSubview(self.playButton)
+                    self.musicLabelText.frame = CGRect(x: 0, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width), height: 50)
+                    
+                    
+                    
+                    self.musicLabelText.numberOfLines = 0
+                    self.musicLabelText.textAlignment = .center
                     self.navigationController?.navigationBar.isHidden = true
                     self.webView.isHidden = false
+               
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
                       self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
+                    
+                    self.playButton.frame = CGRect(x: self.cardViewController.view.frame.size.width - self.playButton.frame.size.width - 10, y: 48, width: 50, height: 50)
+                    self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 70), height: 50)
+
+
+                    self.musicLabelText.numberOfLines = 0
+                    self.musicLabelText.textAlignment = .left
+                    self.musicLabelText.font = UIFont(name: "Verdana", size: 12)
+                    
                     self.webView.isHidden = true
-//                    self.visualEffectView.removeFromSuperview()
+
                     self.navigationController?.navigationBar.isHidden = false
                 }
             }
@@ -592,14 +625,14 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             let sellectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
             self.setupCard(sellectedCell: sellectedCell)
-     
-            //            setupCard()
-//                        if view.isDescendant(of: cardViewController.view) {
-//                            cardViewController.view.removeFromSuperview()
-//                              self.visualEffectView.removeFromSuperview()
-//                        } else {
-//                            view.addSubview(cardViewController.view)
-//                    }
+            self.musicLabelText.text = selectedVideoId.videoTitle
+            self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 130, y: 48, width: 50, height: 50)
+            self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 70), height: 50)
+
+
+            self.musicLabelText.numberOfLines = 0
+            self.musicLabelText.textAlignment = .left
+            self.musicLabelText.font = UIFont(name: "Verdana", size: 12)
         default:
             break
         }
