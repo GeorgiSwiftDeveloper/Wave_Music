@@ -31,6 +31,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var sectionButton = UIButton()
     
     var playButton = UIButton()
+    var rightButton = UIButton()
+    var leftButton = UIButton()
+    var volumeSlider = UISlider()
+    var volMax = UIImageView()
+    var volMin = UIImageView()
+    
     var musicLabelText = UILabel()
     var checkIfPaused = Bool()
     var checkCardView = Bool()
@@ -138,7 +144,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         checkCardView = true
         cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
         cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        cardViewController.view.layer.opacity = 0.95
         self.addChild(cardViewController)
         self.view.addSubview(cardViewController.view)
         
@@ -219,6 +224,34 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
     }
     
+    func leftandRightButton(){
+        
+        self.rightButton.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 400, width: 60, height: 60)
+        self.rightButton.setImage(UIImage(named: "btn-previous"), for: .normal)
+        self.cardViewController.view.addSubview(rightButton)
+        
+        self.leftButton.frame = CGRect(x: self.cardViewController.view.center.x + 60, y: 400, width: 60, height: 60)
+        self.leftButton.setImage(UIImage(named: "btn-next"), for: .normal)
+        self.cardViewController.view.addSubview(leftButton)
+        
+        
+        self.volumeSlider.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 500, width: 250, height: 25)
+        volumeSlider.minimumValue = 0
+        volumeSlider.maximumValue = 100
+        volumeSlider.isContinuous = true
+        volumeSlider.tintColor = UIColor.white
+        self.cardViewController.view.addSubview(volumeSlider)
+        
+        self.volMin.frame = CGRect(x: self.cardViewController.view.center.x - 145, y: 505, width: 15, height: 15)
+        self.volMin.image = UIImage(named: "vol-min")
+        self.cardViewController.view.addSubview(volMin)
+        
+        
+        self.volMax.frame = CGRect(x: self.cardViewController.view.center.x + 145, y: 505, width: 15, height: 15)
+        self.volMax.image = UIImage(named: "vol-max")
+        self.cardViewController.view.addSubview(volMax)
+    }
+    
     
     func animateTransitionIfNeeded (state:CardState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
@@ -227,12 +260,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 case .expanded:
                     self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight
                     self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
-                    
+                     self.cardViewController.view.layer.opacity = 1
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
-                    self.musicLabelText.frame = CGRect(x: 5, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
+                    self.musicLabelText.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
                     
                     
-                    
+                    self.leftandRightButton()
                     self.musicLabelText.numberOfLines = 0
                     self.musicLabelText.textAlignment = .center
                     self.navigationController?.navigationBar.isHidden = true
@@ -241,14 +274,14 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
                       self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
-                    
+                    self.cardViewController.view.layer.opacity = 0.85
                     self.playButton.frame = CGRect(x: self.cardViewController.view.frame.size.width - self.playButton.frame.size.width - 10, y: 48, width: 50, height: 50)
                     self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 80), height: 50)
 
-
+                    
                     self.musicLabelText.numberOfLines = 0
                     self.musicLabelText.textAlignment = .left
-                    self.musicLabelText.font = UIFont(name: "Verdana", size: 12)
+                    self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
                     
                     self.webView.isHidden = true
 
@@ -632,12 +665,13 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 checkCardView = false
             }
             self.setupCard(sellectedCell: sellectedCell)
+            self.cardViewController.view.layer.opacity = 0.85
             self.musicLabelText.text = selectedVideoId.videoTitle
             self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 140, y: 48, width: 50, height: 50)
             self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 80), height: 50)
             self.musicLabelText.numberOfLines = 0
             self.musicLabelText.textAlignment = .left
-            self.musicLabelText.font = UIFont(name: "Verdana", size: 12)
+            self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
         default:
             break
         }
