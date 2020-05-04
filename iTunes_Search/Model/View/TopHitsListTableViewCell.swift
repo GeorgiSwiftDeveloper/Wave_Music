@@ -15,10 +15,10 @@ class TopHitsListTableViewCell: UITableViewCell {
     @IBOutlet weak var addToFavoriteButton: UIButton!
     
     
-   func configureTopHitsCell(_ video: TopHitsModel){
+   func configureTopHitsCell(_ video: Video){
            
-           topHitLabelText.text = video.title
-          let imageUrl = URL(string: video.image!)
+           topHitLabelText.text = video.videoTitle
+          let imageUrl = URL(string: video.videoImageUrl)
            do{
                let data:NSData = try NSData(contentsOf: imageUrl!)
                topHitImageView.image =  UIImage(data: data as Data)
@@ -38,10 +38,10 @@ class TopHitsListTableViewCell: UITableViewCell {
        }
     
     
-    func configureMyLibraryCell(_ video: MyLibraryMusicData){
+    func configureMyLibraryCell(_ video: Video){
              
-             topHitLabelText.text = video.title
-            let imageUrl = URL(string: video.image!)
+             topHitLabelText.text = video.videoTitle
+            let imageUrl = URL(string: video.videoImageUrl)
              do{
                  let data:NSData = try NSData(contentsOf: imageUrl!)
                  topHitImageView.image =  UIImage(data: data as Data)
