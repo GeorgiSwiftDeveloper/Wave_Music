@@ -11,7 +11,7 @@ import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
 
-class TopHitsMusicViewController: UIViewController {
+class SellectedSectionViewController: UIViewController {
     
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
@@ -20,18 +20,29 @@ class TopHitsMusicViewController: UIViewController {
     var genreVideoID: String?
     var webView = WKYTPlayerView()
     
-    @IBOutlet weak var topHitsListTableView: UITableView!
+    @IBOutlet weak var sellectedSectionTableView: UITableView!
+    
+//    var sellectedCell = UITableViewCell()
+//    var videoID = String()
+//    var backgroundSellectedVido = Video()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.topHitsListTableView.delegate = self
-        self.topHitsListTableView.dataSource = self
+        self.sellectedSectionTableView.delegate = self
+        self.sellectedSectionTableView.dataSource = self
         if checkTable == false{
             fetchTopHitList()
         }else{
             fetchMyLibraryList()
         }
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super .viewWillAppear(animated)
+//        
+//        VideoPlayerClass.callVideoPlayer.superViewController = self
+//        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: backgroundSellectedVido)
+//    }
     
     
     func fetchTopHitList(){
@@ -50,7 +61,7 @@ class TopHitsMusicViewController: UIViewController {
                 
                 
                 topHitsLists.append(videoList)
-                topHitsListTableView.reloadData()
+                sellectedSectionTableView.reloadData()
             }
             
         } catch {
@@ -75,7 +86,7 @@ class TopHitsMusicViewController: UIViewController {
                 
                 
                 myLibraryList.append(videoList)
-                topHitsListTableView.reloadData()
+                sellectedSectionTableView.reloadData()
             }
             
         } catch {
@@ -84,7 +95,7 @@ class TopHitsMusicViewController: UIViewController {
     }
 }
 
-extension TopHitsMusicViewController: UITableViewDelegate, UITableViewDataSource {
+extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowsInSection = 0
         switch checkTable {
@@ -99,19 +110,19 @@ extension TopHitsMusicViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch checkTable {
         case false:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? TopHitsListTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
                 cell.configureTopHitsCell(topHitsLists[indexPath.row])
                 return cell
             }else {
-                return TopHitsListTableViewCell()
+                return SellectedSectionTableViewCell()
             }
         case true:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? TopHitsListTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
                 cell.configureMyLibraryCell(myLibraryList[indexPath.row])
                 cell.addToFavoriteButton.isHidden = true
                 return cell
             }else {
-                return TopHitsListTableViewCell()
+                return SellectedSectionTableViewCell()
             }
         }
     }
@@ -121,7 +132,7 @@ extension TopHitsMusicViewController: UITableViewDelegate, UITableViewDataSource
         case true:
             let selectedVideoId = myLibraryList[indexPath.row]
             webView.load(withVideoId: "")
-            let sellectedCell = self.topHitsListTableView.cellForRow(at: indexPath) as! TopHitsListTableViewCell
+            let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
             genreVideoID = selectedVideoId.videoId
             
             VideoPlayerClass.callVideoPlayer.superViewController = self
@@ -129,7 +140,7 @@ extension TopHitsMusicViewController: UITableViewDelegate, UITableViewDataSource
         case false:
             let selectedVideoId = topHitsLists[indexPath.row]
             webView.load(withVideoId: "")
-            let sellectedCell = self.topHitsListTableView.cellForRow(at: indexPath) as! TopHitsListTableViewCell
+            let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
             genreVideoID = selectedVideoId.videoId
             
             VideoPlayerClass.callVideoPlayer.superViewController = self

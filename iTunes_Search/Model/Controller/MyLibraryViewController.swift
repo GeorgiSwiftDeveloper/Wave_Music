@@ -11,9 +11,6 @@ import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
 class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        print("F")
-    }
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -104,6 +101,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         mainLibraryTableView.reloadData()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super .viewDidDisappear(animated)
+        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+//        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+    }
+    
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
         request.returnsObjectsAsFaults = false
@@ -161,6 +164,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("search end editing.")
         
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        print("")
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -316,12 +323,12 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TopHitsMusic" {
-            if  let nc = segue.destination as? TopHitsMusicViewController {
+            if  let nc = segue.destination as? SellectedSectionViewController {
                 nc.navigationItem.title = "Top Tracks"
                 nc.checkTable = false
             }
         }else if segue.identifier == "MyLibraryMusic" {
-            if  let nc = segue.destination as? TopHitsMusicViewController {
+            if  let nc = segue.destination as? SellectedSectionViewController {
                 nc.navigationItem.title = "My Library"
                 nc.checkTable = true
             }

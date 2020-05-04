@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopHitsListTableViewCell: UITableViewCell {
+class SellectedSectionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var topHitImageView: UIImageView!
     @IBOutlet weak var topHitLabelText: UILabel!
