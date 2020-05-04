@@ -20,7 +20,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     @IBOutlet weak var mainLibraryTableView: UITableView!
     @IBOutlet weak var topMusicTableView: UITableView!
     
-    var myLibraryListArray = [MyLibraryMusicData]()
+    var myLibraryListArray = [Video]()
     var topHitsArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
     var webView = WKYTPlayerView()
@@ -30,16 +30,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var genreVideoID: String?
     var sectionButton = UIButton()
     
-    var playButton = UIButton()
-    var rightButton = UIButton()
-    var leftButton = UIButton()
-    var volumeSlider = UISlider()
-    var volMax = UIImageView()
-    var volMin = UIImageView()
-    
-    var musicLabelText = UILabel()
-    var checkIfPaused = Bool()
-    var checkCardView = Bool()
     
     var isEntityIsEmpty: Bool {
         do {
@@ -51,30 +41,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
     }
     
-    
-    enum CardState {
-        case expanded
-        case collapsed
-    }
-    
-    var cardViewController:CardViewController!
-    var visualEffectView:UIVisualEffectView!
-    
-    let cardHeight:CGFloat = 850
-    
-    let cardHandleAreaHeight:CGFloat = 190
-    
-    var cardVisible = false
-    var nextState:CardState {
-        return cardVisible ? .collapsed : .expanded
-    }
-    
-    var runningAnimations = [UIViewPropertyAnimator]()
-    var animationProgressWhenInterrupted:CGFloat = 0
-    
-    
-    
-    
+    var videoPlayerClass = VideoPlayerClass()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,232 +102,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
         
         mainLibraryTableView.reloadData()
-    }
-    
-    func setupCard(sellectedCell: TopHitsTableViewCell) {
-//        visualEffectView = UIVisualEffectView()
-//        visualEffectView.frame = self.view.frame
-//        self.view.addSubview(visualEffectView)
-        checkCardView = true
-        cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
-        cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.addChild(cardViewController)
-        self.view.addSubview(cardViewController.view)
-        
-          cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight, width: self.view.bounds.width, height: cardHeight)
-        cardViewController.view.clipsToBounds = true
-        self.webView = WKYTPlayerView(frame: CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 220))
-        self.cardViewController.view.addSubview(self.webView)
-        let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
-                                              "origin": "https://www.youtube.com"]
-        self.webView.load(withVideoId: genreVideoID!, playerVars: playerVars)
-        
-        self.webView.delegate = self
-        self.webView.isHidden = true
-        
-        self.musicLabelText.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        self.musicLabelText.numberOfLines = 0
-        self.musicLabelText.textAlignment = .center
-        self.cardViewController.view.addSubview(self.musicLabelText)
-
-        
-        
-        self.playButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
-        self.cardViewController.view.addSubview(self.playButton)
-        
-        checkIfPaused = true
-        if checkIfPaused == false {
-                  webView.pauseVideo()
-                   self.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
-                   
-                  checkIfPaused = true
-              }else{
-                  webView.playVideo()
-                  self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-                  checkIfPaused = false
-              }
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyLibraryViewController.handleCardTap(recognzier:)))
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MyLibraryViewController.handleCardPan(recognizer:)))
-        
-        cardViewController.headerView.addGestureRecognizer(tapGestureRecognizer)
-        sellectedCell.addGestureRecognizer(panGestureRecognizer)
-           
-           
-       }
-    
-    func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
-        webView.playVideo();
-    }
-    
-    
-    
-    
-
-       @objc
-       func handleCardTap(recognzier:UITapGestureRecognizer) {
-           switch recognzier.state {
-           case .ended:
-               animateTransitionIfNeeded(state: nextState, duration: 0.9)
-           default:
-               break
-           }
-       }
-    
-    @objc
-    func handleCardPan (recognizer:UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            startInteractiveTransition(state: nextState, duration: 0.9)
-        case .changed:
-            let translation = recognizer.translation(in: self.cardViewController.headerView)
-            var fractionComplete = translation.y / cardHeight
-            fractionComplete = cardVisible ? fractionComplete : -fractionComplete
-            updateInteractiveTransition(fractionCompleted: fractionComplete)
-        case .ended:
-            continueInteractiveTransition()
-        default:
-            break
-        }
-    }
-    
-    func leftandRightButton(){
-        
-        self.rightButton.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 400, width: 60, height: 60)
-        self.rightButton.setImage(UIImage(named: "btn-previous"), for: .normal)
-        self.cardViewController.view.addSubview(rightButton)
-        
-        self.leftButton.frame = CGRect(x: self.cardViewController.view.center.x + 60, y: 400, width: 60, height: 60)
-        self.leftButton.setImage(UIImage(named: "btn-next"), for: .normal)
-        self.cardViewController.view.addSubview(leftButton)
-        
-        
-        self.volumeSlider.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 500, width: 250, height: 25)
-        volumeSlider.minimumValue = 0
-        volumeSlider.maximumValue = 100
-        volumeSlider.isContinuous = true
-        volumeSlider.tintColor = UIColor.white
-        self.cardViewController.view.addSubview(volumeSlider)
-        
-        self.volMin.frame = CGRect(x: self.cardViewController.view.center.x - 145, y: 505, width: 15, height: 15)
-        self.volMin.image = UIImage(named: "vol-min")
-        self.cardViewController.view.addSubview(volMin)
-        
-        
-        self.volMax.frame = CGRect(x: self.cardViewController.view.center.x + 145, y: 505, width: 15, height: 15)
-        self.volMax.image = UIImage(named: "vol-max")
-        self.cardViewController.view.addSubview(volMax)
-    }
-    
-    
-    func animateTransitionIfNeeded (state:CardState, duration:TimeInterval) {
-        if runningAnimations.isEmpty {
-            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                switch state {
-                case .expanded:
-                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight
-                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
-                     self.cardViewController.view.layer.opacity = 1
-                    self.playButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
-                    self.musicLabelText.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
-                    
-                    
-                    self.leftandRightButton()
-                    self.musicLabelText.numberOfLines = 0
-                    self.musicLabelText.textAlignment = .center
-                    self.navigationController?.navigationBar.isHidden = true
-                    self.webView.isHidden = false
-               
-                case .collapsed:
-                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
-                      self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
-                    self.cardViewController.view.layer.opacity = 0.85
-                    self.playButton.frame = CGRect(x: self.cardViewController.view.frame.size.width - self.playButton.frame.size.width - 10, y: 48, width: 50, height: 50)
-                    self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 80), height: 50)
-
-                    
-                    self.musicLabelText.numberOfLines = 0
-                    self.musicLabelText.textAlignment = .left
-                    self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
-                    
-                    self.webView.isHidden = true
-
-                    self.navigationController?.navigationBar.isHidden = false
-                }
-            }
-            
-            frameAnimator.addCompletion { _ in
-                self.cardVisible = !self.cardVisible
-                self.runningAnimations.removeAll()
-            }
-            
-            frameAnimator.startAnimation()
-            runningAnimations.append(frameAnimator)
-            
-            
-            let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
-                switch state {
-                case .expanded:
-                    self.cardViewController.view.layer.cornerRadius = 12
-                case .collapsed:
-                    self.cardViewController.view.layer.cornerRadius = 0
-                }
-            }
-            
-            cornerRadiusAnimator.startAnimation()
-            runningAnimations.append(cornerRadiusAnimator)
-            
-            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                switch state {
-                case .expanded:
-                    break
-//                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
-                case .collapsed:
-                    break
-//                    self.visualEffectView.effect = nil
-                }
-            }
-            
-            blurAnimator.startAnimation()
-            runningAnimations.append(blurAnimator)
-            
-        }
-    }
-    
-    
-    @objc func playAndPauseButtonAction(sender: UIButton){
-        if checkIfPaused == false {
-            webView.pauseVideo()
-             self.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
-             
-            checkIfPaused = true
-        }else{
-            webView.playVideo()
-            self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-            checkIfPaused = false
-        }
-    }
-    
-    func startInteractiveTransition(state:CardState, duration:TimeInterval) {
-        if runningAnimations.isEmpty {
-            animateTransitionIfNeeded(state: state, duration: duration)
-        }
-        for animator in runningAnimations {
-            animator.pauseAnimation()
-            animationProgressWhenInterrupted = animator.fractionComplete
-        }
-    }
-    
-    func updateInteractiveTransition(fractionCompleted:CGFloat) {
-        for animator in runningAnimations {
-            animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
-        }
-    }
-    
-    func continueInteractiveTransition (){
-        for animator in runningAnimations {
-            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-        }
     }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
@@ -445,7 +186,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 // no matching object
                 print("no match")
             }else{
-                let fetchResult = try context?.fetch(request) as? [MyLibraryMusicData]
+                let fetchResult = try context?.fetch(request) as? [Video]
                 myLibraryListArray = []
                 myLibraryListArray = fetchResult!
                 mainLibraryTableView.reloadData()
@@ -465,7 +206,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         do {
             let result = try context?.fetch(request)
             for data in result as! [NSManagedObject] {
-                myLibraryListArray.append(data as! MyLibraryMusicData)
+                 let videoId = data.value(forKey: "videoId") as? String ?? ""
+                 let title = data.value(forKey: "title") as? String ?? ""
+                 let songDescription = data.value(forKey: "songDescription") as? String ?? ""
+                 let playListId = data.value(forKey: "playListId") as? String ?? ""
+                 let image = data.value(forKey: "image") as? String ?? ""
+                 let genreTitle = data.value(forKey: "genreTitle") as? String ?? ""
+                 let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: songDescription , videoPlaylistId: playListId, videoImageUrl: image , channelId:"", genreTitle: genreTitle)
+                
+                
+                myLibraryListArray.append(videoList)
                 mainLibraryTableView.reloadData()
             }
             
@@ -646,32 +396,21 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         switch tableView {
         case mainLibraryTableView:
             let selectedVideoId = myLibraryListArray[indexPath.row]
-            var videoId = Video()
-            videoId.videoId = selectedVideoId.videoId!
-            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "loadVideoVC") as! YouTubeViewController
-            nextViewController.checkMyLibraryIsSelected = true
-            nextViewController.genreVideoID = videoId
-            nextViewController.modalPresentationStyle = .fullScreen
-            self.present(nextViewController, animated: true, completion: nil)
+            webView.load(withVideoId: "")
+            let sellectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
+            genreVideoID = selectedVideoId.videoId
+            
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         case topMusicTableView:
             let selectedVideoId = topHitsArray[indexPath.row]
             webView.load(withVideoId: "")
             let sellectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-           
-            if checkCardView{
-                self.cardViewController.view.removeFromSuperview()
-                checkCardView = false
-            }
-            self.setupCard(sellectedCell: sellectedCell)
-            self.cardViewController.view.layer.opacity = 0.85
-            self.musicLabelText.text = selectedVideoId.videoTitle
-            self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 140, y: 48, width: 50, height: 50)
-            self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 80), height: 50)
-            self.musicLabelText.numberOfLines = 0
-            self.musicLabelText.textAlignment = .left
-            self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
+            
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            
         default:
             break
         }
@@ -695,7 +434,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func removePostRow(atIndexPath indexPath: IndexPath) {
-        context?.delete(myLibraryListArray[indexPath.row])
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let result = try? context?.fetch(request)
+        let resultData = result as! [NSManagedObject]
+        context?.delete(resultData[indexPath.row])
         do{
             try context?.save()
             if myLibraryListArray.count <= 4 {
