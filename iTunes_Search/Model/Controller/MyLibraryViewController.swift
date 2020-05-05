@@ -27,7 +27,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var genreVideoID: String?
     var sectionButton = UIButton()
     
-    var videoSellected = Bool()
+    var videoSelected = Bool()
     var isEntityIsEmpty: Bool {
         do {
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -43,7 +43,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        
+        UserDefaults.standard.removeObject(forKey: "selectedFromSectionVideo")
+        UserDefaults.standard.synchronize()
         setupNavBar()
         mainLibraryTableView.alwaysBounceVertical = false
         self.mainLibraryTableView.delegate = self
@@ -97,12 +98,20 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             self.myLibraryListArray = []
             self.fetchMyLibraryList()
             self.mainLibraryTableView.reloadData()
-            if self.videoSellected == true {
-                VideoPlayerClass.callVideoPlayer.superViewController = self
-                self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-                VideoPlayerClass.callVideoPlayer.webView.playVideo()
+            let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
+            if self.videoSelected == true {
+                self.showVideoPlayer()
+            }
+            if ifSelectedTopHit == true{
+                self.showVideoPlayer()
             }
         }
+    }
+    
+    func showVideoPlayer(){
+        VideoPlayerClass.callVideoPlayer.superViewController = self
+        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+        VideoPlayerClass.callVideoPlayer.webView.playVideo()
     }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
@@ -323,16 +332,16 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         if segue.identifier == "TopHitsMusic" {
             if  let nc = segue.destination as? SellectedSectionViewController {
                 nc.navigationItem.title = "Top Tracks"
-                if videoSellected == true{
-                    nc.videoSellected = true
+                if videoSelected == true{
+                    nc.videoSelected = true
                 }
                 nc.checkTable = false
             }
         }else if segue.identifier == "MyLibraryMusic" {
             if  let nc = segue.destination as? SellectedSectionViewController {
                 nc.navigationItem.title = "My Library"
-                if videoSellected == true{
-                    nc.videoSellected = true
+                if videoSelected == true{
+                    nc.videoSelected = true
                 }
                 nc.checkTable = true
             }
@@ -408,19 +417,19 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         case mainLibraryTableView:
             let selectedVideoId = myLibraryListArray[indexPath.row]
             webView.load(withVideoId: "")
-            let sellectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
+            let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-            videoSellected = true
+            videoSelected = true
             VideoPlayerClass.callVideoPlayer.superViewController = self
-            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         case topMusicTableView:
             let selectedVideoId = topHitsArray[indexPath.row]
             webView.load(withVideoId: "")
-            let sellectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
+            let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-            videoSellected = true
+            videoSelected = true
             VideoPlayerClass.callVideoPlayer.superViewController = self
-            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
             
         default:
             break
@@ -437,14 +446,14 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
-            removePostRow(atIndexPath: indexPath)
+            removeSelectedVideoRow(atIndexPath: indexPath)
             myLibraryListArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
     }
     
-    func removePostRow(atIndexPath indexPath: IndexPath) {
+    func removeSelectedVideoRow(atIndexPath indexPath: IndexPath) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         let result = try? context?.fetch(request)
         let resultData = result as! [NSManagedObject]
@@ -455,7 +464,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 sectionButton.isHidden = true
             }
         }catch {
-            print("Could not remove post \(error.localizedDescription)")
+            print("Could not remove video \(error.localizedDescription)")
         }
     }
     

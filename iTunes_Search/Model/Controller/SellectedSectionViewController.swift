@@ -16,10 +16,11 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
     var checkTable = Bool()
-    var videoSellected = false
+    var videoSelected = false
+    var checkVideoIsSelected = false
     var genreVideoID: String?
     var webView = WKYTPlayerView()
-    
+    var selectedVideo: Video?
     @IBOutlet weak var sellectedSectionTableView: UITableView!
     
     override func viewDidLoad() {
@@ -36,15 +37,20 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         DispatchQueue.main.async {
-            if  self.videoSellected == true{
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.playVideo()
+            if  self.videoSelected == true{
+                 self.showVideoPlayer()
+            }
+            let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
+            if ifSelectedTopHit == true{
+                self.showVideoPlayer()
             }
         }
-        print(videoSellected)
-   
     }
     
+    func showVideoPlayer(){
+           self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+           VideoPlayerClass.callVideoPlayer.webView.playVideo()
+       }
     
     func fetchTopHitList(){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -113,6 +119,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
         case false:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
                 cell.configureTopHitsCell(topHitsLists[indexPath.row])
+                cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
                 return cell
             }else {
                 return SellectedSectionTableViewCell()
@@ -128,24 +135,78 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
         }
     }
     
+    @objc func addToMyLibraryButton(sender: UIButton) {
+        if selectedVideo?.videoTitle != nil {
+             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+            let predicate = NSPredicate(format: "title == %@", selectedVideo!.videoTitle as CVarArg)
+             request.predicate = predicate
+             request.fetchLimit = 1
+
+             do{
+                 let count = try context?.count(for: request)
+                 if(count == 0){
+                 // no matching object
+                     let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+                     let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                     newEntity.setValue(selectedVideo?.videoTitle, forKey: "title")
+                     newEntity.setValue(selectedVideo?.videoImageUrl, forKey: "image")
+                     newEntity.setValue(selectedVideo?.videoId, forKey: "videoId")
+
+                     try context?.save()
+                                print("data has been saved ")
+                                self.navigationController?.popViewController(animated: true)
+                                self.tabBarController?.tabBar.isHidden = false
+                 }
+                 else{
+                 // at least one matching object exists
+                     let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
+                     let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+
+                     }
+
+                     let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
+                          self.navigationController?.popViewController(animated: true)
+                          self.tabBarController?.selectedIndex = 0
+                          self.tabBarController?.tabBar.isHidden = false
+                     }
+
+                     alert.addAction(action)
+                     alert.addAction(libraryAction)
+                     present(alert, animated: true, completion: nil)
+
+                 }
+               }
+             catch let error as NSError {
+                  print("Could not fetch \(error), \(error.userInfo)")
+               }
+        }else{
+            let alert = UIAlertController(title: "Please choose video from  list", message: "", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            }
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+            
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch checkTable {
         case true:
-            let selectedVideoId = myLibraryList[indexPath.row]
+            let selectedVideo = myLibraryList[indexPath.row]
             webView.load(withVideoId: "")
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
-            genreVideoID = selectedVideoId.videoId
-            
+            genreVideoID = selectedVideo.videoId
+            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
             VideoPlayerClass.callVideoPlayer.superViewController = self
-            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
         case false:
-            let selectedVideoId = topHitsLists[indexPath.row]
+            selectedVideo = topHitsLists[indexPath.row]
             webView.load(withVideoId: "")
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
-            genreVideoID = selectedVideoId.videoId
-            
+            genreVideoID = selectedVideo?.videoId
+            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
             VideoPlayerClass.callVideoPlayer.superViewController = self
-            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo!)
         }
     }
 }

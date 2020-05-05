@@ -15,7 +15,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     @IBOutlet weak var countySelectedCollectionView: UICollectionView!
     
-    var iTunesConnectionManager = iTunesMusicViewController()
     var containerViewController = ContainerViewControllerForiTunesMusic()
     var indexpath = Int()
     
@@ -37,7 +36,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.favoriteCollectionView.reloadData()
-  let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
+        let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
         
         if countrySelected != "" {
             genreListNSLayoutTopContraint.constant = 200
