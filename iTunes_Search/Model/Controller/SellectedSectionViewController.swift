@@ -16,7 +16,7 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
     var checkTable = Bool()
-    var videoSellected = Bool()
+    var videoSellected = false
     var genreVideoID: String?
     var webView = WKYTPlayerView()
     
@@ -41,6 +41,7 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
             VideoPlayerClass.callVideoPlayer.webView.playVideo()
             }
         }
+        print(videoSellected)
    
     }
     

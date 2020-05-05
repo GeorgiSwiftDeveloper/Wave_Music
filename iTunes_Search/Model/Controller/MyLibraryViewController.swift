@@ -96,16 +96,13 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         DispatchQueue.main.async {
             self.myLibraryListArray = []
             self.fetchMyLibraryList()
+            self.mainLibraryTableView.reloadData()
             if self.videoSellected == true {
+                VideoPlayerClass.callVideoPlayer.superViewController = self
                 self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-                //                        VideoPlayerClass.callVideoPlayer.cardViewController.view.isHidden = false
-                //                        VideoPlayerClass.callVideoPlayer.webView.delegate = self
                 VideoPlayerClass.callVideoPlayer.webView.playVideo()
-                
             }
         }
-        mainLibraryTableView.reloadData()
-        
     }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
@@ -326,13 +323,17 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         if segue.identifier == "TopHitsMusic" {
             if  let nc = segue.destination as? SellectedSectionViewController {
                 nc.navigationItem.title = "Top Tracks"
-                nc.videoSellected = true
+                if videoSellected == true{
+                    nc.videoSellected = true
+                }
                 nc.checkTable = false
             }
         }else if segue.identifier == "MyLibraryMusic" {
             if  let nc = segue.destination as? SellectedSectionViewController {
                 nc.navigationItem.title = "My Library"
-                nc.videoSellected = true
+                if videoSellected == true{
+                    nc.videoSellected = true
+                }
                 nc.checkTable = true
             }
         }
