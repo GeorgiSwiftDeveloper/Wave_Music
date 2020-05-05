@@ -8,13 +8,19 @@
 
 import UIKit
 import CoreData
-
+import AVFoundation
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
 //        print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
+        do{
+             let audio = AVAudioSession.sharedInstance()
+            try audio.setCategory(AVAudioSession.Category.playback)
+         }catch let error as NSError{
+            print(error)
+         }
         return true
     }
     

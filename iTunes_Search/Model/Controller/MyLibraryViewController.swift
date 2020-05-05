@@ -27,7 +27,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var genreVideoID: String?
     var sectionButton = UIButton()
     
-    
+    var videoSellected = Bool()
     var isEntityIsEmpty: Bool {
         do {
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -96,15 +96,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         DispatchQueue.main.async {
             self.myLibraryListArray = []
             self.fetchMyLibraryList()
+            if self.videoSellected == true {
+                self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+                //                        VideoPlayerClass.callVideoPlayer.cardViewController.view.isHidden = false
+                //                        VideoPlayerClass.callVideoPlayer.webView.delegate = self
+                VideoPlayerClass.callVideoPlayer.webView.playVideo()
+                
+            }
         }
-        
         mainLibraryTableView.reloadData()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super .viewDidDisappear(animated)
-        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-//        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        
     }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
@@ -213,13 +214,13 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         do {
             let result = try context?.fetch(request)
             for data in result as! [NSManagedObject] {
-                 let videoId = data.value(forKey: "videoId") as? String ?? ""
-                 let title = data.value(forKey: "title") as? String ?? ""
-                 let songDescription = data.value(forKey: "songDescription") as? String ?? ""
-                 let playListId = data.value(forKey: "playListId") as? String ?? ""
-                 let image = data.value(forKey: "image") as? String ?? ""
-                 let genreTitle = data.value(forKey: "genreTitle") as? String ?? ""
-                 let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: songDescription , videoPlaylistId: playListId, videoImageUrl: image , channelId:"", genreTitle: genreTitle)
+                let videoId = data.value(forKey: "videoId") as? String ?? ""
+                let title = data.value(forKey: "title") as? String ?? ""
+                let songDescription = data.value(forKey: "songDescription") as? String ?? ""
+                let playListId = data.value(forKey: "playListId") as? String ?? ""
+                let image = data.value(forKey: "image") as? String ?? ""
+                let genreTitle = data.value(forKey: "genreTitle") as? String ?? ""
+                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: songDescription , videoPlaylistId: playListId, videoImageUrl: image , channelId:"", genreTitle: genreTitle)
                 
                 
                 myLibraryListArray.append(videoList)
@@ -325,11 +326,13 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         if segue.identifier == "TopHitsMusic" {
             if  let nc = segue.destination as? SellectedSectionViewController {
                 nc.navigationItem.title = "Top Tracks"
+                nc.videoSellected = true
                 nc.checkTable = false
             }
         }else if segue.identifier == "MyLibraryMusic" {
             if  let nc = segue.destination as? SellectedSectionViewController {
                 nc.navigationItem.title = "My Library"
+                nc.videoSellected = true
                 nc.checkTable = true
             }
         }
@@ -406,7 +409,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             webView.load(withVideoId: "")
             let sellectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-            
+            videoSellected = true
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         case topMusicTableView:
@@ -414,7 +417,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             webView.load(withVideoId: "")
             let sellectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-            
+            videoSellected = true
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
             

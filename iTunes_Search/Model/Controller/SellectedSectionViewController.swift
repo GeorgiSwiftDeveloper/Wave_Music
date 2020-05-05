@@ -11,20 +11,16 @@ import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
 
-class SellectedSectionViewController: UIViewController {
+class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate {
     
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
     var checkTable = Bool()
-    
+    var videoSellected = Bool()
     var genreVideoID: String?
     var webView = WKYTPlayerView()
     
     @IBOutlet weak var sellectedSectionTableView: UITableView!
-    
-//    var sellectedCell = UITableViewCell()
-//    var videoID = String()
-//    var backgroundSellectedVido = Video()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,12 +33,16 @@ class SellectedSectionViewController: UIViewController {
         }
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super .viewWillAppear(animated)
-//        
-//        VideoPlayerClass.callVideoPlayer.superViewController = self
-//        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: backgroundSellectedVido)
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        DispatchQueue.main.async {
+            if  self.videoSellected == true{
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayerClass.callVideoPlayer.webView.playVideo()
+            }
+        }
+   
+    }
     
     
     func fetchTopHitList(){
