@@ -16,7 +16,6 @@ class GenresCollectionViewCell: UICollectionViewCell {
     func confiigurationCell(_ albums: GenreModel) {
    
         self.genreNameLabel.text = albums.genreTitle
-//        self.genreNameLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.genreImageView.image = UIImage(named: albums.genreImage)
         genreImageView.layer.borderWidth = 3
         genreImageView.layer.masksToBounds = false
@@ -27,17 +26,10 @@ class GenresCollectionViewCell: UICollectionViewCell {
         genreImageView.layer.shadowOffset = .zero
         genreImageView.layer.cornerRadius = 7.0
         genreImageView.clipsToBounds = true
-        
+        self.genreImageView.layer.cornerRadius = self.genreImageView.frame.height/2
        
       }
     
-//    func getRandomColor() -> UIColor {
-//         //Generate between 0 to 1
-//         let red:CGFloat = CGFloat(drand48())
-//         let green:CGFloat = CGFloat(drand48())
-//         let blue:CGFloat = CGFloat(drand48())
-//
-//         return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
-//    }
+
     
 }

@@ -23,7 +23,7 @@ class GenreModelService {
         GenreModel(genreImage: "jazz.jpg", genreTitle: "Jazz"),
         GenreModel(genreImage: "instrumental.jpg", genreTitle: "Instrumental"),
         GenreModel(genreImage: "blues.jpg", genreTitle: "Blues"),
-
+        GenreModel(genreImage: "car.jpg", genreTitle: "Car Music"),
     ]
     
     let genreArrayWithCountry = [
@@ -38,6 +38,7 @@ class GenreModelService {
         GenreModel(genreImage: "jazz.jpg", genreTitle: "Jazz"),
         GenreModel(genreImage: "instrumental.jpg", genreTitle: "Instrumental"),
         GenreModel(genreImage: "blues.jpg", genreTitle: "Blues"),
+        GenreModel(genreImage: "car.jpg", genreTitle: "Car Music"),
 
     ]
     
