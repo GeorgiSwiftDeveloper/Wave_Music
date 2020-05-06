@@ -22,6 +22,8 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     var webView = WKYTPlayerView()
     var selectedVideo: Video?
     @IBOutlet weak var sellectedSectionTableView: UITableView!
+    @IBOutlet weak var topHitsListNSBottomLayout: NSLayoutConstraint!
+    @IBOutlet weak var myLibraryListNSBottomLayout: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,7 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
         self.sellectedSectionTableView.dataSource = self
         if checkTable == false{
             fetchTopHitList()
+            topHitsListNSBottomLayout.constant = 120
         }else{
             fetchMyLibraryList()
         }
@@ -58,14 +61,22 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     }
     
     func showVideoPlayer(){
-           self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-           VideoPlayerClass.callVideoPlayer.webView.playVideo()
-       }
+        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        if checkTable == false{
+            topHitsListNSBottomLayout.constant = 190
+        }
+        self.view.layoutIfNeeded()
+    }
     
     func showVideoPlayerPause(){
-             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-             VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-         }
+        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        if checkTable == false{
+            topHitsListNSBottomLayout.constant = 120
+        }
+        
+    }
     
     func fetchTopHitList(){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -215,6 +226,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
         case false:
+            topHitsListNSBottomLayout.constant = 190
             selectedVideo = topHitsLists[indexPath.row]
             webView.load(withVideoId: "")
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell

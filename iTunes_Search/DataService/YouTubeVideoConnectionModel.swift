@@ -13,7 +13,7 @@ class  YouTubeVideoConnection {
     var API_KEY = ""
     var UPLOADS_PLAYLIST_ID = ""
     
-    let YouTubeUrl = "https://www.googleapis.com/youtube/v3/playlistItems?maxResults=5"
+    let YouTubeUrl = "https://www.googleapis.com/youtube/v3/playlistItems?maxResults=10"
     
     var genreTitle: GenreModel?
     var videoArray = [Video]()
@@ -52,7 +52,7 @@ class  YouTubeVideoConnection {
             API_KEY = "AIzaSyD_ftHSeTLdHnAqtUv-pnWW8jOXv5TFZg8"
             switch genreType {
             case "Hits":
-                UPLOADS_PLAYLIST_ID = "PLLdPJGHquctFFaYNmcSIZVjpHxjO9dZTS"
+                UPLOADS_PLAYLIST_ID = "PLyORnIW1xT6waC0PNjAMj33FdK2ngL_ik"
             default:
                 break
             }

@@ -41,10 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
-                                <rect key="frame" x="0.0" y="348" width="375" height="410"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="410" id="dJ6-9g-jdr"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="396" width="375" height="312"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LibraryMusicCell" rowHeight="75" id="zSA-8A-8h5" customClass="MainLibrariMusciTableViewCell" customModule="Wave" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
@@ -86,7 +83,10 @@
                                 </prototypes>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Eaa-fO-ywh">
-                                <rect key="frame" x="0.0" y="56" width="375" height="292"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="340"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="340" id="kiw-59-UtU"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TopHitsTableViewCell" rowHeight="75" id="wA5-tS-Pzn" customClass="TopHitsTableViewCell" customModule="Wave" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="75"/>
@@ -143,8 +143,8 @@
                         <constraints>
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="5Bc-Qc-Ute"/>
                             <constraint firstItem="Eaa-fO-ywh" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" id="9qP-s9-bB4"/>
-                            <constraint firstAttribute="bottom" secondItem="sX9-sb-dl1" secondAttribute="bottom" id="QIK-gg-AyQ"/>
-                            <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="Eaa-fO-ywh" secondAttribute="bottom" id="ojr-SJ-OKR"/>
+                            <constraint firstAttribute="bottom" secondItem="sX9-sb-dl1" secondAttribute="bottom" constant="50" id="QIK-gg-AyQ"/>
+                            <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="Eaa-fO-ywh" secondAttribute="bottom" id="Ujb-XE-Nm4"/>
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" id="qPy-Zu-fK1"/>
                             <constraint firstItem="Eaa-fO-ywh" firstAttribute="top" secondItem="TdJ-LG-cyh" secondAttribute="top" id="s84-Yn-4Az"/>
                             <constraint firstItem="Eaa-fO-ywh" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="tQI-EJ-kkf"/>
@@ -154,6 +154,7 @@
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Fb4-Uf-A9G"/>
                     <connections>
                         <outlet property="mainLibraryTableView" destination="sX9-sb-dl1" id="Ryy-sV-KSF"/>
+                        <outlet property="myLibraryNSBottomLayout" destination="QIK-gg-AyQ" id="1YW-a3-vRq"/>
                         <outlet property="topMusicTableView" destination="Eaa-fO-ywh" id="J8P-cL-uaB"/>
                         <segue destination="lMr-2H-I3N" kind="push" identifier="TopHitsMusic" id="HDu-d3-Nxl"/>
                         <segue destination="vnV-nw-p2c" kind="show" identifier="MyLibraryMusic" id="H85-Iy-q54"/>
@@ -238,6 +239,7 @@
                     <navigationItem key="navigationItem" id="PH9-KG-7jy"/>
                     <connections>
                         <outlet property="sellectedSectionTableView" destination="RQx-Yz-1G9" id="oaf-sW-zKZ"/>
+                        <outlet property="topHitsListNSBottomLayout" destination="vCL-gP-slw" id="kfB-aD-w9K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="znV-NU-xI4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1628,6 +1630,7 @@
         <!--Sellected Section View Controller-->
         <scene sceneID="ecd-YF-iRo">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mIc-iP-AFb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="vnV-nw-p2c" customClass="SellectedSectionViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RvC-3r-5fL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
@@ -1699,10 +1702,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="1jV-aN-3TM"/>
                     <connections>
+                        <outlet property="myLibraryListNSBottomLayout" destination="bKE-qc-5It" id="sNA-5n-5vS"/>
                         <outlet property="sellectedSectionTableView" destination="ipC-Sq-kZH" id="ZyV-eP-YJ9"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mIc-iP-AFb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4642" y="-689"/>
         </scene>

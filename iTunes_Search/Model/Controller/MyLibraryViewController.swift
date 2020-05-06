@@ -16,6 +16,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     @IBOutlet weak var mainLibraryTableView: UITableView!
     @IBOutlet weak var topMusicTableView: UITableView!
+    @IBOutlet weak var myLibraryNSBottomLayout: NSLayoutConstraint!
     
     var myLibraryListArray = [Video]()
     var topHitsArray = [Video]()
@@ -431,6 +432,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case mainLibraryTableView:
+            self.myLibraryNSBottomLayout.constant = 175
             let selectedVideoId = myLibraryListArray[indexPath.row]
             webView.load(withVideoId: "")
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
@@ -439,6 +441,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         case topMusicTableView:
+            self.myLibraryNSBottomLayout.constant = 175
             let selectedVideoId = topHitsArray[indexPath.row]
             webView.load(withVideoId: "")
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
