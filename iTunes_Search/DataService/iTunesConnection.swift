@@ -47,7 +47,7 @@ class iTunesConnection {
             
             let itunesDict = try JSONSerialization.jsonObject(with: itunesData, options: .mutableContainers) as? [String:Any]
             let results = (itunesDict! as NSDictionary).object(forKey: "results") as? [Dictionary<String,AnyObject>]
-            print(itunesDict)
+//            print(itunesDict)
             if results != nil {
                 for _ in 0..<results!.count{
                     

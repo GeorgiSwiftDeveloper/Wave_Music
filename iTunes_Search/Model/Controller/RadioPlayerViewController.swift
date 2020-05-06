@@ -55,8 +55,6 @@ class RadioPlayerViewController: UIViewController {
             playerLayer.frame = CGRect(x: 0, y: 0, width: 10, height: 50)
             self.view.layer.addSublayer(playerLayer)
             audioPlayer.play()
-        } catch  {
-            print(error.localizedDescription)
         }
     }
     

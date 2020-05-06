@@ -31,6 +31,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
     var volumeSlider = UISlider()
     var volMax = UIImageView()
     var volMin = UIImageView()
+    var checkIfPause = true
     
     enum CardState {
         case expanded
@@ -52,7 +53,6 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             self.cardViewController.view.removeFromSuperview()
             checkCardView = false
         }
-        self.cardViewController.view.layer.opacity = 0.85
         self.musicLabelText.text = selectedVideo.videoTitle
         self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 140, y: 48, width: 50, height: 50)
         self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 80), height: 50)
@@ -64,6 +64,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         checkCardView = true
         cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
         cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        cardViewController.view.layer.opacity = 0.85
         superView.addChild(cardViewController)
         superView.view.addSubview(cardViewController.view)
         
@@ -95,7 +96,6 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         if checkIfPaused == false {
             webView.pauseVideo()
             self.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
-            
             checkIfPaused = true
         }else{
             webView.playVideo()
@@ -116,11 +116,12 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         if checkIfPaused == false {
             webView.pauseVideo()
             self.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
-            
+            UserDefaults.standard.set(false, forKey:"pause")
             checkIfPaused = true
         }else{
             webView.playVideo()
             self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+            UserDefaults.standard.set(true, forKey:"pause")
             checkIfPaused = false
             
         }

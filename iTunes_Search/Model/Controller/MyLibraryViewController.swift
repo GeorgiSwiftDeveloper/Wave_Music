@@ -44,6 +44,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         UserDefaults.standard.removeObject(forKey: "selectedFromSectionVideo")
+        UserDefaults.standard.removeObject(forKey: "pause")
+        UserDefaults.standard.synchronize()
         UserDefaults.standard.synchronize()
         setupNavBar()
         mainLibraryTableView.alwaysBounceVertical = false
@@ -99,11 +101,20 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             self.fetchMyLibraryList()
             self.mainLibraryTableView.reloadData()
             let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
+            let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             if self.videoSelected == true {
-                self.showVideoPlayer()
+                if pause == nil || pause == true{
+                    self.showVideoPlayer()
+                }else{
+                    self.showVideoPlayerPause()
+                }
             }
             if ifSelectedTopHit == true{
-                self.showVideoPlayer()
+                if pause == nil  || pause == true {
+                    self.showVideoPlayer()
+                }else{
+                    self.showVideoPlayerPause()
+                }
             }
         }
     }
@@ -112,6 +123,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         VideoPlayerClass.callVideoPlayer.superViewController = self
         self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
         VideoPlayerClass.callVideoPlayer.webView.playVideo()
+    }
+    func showVideoPlayerPause(){
+        VideoPlayerClass.callVideoPlayer.superViewController = self
+        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
     }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){

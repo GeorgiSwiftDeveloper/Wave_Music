@@ -36,13 +36,23 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
+        let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
+        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+        
         DispatchQueue.main.async {
             if  self.videoSelected == true{
-                 self.showVideoPlayer()
+                if pause == nil  || pause == true {
+                    self.showVideoPlayer()
+                }else{
+                    self.showVideoPlayerPause()
+                }
             }
-            let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
             if ifSelectedTopHit == true{
-                self.showVideoPlayer()
+                if pause == nil  || pause == true {
+                    self.showVideoPlayer()
+                }else{
+                    self.showVideoPlayerPause()
+                }
             }
         }
     }
@@ -51,6 +61,11 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
            VideoPlayerClass.callVideoPlayer.webView.playVideo()
        }
+    
+    func showVideoPlayerPause(){
+             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+             VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+         }
     
     func fetchTopHitList(){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
