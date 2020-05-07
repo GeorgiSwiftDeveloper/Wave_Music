@@ -14,11 +14,12 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
     static let callVideoPlayer = VideoPlayerClass()
     
     
-    let cardHeight:CGFloat = 850
+    let cardHeight:CGFloat = 800
     let cardHandleAreaHeight:CGFloat = 160
     
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
+    var visualEffectView:UIVisualEffectView!
     var checkCardView = Bool()
     var checkIfPaused = Bool()
     var musicLabelText = UILabel()
@@ -53,6 +54,9 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             self.cardViewController.view.removeFromSuperview()
             checkCardView = false
         }
+        visualEffectView = UIVisualEffectView()
+        visualEffectView.frame = self.cardViewController.view.frame
+        self.superViewController!.view.addSubview(visualEffectView)
         self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 130, y: 35, width: 35, height: 35)
         self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
         self.musicLabelText.numberOfLines = 0
@@ -65,8 +69,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         checkCardView = true
         cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
         cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        cardViewController.view.layer.opacity = 0.85
-        self.cardViewController.view.layer.cornerRadius = 14
+        self.cardViewController.view.layer.cornerRadius = 12
         superView.addChild(cardViewController)
         superView.view.addSubview(cardViewController.view)
         
@@ -185,8 +188,6 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
                     self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
-                    self.cardViewController.view.layer.opacity = 0.85
-                    
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 130, y: 35, width: 35, height: 35)
                     self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
                     
@@ -195,7 +196,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                     self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
                     
                     self.webView.isHidden = true
-                    
+                    self.visualEffectView.removeFromSuperview()
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
                 }
@@ -215,7 +216,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                 case .expanded:
                     self.cardViewController.view.layer.cornerRadius = 16
                 case .collapsed:
-                    self.cardViewController.view.layer.cornerRadius = 14
+                    self.cardViewController.view.layer.cornerRadius = 12
                 }
             }
             
@@ -225,11 +226,12 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                    break
-                //                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
+                
+                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
+                    
                 case .collapsed:
-                    break
-                    //                    self.visualEffectView.effect = nil
+                   
+                                        self.visualEffectView.effect = nil
                 }
             }
             
@@ -238,6 +240,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             
         }
     }
+    
     
     func leftandRightButton(){
         
