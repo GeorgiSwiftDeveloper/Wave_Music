@@ -24,6 +24,7 @@ class GenreModelService {
         GenreModel(genreImage: "instrumental.jpg", genreTitle: "Instrumental"),
         GenreModel(genreImage: "blues.jpg", genreTitle: "Blues"),
         GenreModel(genreImage: "car.jpg", genreTitle: "Car Music"),
+        GenreModel(genreImage: "deep.jpg", genreTitle: "Deep Bass"),
     ]
     
     let genreArrayWithCountry = [

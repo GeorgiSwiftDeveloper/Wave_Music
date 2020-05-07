@@ -18,36 +18,39 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udA-hH-UO8">
+                <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udA-hH-UO8">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillProportionally" alignment="center" spacing="136" translatesAutoresizingMaskIntoConstraints="NO" id="g4U-5w-oNe">
-                            <rect key="frame" x="4" y="11.5" width="406" height="22"/>
+                        <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillProportionally" spacing="131" translatesAutoresizingMaskIntoConstraints="NO" id="g4U-5w-oNe">
+                            <rect key="frame" x="10" y="11.5" width="394" height="22"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F79-Ye-zpC">
                                     <rect key="frame" x="0.0" y="0.0" width="20" height="22"/>
-                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="arrow.up.circle.fill" catalog="system"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wave Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hlh-7N-x5L">
-                                    <rect key="frame" x="156" y="2.5" width="93" height="17.5"/>
+                                    <rect key="frame" x="151" y="0.0" width="87.5" height="22"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="14"/>
-                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="13"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srM-6b-F8D">
-                                    <rect key="frame" x="385" y="0.0" width="21" height="22"/>
+                                    <rect key="frame" x="369.5" y="0.0" width="24.5" height="22"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="text.badge.star" catalog="system"/>
                                 </button>
                             </subviews>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="g4U-5w-oNe" firstAttribute="centerY" secondItem="udA-hH-UO8" secondAttribute="centerY" id="0RZ-if-M4c"/>
+                        <constraint firstAttribute="trailing" secondItem="g4U-5w-oNe" secondAttribute="trailing" constant="10" id="Npv-yt-L7Q"/>
                         <constraint firstAttribute="height" constant="45" id="SFP-7w-jjo"/>
                         <constraint firstItem="g4U-5w-oNe" firstAttribute="centerX" secondItem="udA-hH-UO8" secondAttribute="centerX" id="rUj-Ld-KrT"/>
+                        <constraint firstItem="g4U-5w-oNe" firstAttribute="leading" secondItem="udA-hH-UO8" secondAttribute="leading" constant="10" id="zSU-wb-L8C"/>
                     </constraints>
                 </view>
             </subviews>

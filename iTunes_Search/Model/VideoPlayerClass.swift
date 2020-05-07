@@ -15,7 +15,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
     
     
     let cardHeight:CGFloat = 850
-    let cardHandleAreaHeight:CGFloat = 190
+    let cardHandleAreaHeight:CGFloat = 160
     
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
@@ -53,18 +53,20 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             self.cardViewController.view.removeFromSuperview()
             checkCardView = false
         }
-        self.musicLabelText.text = selectedVideo.videoTitle
-        self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 140, y: 48, width: 50, height: 50)
-        self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 80), height: 50)
+        self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 130, y: 35, width: 35, height: 35)
+        self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
         self.musicLabelText.numberOfLines = 0
         self.musicLabelText.textAlignment = .left
         self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
-        
+        self.musicLabelText.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.musicLabelText.text = selectedVideo.videoTitle
+
         
         checkCardView = true
         cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
         cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         cardViewController.view.layer.opacity = 0.85
+        self.cardViewController.view.layer.cornerRadius = 14
         superView.addChild(cardViewController)
         superView.view.addSubview(cardViewController.view)
         
@@ -82,9 +84,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         self.webView.delegate = self
         self.webView.isHidden = true
         
-        self.musicLabelText.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        self.musicLabelText.numberOfLines = 0
-        self.musicLabelText.textAlignment = .center
+        
         self.cardViewController.view.addSubview(self.musicLabelText)
         
         
@@ -179,15 +179,16 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                     self.musicLabelText.numberOfLines = 0
                     self.musicLabelText.textAlignment = .center
                     self.superViewController?.navigationController?.navigationBar.isHidden = true
+                    self.superViewController?.tabBarController?.tabBar.isHidden = true
                     self.webView.isHidden = false
                     
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
                     self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
                     self.cardViewController.view.layer.opacity = 0.85
-                    self.playButton.frame = CGRect(x: self.cardViewController.view.frame.size.width - self.playButton.frame.size.width - 10, y: 48, width: 50, height: 50)
-                    self.musicLabelText.frame = CGRect(x: 5, y: 50, width: Int(UIScreen.main.bounds.width - 80), height: 50)
                     
+                    self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 130, y: 35, width: 35, height: 35)
+                    self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
                     
                     self.musicLabelText.numberOfLines = 0
                     self.musicLabelText.textAlignment = .left
@@ -196,6 +197,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                     self.webView.isHidden = true
                     
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
+                    self.superViewController?.tabBarController?.tabBar.isHidden = false
                 }
             }
             
@@ -211,9 +213,9 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
                 switch state {
                 case .expanded:
-                    self.cardViewController.view.layer.cornerRadius = 12
+                    self.cardViewController.view.layer.cornerRadius = 16
                 case .collapsed:
-                    self.cardViewController.view.layer.cornerRadius = 0
+                    self.cardViewController.view.layer.cornerRadius = 14
                 }
             }
             
