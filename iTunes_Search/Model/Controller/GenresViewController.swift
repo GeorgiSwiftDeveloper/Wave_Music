@@ -51,8 +51,8 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
+        VideoPlayerClass.callVideoPlayer.superViewController = self
         self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-        self.navigationController?.navigationBar.isHidden = false
         VideoPlayerClass.callVideoPlayer.webView.playVideo()
     }
     
@@ -60,7 +60,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewDidDisappear(_ animated: Bool) {
          super .viewDidDisappear(animated)
-         VideoPlayerClass.callVideoPlayer.superViewController?.removeFromParent()
          VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
          NotificationCenter.default.post(name: Notification.Name("not"), object: nil)
      }

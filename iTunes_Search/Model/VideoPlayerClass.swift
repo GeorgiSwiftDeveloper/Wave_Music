@@ -49,7 +49,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
     
     
     func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:String,superView:UIViewController,ifCellIsSelected: Bool,selectedVideo: Video){
-        superViewController = superView
+//        superViewController = superView
         if checkCardView{
             self.cardViewController.view.removeFromSuperview()
             checkCardView = false
