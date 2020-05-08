@@ -46,15 +46,18 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             genreListNSLayoutTopContraint.constant = 0
             countySelectedCollectionView.isHidden = true
         }
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super .viewDidAppear(animated)
         VideoPlayerClass.callVideoPlayer.superViewController = self
-        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+           self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+           VideoPlayerClass.callVideoPlayer.webView.playVideo()
     }
+    
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super .viewDidAppear(animated)
+//        VideoPlayerClass.callVideoPlayer.superViewController = self
+//        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+//        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+//    }
     
     
     
