@@ -120,6 +120,26 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
     }
     
+    
+       override func viewDidAppear(_ animated: Bool) {
+           super .viewDidAppear(animated)
+         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("not"), object: nil)
+       
+       }
+    
+    @objc func methodOfReceivedNotification(notification: Notification) {
+             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+                VideoPlayerClass.callVideoPlayer.webView.playVideo()
+     }
+       
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super .viewDidDisappear(animated)
+        VideoPlayerClass.callVideoPlayer.superViewController?.removeFromParent()
+        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+         self.navigationController?.navigationBar.isHidden = false
+    }
+    
     func showVideoPlayer(){
         VideoPlayerClass.callVideoPlayer.superViewController = self
         self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
@@ -438,7 +458,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
             videoSelected = true
-            VideoPlayerClass.callVideoPlayer.superViewController = self
+//            VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         case topMusicTableView:
             self.myLibraryNSBottomLayout.constant = 175
@@ -447,7 +467,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
             videoSelected = true
-            VideoPlayerClass.callVideoPlayer.superViewController = self
+//            VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
             
         default:

@@ -54,9 +54,11 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             self.cardViewController.view.removeFromSuperview()
             checkCardView = false
         }
-        visualEffectView = UIVisualEffectView()
-        visualEffectView.frame = self.cardViewController.view.frame
-        self.superViewController!.view.addSubview(visualEffectView)
+//        visualEffectView = UIVisualEffectView()
+//        visualEffectView.frame = self.superViewController?.view.frame as! CGRect
+//        self.superViewController!.view.addSubview(visualEffectView)
+//        self.visualEffectView.effect = nil
+        
         self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 130, y: 35, width: 35, height: 35)
         self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
         self.musicLabelText.numberOfLines = 0
@@ -196,7 +198,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                     self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
                     
                     self.webView.isHidden = true
-                    self.visualEffectView.removeFromSuperview()
+//                    self.visualEffectView.removeFromSuperview()
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
                 }
@@ -226,12 +228,12 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                
-                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
+                break
+//                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
                     
                 case .collapsed:
-                   
-                                        self.visualEffectView.effect = nil
+                   break
+//                    self.visualEffectView.effect = nil
                 }
             }
             

@@ -223,7 +223,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
             genreVideoID = selectedVideo.videoId
             UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
-            VideoPlayerClass.callVideoPlayer.superViewController = self
+//            VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
         case false:
             topHitsListNSBottomLayout.constant = 190
@@ -232,7 +232,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
             genreVideoID = selectedVideo?.videoId
             UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
-            VideoPlayerClass.callVideoPlayer.superViewController = self
+//            VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo!)
         }
     }

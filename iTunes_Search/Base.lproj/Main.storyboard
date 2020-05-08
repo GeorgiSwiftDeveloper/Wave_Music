@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="jYh-pp-Pbd">
             <objects>
-                <tabBarController storyboardIdentifier="myTabbarControllerID" id="kEB-Wj-v1n" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="myTabbarControllerID" id="kEB-Wj-v1n" customClass="TabBarViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="TLO-W3-NT0"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x34-iM-SA2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>

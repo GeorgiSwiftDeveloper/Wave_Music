@@ -48,6 +48,23 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         }
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super .viewDidAppear(animated)
+        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+        self.navigationController?.navigationBar.isHidden = false
+        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+    }
+    
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+         super .viewDidDisappear(animated)
+         VideoPlayerClass.callVideoPlayer.superViewController?.removeFromParent()
+         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+         NotificationCenter.default.post(name: Notification.Name("not"), object: nil)
+     }
+    
     override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
           if segue.identifier == "genrseListSegue" {
             let genreVC = segue.destination as! GenreListViewController
