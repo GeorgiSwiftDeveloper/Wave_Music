@@ -77,19 +77,7 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
         }
         
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-           super .viewDidAppear(animated)
-         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("not"), object: nil)
-       
-       }
-    
-    @objc func methodOfReceivedNotification(notification: Notification) {
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-     }
-    
+        
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
