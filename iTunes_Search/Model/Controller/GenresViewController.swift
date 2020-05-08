@@ -68,13 +68,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
       }
     
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super .viewDidAppear(animated)
-//        VideoPlayerClass.callVideoPlayer.superViewController = self
-//        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-//        VideoPlayerClass.callVideoPlayer.webView.playVideo()
-//    }
-    
+
     
     
     override func viewDidDisappear(_ animated: Bool) {

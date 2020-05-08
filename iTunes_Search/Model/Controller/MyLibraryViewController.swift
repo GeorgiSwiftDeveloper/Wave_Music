@@ -119,31 +119,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             }
         }
     }
-    
-    
-       override func viewDidAppear(_ animated: Bool) {
-           super .viewDidAppear(animated)
-         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("not"), object: nil)
-       
-       }
-    
-    @objc func methodOfReceivedNotification(notification: Notification) {
-        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-        if pause == nil || pause == true{
-            self.showVideoPlayer()
-        }else{
-            self.showVideoPlayerPause()
-        }
-//            VideoPlayerClass.callVideoPlayer.superViewController = self
-//            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-//            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-     }
-       
+        
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
-        UserDefaults.standard.removeObject(forKey: "pause")
-              UserDefaults.standard.synchronize()
         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
          self.navigationController?.navigationBar.isHidden = false
     }
