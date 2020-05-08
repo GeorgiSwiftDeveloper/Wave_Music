@@ -304,9 +304,9 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         var rowHeiight = 0
         switch tableView {
         case topMusicTableView:
-            rowHeiight = 65
+            rowHeiight = 57
         case mainLibraryTableView:
-            rowHeiight = 40
+            rowHeiight = 55
         default:
             break
         }
@@ -439,7 +439,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case mainLibraryTableView:
-            self.myLibraryNSBottomLayout.constant = 175
+            self.myLibraryNSBottomLayout.constant = 160
             let selectedVideoId = myLibraryListArray[indexPath.row]
             webView.load(withVideoId: "")
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
@@ -448,7 +448,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         case topMusicTableView:
-            self.myLibraryNSBottomLayout.constant = 175
+            self.myLibraryNSBottomLayout.constant = 160
             let selectedVideoId = topHitsArray[indexPath.row]
             webView.load(withVideoId: "")
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell

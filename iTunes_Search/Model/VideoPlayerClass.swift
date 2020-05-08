@@ -59,7 +59,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
 //        self.superViewController!.view.addSubview(visualEffectView)
 //        self.visualEffectView.effect = nil
         
-        self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 130, y: 35, width: 35, height: 35)
+        self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 35, width: 35, height: 35)
         self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
         self.musicLabelText.numberOfLines = 0
         self.musicLabelText.textAlignment = .left
@@ -190,7 +190,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
                     self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
-                    self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 130, y: 35, width: 35, height: 35)
+                    self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 35, width: 35, height: 35)
                     self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
                     
                     self.musicLabelText.numberOfLines = 0

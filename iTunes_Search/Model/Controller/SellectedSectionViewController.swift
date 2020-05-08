@@ -24,7 +24,7 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     @IBOutlet weak var sellectedSectionTableView: UITableView!
     @IBOutlet weak var topHitsListNSBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var myLibraryListNSBottomLayout: NSLayoutConstraint!
-    
+    var topHitsListHeight = 190
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sellectedSectionTableView.delegate = self
@@ -61,19 +61,21 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     }
     
     func showVideoPlayer(){
+        VideoPlayerClass.callVideoPlayer.superViewController = self
         self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
         VideoPlayerClass.callVideoPlayer.webView.playVideo()
         if checkTable == false{
-            topHitsListNSBottomLayout.constant = 190
+            topHitsListNSBottomLayout.constant = CGFloat(topHitsListHeight)
         }
         self.view.layoutIfNeeded()
     }
     
     func showVideoPlayerPause(){
+        VideoPlayerClass.callVideoPlayer.superViewController = self
         self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         if checkTable == false{
-            topHitsListNSBottomLayout.constant = 120
+            topHitsListNSBottomLayout.constant = CGFloat(topHitsListHeight)
         }
         
     }
@@ -186,8 +188,11 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
 
                      try context?.save()
                                 print("data has been saved ")
-                                self.navigationController?.popViewController(animated: true)
-                                self.tabBarController?.tabBar.isHidden = false
+                    let alert = UIAlertController(title: "\(selectedVideo?.videoTitle ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
+                             let action = UIAlertAction(title: "OK", style: .default) { (action) in
+                             }
+                             alert.addAction(action)
+                             present(alert, animated: true, completion: nil)
                  }
                  else{
                  // at least one matching object exists
@@ -213,7 +218,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
                }
         }else{
             let alert = UIAlertController(title: "Please choose video from  list", message: "", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            let action = UIAlertAction(title: "OK", style: .default) { (action) in
             }
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -232,7 +237,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
         case false:
-            topHitsListNSBottomLayout.constant = 190
+            topHitsListNSBottomLayout.constant = CGFloat(topHitsListHeight)
             selectedVideo = topHitsLists[indexPath.row]
             webView.load(withVideoId: "")
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell

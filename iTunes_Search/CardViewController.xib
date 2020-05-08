@@ -21,25 +21,24 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udA-hH-UO8">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillProportionally" spacing="131" translatesAutoresizingMaskIntoConstraints="NO" id="g4U-5w-oNe">
-                            <rect key="frame" x="10" y="11.5" width="394" height="22"/>
+                        <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillProportionally" spacing="125" translatesAutoresizingMaskIntoConstraints="NO" id="g4U-5w-oNe">
+                            <rect key="frame" x="10" y="5.5" width="394" height="34"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F79-Ye-zpC">
-                                    <rect key="frame" x="0.0" y="0.0" width="20" height="22"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="20.5" height="34"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="arrow.up.circle.fill" catalog="system"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wave Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hlh-7N-x5L">
-                                    <rect key="frame" x="151" y="0.0" width="87.5" height="22"/>
+                                    <rect key="frame" x="145.5" y="0.0" width="88" height="34"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srM-6b-F8D">
-                                    <rect key="frame" x="369.5" y="0.0" width="24.5" height="22"/>
+                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srM-6b-F8D">
+                                    <rect key="frame" x="358.5" y="0.0" width="35.5" height="34"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" image="text.badge.star" catalog="system"/>
                                 </button>
                             </subviews>
                         </stackView>
@@ -67,6 +66,5 @@
     </objects>
     <resources>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="text.badge.star" catalog="system" width="128" height="109"/>
     </resources>
 </document>

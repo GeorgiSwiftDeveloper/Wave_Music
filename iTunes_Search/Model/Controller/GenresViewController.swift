@@ -15,6 +15,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     @IBOutlet weak var countySelectedCollectionView: UICollectionView!
     
+    @IBOutlet weak var genreBottomNSLayoutConstraint: NSLayoutConstraint!
     var containerViewController = ContainerViewControllerForiTunesMusic()
     var indexpath = Int()
     
@@ -49,9 +50,13 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
               if pause == nil || pause == true{
-                  self.showVideoPlayer()
+                self.showVideoPlayer()
+                self.genreBottomNSLayoutConstraint.constant = 170
+                favoriteCollectionView.updateConstraints()
               }else{
-                  self.showVideoPlayerPause()
+                self.showVideoPlayerPause()
+                self.genreBottomNSLayoutConstraint.constant = 170
+                favoriteCollectionView.updateConstraints()
               }
     }
     
