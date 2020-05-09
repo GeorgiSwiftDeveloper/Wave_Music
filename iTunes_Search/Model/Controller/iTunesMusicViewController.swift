@@ -8,7 +8,8 @@
 
 import UIKit
 import CoreData
-import AVFoundation
+import WebKit
+import  YoutubePlayer_in_WKWebView
 protocol SelectedMusicDelegate {
     func selectedMusicObject(_ selected: [AlbumModel])
 }
@@ -17,24 +18,21 @@ let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContain
 class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UISearchBarDelegate,UISearchResultsUpdating {
     
     @IBOutlet weak var favoriteMusicTableView: UITableView!
-    @IBOutlet weak var containerViewController: UIView!
     
     var iTunesConnectionManager = iTunesConnection()
     var selectedAlbumManager = FavoriteViewController()
-    var favoriteAlbum = [AlbumModel]()
-    var lastObject = [AlbumModel]()
+    var favoriteAlbum = [Video]()
     var selectedMusic = [SelectedAlbumModel]()
     var selectedMusicDelegate: SelectedMusicDelegate?
-    var selectedSong = String()
     let searchController = UISearchController(searchResultsController: nil)
-    
-    
-    
-    var audioPlayer = AVPlayer()
+
     
     var checkIfEmptySearchText = Bool()
-    var selectedIndexPatArray =  [Int]()
+ 
     var selectedIndex = Int()
+    var selectedVideo: Video?
+    var webView = WKYTPlayerView()
+    var genreVideoID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,14 +40,46 @@ class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         self.favoriteMusicTableView.delegate = self
         self.favoriteMusicTableView.dataSource = self
         setupNavBar()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierCnacel"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationPause(notification:)), name: Notification.Name("NotificationIdentifierPauseSong"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationVolume(notification:)), name: Notification.Name("NotificationIdentifierSongVolume"), object: nil)
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        favoriteMusicTableView.reloadData()
+        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+        DispatchQueue.main.async {
+        if pause == nil || pause == true{
+            self.showVideoPlayer()
+            
+            //                       favoriteMusicTableView.updateConstraints()
+        }else{
+            self.showVideoPlayerPause()
+            
+            //                       favoriteMusicTableView.updateConstraints()
+                }
+        }
+    }
+    
+    
+    func showVideoPlayer(){
+         VideoPlayerClass.callVideoPlayer.superViewController = self
+         self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+         VideoPlayerClass.callVideoPlayer.webView.playVideo()
+     }
+     func showVideoPlayerPause(){
+         VideoPlayerClass.callVideoPlayer.superViewController = self
+         self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+            super .viewDidDisappear(animated)
+            VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+            NotificationCenter.default.post(name: Notification.Name("not"), object: nil)
+        }
+    
+    
     func setupNavBar() {
-//         navigationController?.navigationBar.prefersLargeTitles = true
          searchController.obscuresBackgroundDuringPresentation  = false
          searchController.searchBar.placeholder = "Search"
          searchController.searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
@@ -79,83 +109,61 @@ class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         
         print("update search results ... called here")
     }
-    
-    
-    
-    @objc func methodOfReceivedNotification(notification: Notification) {
-        self.containerViewController.isHidden = true
-        audioPlayer.pause()
-    }
-    
-    @objc func methodOfReceivedNotificationPause(notification: Notification) {
-        audioPlayer.pause()
-    }
-    
-    @objc func methodOfReceivedNotificationVolume(notification: Notification) {
-        let volume = UserDefaults.standard.float(forKey: "volume")
-        audioPlayer.volume = volume
-    }
-    
 }
 
 extension iTunesMusicViewController: AlbumManagerDelegate {
-    
-    func didUpdateAlbum(_ albumManager: iTunesConnection, album: [AlbumModel]) {
-        
+    func didUpdateAlbum(_ albumManager: iTunesConnection, album: [Video]) {
         DispatchQueue.main.async {
             if  album.count != 0 {
                 self.favoriteAlbum.append(contentsOf: album)
-                self.favoriteAlbum[0].checkIfSelected = false
-                self.favoriteMusicTableView.isHidden = false
-                self.favoriteMusicTableView.reloadData()
+                //self.favoriteAlbum[0].checkIfSelected = false
+                DispatchQueue.main.async{
+                    self.favoriteAlbum = album
+                    for songIndex in 0..<self.favoriteAlbum.count{
+                        let title =   self.favoriteAlbum[songIndex].videoTitle
+                        let description =  self.favoriteAlbum[songIndex].videoDescription
+                        let image =  self.favoriteAlbum[songIndex].videoImageUrl
+                        let playlistId = self.favoriteAlbum[songIndex].videoPlaylistId
+                        let videoId =  self.favoriteAlbum[songIndex].videoId
+                        let channelId =  self.favoriteAlbum[songIndex].channelId
+//
+//                        self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
+                    }
+                      self.favoriteMusicTableView.reloadData()
+                }
             }
         }
     }
     
-    
-    func didFailWithError(error: Error) {
-        
+    func didFailWithError(error: String) {
+        print("\(error)")
     }
-    
-    
-    
 }
 
-extension iTunesMusicViewController: UITextFieldDelegate {
-//    
-//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-//        if textField.text != "" {
-//            checkIfEmptySearchText = false
-//            return true
-//        } else {
-//            textField.placeholder = "Type music name"
-//            checkIfEmptySearchText = true
-//            return true
-//        }
-//    }
-    
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        
-//        if let songName = searchTextField.text , checkIfEmptySearchText == false{
-//            self.favoriteAlbum = []
-//            iTunesConnectionManager.fetchiTunes(name: songName)
-//        }else{
-//            let alert = UIAlertController(title: "No Playlists Found \n Add playists to Wave by tapping the search field", message: nil, preferredStyle: .alert)
-//            
-//            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-//            }
-//            alert.addAction(cancelAction)
-//            present(alert, animated: true, completion: nil)
-//        }
-//        
-//        searchTextField.text = ""
-//        
-//    }
-    
-//    @objc func doneButtonAction(){
-//        searchTextField.resignFirstResponder()
-//    }
-}
+//extension iTunesMusicViewController: UITextFieldDelegate {
+//
+////    func textFieldDidEndEditing(_ textField: UITextField) {
+////
+////        if let songName = searchTextField.text , checkIfEmptySearchText == false{
+////            self.favoriteAlbum = []
+////            iTunesConnectionManager.fetchiTunes(name: songName)
+////        }else{
+////            let alert = UIAlertController(title: "No Playlists Found \n Add playists to Wave by tapping the search field", message: nil, preferredStyle: .alert)
+////
+////            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+////            }
+////            alert.addAction(cancelAction)
+////            present(alert, animated: true, completion: nil)
+////        }
+////
+////        searchTextField.text = ""
+////
+////    }
+//
+////    @objc func doneButtonAction(){
+////        searchTextField.resignFirstResponder()
+////    }
+//}
 extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoriteAlbum.count
@@ -163,23 +171,21 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchMusicCell", for: indexPath) as? FavoriteAlbumTableViewCell {
-            DispatchQueue.main.async {
-                if(indexPath.row == self.selectedIndex)
-                {
-                    cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 0.8004936733)
-                    cell.singerNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                    cell.songNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                    cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
-                    cell.favoriteButton.isHidden = false
-                }
-                else
-                {
-                    cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                    cell.singerNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    cell.songNameLabel.textColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
-                    cell.favoriteButton.isHidden = true
-                }
-            }
+//            DispatchQueue.main.async {
+//                if(indexPath.row == self.selectedIndex)
+//                {
+//                    cell.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 0.8004936733)
+//                    cell.singerNameLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+////                    cell.favoriteButton.addTarget(self, action: #selector(self.showFavoriteAlertFunction), for: .touchUpInside)
+//                    cell.favoriteButton.isHidden = false
+//                }
+//                else
+//                {
+//                    cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                    cell.singerNameLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//                    cell.favoriteButton.isHidden = true
+//                }
+//            }
             cell.confiigurationCell(albums: self.favoriteAlbum[indexPath.row])
             return cell
         }else {
@@ -193,93 +199,11 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndexRow = tableView.indexPathForSelectedRow
         let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndexRow!) as! FavoriteAlbumTableViewCell
-        
         selectedIndex = indexPath.row
-        tableView.reloadData()
-        
-        audioPlayer.pause()
-        
-        self.containerViewController.isHidden = false
-        
-        if  let audio = favoriteAlbum[indexPath.row].previewUrl           {
-            do {
-                guard let url = NSURL(string: audio) else { return}
-                playThis(url: url as URL)
-            }
-        }
-        selectedCell.favoriteButton.tag = indexPath.row;
-        //        self.startAnimatePlayer()
-        selectedSong = favoriteAlbum[indexPath.row].previewUrl!
-        self.containerViewController.isHidden = false
-        
-        UserDefaults.standard.set(selectedCell.artist, forKey: "artist")
-        UserDefaults.standard.set(selectedCell.title, forKey: "title")
-        UserDefaults.standard.set(selectedCell.artworkURL, forKey: "image")
-        UserDefaults.standard.set(audioPlayer.volume, forKey: "volume")
-        NotificationCenter.default.post(name: Notification.Name("getValueFromSelectedRow"), object: nil)
-        let thickness: CGFloat = 3.0
-        let topBorder = CALayer()
-        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: self.containerViewController.frame.size.width, height: thickness)
-        topBorder.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7027655291)
-        containerViewController.layer.addSublayer(topBorder)
+        selectedVideo = favoriteAlbum[indexPath.row]
+        webView.load(withVideoId: "")
+        genreVideoID = selectedVideo?.videoId
+        VideoPlayerClass.callVideoPlayer.superViewController = self
+        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo!)
     }
-    
-    
-    func playThis(url: URL)
-    {
-        do {
-            let playerItem: AVPlayerItem = AVPlayerItem(url: url as URL)
-            audioPlayer = AVPlayer(playerItem: playerItem)
-            let playerLayer = AVPlayerLayer(player: audioPlayer)
-            playerLayer.frame = CGRect(x: 0, y: 0, width: 10, height: 50)
-            self.view.layer.addSublayer(playerLayer)
-            audioPlayer.play()
-        }
-    }
-    
-    @objc func showFavoriteAlertFunction(sender: UIButton) {
-        let selectedIndex = IndexPath(row: sender.tag, section: 0)
-        self.favoriteMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-        let selectedCell = self.favoriteMusicTableView.cellForRow(at: selectedIndex) as! FavoriteAlbumTableViewCell
-        
-        if selectedCell.favoriteButton.tintColor != #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1){
-            let alert = UIAlertController(title: "Do you want to add \n \(selectedCell.title) \n in your favorite list?", message: nil, preferredStyle: .alert)
-            let yesAction = UIAlertAction(title: "YES", style: .default) { (action) in
-                let selectedMusic = AlbumModel(title: selectedCell.title, artist: selectedCell.artist, genre: selectedCell.genre, artworkURL: selectedCell.artworkURL, trackViewUrl: selectedCell.trackViewUrl, previewUrl: selectedCell.previewUrl, checkIfSelected: false)
-                var selectedMusicArray = [AlbumModel]()
-                selectedMusicArray.append(selectedMusic)
-                
-                let newCategory = SelectedAlbumModel(context: context!)
-                
-                selectedCell.favoriteButton.setImage(UIImage(systemName: "checkmark.seal"), for: .normal)
-                selectedCell.favoriteButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                newCategory.singerName = selectedCell.artist
-                newCategory.songTitle = selectedCell.title
-                newCategory.songImage = selectedCell.artworkURL
-                newCategory.selectedSongUrl = selectedCell.previewUrl
-                self.selectedMusic.append(newCategory)
-                
-                self.saveItems()
-            }
-            
-            let cancelAction = UIAlertAction(title: "NO", style: .cancel) { (action) in
-            }
-            alert.addAction(cancelAction)
-            alert.addAction(yesAction)
-            present(alert, animated: true, completion: nil)
-        }else{
-            selectedCell.favoriteButton.isUserInteractionEnabled = false
-        }
-    }
-    
-    
-    func saveItems() {
-        do{
-            try context?.save()
-        }catch{
-            print("Can't save items ")
-        }
-        
-    }
-    
 }

@@ -7,69 +7,48 @@
 //
 
 import UIKit
-
+import Alamofire
 protocol AlbumManagerDelegate {
-    func didUpdateAlbum(_ albumManager:iTunesConnection, album: [AlbumModel])
-    func didFailWithError(error: Error)
+    func didUpdateAlbum(_ albumManager:iTunesConnection, album: [Video])
+    func didFailWithError(error: String)
 }
 
 class iTunesConnection {
     var delegate: AlbumManagerDelegate?
+    var videoArray = [Video]()
+    let   API_KEY = "AIzaSyCFMsnq1bPn9azmGJXWorouExetqynFgok"
+    
     func fetchiTunes(name: String) {
-        let url  =  "https://itunes.apple.com/search?term=\(name)&media=music"
-        performRequest(with: url)
+        let url1 = "https://www.googleapis.com/youtube/v3/search?part=snippet&fields=items(id,snippet(title,channelTitle,thumbnails))&order=viewCount&q=\(name)&type=video&maxResults=1&key=\(API_KEY)"
+        performRequest(with: url1)
     }
     
     
     func performRequest(with urlStrng: String) {
-        if let url = URL(string: urlStrng){
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, resposne, error) in
-                if error != nil {
-                    self.delegate?.didFailWithError(error: error!)
-                    return
-                }
+        
+        AF.request(urlStrng, parameters: nil).responseJSON { response in
+            if let JSON = response.value as? [String: Any] {
+                print(JSON)
+                let listOfVideos = JSON["items"] as! NSArray
+                var videoObjArray = [Video]()
                 
-                if let safeData = data {
-                    let itunes = self.parseJSON(safeData)
-                    
-                    self.delegate?.didUpdateAlbum( self, album: itunes!)
+                for videos in listOfVideos {
+                    var youTubeVideo  = Video()
+                    youTubeVideo.videoId = (videos as AnyObject).value(forKeyPath: "id.videoId") as! String
+                    youTubeVideo.videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String
+                    youTubeVideo.videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.channelTitle") as! String
+                    youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.medium.url") as! String
+                    videoObjArray.append(youTubeVideo)
                     
                 }
-            }
-            task.resume()
-        }
-    }
-    
-    func parseJSON(_ itunesData:Data) -> [AlbumModel]? {
-        do{
-            var sharedAlbum = [AlbumModel]()
-            
-            let itunesDict = try JSONSerialization.jsonObject(with: itunesData, options: .mutableContainers) as? [String:Any]
-            let results = (itunesDict! as NSDictionary).object(forKey: "results") as? [Dictionary<String,AnyObject>]
-//            print(itunesDict)
-            if results != nil {
-                for _ in 0..<results!.count{
-                    
-                let resultDict = results?.randomElement()
-                let artist = resultDict?["artistName"] as? String ?? ""
-                let artworkUrl = resultDict?["artworkUrl100"] as? String ?? ""
-                let albumTitle = resultDict?["collectionName"] as? String ?? ""
-                let genre = resultDict?["primaryGenreName"] as? String  ?? ""
-                let trackViewUrl = resultDict?["trackViewUrl"] as? String  ?? ""
-                let previewUrl = resultDict?["previewUrl"] as? String  ?? ""
-                    let album = AlbumModel(title: albumTitle, artist: artist, genre: genre, artworkURL:artworkUrl, trackViewUrl: trackViewUrl, previewUrl: previewUrl, checkIfSelected: false)
-                    sharedAlbum.append(album)
-                }
+                  self.videoArray = videoObjArray
+                self.delegate?.didUpdateAlbum(self, album: self.videoArray)
             }else{
-                delegate?.didFailWithError(error: Error.self as! Error)
+                self.delegate?.didFailWithError(error: "Something whent wrong")
             }
-            return sharedAlbum
-        }catch{
-            delegate?.didFailWithError(error: error)
-            return nil
+            
         }
+        
     }
-    
 }
 

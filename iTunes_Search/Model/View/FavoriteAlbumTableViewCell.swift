@@ -11,47 +11,29 @@ import UIKit
 class FavoriteAlbumTableViewCell: UITableViewCell {
 
     @IBOutlet weak var songImageView: UIImageView!
-    @IBOutlet weak var songNameLabel: UILabel!
     @IBOutlet weak var singerNameLabel: UILabel!
-    var genre = String()
-    var trackViewUrl = String()
-    var artworkURL = String()
-    var title = String()
-    var artist = String()
-    var previewUrl = String()
-    var checkIfSelected =  Bool()
     @IBOutlet weak var favoriteButton: UIButton!
     
     
-    func confiigurationCell(albums: AlbumModel) {
-        if albums.artworkURL != "" {
-              self.songImageView.image = UIImage(data: NSData(contentsOf: URL(string:albums.artworkURL!)!)! as Data)
-
-        }else{
-              self.songImageView.image = UIImage(named: "")
-        }
-        
-        
-       DispatchQueue.main.async {
-        self.songNameLabel.text = albums.title
-        self.singerNameLabel.text = albums.artist
-        self.genre = albums.genre!
-        self.artworkURL = albums.artworkURL!
-        self.title = albums.title!
-        self.artist = albums.artist!
-        self.trackViewUrl = albums.trackViewUrl!
-        self.previewUrl = albums.previewUrl!
-        
-        self.songNameLabel.numberOfLines = 0
-        self.songNameLabel.font = UIFont(name: "Verdana", size: 12.0)
-        self.songNameLabel.adjustsFontSizeToFitWidth = true
-        self.songNameLabel.minimumScaleFactor = 0.5
-        
-        self.songImageView.layer.borderWidth = 1.5
-        self.songImageView.layer.masksToBounds = false
-        self.songImageView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        self.songImageView.layer.cornerRadius = self.songImageView.frame.height/2 
-        self.songImageView.clipsToBounds = true
-        }
+    func confiigurationCell(albums: Video) {
+        singerNameLabel.text = albums.videoTitle
+           let imageUrl = URL(string: albums.videoImageUrl)
+           do{
+               let data:NSData = try NSData(contentsOf: imageUrl!)
+               songImageView.image =  UIImage(data: data as Data)
+               
+           }catch{
+               print("error")
+           }
+           songImageView.layer.borderWidth = 3
+           songImageView.layer.masksToBounds = false
+           songImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+           songImageView.layer.shadowOpacity = 2
+           songImageView.layer.shadowPath = UIBezierPath(rect: songImageView.bounds).cgPath
+            self.songImageView.layer.cornerRadius = self.songImageView.frame.height/2
+           songImageView.layer.shadowRadius = 5
+           songImageView.layer.shadowOffset = .zero
+           songImageView.layer.cornerRadius = 7.0
+           songImageView.clipsToBounds = true
     }
 }

@@ -25,6 +25,8 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     @IBOutlet weak var topHitsListNSBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var myLibraryListNSBottomLayout: NSLayoutConstraint!
     var topHitsListHeight = 190
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sellectedSectionTableView.delegate = self
@@ -79,7 +81,7 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
         }
         
     }
-        
+    
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
@@ -153,6 +155,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
         case false:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
                 cell.configureTopHitsCell(topHitsLists[indexPath.row])
+                cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
                 return cell
             }else {
@@ -170,59 +173,54 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     @objc func addToMyLibraryButton(sender: UIButton) {
-        if selectedVideo?.videoTitle != nil {
-             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-            let predicate = NSPredicate(format: "title == %@", selectedVideo!.videoTitle as CVarArg)
-             request.predicate = predicate
-             request.fetchLimit = 1
-
-             do{
-                 let count = try context?.count(for: request)
-                 if(count == 0){
-                 // no matching object
-                     let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
-                     let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                     newEntity.setValue(selectedVideo?.videoTitle, forKey: "title")
-                     newEntity.setValue(selectedVideo?.videoImageUrl, forKey: "image")
-                     newEntity.setValue(selectedVideo?.videoId, forKey: "videoId")
-
-                     try context?.save()
-                                print("data has been saved ")
-                    let alert = UIAlertController(title: "\(selectedVideo?.videoTitle ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
-                             let action = UIAlertAction(title: "OK", style: .default) { (action) in
-                             }
-                             alert.addAction(action)
-                             present(alert, animated: true, completion: nil)
-                 }
-                 else{
-                 // at least one matching object exists
-                     let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
-                     let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-
-                     }
-
-                     let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
-                          self.navigationController?.popViewController(animated: true)
-                          self.tabBarController?.selectedIndex = 0
-                          self.tabBarController?.tabBar.isHidden = false
-                     }
-
-                     alert.addAction(action)
-                     alert.addAction(libraryAction)
-                     present(alert, animated: true, completion: nil)
-
-                 }
-               }
-             catch let error as NSError {
-                  print("Could not fetch \(error), \(error.userInfo)")
-               }
-        }else{
-            let alert = UIAlertController(title: "Please choose video from  list", message: "", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default) { (action) in
+        let selectedIndex = IndexPath(row: sender.tag, section: 0)
+        self.sellectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+        let selectedCell = self.sellectedSectionTableView.cellForRow(at: selectedIndex) as! SellectedSectionTableViewCell
+        
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let predicate = NSPredicate(format: "title == %@", selectedCell.topHitLabelText.text! as CVarArg)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        do{
+            let count = try context?.count(for: request)
+            if(count == 0){
+                // no matching object
+                let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                newEntity.setValue(selectedCell.topHitLabelText.text!, forKey: "title")
+                newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
+                newEntity.setValue(selectedCell.videoID, forKey: "videoId")
+                myLibraryList = []
+                try context?.save()
+                print("data has been saved ")
+                let alert = UIAlertController(title: "\(selectedCell.topHitLabelText.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default) { (action) in
+                }
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
             }
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-            
+            else{
+                // at least one matching object exists
+                let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                    
+                }
+                
+                let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                    self.tabBarController?.selectedIndex = 0
+                    self.tabBarController?.tabBar.isHidden = false
+                }
+                
+                alert.addAction(action)
+                alert.addAction(libraryAction)
+                present(alert, animated: true, completion: nil)
+                
+            }
+        }
+        catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
         }
     }
     

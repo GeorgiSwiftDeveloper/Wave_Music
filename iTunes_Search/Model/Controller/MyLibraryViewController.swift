@@ -417,7 +417,12 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 myLibraryListArray = []
                 try context?.save()
                 print("data has been saved ")
-                self.fetchMyLibraryList()
+                let alert = UIAlertController(title: "\(selectedCell.topHitSongTitle.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default) { (action) in
+                     self.fetchMyLibraryList()
+                }
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
             }
             else{
                 // at least one matching object exists
@@ -493,6 +498,4 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             print("Could not remove video \(error.localizedDescription)")
         }
     }
-    
-    
 }

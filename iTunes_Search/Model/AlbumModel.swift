@@ -9,23 +9,23 @@
 import UIKit
 
 class AlbumModel: NSObject {
+    var videoId: String?
+    var channelTitle: String?
+    var imageUrl: String?
     var title: String?
-    var artist: String?
-    var genre: String?
-    var artworkURL: String?
-    var trackViewUrl: String?
-    var previewUrl: String?
-    var checkIfSelected: Bool?
+//    var trackViewUrl: String?
+//    var previewUrl: String?
+//    var checkIfSelected: Bool?
     
-    init(title: String, artist:String, genre:String,artworkURL:String, trackViewUrl: String,previewUrl: String,checkIfSelected: Bool ) {
+    init(videoId: String, channelTitle:String, imageUrl:String,title:String) {
     
+            self.videoId = videoId
+            self.channelTitle = channelTitle
+            self.imageUrl = imageUrl
             self.title = title
-            self.artist = artist
-            self.genre = genre
-            self.artworkURL = artworkURL
-            self.trackViewUrl = trackViewUrl
-            self.previewUrl = previewUrl
-            self.checkIfSelected = checkIfSelected
+//            self.trackViewUrl = trackViewUrl
+//            self.previewUrl = previewUrl
+//            self.checkIfSelected = checkIfSelected
     
         }
 }
