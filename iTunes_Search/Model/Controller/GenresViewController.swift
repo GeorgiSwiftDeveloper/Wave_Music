@@ -47,8 +47,9 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             genreListNSLayoutTopContraint.constant = 0
             countySelectedCollectionView.isHidden = true
         }
-        
+        let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+        if checkVideoIsPlaying == true{
               if pause == nil || pause == true{
                 self.showVideoPlayer()
                 self.genreBottomNSLayoutConstraint.constant = 170
@@ -57,7 +58,8 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
                 self.showVideoPlayerPause()
                 self.genreBottomNSLayoutConstraint.constant = 170
                 favoriteCollectionView.updateConstraints()
-              }
+            }
+        }
     }
     
     

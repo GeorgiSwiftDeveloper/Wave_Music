@@ -27,7 +27,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var myLibrary = true
     var genreVideoID: String?
     var sectionButton = UIButton()
-    
+    var selectedIndex = Int()
     var videoSelected = Bool()
     var isEntityIsEmpty: Bool {
         do {
@@ -46,8 +46,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         UserDefaults.standard.removeObject(forKey: "selectedFromSectionVideo")
         UserDefaults.standard.removeObject(forKey: "pause")
+        UserDefaults.standard.removeObject(forKey: "checkVideoIsPlaying")
         UserDefaults.standard.synchronize()
-        UserDefaults.standard.synchronize()
+        
+        UserDefaults.standard.set(false, forKey:"checkIfViewisLoaded")
+
         setupNavBar()
         mainLibraryTableView.alwaysBounceVertical = false
         self.mainLibraryTableView.delegate = self
@@ -383,9 +386,24 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             cell = libraryMusicCell
         case topMusicTableView:
             let  topHitsMusicCell = (tableView.dequeueReusableCell(withIdentifier: "TopHitsTableViewCell", for: indexPath) as? TopHitsTableViewCell)!
+                let checkIfViewisLoaded = UserDefaults.standard.object(forKey: "checkIfViewisLoaded") as? Bool
+            DispatchQueue.main.async {
+                if checkIfViewisLoaded == true{
+                if(indexPath.row == self.selectedIndex)
+                {
+                    topHitsMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                    topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                }
+                else
+                {
+                    topHitsMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                }
+                }
+            }
+            topHitsMusicCell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             topHitsMusicCell.configureGenreCell(topHitsArray[indexPath.row])
             topHitsMusicCell.addToFavoriteButton.tag = indexPath.row;
-            topHitsMusicCell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell = topHitsMusicCell
         default:
             break
@@ -444,27 +462,39 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case mainLibraryTableView:
-            self.myLibraryNSBottomLayout.constant = 160
             let selectedVideoId = myLibraryListArray[indexPath.row]
-            webView.load(withVideoId: "")
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-            videoSelected = true
-            VideoPlayerClass.callVideoPlayer.superViewController = self
+            getSelectedLibraryVideo()
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         case topMusicTableView:
-            self.myLibraryNSBottomLayout.constant = 160
+            selectedIndex = indexPath.row
             let selectedVideoId = topHitsArray[indexPath.row]
-            webView.load(withVideoId: "")
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-            videoSelected = true
-            VideoPlayerClass.callVideoPlayer.superViewController = self
+            getSelectedTopHitsVideo()
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
-            
         default:
             break
         }
+    }
+    
+    
+    
+    func getSelectedLibraryVideo(){
+          self.myLibraryNSBottomLayout.constant = 160
+          webView.load(withVideoId: "")
+          videoSelected = true
+          VideoPlayerClass.callVideoPlayer.superViewController = self
+      }
+    
+    func getSelectedTopHitsVideo(){
+        UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
+        self.myLibraryNSBottomLayout.constant = 160
+        webView.load(withVideoId: "")
+        videoSelected = true
+        VideoPlayerClass.callVideoPlayer.superViewController = self
+        topMusicTableView.reloadData()
     }
     
     

@@ -21,10 +21,11 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     var genreVideoID: String?
     var webView = WKYTPlayerView()
     var selectedVideo: Video?
+    var topHitsListHeight = 190
+    
     @IBOutlet weak var sellectedSectionTableView: UITableView!
     @IBOutlet weak var topHitsListNSBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var myLibraryListNSBottomLayout: NSLayoutConstraint!
-    var topHitsListHeight = 190
     
     
     override func viewDidLoad() {
