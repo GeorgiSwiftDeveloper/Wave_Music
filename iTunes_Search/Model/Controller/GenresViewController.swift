@@ -17,7 +17,9 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     @IBOutlet weak var genreBottomNSLayoutConstraint: NSLayoutConstraint!
     var containerViewController = ContainerViewControllerForiTunesMusic()
+    
     var indexpath = Int()
+    var genreCollectionViewBottomHeight = 145
     
     
     @IBOutlet weak var genreListNSLayoutTopContraint: NSLayoutConstraint!
@@ -52,11 +54,11 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         if checkVideoIsPlaying == true{
               if pause == nil || pause == true{
                 self.showVideoPlayer()
-                self.genreBottomNSLayoutConstraint.constant = 170
+                self.genreBottomNSLayoutConstraint.constant = CGFloat(genreCollectionViewBottomHeight)
                 favoriteCollectionView.updateConstraints()
               }else{
                 self.showVideoPlayerPause()
-                self.genreBottomNSLayoutConstraint.constant = 170
+                self.genreBottomNSLayoutConstraint.constant = CGFloat(genreCollectionViewBottomHeight)
                 favoriteCollectionView.updateConstraints()
             }
         }

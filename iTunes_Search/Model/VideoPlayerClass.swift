@@ -15,7 +15,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
     
     
     let cardHeight:CGFloat = 800
-    let cardHandleAreaHeight:CGFloat = 160
+    let cardHandleAreaHeight:CGFloat = 130
     
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
@@ -58,8 +58,8 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
 //        self.superViewController!.view.addSubview(visualEffectView)
 //        self.visualEffectView.effect = nil
         
-        self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 35, width: 35, height: 35)
-        self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
+        self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
+        self.musicLabelText.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
         self.musicLabelText.numberOfLines = 0
         self.musicLabelText.textAlignment = .left
         self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
@@ -110,7 +110,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleCardTap(recognzier:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handleCardPan(recognizer:)))
         
-        cardViewController.headerView.addGestureRecognizer(tapGestureRecognizer)
+        cardViewController.view.addGestureRecognizer(tapGestureRecognizer)
         sellectedCell.addGestureRecognizer(panGestureRecognizer)
           UserDefaults.standard.set(true, forKey:"checkVideoIsPlaying")
         
@@ -156,7 +156,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         case .began:
             startInteractiveTransition(state: nextState, duration: 0.9)
         case .changed:
-            let translation = recognizer.translation(in: self.cardViewController.headerView)
+            let translation = recognizer.translation(in: self.cardViewController.view)
             var fractionComplete = translation.y / cardHeight
             fractionComplete = cardVisible ? fractionComplete : -fractionComplete
             updateInteractiveTransition(fractionCompleted: fractionComplete)
@@ -173,13 +173,13 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                 switch state {
                 case .expanded:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHeight
-                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
+//                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
                     self.cardViewController.view.layer.opacity = 1
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
                     self.musicLabelText.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
                           DispatchQueue.main.async {
                     self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//                    self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     self.leftandRightButton()
                     self.musicLabelText.numberOfLines = 0
                     self.musicLabelText.textAlignment = .center
@@ -190,12 +190,12 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                     
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
-                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
-                    self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 35, width: 35, height: 35)
-                    self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
+//                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
+                    self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
+                    self.musicLabelText.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
                     DispatchQueue.main.async {
                         self.cardViewController.view.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
-                        self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
+//                        self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                         self.musicLabelText.numberOfLines = 0
                         self.musicLabelText.textAlignment = .left
                         self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)

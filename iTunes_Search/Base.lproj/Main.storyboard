@@ -537,7 +537,7 @@
             </objects>
             <point key="canvasLocation" x="-3146" y="2401"/>
         </scene>
-        <!--Genres-->
+        <!--Genres View Controller-->
         <scene sceneID="a0O-Db-qDa">
             <objects>
                 <viewController storyboardIdentifier="FavoriteSongsViewController" id="dhp-Vd-zyy" customClass="GenresViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
@@ -662,7 +662,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Ur-yE-fRU"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Genres" id="6z8-gZ-3JW"/>
+                    <navigationItem key="navigationItem" id="6z8-gZ-3JW"/>
                     <connections>
                         <outlet property="countySelectedCollectionView" destination="gmr-4I-N1B" id="9IV-pa-tGZ"/>
                         <outlet property="favoriteCollectionView" destination="LoF-Dm-i85" id="bUm-e2-Ogt"/>

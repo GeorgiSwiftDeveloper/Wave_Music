@@ -15,9 +15,10 @@ class SellectedSectionTableViewCell: UITableViewCell {
     @IBOutlet weak var addToFavoriteButton: UIButton!
     var videoID = String()
     var videoImageUrl = String()
+    
    func configureTopHitsCell(_ video: Video){
             videoID = video.videoId
-    videoImageUrl = video.videoImageUrl
+            videoImageUrl = video.videoImageUrl
            topHitLabelText.text = video.videoTitle
           let imageUrl = URL(string: video.videoImageUrl)
            do{

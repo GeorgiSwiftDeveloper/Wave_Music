@@ -98,6 +98,7 @@ class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UIS
           print("search end editing.")
           let songName = searchBar.text
           iTunesConnectionManager.fetchiTunes(name: songName!)
+          self.favoriteMusicTableView.reloadData()
           searchBar.text = ""
           searchController.isActive = false
           
@@ -115,24 +116,23 @@ extension iTunesMusicViewController: AlbumManagerDelegate {
         DispatchQueue.main.async {
             if  album.count != 0 {
                 self.favoriteAlbum.append(contentsOf: album)
+                self.favoriteMusicTableView.reloadData()
                 //self.favoriteAlbum[0].checkIfSelected = false
-                DispatchQueue.main.async{
-                    self.favoriteAlbum = album
-                    for songIndex in 0..<self.favoriteAlbum.count{
-                        let title =   self.favoriteAlbum[songIndex].videoTitle
-                        let description =  self.favoriteAlbum[songIndex].videoDescription
-                        let image =  self.favoriteAlbum[songIndex].videoImageUrl
-                        let playlistId = self.favoriteAlbum[songIndex].videoPlaylistId
-                        let videoId =  self.favoriteAlbum[songIndex].videoId
-                        let channelId =  self.favoriteAlbum[songIndex].channelId
+//                DispatchQueue.main.async{
+//                    self.favoriteAlbum = album
+//                    for songIndex in 0..<self.favoriteAlbum.count{
+//                        let title =   self.favoriteAlbum[songIndex].videoTitle
+//                        let description =  self.favoriteAlbum[songIndex].videoDescription
+//                        let image =  self.favoriteAlbum[songIndex].videoImageUrl
+//                        let playlistId = self.favoriteAlbum[songIndex].videoPlaylistId
+//                        let videoId =  self.favoriteAlbum[songIndex].videoId
+//                        let channelId =  self.favoriteAlbum[songIndex].channelId
 //
 //                        self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
-                    }
-                      self.favoriteMusicTableView.reloadData()
+                   // }
                 }
             }
         }
-    }
     
     func didFailWithError(error: String) {
         print("\(error)")
