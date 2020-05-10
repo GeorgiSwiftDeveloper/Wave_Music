@@ -11,6 +11,9 @@ import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
 
+protocol CheckIfRowIsSelectedDelegate:class {
+    func checkIfRowIsSelectedDelegate(_ checkIf: Bool)
+}
 class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate {
     
     var topHitsLists = [Video]()
@@ -22,6 +25,8 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     var webView = WKYTPlayerView()
     var selectedVideo: Video?
     var topHitsListHeight = 190
+    
+    weak var checDelegate: CheckIfRowIsSelectedDelegate?
     
     @IBOutlet weak var sellectedSectionTableView: UITableView!
     @IBOutlet weak var topHitsListNSBottomLayout: NSLayoutConstraint!
@@ -226,6 +231,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        checDelegate?.checkIfRowIsSelectedDelegate(true)
         switch checkTable {
         case true:
             let selectedVideo = myLibraryList[indexPath.row]

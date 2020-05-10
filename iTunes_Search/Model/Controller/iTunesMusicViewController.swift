@@ -10,9 +10,7 @@ import UIKit
 import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
-protocol SelectedMusicDelegate {
-    func selectedMusicObject(_ selected: [AlbumModel])
-}
+
 let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
 class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UISearchBarDelegate,UISearchResultsUpdating {
@@ -23,7 +21,6 @@ class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     var selectedAlbumManager = FavoriteViewController()
     var favoriteAlbum = [Video]()
     var selectedMusic = [SelectedAlbumModel]()
-    var selectedMusicDelegate: SelectedMusicDelegate?
     let searchController = UISearchController(searchResultsController: nil)
 
     

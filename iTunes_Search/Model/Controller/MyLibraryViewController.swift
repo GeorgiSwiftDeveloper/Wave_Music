@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
-class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate {
+class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate,CheckIfRowIsSelectedDelegate {
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -50,7 +50,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         UserDefaults.standard.removeObject(forKey: "pause")
         UserDefaults.standard.removeObject(forKey: "checkVideoIsPlaying")
         UserDefaults.standard.synchronize()
-        
         UserDefaults.standard.set(false, forKey:"checkIfViewisLoaded")
 
         setupNavBar()
@@ -63,6 +62,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         getYouTubeResluts()
     }
     
+    func checkIfRowIsSelectedDelegate(_ checkIf: Bool) {
+        if checkIf == true{
+            DispatchQueue.main.async {
+                self.selectLibraryRow = true
+                self.selectTopHitsRow = true
+                self.myLibraryTableView.reloadData()
+                self.topMusicTableView.reloadData()
+            }
+        }
+    }
     
     func getYouTubeResluts(){
         if isEntityIsEmpty{
@@ -363,8 +372,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 nc.navigationItem.title = "Top Tracks"
                 if videoSelected == true{
                     nc.videoSelected = true
+                    nc.checDelegate = self
                 }
                 nc.checkTable = false
+                nc.checDelegate = self
             }
         }else if segue.identifier == "MyLibraryMusic" {
             if  let nc = segue.destination as? SellectedSectionViewController {
@@ -488,19 +499,17 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         switch tableView {
         case myLibraryTableView:
             selectLibraryRow = false
-            selectedIndex = indexPath.row
             let selectedVideoId = myLibraryListArray[indexPath.row]
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-            getSelectedLibraryVideo()
+            getSelectedLibraryVideo(indexPath)
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         case topMusicTableView:
             selectTopHitsRow = false
-            selectedIndex = indexPath.row
             let selectedVideoId = topHitsArray[indexPath.row]
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
-            getSelectedTopHitsVideo()
+            getSelectedTopHitsVideo(indexPath)
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         default:
             break
@@ -509,7 +518,8 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     
-    func getSelectedLibraryVideo(){
+    func getSelectedLibraryVideo(_ indexPath: IndexPath){
+          selectedIndex = indexPath.row
           selectTopHitsRow = true
           UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
           self.myLibraryNSBottomLayout.constant = 160
@@ -521,7 +531,8 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
           myLibraryTableView.reloadData()
       }
     
-    func getSelectedTopHitsVideo(){
+    func getSelectedTopHitsVideo(_ indexPath: IndexPath){
+        selectedIndex = indexPath.row
         selectLibraryRow = true
         UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
         self.myLibraryNSBottomLayout.constant = 160
