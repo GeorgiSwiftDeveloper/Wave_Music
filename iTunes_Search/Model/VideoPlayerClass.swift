@@ -69,7 +69,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         
         checkCardView = true
         cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
-        cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        cardViewController.view.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
         self.cardViewController.view.layer.cornerRadius = 12
         superView.addChild(cardViewController)
         superView.view.addSubview(cardViewController.view)
@@ -177,13 +177,15 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                     self.cardViewController.view.layer.opacity = 1
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
                     self.musicLabelText.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
-                    
-                    
+                          DispatchQueue.main.async {
+                    self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                    self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     self.leftandRightButton()
                     self.musicLabelText.numberOfLines = 0
                     self.musicLabelText.textAlignment = .center
                     self.superViewController?.navigationController?.navigationBar.isHidden = true
                     self.superViewController?.tabBarController?.tabBar.isHidden = true
+                    }
                     self.webView.isHidden = false
                     
                 case .collapsed:
@@ -191,15 +193,17 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                     self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 35, width: 35, height: 35)
                     self.musicLabelText.frame = CGRect(x: 10, y: 30, width: Int(UIScreen.main.bounds.width - 100), height: 50)
-                    
-                    self.musicLabelText.numberOfLines = 0
-                    self.musicLabelText.textAlignment = .left
-                    self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
-                    
+                    DispatchQueue.main.async {
+                        self.cardViewController.view.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
+                        self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
+                        self.musicLabelText.numberOfLines = 0
+                        self.musicLabelText.textAlignment = .left
+                        self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
+                        self.superViewController?.navigationController?.navigationBar.isHidden = false
+                        self.superViewController?.tabBarController?.tabBar.isHidden = false
+                    }
                     self.webView.isHidden = true
 //                    self.visualEffectView.removeFromSuperview()
-                    self.superViewController?.navigationController?.navigationBar.isHidden = false
-                    self.superViewController?.tabBarController?.tabBar.isHidden = false
                 }
             }
             
