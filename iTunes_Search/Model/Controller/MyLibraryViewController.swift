@@ -14,7 +14,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    @IBOutlet weak var mainLibraryTableView: UITableView!
+    @IBOutlet weak var myLibraryTableView: UITableView!
     @IBOutlet weak var topMusicTableView: UITableView!
     @IBOutlet weak var myLibraryNSBottomLayout: NSLayoutConstraint!
     
@@ -22,6 +22,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var topHitsArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
     var webView = WKYTPlayerView()
+    var selectTopHitsRow = Bool()
+    var selectLibraryRow = Bool()
     
     var topHits = true
     var myLibrary = true
@@ -52,9 +54,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         UserDefaults.standard.set(false, forKey:"checkIfViewisLoaded")
 
         setupNavBar()
-        mainLibraryTableView.alwaysBounceVertical = false
-        self.mainLibraryTableView.delegate = self
-        self.mainLibraryTableView.dataSource = self
+        myLibraryTableView.alwaysBounceVertical = false
+        self.myLibraryTableView.delegate = self
+        self.myLibraryTableView.dataSource = self
         self.topMusicTableView.delegate = self
         self.topMusicTableView.dataSource = self
         
@@ -103,7 +105,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         DispatchQueue.main.async {
             self.myLibraryListArray = []
             self.fetchMyLibraryList()
-            self.mainLibraryTableView.reloadData()
+            self.myLibraryTableView.reloadData()
             let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             if self.videoSelected == true {
@@ -230,7 +232,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 let fetchResult = try context?.fetch(request) as? [Video]
                 myLibraryListArray = []
                 myLibraryListArray = fetchResult!
-                mainLibraryTableView.reloadData()
+                myLibraryTableView.reloadData()
                 print("match")
             }
         }
@@ -257,7 +259,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 
                 
                 myLibraryListArray.append(videoList)
-                mainLibraryTableView.reloadData()
+                myLibraryTableView.reloadData()
             }
             
         } catch {
@@ -278,7 +280,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var titleName = ""
         switch tableView {
-        case mainLibraryTableView:
+        case myLibraryTableView:
             titleName = "My Library"
         case topMusicTableView:
             titleName = "Top Hit's"
@@ -292,7 +294,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowsInSection = 1
         switch tableView {
-        case mainLibraryTableView:
+        case myLibraryTableView:
             numberOfRowsInSection = myLibraryListArray.count
         case topMusicTableView:
             numberOfRowsInSection = topHitsArray.count
@@ -308,7 +310,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         switch tableView {
         case topMusicTableView:
             rowHeiight = 57
-        case mainLibraryTableView:
+        case myLibraryTableView:
             rowHeiight = 55
         default:
             break
@@ -380,8 +382,29 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         switch tableView {
-        case mainLibraryTableView:
+        case myLibraryTableView:
             let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
+               let checkIfViewisLoaded = UserDefaults.standard.object(forKey: "checkIfViewisLoaded") as? Bool
+            DispatchQueue.main.async {
+                         if checkIfViewisLoaded == true{
+                         if(indexPath.row == self.selectedIndex)
+                         {
+                             if self.selectLibraryRow == false{
+                             libraryMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                             libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                             }else{
+                                 libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                                 libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                             }
+                         }
+                         else
+                         {
+                             libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                             libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                         }
+                         }
+                     }
+            
             libraryMusicCell.configureGenreCell(myLibraryListArray[indexPath.row])
             cell = libraryMusicCell
         case topMusicTableView:
@@ -391,8 +414,13 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 if checkIfViewisLoaded == true{
                 if(indexPath.row == self.selectedIndex)
                 {
+                    if self.selectTopHitsRow == false{
                     topHitsMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
                     topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                    }else{
+                        topHitsMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                    }
                 }
                 else
                 {
@@ -415,9 +443,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         let selectedIndex = IndexPath(row: sender.tag, section: 0)
         self.topMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.topMusicTableView.cellForRow(at: selectedIndex) as! TopHitsTableViewCell
-        
-        print(selectedCell.videoImageUrl)
-        
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         let predicate = NSPredicate(format: "title == %@", selectedCell.topHitSongTitle.text! as CVarArg)
         request.predicate = predicate
@@ -461,13 +486,16 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
-        case mainLibraryTableView:
+        case myLibraryTableView:
+            selectLibraryRow = false
+            selectedIndex = indexPath.row
             let selectedVideoId = myLibraryListArray[indexPath.row]
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
             genreVideoID = selectedVideoId.videoId
             getSelectedLibraryVideo()
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         case topMusicTableView:
+            selectTopHitsRow = false
             selectedIndex = indexPath.row
             let selectedVideoId = topHitsArray[indexPath.row]
             let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
@@ -482,19 +510,27 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func getSelectedLibraryVideo(){
+          selectTopHitsRow = true
+          UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
           self.myLibraryNSBottomLayout.constant = 160
           webView.load(withVideoId: "")
+          VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
           videoSelected = true
           VideoPlayerClass.callVideoPlayer.superViewController = self
+          topMusicTableView.reloadData()
+          myLibraryTableView.reloadData()
       }
     
     func getSelectedTopHitsVideo(){
+        selectLibraryRow = true
         UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
         self.myLibraryNSBottomLayout.constant = 160
         webView.load(withVideoId: "")
+        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         videoSelected = true
         VideoPlayerClass.callVideoPlayer.superViewController = self
         topMusicTableView.reloadData()
+        myLibraryTableView.reloadData()
     }
     
     
