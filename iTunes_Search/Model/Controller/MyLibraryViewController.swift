@@ -397,24 +397,24 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
                let checkIfViewisLoaded = UserDefaults.standard.object(forKey: "checkIfViewisLoaded") as? Bool
             DispatchQueue.main.async {
-                         if checkIfViewisLoaded == true{
-                         if(indexPath.row == self.selectedIndex)
-                         {
-                             if self.selectLibraryRow == false{
-                             libraryMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-                             libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                             }else{
-                                 libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                                 libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                             }
-                         }
-                         else
-                         {
-                             libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                             libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                         }
-                         }
-                     }
+                if checkIfViewisLoaded == true{
+                    if(indexPath.row == self.selectedIndex)
+                    {
+                        if self.selectLibraryRow == false{
+                            libraryMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                            libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                        }else{
+                            libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                            libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                        }
+                    }
+                    else
+                    {
+                        libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                    }
+                }
+            }
             
             libraryMusicCell.configureGenreCell(myLibraryListArray[indexPath.row])
             cell = libraryMusicCell
@@ -423,21 +423,21 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 let checkIfViewisLoaded = UserDefaults.standard.object(forKey: "checkIfViewisLoaded") as? Bool
             DispatchQueue.main.async {
                 if checkIfViewisLoaded == true{
-                if(indexPath.row == self.selectedIndex)
-                {
-                    if self.selectTopHitsRow == false{
-                    topHitsMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-                    topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                    }else{
+                    if(indexPath.row == self.selectedIndex)
+                    {
+                        if self.selectTopHitsRow == false{
+                            topHitsMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                            topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                        }else{
+                            topHitsMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                            topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                        }
+                    }
+                    else
+                    {
                         topHitsMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                         topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                     }
-                }
-                else
-                {
-                    topHitsMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                    topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                }
                 }
             }
             topHitsMusicCell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
@@ -505,7 +505,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
                 self.genreVideoID = selectedVideoId.videoId
                 self.getSelectedLibraryVideo(indexPath)
-//                self.webView.load(withVideoId: "")
+                self.webView.load(withVideoId: "")
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
             }
         case topMusicTableView:
@@ -515,7 +515,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
                 self.genreVideoID = selectedVideoId.videoId
                 self.getSelectedTopHitsVideo(indexPath)
-//                self.webView.load(withVideoId: "")
+                self.webView.load(withVideoId: "")
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
             }
         default:
@@ -530,7 +530,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
           selectTopHitsRow = true
           UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
           self.myLibraryNSBottomLayout.constant = 160
-//          VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+          VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
 //          videoSelected = true
           VideoPlayerClass.callVideoPlayer.superViewController = self
           topMusicTableView.reloadData()
@@ -542,7 +542,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         selectLibraryRow = true
         UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
         self.myLibraryNSBottomLayout.constant = 160
-//        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
 //        videoSelected = true
         VideoPlayerClass.callVideoPlayer.superViewController = self
         topMusicTableView.reloadData()

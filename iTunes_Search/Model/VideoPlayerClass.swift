@@ -80,10 +80,11 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         self.webView = WKYTPlayerView(frame: CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 220))
         
         self.cardViewController.view.addSubview(self.webView)
-        
-        let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
-                                              "origin": "https://www.youtube.com"]
-        self.webView.load(withVideoId: genreVideoID, playerVars: playerVars)
+        DispatchQueue.main.async {
+            let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
+                                                  "origin": "https://www.youtube.com"]
+            self.webView.load(withVideoId: genreVideoID, playerVars: playerVars)
+        }
         
         self.webView.delegate = self
         self.webView.isHidden = true
