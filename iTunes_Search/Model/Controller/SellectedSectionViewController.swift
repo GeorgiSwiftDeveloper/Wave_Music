@@ -47,7 +47,7 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
+//        let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         
         DispatchQueue.main.async {
@@ -58,13 +58,13 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
                     self.showVideoPlayerPause()
                 }
             }
-            if ifSelectedTopHit == true{
-                if pause == nil  || pause == true {
-                    self.showVideoPlayer()
-                }else{
-                    self.showVideoPlayerPause()
-                }
-            }
+//            if ifSelectedTopHit == true{
+//                if pause == nil  || pause == true {
+//                    self.showVideoPlayer()
+//                }else{
+//                    self.showVideoPlayerPause()
+//                }
+//            }
         }
     }
     
@@ -238,7 +238,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
             webView.load(withVideoId: "")
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
             genreVideoID = selectedVideo.videoId
-            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
+//            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
         case false:
@@ -247,7 +247,7 @@ extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSo
             webView.load(withVideoId: "")
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
             genreVideoID = selectedVideo?.videoId
-            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
+//            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo!)
         }
