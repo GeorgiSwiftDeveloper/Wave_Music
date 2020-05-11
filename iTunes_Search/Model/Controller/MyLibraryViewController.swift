@@ -499,21 +499,25 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         videoSelected = true
         switch tableView {
         case myLibraryTableView:
-            selectLibraryRow = false
-            let selectedVideoId = myLibraryListArray[indexPath.row]
-            let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
-            genreVideoID = selectedVideoId.videoId
-            getSelectedLibraryVideo(indexPath)
-            webView.load(withVideoId: "")
-            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            DispatchQueue.main.async {
+                self.selectLibraryRow = false
+                let selectedVideoId = self.myLibraryListArray[indexPath.row]
+                let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
+                self.genreVideoID = selectedVideoId.videoId
+                self.getSelectedLibraryVideo(indexPath)
+//                self.webView.load(withVideoId: "")
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            }
         case topMusicTableView:
-            selectTopHitsRow = false
-            let selectedVideoId = topHitsArray[indexPath.row]
-            let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
-            genreVideoID = selectedVideoId.videoId
-            getSelectedTopHitsVideo(indexPath)
-            webView.load(withVideoId: "")
-            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            DispatchQueue.main.async {
+                self.selectTopHitsRow = false
+                let selectedVideoId = self.topHitsArray[indexPath.row]
+                let selectedCell = self.topMusicTableView.cellForRow(at: indexPath) as! TopHitsTableViewCell
+                self.genreVideoID = selectedVideoId.videoId
+                self.getSelectedTopHitsVideo(indexPath)
+//                self.webView.load(withVideoId: "")
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            }
         default:
             break
         }
@@ -526,7 +530,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
           selectTopHitsRow = true
           UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
           self.myLibraryNSBottomLayout.constant = 160
-          VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+//          VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
 //          videoSelected = true
           VideoPlayerClass.callVideoPlayer.superViewController = self
           topMusicTableView.reloadData()
@@ -538,7 +542,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         selectLibraryRow = true
         UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
         self.myLibraryNSBottomLayout.constant = 160
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+//        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
 //        videoSelected = true
         VideoPlayerClass.callVideoPlayer.superViewController = self
         topMusicTableView.reloadData()
