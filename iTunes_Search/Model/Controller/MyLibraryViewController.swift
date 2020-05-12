@@ -115,7 +115,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             self.myLibraryListArray = []
             self.fetchMyLibraryList()
             self.myLibraryTableView.reloadData()
-//            let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
+            let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             if self.videoSelected == true {
                 if pause == nil || pause == true{
@@ -124,13 +124,13 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                     self.showVideoPlayerPause()
                 }
             }
-//            if ifSelectedTopHit == true{
-//                if pause == nil  || pause == true {
-//                    self.showVideoPlayer()
-//                }else{
-//                    self.showVideoPlayerPause()
-//                }
-//            }
+            if ifSelectedTopHit == true{
+                if pause == nil  || pause == true {
+                    self.showVideoPlayer()
+                }else{
+                    self.showVideoPlayerPause()
+                }
+            }
         }
     }
         
@@ -496,7 +496,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        videoSelected = true
+//        videoSelected = true
         switch tableView {
         case myLibraryTableView:
             DispatchQueue.main.async {
@@ -531,7 +531,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
           UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
           self.myLibraryNSBottomLayout.constant = 160
           VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-//          videoSelected = true
+          videoSelected = true
           VideoPlayerClass.callVideoPlayer.superViewController = self
           topMusicTableView.reloadData()
           myLibraryTableView.reloadData()
@@ -543,7 +543,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
         self.myLibraryNSBottomLayout.constant = 160
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-//        videoSelected = true
+        videoSelected = true
         VideoPlayerClass.callVideoPlayer.superViewController = self
         topMusicTableView.reloadData()
         myLibraryTableView.reloadData()
