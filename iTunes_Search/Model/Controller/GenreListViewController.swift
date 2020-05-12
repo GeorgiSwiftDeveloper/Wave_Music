@@ -9,19 +9,21 @@
 import UIKit
 import Alamofire
 import CoreData
-
+import  YoutubePlayer_in_WKWebView
 
 class GenreListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet weak var topGenreLabelText: UILabel!
     
+    @IBOutlet weak var genreBottomNSLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var genreTableView: UITableView!
     var genreTitle: GenreModel?
     var videoArray = [Video]()
     var getYouTubeData  = YouTubeVideoConnection()
-
+    var webView = WKYTPlayerView()
     var entityName = String()
+    var genreVideoID: String?
     
     var isEmpty: Bool {
         switch genreTitle?.genreTitle {
@@ -102,6 +104,47 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             
         }
     }
+    
+  override func viewWillAppear(_ animated: Bool) {
+       super.viewWillAppear(animated)
+       let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
+       
+       let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
+       let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+       if checkVideoIsPlaying == true{
+             if pause == nil || pause == true{
+               self.showVideoPlayer()
+           
+             }else{
+               self.showVideoPlayerPause()
+           }
+       }
+    }
+    
+    
+  func showVideoPlayer(){
+      VideoPlayerClass.callVideoPlayer.superViewController = self
+      self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+      VideoPlayerClass.callVideoPlayer.webView.playVideo()
+      self.genreBottomNSLayoutConstraint.constant = 150
+      self.view.layoutIfNeeded()
+  }
+  
+  func showVideoPlayerPause(){
+      VideoPlayerClass.callVideoPlayer.superViewController = self
+      self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+      VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        self.genreBottomNSLayoutConstraint.constant = 150
+       self.view.layoutIfNeeded()
+  }
+          
+      
+      override func viewDidDisappear(_ animated: Bool) {
+          super .viewDidDisappear(animated)
+          VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+           self.navigationController?.navigationBar.isHidden = false
+      }
+      
     
     func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String, channelId: String) {
         switch genreTitle {
@@ -225,12 +268,10 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                        newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
                        newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
                        newEntity.setValue(selectedCell.videoID, forKey: "videoId")
-//                       myLibraryListArray = []
                        try context?.save()
                        print("data has been saved ")
                     let alert = UIAlertController(title: "\(selectedCell.singerNameLabel.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
                        let action = UIAlertAction(title: "OK", style: .default) { (action) in
-//                            self.fetchMyLibraryList()
                        }
                        alert.addAction(action)
                        present(alert, animated: true, completion: nil)
@@ -254,9 +295,16 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedVideoId = videoArray[indexPath.row]
-        
-        self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
+        DispatchQueue.main.async {
+             self.genreBottomNSLayoutConstraint.constant = 150
+            let selectedVideoId = self.videoArray[indexPath.row]
+            let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
+            self.genreVideoID = selectedVideoId.videoId
+            self.webView.load(withVideoId: "")
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+        }
+//        self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
        }
     
     
