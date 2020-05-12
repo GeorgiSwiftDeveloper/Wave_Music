@@ -14,7 +14,7 @@ import  YoutubePlayer_in_WKWebView
 protocol CheckIfRowIsSelectedDelegate:class {
     func checkIfRowIsSelectedDelegate(_ checkIf: Bool)
 }
-class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate {
+class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate {
     
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
@@ -144,7 +144,7 @@ class SellectedSectionViewController: UIViewController,WKNavigationDelegate,WKYT
     }
 }
 
-extension SellectedSectionViewController: UITableViewDelegate, UITableViewDataSource {
+extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowsInSection = 0
         switch checkTable {

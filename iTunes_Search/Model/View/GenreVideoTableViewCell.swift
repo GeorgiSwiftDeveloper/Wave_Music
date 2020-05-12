@@ -13,9 +13,13 @@ class GenreVideoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var videoImageView: UIImageView!
     @IBOutlet weak var singerNameLabel: UILabel!
+    @IBOutlet weak var addToFavoriteButton: UIButton!
     
+    var videoID = String()
+    var videoImageUrl = String()
     func configureGenreCell(_ video: Video){
-        
+        videoID = video.videoId
+        videoImageUrl = video.videoImageUrl
         singerNameLabel.text = video.videoTitle
         let imageUrl = URL(string: video.videoImageUrl)
         do{

@@ -368,7 +368,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TopHitsMusic" {
-            if  let nc = segue.destination as? SellectedSectionViewController {
+            if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "Top Tracks"
                 if videoSelected == true{
                     nc.videoSelected = true
@@ -378,7 +378,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 nc.checDelegate = self
             }
         }else if segue.identifier == "MyLibraryMusic" {
-            if  let nc = segue.destination as? SellectedSectionViewController {
+            if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "My Library"
                 if videoSelected == true{
                     nc.videoSelected = true

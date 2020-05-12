@@ -164,10 +164,10 @@
             </objects>
             <point key="canvasLocation" x="2156" y="-689"/>
         </scene>
-        <!--Sellected Section View Controller-->
+        <!--Selected Section View Controller-->
         <scene sceneID="I7P-hv-ZoV">
             <objects>
-                <viewController id="lMr-2H-I3N" customClass="SellectedSectionViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="lMr-2H-I3N" customClass="SelectedSectionViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ejo-ll-TUc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -756,6 +756,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addToFavoriteButton" destination="a5I-EG-mmy" id="vBM-EE-B10"/>
                                             <outlet property="singerNameLabel" destination="zwq-c1-D5c" id="Ld5-4z-z5F"/>
                                             <outlet property="videoImageView" destination="Fyl-Ls-8hQ" id="YOe-lt-38c"/>
                                         </connections>
@@ -1619,10 +1620,10 @@
             </objects>
             <point key="canvasLocation" x="-945" y="933"/>
         </scene>
-        <!--Sellected Section View Controller-->
+        <!--Selected Section View Controller-->
         <scene sceneID="ecd-YF-iRo">
             <objects>
-                <viewController id="vnV-nw-p2c" customClass="SellectedSectionViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vnV-nw-p2c" customClass="SelectedSectionViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RvC-3r-5fL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -196,12 +196,60 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "genreCell", for: indexPath) as? GenreVideoTableViewCell {
+            cell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
+            cell.addToFavoriteButton.tag = indexPath.row;
             cell.configureGenreCell(videoArray[indexPath.row])
             print(videoArray[indexPath.row].channelId)
             return cell
         }else {
             return GenreVideoTableViewCell()
         }
+    }
+    
+    
+    @objc func addToFavoriteTapped(sender: UIButton){
+               let selectedIndex = IndexPath(row: sender.tag, section: 0)
+               self.genreTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+               let selectedCell = self.genreTableView.cellForRow(at: selectedIndex) as! GenreVideoTableViewCell
+               let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
+               request.predicate = predicate
+               request.fetchLimit = 1
+               
+               do{
+                   let count = try context?.count(for: request)
+                   if(count == 0){
+                       // no matching object
+                       let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+                       let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                       newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
+                       newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
+                       newEntity.setValue(selectedCell.videoID, forKey: "videoId")
+//                       myLibraryListArray = []
+                       try context?.save()
+                       print("data has been saved ")
+                    let alert = UIAlertController(title: "\(selectedCell.singerNameLabel.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
+                       let action = UIAlertAction(title: "OK", style: .default) { (action) in
+//                            self.fetchMyLibraryList()
+                       }
+                       alert.addAction(action)
+                       present(alert, animated: true, completion: nil)
+                   }
+                   else{
+                       // at least one matching object exists
+                       let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
+                       let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                       }
+                       
+                       
+                       alert.addAction(action)
+                       present(alert, animated: true, completion: nil)
+                       
+                   }
+               }
+               catch let error as NSError {
+                   print("Could not fetch \(error), \(error.userInfo)")
+               }
     }
     
     

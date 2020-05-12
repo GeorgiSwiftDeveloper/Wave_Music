@@ -16,7 +16,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var countySelectedCollectionView: UICollectionView!
     
     @IBOutlet weak var genreBottomNSLayoutConstraint: NSLayoutConstraint!
-    var containerViewController = ContainerViewControllerForiTunesMusic()
     
     var indexpath = Int()
     var genreCollectionViewBottomHeight = 145
