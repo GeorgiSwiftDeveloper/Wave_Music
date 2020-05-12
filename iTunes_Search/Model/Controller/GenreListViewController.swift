@@ -207,6 +207,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedVideoId = videoArray[indexPath.row]
+        
         self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
        }
     

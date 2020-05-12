@@ -28,11 +28,11 @@ class GenreVideoTableViewCell: UITableViewCell {
        videoImageView.layer.borderWidth = 3
        videoImageView.layer.masksToBounds = false
        videoImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
-       videoImageView.layer.shadowOpacity = 2  
+       videoImageView.layer.shadowOpacity = 2
        videoImageView.layer.shadowPath = UIBezierPath(rect: videoImageView.bounds).cgPath
-       videoImageView.layer.shadowRadius = 5
+       self.videoImageView.layer.cornerRadius = self.videoImageView.frame.height/2
+       videoImageView.layer.shadowRadius = 3
        videoImageView.layer.shadowOffset = .zero
-       videoImageView.layer.cornerRadius = 7.0
        videoImageView.clipsToBounds = true
     }
 
