@@ -232,19 +232,31 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         request.predicate = predicate
         request.fetchLimit = 1
         
+
         do{
-            let count = try context?.count(for: request)
-            if(count == 0){
-                // no matching object
-                print("no match")
-            }else{
-                let fetchResult = try context?.fetch(request) as? [Video]
+//            let count = try context?.count(for: request)
+//            if(count == 0){
+//                // no matching object
+//                print("no match")
+//            }else{
+                let fetchResult = try context?.fetch(request) as! [NSManagedObject]
+            print(fetchResult.count)
+            for result in fetchResult {
+                let videoId = result.value(forKey: "videoId") as? String ?? ""
+                let title = result.value(forKey: "title") as? String ?? ""
+                let songDescription = result.value(forKey: "songDescription") as? String ?? ""
+                let playListId = result.value(forKey: "playListId") as? String ?? ""
+                let image = result.value(forKey: "image") as? String ?? ""
+                let genreTitle = result.value(forKey: "genreTitle") as? String ?? ""
+                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: songDescription , videoPlaylistId: playListId, videoImageUrl: image , channelId:"", genreTitle: genreTitle)
                 myLibraryListArray = []
-                myLibraryListArray = fetchResult!
+                myLibraryListArray.append(videoList)
+                
                 myLibraryTableView.reloadData()
+            }
                 print("match")
             }
-        }
+       // }
         catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
@@ -496,7 +508,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        videoSelected = true
         switch tableView {
         case myLibraryTableView:
             DispatchQueue.main.async {

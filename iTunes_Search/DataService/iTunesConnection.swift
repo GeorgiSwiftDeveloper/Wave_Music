@@ -16,10 +16,10 @@ protocol AlbumManagerDelegate {
 class iTunesConnection {
     var delegate: AlbumManagerDelegate?
     var videoArray = [Video]()
-    let   API_KEY = "AIzaSyCFMsnq1bPn9azmGJXWorouExetqynFgok"
+    let  API_KEY = "AIzaSyD_ftHSeTLdHnAqtUv-pnWW8jOXv5TFZg8"
     
     func fetchiTunes(name: String) {
-        let url1 = "https://www.googleapis.com/youtube/v3/search?part=snippet&fields=items(id,snippet(title,channelTitle,thumbnails))&order=viewCount&q=\(name)&type=video&maxResults=1&key=\(API_KEY)"
+        let url1 = "https://www.googleapis.com/youtube/v3/search?part=snippet&fields=items(id,snippet(title,channelTitle,thumbnails))&order=viewCount&q=\(name)&type=video&maxResults=15&key=\(API_KEY)"
         performRequest(with: url1)
     }
     
@@ -41,8 +41,9 @@ class iTunesConnection {
                     videoObjArray.append(youTubeVideo)
                     
                 }
-                  self.videoArray = videoObjArray
-                self.delegate?.didUpdateAlbum(self, album: self.videoArray)
+//                  self.videoArray = videoObjArray
+                print(videoObjArray[0].videoId)
+                self.delegate?.didUpdateAlbum(self, album: videoObjArray)
             }else{
                 self.delegate?.didFailWithError(error: "Something whent wrong")
             }

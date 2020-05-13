@@ -16,7 +16,6 @@
 		6A1375D62433D0D80086113D /* iTunesConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375D52433D0D80086113D /* iTunesConnection.swift */; };
 		6A1375DE2433F7370086113D /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375DD2433F7370086113D /* AlbumModel.swift */; };
 		6A1375E924344AB40086113D /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375E824344AB40086113D /* FavoriteViewController.swift */; };
-		6A1375EB24344C760086113D /* FavoriteAlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375EA24344C760086113D /* FavoriteAlbumTableViewCell.swift */; };
 		6A41657A2457FB2E00910513 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4165792457FB2E00910513 /* WelcomeViewController.swift */; };
 		6A41657C2458EF0D00910513 /* SelectedSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */; };
 		6A41657E2458FC9B00910513 /* SellectedSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657D2458FC9B00910513 /* SellectedSectionTableViewCell.swift */; };
@@ -53,6 +52,7 @@
 		6AD0FD35243C426F006BF086 /* station.json in Resources */ = {isa = PBXBuildFile; fileRef = 6AD0FD34243C426E006BF086 /* station.json */; };
 		6AD0FD37243C4350006BF086 /* ReadDataFromStationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD0FD36243C4350006BF086 /* ReadDataFromStationJSON.swift */; };
 		6AD42A01245013BA00917123 /* YouTubeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD42A00245013BA00917123 /* YouTubeTableViewCell.swift */; };
+		6AD76C6B246C8D1000E76108 /* SearchVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD76C6A246C8D1000E76108 /* SearchVideoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,7 +69,6 @@
 		6A1375D52433D0D80086113D /* iTunesConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesConnection.swift; sourceTree = "<group>"; };
 		6A1375DD2433F7370086113D /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
 		6A1375E824344AB40086113D /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
-		6A1375EA24344C760086113D /* FavoriteAlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAlbumTableViewCell.swift; sourceTree = "<group>"; };
 		6A4165792457FB2E00910513 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSectionViewController.swift; sourceTree = "<group>"; };
 		6A41657D2458FC9B00910513 /* SellectedSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellectedSectionTableViewCell.swift; sourceTree = "<group>"; };
@@ -105,6 +104,7 @@
 		6AD0FD34243C426E006BF086 /* station.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = station.json; sourceTree = "<group>"; };
 		6AD0FD36243C4350006BF086 /* ReadDataFromStationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDataFromStationJSON.swift; sourceTree = "<group>"; };
 		6AD42A00245013BA00917123 /* YouTubeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeTableViewCell.swift; sourceTree = "<group>"; };
+		6AD76C6A246C8D1000E76108 /* SearchVideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoTableViewCell.swift; sourceTree = "<group>"; };
 		6AFF2AF5245C9927007883A2 /* YouTubePlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YouTubePlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D783280CA611A76D44F6747C /* Pods-iTunes_Search.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iTunes_Search.release.xcconfig"; path = "Pods/Target Support Files/Pods-iTunes_Search/Pods-iTunes_Search.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,7 +198,7 @@
 		6A1375E52434354F0086113D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6A1375EA24344C760086113D /* FavoriteAlbumTableViewCell.swift */,
+				6AD76C6A246C8D1000E76108 /* SearchVideoTableViewCell.swift */,
 				6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */,
 				6AD42A00245013BA00917123 /* YouTubeTableViewCell.swift */,
 				6A5227D32453CEAE00D77850 /* MyLibraryTableViewCell.swift */,
@@ -374,8 +374,8 @@
 				6A464B0824564E0F00720D79 /* TopHitsTableViewCell.swift in Sources */,
 				6A5628602454B38200CCEB63 /* MainLibrariMusciTableViewCell.swift in Sources */,
 				6A5A0CDA2448CFB7005150D2 /* GenreListViewController.swift in Sources */,
-				6A1375EB24344C760086113D /* FavoriteAlbumTableViewCell.swift in Sources */,
 				6A1375C62433D09E0086113D /* iTunesMusicViewController.swift in Sources */,
+				6AD76C6B246C8D1000E76108 /* SearchVideoTableViewCell.swift in Sources */,
 				6A5A0CDC2448DCE7005150D2 /* GenreModelService.swift in Sources */,
 				6A48ECC624366802007A82D6 /* MuviesModel.swift in Sources */,
 				6A433FBA2464F7C700966F2A /* TabBarViewController.swift in Sources */,
