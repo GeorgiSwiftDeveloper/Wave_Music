@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6A1375C22433D09E0086113D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375C12433D09E0086113D /* AppDelegate.swift */; };
 		6A1375C42433D09E0086113D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375C32433D09E0086113D /* SceneDelegate.swift */; };
-		6A1375C62433D09E0086113D /* iTunesMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375C52433D09E0086113D /* iTunesMusicViewController.swift */; };
+		6A1375C62433D09E0086113D /* SearchMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375C52433D09E0086113D /* SearchMusicViewController.swift */; };
 		6A1375C92433D09E0086113D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A1375C72433D09E0086113D /* Main.storyboard */; };
 		6A1375CB2433D09F0086113D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A1375CA2433D09F0086113D /* Assets.xcassets */; };
 		6A1375CE2433D09F0086113D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A1375CC2433D09F0086113D /* LaunchScreen.storyboard */; };
@@ -21,7 +21,6 @@
 		6A41657E2458FC9B00910513 /* SellectedSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657D2458FC9B00910513 /* SellectedSectionTableViewCell.swift */; };
 		6A433FBA2464F7C700966F2A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A433FB92464F7C700966F2A /* TabBarViewController.swift */; };
 		6A464B0824564E0F00720D79 /* TopHitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464B0724564E0F00720D79 /* TopHitsTableViewCell.swift */; };
-		6A4825852468C46600F1CA7A /* ClassObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4825842468C46600F1CA7A /* ClassObject.swift */; };
 		6A48ECC22436643B007A82D6 /* FutureMuviesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */; };
 		6A48ECC424366485007A82D6 /* FutureMuviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC324366485007A82D6 /* FutureMuviesModel.swift */; };
 		6A48ECC624366802007A82D6 /* MuviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC524366802007A82D6 /* MuviesModel.swift */; };
@@ -61,7 +60,7 @@
 		6A1375BE2433D09E0086113D /* Wave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wave.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A1375C12433D09E0086113D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A1375C32433D09E0086113D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6A1375C52433D09E0086113D /* iTunesMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesMusicViewController.swift; sourceTree = "<group>"; };
+		6A1375C52433D09E0086113D /* SearchMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicViewController.swift; sourceTree = "<group>"; };
 		6A1375C82433D09E0086113D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6A1375CA2433D09F0086113D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A1375CD2433D09F0086113D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,7 +73,6 @@
 		6A41657D2458FC9B00910513 /* SellectedSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellectedSectionTableViewCell.swift; sourceTree = "<group>"; };
 		6A433FB92464F7C700966F2A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		6A464B0724564E0F00720D79 /* TopHitsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHitsTableViewCell.swift; sourceTree = "<group>"; };
-		6A4825842468C46600F1CA7A /* ClassObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassObject.swift; sourceTree = "<group>"; };
 		6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureMuviesTableViewCell.swift; sourceTree = "<group>"; };
 		6A48ECC324366485007A82D6 /* FutureMuviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureMuviesModel.swift; sourceTree = "<group>"; };
 		6A48ECC524366802007A82D6 /* MuviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuviesModel.swift; sourceTree = "<group>"; };
@@ -178,11 +176,10 @@
 			isa = PBXGroup;
 			children = (
 				6A4165792457FB2E00910513 /* WelcomeViewController.swift */,
-				6A4825842468C46600F1CA7A /* ClassObject.swift */,
 				6A433FB92464F7C700966F2A /* TabBarViewController.swift */,
 				6A5227D52453DB4D00D77850 /* MyLibraryViewController.swift */,
 				6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */,
-				6A1375C52433D09E0086113D /* iTunesMusicViewController.swift */,
+				6A1375C52433D09E0086113D /* SearchMusicViewController.swift */,
 				6ABFE228243909DD000217B5 /* GenresViewController.swift */,
 				6A5A0CD92448CFB7005150D2 /* GenreListViewController.swift */,
 				6A4FD82C244B8D37000A8533 /* YouTubeViewController.swift */,
@@ -368,13 +365,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AD0FD26243C24D5006BF086 /* RadioStationViewController.swift in Sources */,
-				6A4825852468C46600F1CA7A /* ClassObject.swift in Sources */,
 				6A5A0CE2244971E0005150D2 /* GenreVideoTableViewCell.swift in Sources */,
 				6A5A0CD82447DB0A005150D2 /* GenreModel.swift in Sources */,
 				6A464B0824564E0F00720D79 /* TopHitsTableViewCell.swift in Sources */,
 				6A5628602454B38200CCEB63 /* MainLibrariMusciTableViewCell.swift in Sources */,
 				6A5A0CDA2448CFB7005150D2 /* GenreListViewController.swift in Sources */,
-				6A1375C62433D09E0086113D /* iTunesMusicViewController.swift in Sources */,
+				6A1375C62433D09E0086113D /* SearchMusicViewController.swift in Sources */,
 				6AD76C6B246C8D1000E76108 /* SearchVideoTableViewCell.swift in Sources */,
 				6A5A0CDC2448DCE7005150D2 /* GenreModelService.swift in Sources */,
 				6A48ECC624366802007A82D6 /* MuviesModel.swift in Sources */,

@@ -107,7 +107,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
   override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
-       let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
+//       let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
        
        let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool

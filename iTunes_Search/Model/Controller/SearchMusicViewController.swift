@@ -13,7 +13,7 @@ import  YoutubePlayer_in_WKWebView
 
 let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
 
-class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UISearchBarDelegate,UISearchResultsUpdating {
+class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UISearchBarDelegate,UISearchResultsUpdating {
     
     @IBOutlet weak var searchMusicTableView: UITableView!
     
@@ -70,7 +70,6 @@ class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     override func viewDidDisappear(_ animated: Bool) {
             super .viewDidDisappear(animated)
             VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
-//            NotificationCenter.default.post(name: Notification.Name("not"), object: nil)
         }
     
     
@@ -116,7 +115,7 @@ class iTunesMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     }
 }
 
-extension iTunesMusicViewController: AlbumManagerDelegate {
+extension SearchMusicViewController: AlbumManagerDelegate {
     func didUpdateAlbum(_ albumManager: iTunesConnection, album: [Video]) {
        
             if  album.count != 0 {
@@ -134,7 +133,7 @@ extension iTunesMusicViewController: AlbumManagerDelegate {
     }
 }
 
-extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource {
+extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoriteAlbum.count
     }
@@ -144,6 +143,7 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
 
             cell.confiigurationCell(albums: favoriteAlbum[indexPath.row])
             cell.favoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
+            cell.favoriteButton.tag = indexPath.row;
             return cell
         }else {
             return SearchVideoTableViewCell()
@@ -151,9 +151,12 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
         
     }
     
-    @objc func addToFavoriteTapped(_ sender: Any) {
+    @objc func addToFavoriteTapped(_ sender: UIButton) {
+           let selectedIndex = IndexPath(row: sender.tag, section: 0)
+           self.searchMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+           let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndex) as! SearchVideoTableViewCell
            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-           let predicate = NSPredicate(format: "title == %@", selectedVideo!.videoTitle as CVarArg)
+           let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
            request.predicate = predicate
            request.fetchLimit = 1
 
@@ -163,15 +166,15 @@ extension iTunesMusicViewController: UITableViewDelegate, UITableViewDataSource 
                // no matching object
                    let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
                    let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                   newEntity.setValue(selectedVideo?.videoTitle, forKey: "title")
-                   newEntity.setValue(selectedVideo?.videoImageUrl, forKey: "image")
-                   newEntity.setValue(selectedVideo?.videoId, forKey: "videoId")
+                newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
+                newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
+                newEntity.setValue(selectedCell.videoID, forKey: "videoId")
                    
                    try context?.save()
                               print("data has been saved ")
                               self.navigationController?.popViewController(animated: true)
                               self.tabBarController?.tabBar.isHidden = false
-                let alert = UIAlertController(title: "\(selectedVideo?.videoTitle ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
+                let alert = UIAlertController(title: "\(selectedCell.singerNameLabel.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .default) { (action) in
             
                 }

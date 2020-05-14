@@ -354,10 +354,10 @@
             </objects>
             <point key="canvasLocation" x="-946.39999999999998" y="204.67980295566502"/>
         </scene>
-        <!--iTunes Music View Controller-->
+        <!--Search Music View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="iTunesMusicViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="SearchMusicViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -366,7 +366,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="50" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6je-dD-fXC">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                                        <rect key="frame" x="0.0" y="60" width="375" height="578"/>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -425,8 +425,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="6je-dD-fXC" secondAttribute="bottom" id="OEo-Lf-Ben"/>
-                                    <constraint firstItem="6je-dD-fXC" firstAttribute="top" secondItem="aUv-fA-lUJ" secondAttribute="top" id="Uzp-WB-fis"/>
+                                    <constraint firstAttribute="bottom" secondItem="6je-dD-fXC" secondAttribute="bottom" constant="120" id="OEo-Lf-Ben"/>
+                                    <constraint firstItem="6je-dD-fXC" firstAttribute="top" secondItem="aUv-fA-lUJ" secondAttribute="top" constant="60" id="Uzp-WB-fis"/>
                                     <constraint firstAttribute="trailing" secondItem="6je-dD-fXC" secondAttribute="trailing" id="gOb-vL-ztn"/>
                                     <constraint firstItem="6je-dD-fXC" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" id="jxk-ks-O7W"/>
                                 </constraints>

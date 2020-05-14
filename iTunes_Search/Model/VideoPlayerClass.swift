@@ -101,10 +101,12 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         if checkIfPaused == false {
             webView.pauseVideo()
             self.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
+            UserDefaults.standard.set(false, forKey:"pause")
             checkIfPaused = true
         }else{
             webView.playVideo()
             self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+            UserDefaults.standard.set(true, forKey:"pause")
             checkIfPaused = false
         }
         
@@ -113,7 +115,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         
         cardViewController.view.addGestureRecognizer(tapGestureRecognizer)
         sellectedCell.addGestureRecognizer(panGestureRecognizer)
-          UserDefaults.standard.set(true, forKey:"checkVideoIsPlaying")
+        UserDefaults.standard.set(true, forKey:"checkVideoIsPlaying")
         
     }
     

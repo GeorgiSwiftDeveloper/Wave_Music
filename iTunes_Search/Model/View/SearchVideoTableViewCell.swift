@@ -13,10 +13,13 @@ class SearchVideoTableViewCell: UITableViewCell {
     @IBOutlet weak var songImageView: UIImageView!
     @IBOutlet weak var singerNameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
-    
+    var videoID = String()
+    var videoImageUrl = String()
     
     func confiigurationCell(albums: Video) {
-        singerNameLabel.text = albums.videoTitle
+            singerNameLabel.text = albums.videoTitle
+            videoID = albums.videoId
+            videoImageUrl = albums.videoImageUrl
            let imageUrl = URL(string: albums.videoImageUrl)
            do{
                let data:NSData = try NSData(contentsOf: imageUrl!)

@@ -49,6 +49,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             countySelectedCollectionView.isHidden = true
         }
         let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
+    
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         if checkVideoIsPlaying == true{
               if pause == nil || pause == true{
@@ -82,7 +83,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     override func viewDidDisappear(_ animated: Bool) {
          super .viewDidDisappear(animated)
          VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
-         NotificationCenter.default.post(name: Notification.Name("not"), object: nil)
      }
     
     override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
