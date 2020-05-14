@@ -107,18 +107,29 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
   override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
+    
+    
+    let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+    switch pause {
+    case true:
+        self.showVideoPlayer()
+    case false:
+        self.showVideoPlayerPause()
+    default:
+        break
+    }
 //       let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
        
-       let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
-       let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-       if checkVideoIsPlaying == true{
-             if pause == nil || pause == true{
-               self.showVideoPlayer()
-           
-             }else{
-               self.showVideoPlayerPause()
-           }
-       }
+//       let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
+//       let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+//       if checkVideoIsPlaying == true{
+//             if pause == nil || pause == true{
+//               self.showVideoPlayer()
+//           
+//             }else{
+//               self.showVideoPlayerPause()
+//           }
+//       }
     }
     
     

@@ -48,20 +48,30 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             genreListNSLayoutTopContraint.constant = 0
             countySelectedCollectionView.isHidden = true
         }
-        let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
-    
+        
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-        if checkVideoIsPlaying == true{
-              if pause == nil || pause == true{
-                self.showVideoPlayer()
-                self.genreBottomNSLayoutConstraint.constant = CGFloat(genreCollectionViewBottomHeight)
-                favoriteCollectionView.updateConstraints()
-              }else{
-                self.showVideoPlayerPause()
-                self.genreBottomNSLayoutConstraint.constant = CGFloat(genreCollectionViewBottomHeight)
-                favoriteCollectionView.updateConstraints()
-            }
+        switch pause {
+        case true:
+            self.showVideoPlayer()
+        case false:
+            self.showVideoPlayerPause()
+        default:
+            break
         }
+//        let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
+//    
+//        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+//        if checkVideoIsPlaying == true{
+//              if pause == nil || pause == true{
+//                self.showVideoPlayer()
+//                self.genreBottomNSLayoutConstraint.constant = CGFloat(genreCollectionViewBottomHeight)
+//                favoriteCollectionView.updateConstraints()
+//              }else{
+//                self.showVideoPlayerPause()
+//                self.genreBottomNSLayoutConstraint.constant = CGFloat(genreCollectionViewBottomHeight)
+//                favoriteCollectionView.updateConstraints()
+//            }
+//        }
     }
     
     

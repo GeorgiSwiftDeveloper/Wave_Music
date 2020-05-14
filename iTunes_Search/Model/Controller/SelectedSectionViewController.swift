@@ -47,25 +47,35 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
-        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         
-        DispatchQueue.main.async {
-            if  self.videoSelected == true{
-                if pause == nil  || pause == true {
-                    self.showVideoPlayer()
-                }else{
-                    self.showVideoPlayerPause()
-                }
-            }
-            if ifSelectedTopHit == true{
-                if pause == nil  || pause == true {
-                    self.showVideoPlayer()
-                }else{
-                    self.showVideoPlayerPause()
-                }
-            }
+        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+        switch pause {
+        case true:
+            self.showVideoPlayer()
+        case false:
+            self.showVideoPlayerPause()
+        default:
+            break
         }
+//        let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
+//        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+//        
+//        DispatchQueue.main.async {
+//            if  self.videoSelected == true{
+//                if pause == nil  || pause == true {
+//                    self.showVideoPlayer()
+//                }else{
+//                    self.showVideoPlayerPause()
+//                }
+//            }
+//            if ifSelectedTopHit == true{
+//                if pause == nil  || pause == true {
+//                    self.showVideoPlayer()
+//                }else{
+//                    self.showVideoPlayerPause()
+//                }
+//            }
+//        }
     }
     
     func showVideoPlayer(){
@@ -234,20 +244,22 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         checDelegate?.checkIfRowIsSelectedDelegate(true)
         switch checkTable {
         case true:
+            VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
             let selectedVideo = myLibraryList[indexPath.row]
             webView.load(withVideoId: "")
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
             genreVideoID = selectedVideo.videoId
-            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
+//            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
         case false:
+            VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
             topHitsListNSBottomLayout.constant = CGFloat(topHitsListHeight)
             selectedVideo = topHitsLists[indexPath.row]
             webView.load(withVideoId: "")
             let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
             genreVideoID = selectedVideo?.videoId
-            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
+//            UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo!)
         }

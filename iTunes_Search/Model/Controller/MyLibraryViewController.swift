@@ -115,22 +115,35 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             self.myLibraryListArray = []
             self.fetchMyLibraryList()
             self.myLibraryTableView.reloadData()
-            let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
+            
+            
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-            if self.videoSelected == true {
-                if pause == nil || pause == true{
-                    self.showVideoPlayer()
-                }else{
-                    self.showVideoPlayerPause()
-                }
+            switch pause {
+            case true:
+                  self.showVideoPlayer()
+            case false:
+                  self.showVideoPlayerPause()
+            default:
+                break
             }
-            if ifSelectedTopHit == true{
-                if pause == nil  || pause == true {
-                    self.showVideoPlayer()
-                }else{
-                    self.showVideoPlayerPause()
-                }
-            }
+            
+            
+            //            let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
+            
+//            if self.videoSelected == true {
+//                if pause == nil || pause == true{
+//                    self.showVideoPlayer()
+//                }else{
+//                    self.showVideoPlayerPause()
+//                }
+//            }
+//            if ifSelectedTopHit == true{
+//                if pause == nil  || pause == true {
+//                    self.showVideoPlayer()
+//                }else{
+//                    self.showVideoPlayerPause()
+//                }
+//            }
         }
     }
         
@@ -539,7 +552,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
           selectedIndex = indexPath.row
           selectTopHitsRow = true
-          UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
+//          UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
           self.myLibraryNSBottomLayout.constant = 160
           VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
           videoSelected = true
@@ -551,7 +564,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func getSelectedTopHitsVideo(_ indexPath: IndexPath){
         selectedIndex = indexPath.row
         selectLibraryRow = true
-        UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
+//        UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
         self.myLibraryNSBottomLayout.constant = 160
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         videoSelected = true

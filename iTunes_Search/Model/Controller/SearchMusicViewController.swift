@@ -42,17 +42,28 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
+        
+        
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-        DispatchQueue.main.async {
-        if checkVideoIsPlaying == true {
-        if pause == nil || pause == true{
+        switch pause {
+        case true:
             self.showVideoPlayer()
-        }else{
+        case false:
             self.showVideoPlayerPause()
-                }
+        default:
+            break
         }
-    }
+//        let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
+//        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+//        DispatchQueue.main.async {
+//        if checkVideoIsPlaying == true {
+//        if pause == nil || pause == true{
+//            self.showVideoPlayer()
+//        }else{
+//            self.showVideoPlayerPause()
+//                }
+//        }
+//    }
     }
     
     
@@ -209,7 +220,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndexRow = tableView.indexPathForSelectedRow
         let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndexRow!) as! SearchVideoTableViewCell
-        
+//         UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
         selectedIndex = indexPath.row
         selectedVideo = favoriteAlbum[indexPath.row]
         webView.load(withVideoId: "")
