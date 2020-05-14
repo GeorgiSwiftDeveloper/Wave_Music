@@ -17,7 +17,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     @IBOutlet weak var searchMusicTableView: UITableView!
     
-    var iTunesConnectionManager = iTunesConnection()
+    var searchConnectionManager = SearchConnection()
     var selectedAlbumManager = FavoriteViewController()
     var favoriteAlbum = [Video]()
     var selectedMusic = [SelectedAlbumModel]()
@@ -33,7 +33,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        iTunesConnectionManager.delegate = self
+        searchConnectionManager.delegate = self
         self.searchMusicTableView.delegate = self
         self.searchMusicTableView.dataSource = self
         setupNavBar()
@@ -119,7 +119,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchBar.text != "" {
             let songName = searchBar.text
-            iTunesConnectionManager.fetchiTunes(name: songName!)
+            searchConnectionManager.fetchiTunes(name: songName!)
             searchBar.text = ""
             searchController.isActive = false
         }
@@ -127,7 +127,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
 }
 
 extension SearchMusicViewController: AlbumManagerDelegate {
-    func didUpdateAlbum(_ albumManager: iTunesConnection, album: [Video]) {
+    func didUpdateAlbum(_ albumManager: SearchConnection, album: [Video]) {
        
             if  album.count != 0 {
                  DispatchQueue.main.async {

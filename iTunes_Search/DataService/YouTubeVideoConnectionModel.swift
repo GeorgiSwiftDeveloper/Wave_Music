@@ -13,7 +13,7 @@ class  YouTubeVideoConnection {
     var API_KEY = ""
     var UPLOADS_PLAYLIST_ID = ""
     
-    let YouTubeUrl = "https://www.googleapis.com/youtube/v3/playlistItems?maxResults=10"
+    let YouTubeUrl = "https://www.googleapis.com/youtube/v3/playlistItems?maxResults=20"
     
     var genreTitle: GenreModel?
     var videoArray = [Video]()

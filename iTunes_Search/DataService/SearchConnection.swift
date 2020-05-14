@@ -9,11 +9,11 @@
 import UIKit
 import Alamofire
 protocol AlbumManagerDelegate {
-    func didUpdateAlbum(_ albumManager:iTunesConnection, album: [Video])
+    func didUpdateAlbum(_ albumManager:SearchConnection, album: [Video])
     func didFailWithError(error: String)
 }
 
-class iTunesConnection {
+class SearchConnection {
     var delegate: AlbumManagerDelegate?
     var videoArray = [Video]()
     let  API_KEY = "AIzaSyD_ftHSeTLdHnAqtUv-pnWW8jOXv5TFZg8"
