@@ -554,6 +554,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
+          UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
           selectedIndex = indexPath.row
           selectTopHitsRow = true
           self.myLibraryNSBottomLayout.constant = 160
@@ -565,6 +566,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
       }
     
     func getSelectedTopHitsVideo(_ indexPath: IndexPath){
+        UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
         selectedIndex = indexPath.row
         selectLibraryRow = true
         self.myLibraryNSBottomLayout.constant = 160

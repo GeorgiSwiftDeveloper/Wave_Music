@@ -111,15 +111,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-//        switch pause {
-//        case true:
-//            self.showVideoPlayer()
-//        case false:
-//            self.showVideoPlayerPause()
-//        default:
-//            break
-//        }
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             switch pause {
             case true:
@@ -359,7 +350,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
               let genreVC = segue.destination as! YouTubeViewController
                 genreVC.genreVideoID  = sender as? Video
                 genreVC.selectedGenreTitle = genreTitle
-                 genreVC.modalPresentationStyle = .fullScreen
+                genreVC.modalPresentationStyle = .fullScreen
             }
         }
     

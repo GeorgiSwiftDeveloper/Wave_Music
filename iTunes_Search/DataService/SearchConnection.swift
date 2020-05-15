@@ -41,8 +41,6 @@ class SearchConnection {
                     videoObjArray.append(youTubeVideo)
                     
                 }
-//                  self.videoArray = videoObjArray
-                print(videoObjArray[0].videoId)
                 self.delegate?.didUpdateAlbum(self, album: videoObjArray)
             }else{
                 self.delegate?.didFailWithError(error: "Something whent wrong")

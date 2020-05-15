@@ -16,6 +16,7 @@ let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContain
 class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UISearchBarDelegate,UISearchResultsUpdating {
     
     @IBOutlet weak var searchMusicTableView: UITableView!
+    @IBOutlet weak var hintView: UIView!
     
     var searchConnectionManager = SearchConnection()
     var selectedAlbumManager = FavoriteViewController()
@@ -42,17 +43,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-            
-//        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-//        switch pause {
-//        case true:
-//            self.showVideoPlayer()
-//        case false:
-//            self.showVideoPlayerPause()
-//        default:
-//            break
-//        }
-        
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             switch pause {
             case true:
@@ -158,6 +148,8 @@ extension SearchMusicViewController: AlbumManagerDelegate {
        
             if  album.count != 0 {
                  DispatchQueue.main.async {
+                self.hintView.isHidden = true
+                self.searchMusicTableView.isHidden = false
                 self.favoriteAlbum = album
                 print(self.favoriteAlbum[0].videoTitle)
                 self.searchMusicTableView.reloadData()
