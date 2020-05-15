@@ -42,8 +42,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        
-        
+            
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -53,17 +52,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         default:
             break
         }
-//        let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
-//        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-//        DispatchQueue.main.async {
-//        if checkVideoIsPlaying == true {
-//        if pause == nil || pause == true{
-//            self.showVideoPlayer()
-//        }else{
-//            self.showVideoPlayerPause()
-//                }
-//        }
-//    }
     }
     
     

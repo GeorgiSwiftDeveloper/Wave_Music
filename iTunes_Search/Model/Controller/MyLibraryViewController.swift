@@ -46,11 +46,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        UserDefaults.standard.removeObject(forKey: "selectedFromSectionVideo")
+//        UserDefaults.standard.removeObject(forKey: "selectedFromSectionVideo")
         UserDefaults.standard.removeObject(forKey: "pause")
-        UserDefaults.standard.removeObject(forKey: "checkVideoIsPlaying")
+//        UserDefaults.standard.removeObject(forKey: "checkVideoIsPlaying")
         UserDefaults.standard.synchronize()
-        UserDefaults.standard.set(false, forKey:"checkIfViewisLoaded")
+//        UserDefaults.standard.set(false, forKey:"checkIfViewisLoaded")
 
         setupNavBar()
         myLibraryTableView.alwaysBounceVertical = false
@@ -115,35 +115,34 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             self.myLibraryListArray = []
             self.fetchMyLibraryList()
             self.myLibraryTableView.reloadData()
-            
-            
+
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             switch pause {
             case true:
-                  self.showVideoPlayer()
+                VideoPlayerClass.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+                VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })
             case false:
-                  self.showVideoPlayerPause()
+                VideoPlayerClass.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+                VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })
             default:
                 break
             }
-            
-            
-            //            let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
-            
-//            if self.videoSelected == true {
-//                if pause == nil || pause == true{
-//                    self.showVideoPlayer()
-//                }else{
-//                    self.showVideoPlayerPause()
-//                }
-//            }
-//            if ifSelectedTopHit == true{
-//                if pause == nil  || pause == true {
-//                    self.showVideoPlayer()
-//                }else{
-//                    self.showVideoPlayerPause()
-//                }
-//            }
         }
     }
         
@@ -154,14 +153,24 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
          self.navigationController?.navigationBar.isHidden = false
     }
     
+    
+    func updatePlayerState(_ playerState: WKYTPlayerState){
+           switch playerState {
+           case .ended:
+               self.showVideoPlayerPause()
+           case .paused:
+               self.showVideoPlayerPause()
+           case .playing:
+               self.showVideoPlayer()
+           default:
+               break
+           }
+       }
+    
     func showVideoPlayer(){
-        VideoPlayerClass.callVideoPlayer.superViewController = self
-        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
         VideoPlayerClass.callVideoPlayer.webView.playVideo()
     }
     func showVideoPlayerPause(){
-        VideoPlayerClass.callVideoPlayer.superViewController = self
-        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
     }
     

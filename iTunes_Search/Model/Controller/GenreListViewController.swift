@@ -118,18 +118,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     default:
         break
     }
-//       let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
-       
-//       let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
-//       let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-//       if checkVideoIsPlaying == true{
-//             if pause == nil || pause == true{
-//               self.showVideoPlayer()
-//           
-//             }else{
-//               self.showVideoPlayerPause()
-//           }
-//       }
     }
     
     

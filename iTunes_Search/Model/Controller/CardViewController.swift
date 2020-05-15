@@ -10,9 +10,6 @@ import UIKit
 
 class CardViewController: UIViewController {
 
-//    @IBOutlet weak var headerView: UIButton!
-//    @IBOutlet weak var waveMusicMainHeaderView: UIView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

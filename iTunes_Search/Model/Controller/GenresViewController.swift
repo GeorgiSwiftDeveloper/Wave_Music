@@ -9,7 +9,8 @@
 import UIKit
 import CoreData
 import AVFoundation
-class GenresViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+import YoutubePlayer_in_WKWebView
+class GenresViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource{
     
     @IBOutlet weak var navigationForMusic: UINavigationItem!
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
@@ -52,37 +53,51 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            self.showVideoPlayer()
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
         case false:
-            self.showVideoPlayerPause()
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
         default:
             break
         }
-//        let checkVideoIsPlaying = UserDefaults.standard.object(forKey: "checkVideoIsPlaying") as? Bool
-//    
-//        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-//        if checkVideoIsPlaying == true{
-//              if pause == nil || pause == true{
-//                self.showVideoPlayer()
-//                self.genreBottomNSLayoutConstraint.constant = CGFloat(genreCollectionViewBottomHeight)
-//                favoriteCollectionView.updateConstraints()
-//              }else{
-//                self.showVideoPlayerPause()
-//                self.genreBottomNSLayoutConstraint.constant = CGFloat(genreCollectionViewBottomHeight)
-//                favoriteCollectionView.updateConstraints()
-//            }
-//        }
+    }
+    
+    func updatePlayerState(_ playerState: WKYTPlayerState){
+        switch playerState {
+        case .ended:
+            self.showVideoPlayerPause()
+        case .paused:
+            self.showVideoPlayerPause()
+
+        case .playing:
+            self.showVideoPlayer()
+        default:
+            break
+        }
     }
     
     
     func showVideoPlayer(){
-          VideoPlayerClass.callVideoPlayer.superViewController = self
-          self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
           VideoPlayerClass.callVideoPlayer.webView.playVideo()
       }
       func showVideoPlayerPause(){
-          VideoPlayerClass.callVideoPlayer.superViewController = self
-          self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
           VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
       }
     

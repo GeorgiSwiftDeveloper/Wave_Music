@@ -57,25 +57,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         default:
             break
         }
-//        let ifSelectedTopHit = UserDefaults.standard.object(forKey: "selectedFromSectionVideo") as? Bool
-//        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-//        
-//        DispatchQueue.main.async {
-//            if  self.videoSelected == true{
-//                if pause == nil  || pause == true {
-//                    self.showVideoPlayer()
-//                }else{
-//                    self.showVideoPlayerPause()
-//                }
-//            }
-//            if ifSelectedTopHit == true{
-//                if pause == nil  || pause == true {
-//                    self.showVideoPlayer()
-//                }else{
-//                    self.showVideoPlayerPause()
-//                }
-//            }
-//        }
     }
     
     func showVideoPlayer(){

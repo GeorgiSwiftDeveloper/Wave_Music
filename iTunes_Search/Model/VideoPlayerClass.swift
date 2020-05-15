@@ -21,7 +21,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
     var cardViewController = CardViewController()
     var visualEffectView:UIVisualEffectView!
     var checkCardView = Bool()
-    var checkIfPaused = Bool()
+    var checkIfPaused = true
     var musicLabelText = UILabel()
     var playButton = UIButton()
     var cardVisible = false
@@ -97,40 +97,52 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         self.playButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
         self.cardViewController.view.addSubview(self.playButton)
         
-        checkIfPaused = true
-        if checkIfPaused == false {
-            webView.pauseVideo()
-            self.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
-            UserDefaults.standard.set(false, forKey:"pause")
-            checkIfPaused = true
-        }else{
-            webView.playVideo()
-            self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-            UserDefaults.standard.set(true, forKey:"pause")
-            checkIfPaused = false
-        }
+
+        webView.playVideo()
+        self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+        UserDefaults.standard.set(true, forKey:"pause")
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleCardTap(recognzier:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handleCardPan(recognizer:)))
         
         cardViewController.view.addGestureRecognizer(tapGestureRecognizer)
         sellectedCell.addGestureRecognizer(panGestureRecognizer)
-        UserDefaults.standard.set(true, forKey:"checkVideoIsPlaying")
+//        UserDefaults.standard.set(true, forKey:"checkVideoIsPlaying")
         
     }
     
     @objc func playAndPauseButtonAction(sender: UIButton){
-        if checkIfPaused == false {
-            webView.pauseVideo()
-            self.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
-            UserDefaults.standard.set(false, forKey:"pause")
-            checkIfPaused = true
-        }else{
-            webView.playVideo()
-            self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-            UserDefaults.standard.set(true, forKey:"pause")
+        VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                     if let error = error {
+                         print("Error getting player state:" + error.localizedDescription)
+                     } else if let playerState = playerState as? WKYTPlayerState {
+                         
+                         self?.updatePlayerState(playerState)
+                        if self?.checkIfPaused == false {
+                            self?.webView.playVideo()
+                            self?.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+                            UserDefaults.standard.set(true, forKey:"pause")
+                        }else{
+                            self?.webView.pauseVideo()
+                            self?.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
+                            UserDefaults.standard.set(false, forKey:"pause")
+                        }
+                     }
+                 })
+    }
+    
+    
+    
+    func updatePlayerState(_ playerState: WKYTPlayerState){
+        switch playerState {
+        case .ended:
             checkIfPaused = false
-            
+        case .paused:
+            checkIfPaused = false
+        case .playing:
+            checkIfPaused = true
+        default:
+            break
         }
     }
     
