@@ -46,11 +46,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-//        UserDefaults.standard.removeObject(forKey: "selectedFromSectionVideo")
         UserDefaults.standard.removeObject(forKey: "pause")
-//        UserDefaults.standard.removeObject(forKey: "checkVideoIsPlaying")
         UserDefaults.standard.synchronize()
-//        UserDefaults.standard.set(false, forKey:"checkIfViewisLoaded")
 
         setupNavBar()
         myLibraryTableView.alwaysBounceVertical = false
@@ -111,11 +108,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.myLibraryListArray = []
-            self.fetchMyLibraryList()
-            self.myLibraryTableView.reloadData()
-
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             switch pause {
             case true:
@@ -143,15 +135,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             default:
                 break
             }
-        }
+        self.myLibraryListArray = []
+        self.fetchMyLibraryList()
+        self.myLibraryTableView.reloadData()
     }
         
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super .viewDidDisappear(animated)
-        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
-         self.navigationController?.navigationBar.isHidden = false
-    }
     
     
     func updatePlayerState(_ playerState: WKYTPlayerState){
@@ -168,11 +156,18 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
        }
     
     func showVideoPlayer(){
-        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+            VideoPlayerClass.callVideoPlayer.webView.playVideo()
     }
     func showVideoPlayerPause(){
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+            VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
     }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+         super .viewDidDisappear(animated)
+         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+          self.navigationController?.navigationBar.isHidden = false
+     }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -262,7 +257,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
 //                print("no match")
 //            }else{
                 let fetchResult = try context?.fetch(request) as! [NSManagedObject]
-            print(fetchResult.count)
+//            print(fetchResult.count)
             for result in fetchResult {
                 let videoId = result.value(forKey: "videoId") as? String ?? ""
                 let title = result.value(forKey: "title") as? String ?? ""
@@ -561,7 +556,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
           selectedIndex = indexPath.row
           selectTopHitsRow = true
-//          UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
           self.myLibraryNSBottomLayout.constant = 160
           VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
           videoSelected = true
@@ -573,7 +567,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func getSelectedTopHitsVideo(_ indexPath: IndexPath){
         selectedIndex = indexPath.row
         selectLibraryRow = true
-//        UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
         self.myLibraryNSBottomLayout.constant = 160
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         videoSelected = true

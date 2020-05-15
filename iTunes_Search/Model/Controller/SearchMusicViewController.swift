@@ -43,27 +43,66 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
             
-        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-        switch pause {
-        case true:
-            self.showVideoPlayer()
-        case false:
-            self.showVideoPlayerPause()
-        default:
-            break
-        }
+//        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+//        switch pause {
+//        case true:
+//            self.showVideoPlayer()
+//        case false:
+//            self.showVideoPlayerPause()
+//        default:
+//            break
+//        }
+        
+            let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+            switch pause {
+            case true:
+                VideoPlayerClass.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+                VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })
+            case false:
+                VideoPlayerClass.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+                VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })
+            default:
+                break
+            }
     }
     
     
-    func showVideoPlayer(){
-         VideoPlayerClass.callVideoPlayer.superViewController = self
-         self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-         VideoPlayerClass.callVideoPlayer.webView.playVideo()
+    func updatePlayerState(_ playerState: WKYTPlayerState){
+             switch playerState {
+             case .ended:
+                 self.showVideoPlayerPause()
+             case .paused:
+                 self.showVideoPlayerPause()
+             case .playing:
+                 self.showVideoPlayer()
+             default:
+                 break
+             }
+         }
+    
+    
+     func showVideoPlayer(){
+             VideoPlayerClass.callVideoPlayer.webView.playVideo()
      }
      func showVideoPlayerPause(){
-         VideoPlayerClass.callVideoPlayer.superViewController = self
-         self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+             VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+
      }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -37,7 +37,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.favoriteCollectionView.reloadData()
         let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
         
         if countrySelected != "" {
@@ -52,9 +51,9 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
+            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.superViewController = self
             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
@@ -64,9 +63,9 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
                 }
             })
         case false:
+            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.superViewController = self
             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
@@ -96,12 +95,11 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     func showVideoPlayer(){
-          VideoPlayerClass.callVideoPlayer.webView.playVideo()
-      }
-      func showVideoPlayerPause(){
-          VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-    }
-    
+             VideoPlayerClass.callVideoPlayer.webView.playVideo()
+     }
+     func showVideoPlayerPause(){
+             VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+     }
     
 
     
