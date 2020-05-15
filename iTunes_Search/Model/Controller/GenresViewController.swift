@@ -176,7 +176,8 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             
             self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
         case countySelectedCollectionView:
-            print("a")
+           let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
+            self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
         default:
             break
         }
