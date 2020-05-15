@@ -16,12 +16,11 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     @IBOutlet weak var countySelectedCollectionView: UICollectionView!
     
-    @IBOutlet weak var genreBottomNSLayoutConstraint: NSLayoutConstraint!
     
     var indexpath = Int()
     var genreCollectionViewBottomHeight = 145
     
-    
+    @IBOutlet weak var genreListNSLayoutBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var genreListNSLayoutTopContraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
@@ -38,7 +37,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.favoriteCollectionView.reloadData()
+//        self.favoriteCollectionView.reloadData()
         let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
         
         if countrySelected != "" {
@@ -55,6 +54,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         case true:
             VideoPlayerClass.callVideoPlayer.superViewController = self
             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
@@ -66,6 +66,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         case false:
             VideoPlayerClass.callVideoPlayer.superViewController = self
             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
@@ -99,7 +100,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
       }
       func showVideoPlayerPause(){
           VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-      }
+    }
     
     
 

@@ -45,6 +45,10 @@ class  YouTubeVideoConnection {
                 UPLOADS_PLAYLIST_ID = "PLsUMoyJKBqcn7dk3jC3i1023Ie-BntpgF"
             case "Blues":
                 UPLOADS_PLAYLIST_ID = "PLjzeyhEA84sQKuXp-rpM1dFuL2aQM_a3S"
+            case "Car Music":
+                UPLOADS_PLAYLIST_ID = "RDQMLL-TQCYO44I"
+            case "Deep Bass":
+                UPLOADS_PLAYLIST_ID = "PLJmFLIy2AgO_jmMr5zh6c6HfAV0WZ9SWl"
             default:
                 break
             }

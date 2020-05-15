@@ -30,6 +30,14 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="YouTubeCarMusicData" representedClassName="YouTubeCarMusicData" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="playListId" optional="YES" attributeType="String"/>
+        <attribute name="songDescription" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="videoId" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="YouTubeDanceData" representedClassName="YouTubeDanceData" syncable="YES" codeGenerationType="class">
         <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
@@ -39,6 +47,14 @@
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="YouTubeDataModel" representedClassName="YouTubeDataModel" syncable="YES" codeGenerationType="class">
+        <attribute name="channelId" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="playListId" optional="YES" attributeType="String"/>
+        <attribute name="songDescription" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="videoId" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="YouTubeDeepBassData" representedClassName="YouTubeDeepBassData" syncable="YES" codeGenerationType="class">
         <attribute name="channelId" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="playListId" optional="YES" attributeType="String"/>
@@ -116,5 +132,7 @@
         <element name="YouTubePopData" positionX="-54" positionY="45" width="128" height="133"/>
         <element name="YouTubeRBData" positionX="-18" positionY="63" width="128" height="133"/>
         <element name="YouTubeRockData" positionX="-36" positionY="54" width="128" height="133"/>
+        <element name="YouTubeCarMusicData" positionX="-9" positionY="81" width="128" height="133"/>
+        <element name="YouTubeDeepBassData" positionX="0" positionY="90" width="128" height="133"/>
     </elements>
 </model>

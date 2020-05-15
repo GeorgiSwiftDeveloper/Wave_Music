@@ -47,6 +47,10 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             entityName = "YouTubeInstrumentalData"
         case "Blues":
             entityName = "YouTubeBluesData"
+        case "Car Music":
+            entityName = "YouTubeCarMusicData"
+        case "Deep Bass":
+            entityName = "YouTubeDeepBassData"
         default:
             break
         }
@@ -105,19 +109,17 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-  override func viewWillAppear(_ animated: Bool) {
-       super.viewWillAppear(animated)
-    
-    
-    let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-    switch pause {
-    case true:
-        self.showVideoPlayer()
-    case false:
-        self.showVideoPlayerPause()
-    default:
-        break
-    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+        switch pause {
+        case true:
+            self.showVideoPlayer()
+        case false:
+            self.showVideoPlayerPause()
+        default:
+            break
+        }
     }
     
     
@@ -141,7 +143,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
       override func viewDidDisappear(_ animated: Bool) {
           super .viewDidDisappear(animated)
           VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
-           self.navigationController?.navigationBar.isHidden = false
+//           self.navigationController?.navigationBar.isHidden = false
       }
       
     
@@ -167,6 +169,10 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             entityName = "YouTubeInstrumentalData"
         case "Blues":
             entityName = "YouTubeBluesData"
+        case "Car Music":
+            entityName = "YouTubeCarMusicData"
+        case "Deep Bass":
+            entityName = "YouTubeDeepBassData"
         default:
             break
         }
@@ -207,6 +213,10 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             entityName = "YouTubeInstrumentalData"
         case "Blues":
             entityName = "YouTubeBluesData"
+        case "Car Music":
+            entityName = "YouTubeCarMusicData"
+        case "Deep Bass":
+            entityName = "YouTubeDeepBassData"
         default:
             break
         }
