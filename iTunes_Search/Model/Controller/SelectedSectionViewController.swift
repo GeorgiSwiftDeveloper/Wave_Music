@@ -21,6 +21,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var checkTable = Bool()
     var videoSelected = false
     var checkVideoIsSelected = false
+    var libraryIsSelected = false
+    var topHitsIsSelected = false
     var genreVideoID: String?
     var webView = WKYTPlayerView()
     var selectedVideo: Video?
@@ -180,14 +182,14 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case false:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
                 var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRowIsSelected") as? Bool
-                let savedSelectedIndex = UserDefaults.standard.object(forKey: "saveSelectedIndex") as? Int
+                let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
                 let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
                 if checkIfAnotherViewControllerRowIsSelected == true {
                     checkIfRowIsSelected = false
                 }
                     DispatchQueue.main.async {
                         if checkIfRowIsSelected == true{
-                            if(indexPath.row == savedSelectedIndex)
+                            if(indexPath.row == saveTopHitsSelectedIndex)
                             {
                                 cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
                                 cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
@@ -206,25 +208,24 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case true:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
-//                let checkIfViewisLoaded = UserDefaults.standard.object(forKey: "checkIfViewisLoaded") as? Bool
-//                let savedSelectedIndex = UserDefaults.standard.object(forKey: "saveSelectedIndex") as? Int
-//                if savedSelectedIndex != nil {
-//                    selectedIndex = savedSelectedIndex!
-//                }
-//                if videoSelected == false{
-//                    DispatchQueue.main.async {
-//                        if checkIfViewisLoaded == true{
-//                            if(indexPath.row == self.selectedIndex)
-//                            {
-//                                cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-//                                cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-//                            }else{
-//                                cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                                cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                            }
-//                        }
-//                    }
-//                }
+                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRowIsSelected") as? Bool
+                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
+                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
+                if checkIfAnotherViewControllerRowIsSelected == true {
+                    checkIfRowIsSelected = false
+                }
+                DispatchQueue.main.async {
+                    if checkIfRowIsSelected == true{
+                        if(indexPath.row == saveLibrarySelectedIndex)
+                        {
+                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+                        }else{
+                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                        }
+                    }
+                }
                 cell.configureMyLibraryCell(myLibraryList[indexPath.row])
                 cell.addToFavoriteButton.isHidden = true
                 return cell
@@ -315,23 +316,25 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
-        UserDefaults.standard.set(true, forKey:"checkIfViewisLoaded")
-        selectedIndex = indexPath.row
-        UserDefaults.standard.set(selectedIndex, forKey:"saveSelectedIndex")
+        UserDefaults.standard.set(true, forKey:"checkIfRowIsSelected")
         UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
+        selectedIndex = indexPath.row
+        UserDefaults.standard.set(selectedIndex, forKey:"saveLibrarySelectedIndex")
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         VideoPlayerClass.callVideoPlayer.superViewController = self
+        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
         sellectedSectionTableView.reloadData()
     }
     
     
     func getSelectedTopHitsVideo(_ indexPath: IndexPath){
         UserDefaults.standard.set(true, forKey:"checkIfRowIsSelected")
-        selectedIndex = indexPath.row
-        UserDefaults.standard.set(selectedIndex, forKey:"saveSelectedIndex")
         UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
+        selectedIndex = indexPath.row
+        UserDefaults.standard.set(selectedIndex, forKey:"saveTopHitsSelectedIndex")
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         VideoPlayerClass.callVideoPlayer.superViewController = self
+        UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
         sellectedSectionTableView.reloadData()
         
       }

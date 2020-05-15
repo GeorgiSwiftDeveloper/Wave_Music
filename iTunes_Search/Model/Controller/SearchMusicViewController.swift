@@ -239,7 +239,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndexRow = tableView.indexPathForSelectedRow
         let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndexRow!) as! SearchVideoTableViewCell
-//         UserDefaults.standard.set(true, forKey:"selectedFromSectionVideo")
         selectedIndex = indexPath.row
         selectedVideo = favoriteAlbum[indexPath.row]
         webView.load(withVideoId: "")

@@ -47,7 +47,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         UserDefaults.standard.removeObject(forKey: "checkIfMyLibraryViewControllerRowIsSelected")
-        UserDefaults.standard.removeObject(forKey: "saveSelectedIndex")
+        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
+         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
         UserDefaults.standard.removeObject(forKey: "pause")
         UserDefaults.standard.synchronize()
 
