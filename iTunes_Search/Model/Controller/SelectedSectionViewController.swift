@@ -336,7 +336,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         VideoPlayerClass.callVideoPlayer.superViewController = self
         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
         sellectedSectionTableView.reloadData()
-        
       }
 }
 

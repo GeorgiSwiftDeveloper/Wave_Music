@@ -24,7 +24,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var webView = WKYTPlayerView()
     var selectTopHitsRow = Bool()
     var selectLibraryRow = Bool()
-    
+    var musicIndexpatRow = IndexPath()
     var topHits = true
     var myLibrary = true
     var genreVideoID: String?
@@ -48,7 +48,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         UserDefaults.standard.removeObject(forKey: "checkIfMyLibraryViewControllerRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
-         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
+        UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
+        UserDefaults.standard.removeObject(forKey: "checkIfSearchRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "pause")
         UserDefaults.standard.synchronize()
 
@@ -171,6 +172,19 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
          VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
           self.navigationController?.navigationBar.isHidden = false
      }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super .viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchSelected"), object: nil)
+        
+    }
+    
+    @objc func NotificationIdentifierSearchSelected(notification: Notification) {
+        UserDefaults.standard.set(false, forKey:"checkIfMyLibraryViewControllerRowIsSelected")
+        topMusicTableView.reloadData()
+        myLibraryTableView.reloadData()
+    }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -429,6 +443,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         case myLibraryTableView:
             let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
                let checkIfMyLibraryViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfMyLibraryViewControllerRowIsSelected") as? Bool
+            musicIndexpatRow = indexPath
             DispatchQueue.main.async {
                 if checkIfMyLibraryViewControllerRowIsSelected == true{
                     if(indexPath.row == self.selectedIndex)
@@ -446,6 +461,9 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                         libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                         libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                     }
+                }else{
+                    libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                 }
             }
             
@@ -471,6 +489,9 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                         topHitsMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                         topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                     }
+                }else{
+                    topHitsMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    topHitsMusicCell.topHitSongTitle.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                 }
             }
             topHitsMusicCell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
@@ -529,6 +550,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierMyLibraryViewControllerSelected"), object: nil)
         switch tableView {
         case myLibraryTableView:
             DispatchQueue.main.async {
