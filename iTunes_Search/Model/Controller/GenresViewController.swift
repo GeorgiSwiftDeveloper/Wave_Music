@@ -15,8 +15,8 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var navigationForMusic: UINavigationItem!
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     @IBOutlet weak var countySelectedCollectionView: UICollectionView!
-    
-    
+    var selectedGenreIndexRow = Int()
+    var indexArray = [Int]()
     var indexpath = Int()
     var genreCollectionViewBottomHeight = 145
     
@@ -49,18 +49,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
-//
-//        if countrySelected != "" {
-//            genreListNSLayoutTopContraint.constant = 200
-//            countySelectedCollectionView.isHidden = false
-//            self.countySelectedCollectionView.reloadData()
-//        }else{
-//            favoriteCollectionView.isScrollEnabled = false
-//            genreListNSLayoutTopContraint.constant = 0
-//            countySelectedCollectionView.isHidden = true
-//        }
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -158,7 +147,8 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
           case favoriteCollectionView:
            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
                     cell.confiigurationCell(GenreModelService.instance.getGenreArray()[indexPath.row])
-                 
+                 UserDefaults.standard.set(indexPath.row, forKey:"selectedGenereCollectionIndex")
+                 indexArray.append(indexPath.row)
                     return cell
                 }else {
                     return GenresCollectionViewCell()
@@ -187,18 +177,27 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
           return cell
     }
     
+    @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
+                   UserDefaults.standard.set(selectedGenreIndexRow, forKey:"selectedGenereCollectionIndex")
+        }
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         switch collectionView {
         case favoriteCollectionView:
             let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
-//            print(selectedGenreRow.genreTitle)
+            selectedGenreIndexRow = indexPath.row
             
-            
+            let selectedGenereCollectionIndex = UserDefaults.standard.object(forKey: "selectedGenereCollectionIndex") as? Int
+            if selectedGenereCollectionIndex == selectedGenreIndexRow {
+                 UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
+            }else{
+                 UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
+            }
             self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
         case countySelectedCollectionView:
-           let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
+            let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
             self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
         default:
             break
