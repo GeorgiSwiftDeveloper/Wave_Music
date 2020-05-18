@@ -125,6 +125,15 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
           if segue.identifier == "genrseListSegue" {
             let genreVC = segue.destination as! GenreListViewController
+            let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+            if selectedSearch == true {
+                genreVC.searchIsSelected = true
+            }
+            
+            let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
+            if selectedmyLybrary == true {
+                genreVC.selectedmyLybrary = true
+            }
               genreVC.genreTitle  = sender as? GenreModel
           }
       }

@@ -24,7 +24,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var webView = WKYTPlayerView()
     var entityName = String()
     var genreVideoID: String?
-    
+    var selectedIndex = Int()
+    var searchIsSelected = Bool()
+    var selectedmyLybrary = Bool()
     var isEmpty: Bool {
         switch genreTitle?.genreTitle {
         case "Rap":
@@ -111,6 +113,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        iFMyLybraryOrSearchSelected()
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             switch pause {
             case true:
@@ -270,12 +273,75 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+           super .viewDidAppear(animated)
+        
+    }
+       
+
+       
+       
+    func iFMyLybraryOrSearchSelected() {
+        DispatchQueue.main.async {
+            if self.searchIsSelected == true {
+                UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
+                self.genreTableView.reloadData()
+            }
+            self.searchIsSelected = false
+        }
+        
+        
+        DispatchQueue.main.async {
+            if self.selectedmyLybrary == true {
+                UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
+                self.genreTableView.reloadData()
+            }
+            self.selectedmyLybrary = false
+        }
+        
+        let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+        if selectedSearch == true {
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
+                self.genreTableView.reloadData()
+                
+            }
+        }
+        
+        let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
+        if selectedmyLybrary == true {
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
+                self.genreTableView.reloadData()
+                
+            }
+        }
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videoArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "genreCell", for: indexPath) as? GenreVideoTableViewCell {
+            let checkGenreRowIsSelected = UserDefaults.standard.object(forKey: "checkGenreRowIsSelected") as? Bool
+            DispatchQueue.main.async {
+                if checkGenreRowIsSelected == true{
+                    if(indexPath.row == self.selectedIndex)
+                    {
+                        cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                        cell.singerNameLabel.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+                    }else{
+                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        cell.singerNameLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                    }
+                }else{
+                    cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    cell.singerNameLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                }
+            }
             cell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell.addToFavoriteButton.tag = indexPath.row;
             cell.configureGenreCell(videoArray[indexPath.row])
@@ -333,16 +399,22 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
-             self.genreBottomNSLayoutConstraint.constant = 150
+            UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
+            UserDefaults.standard.set(false, forKey:"selectedSearch")
+            UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
+            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
+            self.genreBottomNSLayoutConstraint.constant = 150
             let selectedVideoId = self.videoArray[indexPath.row]
+            self.selectedIndex = indexPath.row
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
             self.genreVideoID = selectedVideoId.videoId
             self.webView.load(withVideoId: "")
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            self.genreTableView.reloadData()
         }
-//        self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
-       }
+        //        self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
+    }
     
     
     override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -50,6 +50,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
         UserDefaults.standard.removeObject(forKey: "checkIfSearchRowIsSelected")
+        UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "selectedSearch")
         UserDefaults.standard.removeObject(forKey: "pause")
         UserDefaults.standard.synchronize()
@@ -113,6 +114,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             switch pause {
             case true:
@@ -177,7 +180,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
         
     }
     
@@ -186,6 +190,13 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         topMusicTableView.reloadData()
         myLibraryTableView.reloadData()
     }
+    
+    @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
+        UserDefaults.standard.set(false, forKey:"checkIfMyLibraryViewControllerRowIsSelected")
+        topMusicTableView.reloadData()
+        myLibraryTableView.reloadData()
+
+     }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -563,6 +574,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierMyLibraryRowSelected"), object: nil)
         UserDefaults.standard.set(false, forKey:"selectedSearch")
+        UserDefaults.standard.set(true, forKey:"selectedmyLybrary")
         switch tableView {
         case myLibraryTableView:
             DispatchQueue.main.async {

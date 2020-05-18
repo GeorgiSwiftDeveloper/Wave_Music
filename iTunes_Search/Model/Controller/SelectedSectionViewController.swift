@@ -323,6 +323,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         checDelegate?.checkIfRowIsSelectedDelegate(true)
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
         UserDefaults.standard.set(false, forKey:"selectedSearch")
+        UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
         switch checkTable {
         case true:
             DispatchQueue.main.async {
