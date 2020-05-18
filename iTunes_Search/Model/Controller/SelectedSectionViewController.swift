@@ -52,6 +52,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         searchisSelected()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -122,20 +124,27 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
         
     }
     
     @objc func NotificationIdentifierSearchRowSelected(notification: Notification) {
-        UserDefaults.standard.set(false, forKey:"checkIfRowIsSelected")
+        UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
         sellectedSectionTableView.reloadData()
         
     }
     
     
+    @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
+         UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
+         sellectedSectionTableView.reloadData()
+
+     }
+    
+    
     func searchisSelected() {
         if searchIsSelected == true {
-            UserDefaults.standard.set(false, forKey:"checkIfRowIsSelected")
+            UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
             sellectedSectionTableView.reloadData()
         }
         searchIsSelected = false
@@ -207,7 +216,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         switch checkTable {
         case false:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
-                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRowIsSelected") as? Bool
+                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
                 let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
                 if checkIfAnotherViewControllerRowIsSelected == true {
@@ -237,14 +246,14 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case true:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
-                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRowIsSelected") as? Bool
+                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
                 let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
                 if checkIfAnotherViewControllerRowIsSelected == true {
-                    checkIfRowIsSelected = false
+                    checkIfLibraryRowIsSelected = false
                 }
                 DispatchQueue.main.async {
-                    if checkIfRowIsSelected == true{
+                    if checkIfLibraryRowIsSelected == true{
                         if(indexPath.row == saveLibrarySelectedIndex)
                         {
                             cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
@@ -351,7 +360,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
-        UserDefaults.standard.set(true, forKey:"checkIfRowIsSelected")
+        UserDefaults.standard.set(true, forKey:"checkIfLibraryRowIsSelected")
         UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
         selectedIndex = indexPath.row
         UserDefaults.standard.set(selectedIndex, forKey:"saveLibrarySelectedIndex")
@@ -363,7 +372,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func getSelectedTopHitsVideo(_ indexPath: IndexPath){
-        UserDefaults.standard.set(true, forKey:"checkIfRowIsSelected")
+        UserDefaults.standard.set(true, forKey:"checkIfLibraryRowIsSelected")
         UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
         selectedIndex = indexPath.row
         UserDefaults.standard.set(selectedIndex, forKey:"saveTopHitsSelectedIndex")

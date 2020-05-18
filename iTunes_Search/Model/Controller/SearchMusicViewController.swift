@@ -195,9 +195,9 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchMusicCell", for: indexPath) as? SearchVideoTableViewCell {
-            let checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfSearchRowIsSelected") as? Bool
+            let checkIfSearchRowIsSelected = UserDefaults.standard.object(forKey: "checkIfSearchRowIsSelected") as? Bool
             DispatchQueue.main.async {
-                if checkIfRowIsSelected == true{
+                if checkIfSearchRowIsSelected == true{
                     if(indexPath.row == self.selectedIndex)
                     {
                         cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)

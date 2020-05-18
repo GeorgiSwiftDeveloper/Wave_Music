@@ -113,7 +113,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        iFMyLybraryOrSearchSelected()
+            iFMyLybraryOrSearchSelected()
+               NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSelectionLibraryRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
             switch pause {
             case true:
@@ -318,6 +319,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
+    
+    @objc func NotificationIdentifierSelectionLibraryRowSelected(notification: Notification) {
+            UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
+            genreTableView.reloadData()
+        }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
