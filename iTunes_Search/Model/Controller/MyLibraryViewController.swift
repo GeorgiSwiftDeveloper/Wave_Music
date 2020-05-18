@@ -49,6 +49,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         UserDefaults.standard.removeObject(forKey: "checkIfMyLibraryViewControllerRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
+        UserDefaults.standard.removeObject(forKey: "saveGenreSelectedIndex")
         UserDefaults.standard.removeObject(forKey: "checkIfSearchRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "selectedSearch")

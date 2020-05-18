@@ -366,7 +366,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                                 <subviews>
                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="50" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6je-dD-fXC">
-                                        <rect key="frame" x="0.0" y="60" width="375" height="578"/>
+                                        <rect key="frame" x="0.0" y="60" width="375" height="568"/>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -459,7 +459,7 @@
                                 <constraints>
                                     <constraint firstItem="Kit-hq-mBy" firstAttribute="centerX" secondItem="aUv-fA-lUJ" secondAttribute="centerX" id="5Ra-Sm-Du4"/>
                                     <constraint firstItem="Kit-hq-mBy" firstAttribute="centerY" secondItem="aUv-fA-lUJ" secondAttribute="centerY" id="M5v-pZ-4ZD"/>
-                                    <constraint firstAttribute="bottom" secondItem="6je-dD-fXC" secondAttribute="bottom" constant="120" id="OEo-Lf-Ben"/>
+                                    <constraint firstAttribute="bottom" secondItem="6je-dD-fXC" secondAttribute="bottom" constant="130" id="OEo-Lf-Ben"/>
                                     <constraint firstItem="6je-dD-fXC" firstAttribute="top" secondItem="aUv-fA-lUJ" secondAttribute="top" constant="60" id="Uzp-WB-fis"/>
                                     <constraint firstAttribute="trailing" secondItem="6je-dD-fXC" secondAttribute="trailing" id="gOb-vL-ztn"/>
                                     <constraint firstItem="6je-dD-fXC" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" id="jxk-ks-O7W"/>

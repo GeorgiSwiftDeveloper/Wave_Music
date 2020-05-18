@@ -106,8 +106,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handleCardPan(recognizer:)))
         
         cardViewController.view.addGestureRecognizer(tapGestureRecognizer)
-        sellectedCell.addGestureRecognizer(panGestureRecognizer)
-//        UserDefaults.standard.set(true, forKey:"checkVideoIsPlaying")
+        cardViewController.view.addGestureRecognizer(panGestureRecognizer)
         
     }
     

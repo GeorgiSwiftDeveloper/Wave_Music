@@ -332,10 +332,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "genreCell", for: indexPath) as? GenreVideoTableViewCell {
+            let saveGenreSelectedIndex = UserDefaults.standard.object(forKey: "saveGenreSelectedIndex") as? Int
             let checkGenreRowIsSelected = UserDefaults.standard.object(forKey: "checkGenreRowIsSelected") as? Bool
             DispatchQueue.main.async {
                 if checkGenreRowIsSelected == true{
-                    if(indexPath.row == self.selectedIndex)
+                    if(indexPath.row == saveGenreSelectedIndex)
                     {
                         cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
                         cell.singerNameLabel.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
@@ -408,10 +409,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
             UserDefaults.standard.set(false, forKey:"selectedSearch")
             UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
+            self.selectedIndex = indexPath.row
+            UserDefaults.standard.set(self.selectedIndex, forKey:"saveGenreSelectedIndex")
             NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedVideoId = self.videoArray[indexPath.row]
-            self.selectedIndex = indexPath.row
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
             self.genreVideoID = selectedVideoId.videoId
             self.webView.load(withVideoId: "")
