@@ -28,6 +28,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var selectedVideo: Video?
     var topHitsListHeight = 190
     var selectedIndex = Int()
+    var searchIsSelected = Bool()
+    
     weak var checDelegate: CheckIfRowIsSelectedDelegate?
     
     @IBOutlet weak var sellectedSectionTableView: UITableView!
@@ -49,70 +51,94 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-                 let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-                 switch pause {
-                 case true:
-                    VideoPlayerClass.callVideoPlayer.superViewController = self
-                    self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-
-                     VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                         if let error = error {
-                             print("Error getting player state:" + error.localizedDescription)
-                         } else if let playerState = playerState as? WKYTPlayerState {
-                             
-                             self?.updatePlayerState(playerState)
-                         }
-                     })
-                 case false:
-                    VideoPlayerClass.callVideoPlayer.superViewController = self
-                    self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-
-                     VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                         if let error = error {
-                             print("Error getting player state:" + error.localizedDescription)
-                         } else if let playerState = playerState as? WKYTPlayerState {
-                             
-                             self?.updatePlayerState(playerState)
-                         }
-                     })
-                 default:
-                     break
-                 }
+        searchisSelected()
+        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+        switch pause {
+        case true:
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
+        case false:
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
+        default:
+            break
+        }
     }
     
     
     func updatePlayerState(_ playerState: WKYTPlayerState){
-             switch playerState {
-             case .ended:
-                 self.showVideoPlayerPause()
-             case .paused:
-                 self.showVideoPlayerPause()
-             case .playing:
-                 self.showVideoPlayer()
-             default:
-                 break
-             }
-         }
+        switch playerState {
+        case .ended:
+            self.showVideoPlayerPause()
+        case .paused:
+            self.showVideoPlayerPause()
+        case .playing:
+            self.showVideoPlayer()
+        default:
+            break
+        }
+    }
     
     func showVideoPlayer(){
-            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-            if self.checkTable == false{
-                self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
-            }
-            self.view.layoutIfNeeded()
+        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        if self.checkTable == false{
+            self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+        }
+        self.view.layoutIfNeeded()
     }
     
     func showVideoPlayerPause(){
-            VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-            if self.checkTable == false{
-                self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
-            }
+        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        if self.checkTable == false{
+            self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
+        searchisSelected()
         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
         self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super .viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
+        
+    }
+    
+    @objc func NotificationIdentifierSearchRowSelected(notification: Notification) {
+        UserDefaults.standard.set(false, forKey:"checkIfRowIsSelected")
+        sellectedSectionTableView.reloadData()
+        
+    }
+    
+    
+    func searchisSelected() {
+        if searchIsSelected == true {
+            UserDefaults.standard.set(false, forKey:"checkIfRowIsSelected")
+            sellectedSectionTableView.reloadData()
+        }
+        searchIsSelected = false
     }
     
     func fetchTopHitList(){
@@ -187,18 +213,21 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 if checkIfAnotherViewControllerRowIsSelected == true {
                     checkIfRowIsSelected = false
                 }
-                    DispatchQueue.main.async {
-                        if checkIfRowIsSelected == true{
-                            if(indexPath.row == saveTopHitsSelectedIndex)
-                            {
-                                cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-                                cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-                            }else{
-                                cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                                cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                            }
+                DispatchQueue.main.async {
+                    if checkIfRowIsSelected == true{
+                        if(indexPath.row == saveTopHitsSelectedIndex)
+                        {
+                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+                        }else{
+                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                         }
+                    }else{
+                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                     }
+                }
                 cell.configureTopHitsCell(topHitsLists[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
@@ -224,6 +253,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                             cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                             cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                         }
+                    }else{
+                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                     }
                 }
                 cell.configureMyLibraryCell(myLibraryList[indexPath.row])
@@ -289,6 +321,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         checDelegate?.checkIfRowIsSelectedDelegate(true)
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
+        UserDefaults.standard.set(false, forKey:"selectedSearch")
         switch checkTable {
         case true:
             DispatchQueue.main.async {

@@ -50,6 +50,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
         UserDefaults.standard.removeObject(forKey: "checkIfSearchRowIsSelected")
+        UserDefaults.standard.removeObject(forKey: "selectedSearch")
         UserDefaults.standard.removeObject(forKey: "pause")
         UserDefaults.standard.synchronize()
 
@@ -176,11 +177,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchSelected"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
         
     }
     
-    @objc func NotificationIdentifierSearchSelected(notification: Notification) {
+    @objc func NotificationIdentifierSearchRowSelected(notification: Notification) {
         UserDefaults.standard.set(false, forKey:"checkIfMyLibraryViewControllerRowIsSelected")
         topMusicTableView.reloadData()
         myLibraryTableView.reloadData()
@@ -420,6 +421,11 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                     nc.videoSelected = true
                     nc.checDelegate = self
                 }
+                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                if selectedSearch == true {
+                    nc.searchIsSelected = true
+                }
+                UserDefaults.standard.set(false, forKey:"selectedSearch")
                 nc.checkTable = false
                 nc.checDelegate = self
             }
@@ -429,6 +435,11 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 if videoSelected == true{
                     nc.videoSelected = true
                 }
+                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                if selectedSearch == true {
+                    nc.searchIsSelected = true
+                }
+                UserDefaults.standard.set(false, forKey:"selectedSearch")
                 nc.checkTable = true
                 nc.checDelegate = self
             }
@@ -550,7 +561,8 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierMyLibraryViewControllerSelected"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierMyLibraryRowSelected"), object: nil)
+        UserDefaults.standard.set(false, forKey:"selectedSearch")
         switch tableView {
         case myLibraryTableView:
             DispatchQueue.main.async {
@@ -584,7 +596,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
           UserDefaults.standard.set(true, forKey:"checkIfAnotherViewControllerRowIsSelected")
           selectedIndex = indexPath.row
           selectTopHitsRow = true
-          self.myLibraryNSBottomLayout.constant = 150
+          self.myLibraryNSBottomLayout.constant = 155
           VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
           videoSelected = true
           VideoPlayerClass.callVideoPlayer.superViewController = self
@@ -597,7 +609,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         UserDefaults.standard.set(true, forKey:"checkIfAnotherViewControllerRowIsSelected")
         selectedIndex = indexPath.row
         selectLibraryRow = true
-        self.myLibraryNSBottomLayout.constant = 150
+        self.myLibraryNSBottomLayout.constant = 155
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         videoSelected = true
         VideoPlayerClass.callVideoPlayer.superViewController = self

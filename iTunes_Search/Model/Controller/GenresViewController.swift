@@ -25,6 +25,18 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
+        
+        if countrySelected != "" {
+            favoriteCollectionView.isScrollEnabled = true
+            genreListNSLayoutTopContraint.constant = 200
+            countySelectedCollectionView.isHidden = false
+            self.countySelectedCollectionView.reloadData()
+        }else{
+            favoriteCollectionView.isScrollEnabled = false
+            genreListNSLayoutTopContraint.constant = 0
+            countySelectedCollectionView.isHidden = true
+        }
         self.favoriteCollectionView.delegate = self
         self.favoriteCollectionView.dataSource = self
         self.countySelectedCollectionView.delegate = self
@@ -37,21 +49,22 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
-        
-        if countrySelected != "" {
-            genreListNSLayoutTopContraint.constant = 200
-            countySelectedCollectionView.isHidden = false
-            self.countySelectedCollectionView.reloadData()
-        }else{
-            genreListNSLayoutTopContraint.constant = 0
-            countySelectedCollectionView.isHidden = true
-        }
+//        let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
+//
+//        if countrySelected != "" {
+//            genreListNSLayoutTopContraint.constant = 200
+//            countySelectedCollectionView.isHidden = false
+//            self.countySelectedCollectionView.reloadData()
+//        }else{
+//            favoriteCollectionView.isScrollEnabled = false
+//            genreListNSLayoutTopContraint.constant = 0
+//            countySelectedCollectionView.isHidden = true
+//        }
         
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            genreListNSLayoutBottomContraint.constant = 150
+//            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.superViewController = self
             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
             VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
@@ -63,7 +76,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
                 }
             })
         case false:
-            genreListNSLayoutBottomContraint.constant = 150
+//            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.superViewController = self
             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
             VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
@@ -171,7 +184,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         switch collectionView {
         case favoriteCollectionView:
             let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
-            print(selectedGenreRow.genreTitle)
+//            print(selectedGenreRow.genreTitle)
             
             
             self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
