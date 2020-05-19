@@ -17,20 +17,13 @@ class MainLibrariMusciTableViewCell: UITableViewCell {
     @IBOutlet weak var musicTitleLabel: UILabel!
     
     
+    var imageViewUrl = String()
+    var videoID = String()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     func configureGenreCell(_ video: Video){
-        
+        imageViewUrl = video.videoImageUrl
+        videoID = video.videoId
         musicTitleLabel.text = video.videoTitle
         let imageUrl = URL(string: video.videoImageUrl)
         do{
