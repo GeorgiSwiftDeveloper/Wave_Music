@@ -424,7 +424,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         default:
             break
         }
-//        self.performSegue(withIdentifier: "TopHitsMusic", sender: nil)
     }
     
     

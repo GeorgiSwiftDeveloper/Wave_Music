@@ -328,6 +328,36 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         }
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
+            removeSelectedVideoRow(atIndexPath: indexPath)
+            myLibraryList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+        }
+    }
+    
+    func removeSelectedVideoRow(atIndexPath indexPath: IndexPath) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let result = try? context?.fetch(request)
+        let resultData = result as! [NSManagedObject]
+        context?.delete(resultData[indexPath.row])
+        do{
+            try context?.save()
+//            if myLibraryList.count <= 4 {
+//                sectionButton.isHidden = true
+//            }
+        }catch {
+            print("Could not remove video \(error.localizedDescription)")
+        }
+    }
+
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         checDelegate?.checkIfRowIsSelectedDelegate(true)
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
