@@ -18,7 +18,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
-    var checkTable = Bool()
+    var recentPlayedVideo = [Video]()
+    var checkTable = String()
     var videoSelected = false
     var checkVideoIsSelected = false
     var libraryIsSelected = false
@@ -41,13 +42,21 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         super.viewDidLoad()
         self.sellectedSectionTableView.delegate = self
         self.sellectedSectionTableView.dataSource = self
-        if checkTable == false{
+        
+        switch checkTable {
+        case "topHits":
             fetchTopHitList()
             topHitsListNSBottomLayout.constant = 120
-        }else{
-            fetchMyLibraryList()
+         case "MyLibrary":
+              fetchMyLibraryList()
+        case "RecentPlayed":
+            fetchRecentPlayedVideo()
+        default:
+            break
         }
+        
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
@@ -101,16 +110,30 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     func showVideoPlayer(){
         VideoPlayerClass.callVideoPlayer.webView.playVideo()
-        if self.checkTable == false{
-            self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+        switch checkTable {
+        case "topHits":
+          self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+        case "MyLibrary":
+            break
+        case "RecentPlayed":
+            break
+        default:
+            break
         }
         self.view.layoutIfNeeded()
     }
     
     func showVideoPlayerPause(){
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-        if self.checkTable == false{
-            self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+        switch checkTable {
+        case "topHits":
+         self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+        case "MyLibrary":
+            break
+        case "RecentPlayed":
+            break
+        default:
+            break
         }
     }
     
@@ -122,11 +145,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        super .viewDidAppear(animated)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
-        
-    }
+
     
     @objc func NotificationIdentifierSearchRowSelected(notification: Notification) {
         UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
@@ -198,23 +217,43 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             print("Failed")
         }
     }
+    
+    
+    func fetchRecentPlayedVideo(){
+        FetchRecentPlayedVideo.fetchRecentPlayedVideo.fetchRecentPlayedFromCoreData { (videoList, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }else{
+                if videoList != nil {
+                    self.recentPlayedVideo.append(videoList!)
+                    self.sellectedSectionTableView.reloadData()
+                }
+            }
+        }
+    }
+
 }
 
 extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowsInSection = 0
         switch checkTable {
-        case false:
+        case "topHits":
             numberOfRowsInSection = topHitsLists.count
-        case true:
+        case "MyLibrary":
             numberOfRowsInSection = myLibraryList.count
+        case "RecentPlayed":
+            numberOfRowsInSection = recentPlayedVideo.count
+        default:
+            break
         }
         return numberOfRowsInSection
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var selectedTableViewCell = UITableViewCell()
         switch checkTable {
-        case false:
+        case "topHits":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
                 var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
@@ -240,11 +279,11 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 cell.configureTopHitsCell(topHitsLists[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
-                return cell
+                selectedTableViewCell = cell
             }else {
                 return SellectedSectionTableViewCell()
             }
-        case true:
+        case "MyLibrary":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
                 var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
@@ -269,11 +308,43 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 }
                 cell.configureMyLibraryCell(myLibraryList[indexPath.row])
                 cell.addToFavoriteButton.isHidden = true
-                return cell
+                        selectedTableViewCell = cell
             }else {
                 return SellectedSectionTableViewCell()
             }
+        case "RecentPlayed":
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
+                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRecentlyPlayedRowIsSelected") as? Bool
+                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveRecentlyPlayedSelectedIndex") as? Int
+                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
+                if checkIfAnotherViewControllerRowIsSelected == true {
+                    checkIfLibraryRowIsSelected = false
+                }
+                DispatchQueue.main.async {
+                    if checkIfLibraryRowIsSelected == true{
+                        if(indexPath.row == saveLibrarySelectedIndex)
+                        {
+                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+                        }else{
+                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                        }
+                    }else{
+                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                    }
+                }
+                cell.configureMyLibraryCell(recentPlayedVideo[indexPath.row])
+                cell.addToFavoriteButton.isHidden = true
+                selectedTableViewCell = cell
+            }else {
+                return SellectedSectionTableViewCell()
+            }
+        default:
+            break
         }
+        return selectedTableViewCell
     }
     
     @objc func addToMyLibraryButton(sender: UIButton) {
@@ -329,7 +400,18 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        var canEdit = Bool()
+        switch checkTable {
+        case "topHits":
+         canEdit = false
+        case "MyLibrary":
+            canEdit =  true
+        case "RecentPlayed":
+            canEdit =  false
+        default:
+            break
+        }
+        return canEdit
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -364,7 +446,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         UserDefaults.standard.set(false, forKey:"selectedSearch")
         UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
         switch checkTable {
-        case true:
+        case "MyLibrary":
             DispatchQueue.main.async {
                 let selectedVideo = self.myLibraryList[indexPath.row]
                 let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
@@ -374,7 +456,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
                 
             }
-        case false:
+        case "topHits":
             DispatchQueue.main.async {
                 self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
                 self.selectedVideo = self.topHitsLists[indexPath.row]
@@ -390,6 +472,17 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                     }
                 }
             }
+        case "RecentPlayed":
+            DispatchQueue.main.async {
+                self.selectedVideo = self.recentPlayedVideo[indexPath.row]
+                let selectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
+                self.genreVideoID = self.selectedVideo?.videoId
+                self.getSelectedRecentlyPlayedVideo(indexPath)
+                self.webView.load(withVideoId: "")
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
+            }
+        default:
+            break
         }
     }
     
@@ -402,6 +495,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         VideoPlayerClass.callVideoPlayer.superViewController = self
         UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
+        UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
         sellectedSectionTableView.reloadData()
     }
     
@@ -414,8 +508,22 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         VideoPlayerClass.callVideoPlayer.superViewController = self
         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
+        UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
         sellectedSectionTableView.reloadData()
       }
+    
+    
+    func getSelectedRecentlyPlayedVideo(_ indexPath: IndexPath){
+          UserDefaults.standard.set(true, forKey:"checkIfRecentlyPlayedRowIsSelected")
+          UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
+          selectedIndex = indexPath.row
+          UserDefaults.standard.set(selectedIndex, forKey:"saveRecentlyPlayedSelectedIndex")
+          VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+          VideoPlayerClass.callVideoPlayer.superViewController = self
+          UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
+          UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
+          sellectedSectionTableView.reloadData()
+        }
 }
 
 

@@ -50,9 +50,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         UserDefaults.standard.removeObject(forKey: "checkIfMyLibraryViewControllerRowIsSelected")
-        //        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
+        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveGenreSelectedIndex")
+        UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
         UserDefaults.standard.removeObject(forKey: "checkIfSearchRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "selectedSearch")
@@ -71,7 +72,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.recentPlayedCollectionCell.dataSource = self
         
         getYouTubeResults()
-        fetchRecentPlayedVideo()
     }
     
     func checkIfRowIsSelectedDelegate(_ checkIf: Bool) {
@@ -129,7 +129,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                               if videoList != nil {
                                   self.recentPlayedVideo.append(videoList!)
                                 print(self.recentPlayedVideo[0].videoImageUrl)
-//                                  self.recentPlayedCollectionCell.reloadData()
+                                  self.recentPlayedCollectionCell.reloadData()
                               }
                           }
         }
@@ -171,7 +171,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.myLibraryTableView.reloadData()
         self.recentPlayedVideo = []
         fetchRecentPlayedVideo()
-        self.recentPlayedCollectionCell.reloadData()
+//        self.recentPlayedCollectionCell.reloadData()
     }
     
 
@@ -456,7 +456,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                     }catch{
                         print("error")
                     }
-                }else if recentPlayedVideo.count == 4 {
+                }else if recentPlayedVideo.count >= 4 {
                     let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl)
                     let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl)
                     let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl)
@@ -492,6 +492,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         switch collectionView {
         case topHitsCollectionCell:
             destinationTopHitsMusicVC()
+        case recentPlayedCollectionCell:
+            destinationRecentlyPlayedMusicVC()
         default:
             break
         }
@@ -583,9 +585,15 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
-        func destinationTopHitsMusicVC(){
-           self.performSegue(withIdentifier: "TopHitsMusic", sender: nil)
-       }
+    func destinationTopHitsMusicVC(){
+        self.performSegue(withIdentifier: "TopHitsMusic", sender: nil)
+    }
+    
+    
+    func destinationRecentlyPlayedMusicVC(){
+        self.performSegue(withIdentifier: "RecentlyPlayed", sender: nil)
+    }
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -601,7 +609,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                     nc.searchIsSelected = true
                 }
                 UserDefaults.standard.set(false, forKey:"selectedSearch")
-                nc.checkTable = false
+                nc.checkTable = "topHits"
                 nc.checDelegate = self
             }
         }else
@@ -616,9 +624,24 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                     nc.searchIsSelected = true
                 }
                 UserDefaults.standard.set(false, forKey:"selectedSearch")
-                nc.checkTable = true
+                nc.checkTable = "MyLibrary"
                 nc.checDelegate = self
             }
+            }else
+                if segue.identifier == "RecentlyPlayed"{
+                    if  let nc = segue.destination as? SelectedSectionViewController {
+                        nc.navigationItem.title = "Recently Played"
+                        if videoSelected == true{
+                            nc.videoSelected = true
+                        }
+                        let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                        if selectedSearch == true {
+                            nc.searchIsSelected = true
+                        }
+                        UserDefaults.standard.set(false, forKey:"selectedSearch")
+                        nc.checkTable = "RecentPlayed"
+                        nc.checDelegate = self
+                    }
         }
     }
     
