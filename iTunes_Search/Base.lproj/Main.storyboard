@@ -321,7 +321,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RQx-Yz-1G9">
-                                <rect key="frame" x="0.0" y="71" width="375" height="687"/>
+                                <rect key="frame" x="0.0" y="61" width="375" height="697"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="topHitsCell" rowHeight="75" id="MP9-Qb-M33" customClass="SellectedSectionTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -377,7 +377,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="RQx-Yz-1G9" firstAttribute="top" secondItem="LAY-RH-lyV" secondAttribute="top" constant="15" id="aEU-06-x6I"/>
+                            <constraint firstItem="RQx-Yz-1G9" firstAttribute="top" secondItem="LAY-RH-lyV" secondAttribute="top" constant="5" id="aEU-06-x6I"/>
                             <constraint firstItem="RQx-Yz-1G9" firstAttribute="trailing" secondItem="LAY-RH-lyV" secondAttribute="trailing" id="rkl-jf-g66"/>
                             <constraint firstAttribute="bottom" secondItem="RQx-Yz-1G9" secondAttribute="bottom" id="vCL-gP-slw"/>
                             <constraint firstItem="RQx-Yz-1G9" firstAttribute="leading" secondItem="LAY-RH-lyV" secondAttribute="leading" id="y3t-Dh-3vP"/>

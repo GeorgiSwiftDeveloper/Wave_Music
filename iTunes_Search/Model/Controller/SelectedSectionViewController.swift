@@ -42,11 +42,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         super.viewDidLoad()
         self.sellectedSectionTableView.delegate = self
         self.sellectedSectionTableView.dataSource = self
-        
+        topHitsListNSBottomLayout.constant = 127
         switch checkTable {
         case "topHits":
             fetchTopHitList()
-            topHitsListNSBottomLayout.constant = 120
          case "MyLibrary":
               fetchMyLibraryList()
         case "RecentPlayed":
@@ -458,7 +457,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case "topHits":
             DispatchQueue.main.async {
-                self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+//                self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
                 self.selectedVideo = self.topHitsLists[indexPath.row]
                 let selectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
                 self.genreVideoID = self.selectedVideo?.videoId

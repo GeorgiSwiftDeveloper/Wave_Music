@@ -61,6 +61,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         UserDefaults.standard.synchronize()
         
         setupNavBar()
+        self.myLibraryNSBottomLayout.constant = 155
         myLibraryTableView.alwaysBounceVertical = false
         self.myLibraryTableView.delegate = self
         self.myLibraryTableView.dataSource = self
@@ -663,7 +664,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         self.webView.load(withVideoId: "")
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
         
-        print(selectedCell.musicTitleLabel.text!)
+//        print(selectedCell.musicTitleLabel.text!)
         
         FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.musicTitleLabel.text!, selectedCellImageViewUrl: selectedCell.imageViewUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
             if error != nil {
