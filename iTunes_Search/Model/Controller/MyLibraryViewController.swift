@@ -16,7 +16,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     let searchController = UISearchController(searchResultsController: nil)
     
     @IBOutlet weak var myLibraryTableView: UITableView!
-    @IBOutlet weak var myLibraryNSBottomLayout: NSLayoutConstraint!
+//    @IBOutlet weak var myLibraryNSBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var topHitsCollectionCell: UICollectionView!
     @IBOutlet weak var recentPlayedCollectionCell: UICollectionView!
     
@@ -61,7 +61,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         UserDefaults.standard.synchronize()
         
         setupNavBar()
-        self.myLibraryNSBottomLayout.constant = 155
+//        self.myLibraryNSBottomLayout.constant = 155
         myLibraryTableView.alwaysBounceVertical = false
         self.myLibraryTableView.delegate = self
         self.myLibraryTableView.dataSource = self
@@ -688,7 +688,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         UserDefaults.standard.set(true, forKey:"checkIfAnotherViewControllerRowIsSelected")
         selectedIndex = indexPath.row
         selectTopHitsRow = true
-        self.myLibraryNSBottomLayout.constant = 155
+//        self.myLibraryNSBottomLayout.constant = 155
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         videoSelected = true
         VideoPlayerClass.callVideoPlayer.superViewController = self

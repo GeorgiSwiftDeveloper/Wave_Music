@@ -42,7 +42,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         super.viewDidLoad()
         self.sellectedSectionTableView.delegate = self
         self.sellectedSectionTableView.dataSource = self
-        topHitsListNSBottomLayout.constant = 127
+//        topHitsListNSBottomLayout.constant = 127
         switch checkTable {
         case "topHits":
             fetchTopHitList()
@@ -111,7 +111,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         VideoPlayerClass.callVideoPlayer.webView.playVideo()
         switch checkTable {
         case "topHits":
-          self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+//          self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+            break
         case "MyLibrary":
             break
         case "RecentPlayed":
@@ -126,7 +127,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
         switch checkTable {
         case "topHits":
-         self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+//         self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
+            break
         case "MyLibrary":
             break
         case "RecentPlayed":

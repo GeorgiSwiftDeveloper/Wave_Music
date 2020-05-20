@@ -41,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
-                                <rect key="frame" x="0.0" y="251" width="375" height="457"/>
+                                <rect key="frame" x="0.0" y="266" width="375" height="355"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LibraryMusicCell" rowHeight="70" id="zSA-8A-8h5" customClass="MainLibrariMusciTableViewCell" customModule="Wave" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
@@ -283,15 +283,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="sX9-sb-dl1" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="5Bc-Qc-Ute"/>
                             <constraint firstItem="WMD-QQ-Rda" firstAttribute="top" secondItem="TdJ-LG-cyh" secondAttribute="top" constant="10" id="Hmx-nG-bMV"/>
                             <constraint firstItem="WMD-QQ-Rda" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" constant="20" id="IwF-YH-TKc"/>
+                            <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="WMD-QQ-Rda" secondAttribute="bottom" constant="25" id="JCO-q0-sHa"/>
                             <constraint firstItem="kk2-FN-dST" firstAttribute="top" secondItem="TdJ-LG-cyh" secondAttribute="top" constant="10" id="NVS-J4-uOF"/>
-                            <constraint firstAttribute="bottom" secondItem="sX9-sb-dl1" secondAttribute="bottom" constant="50" id="QIK-gg-AyQ"/>
-                            <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="TdJ-LG-cyh" secondAttribute="top" constant="195" id="g9y-f7-Opc"/>
-                            <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="kk2-FN-dST" secondAttribute="bottom" constant="10" id="hDi-hJ-x4Q"/>
-                            <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="WMD-QQ-Rda" secondAttribute="bottom" constant="10" id="izA-2q-tXH"/>
-                            <constraint firstItem="sX9-sb-dl1" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" id="qPy-Zu-fK1"/>
+                            <constraint firstAttribute="bottom" secondItem="sX9-sb-dl1" secondAttribute="bottom" constant="137" id="WfL-pg-NPY"/>
+                            <constraint firstItem="sX9-sb-dl1" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" id="d9X-4I-5J1"/>
+                            <constraint firstItem="sX9-sb-dl1" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="nIG-S4-g5K"/>
                             <constraint firstItem="TdJ-LG-cyh" firstAttribute="trailing" secondItem="kk2-FN-dST" secondAttribute="trailing" constant="20" id="yKi-c7-w16"/>
                             <constraint firstItem="kk2-FN-dST" firstAttribute="centerY" secondItem="WMD-QQ-Rda" secondAttribute="centerY" id="yiC-3H-JyE"/>
                         </constraints>
@@ -299,7 +297,6 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Fb4-Uf-A9G"/>
                     <connections>
-                        <outlet property="myLibraryNSBottomLayout" destination="QIK-gg-AyQ" id="1YW-a3-vRq"/>
                         <outlet property="myLibraryTableView" destination="sX9-sb-dl1" id="Ryy-sV-KSF"/>
                         <outlet property="recentPlayedCollectionCell" destination="kk2-FN-dST" id="cWm-lp-nL0"/>
                         <outlet property="topHitsCollectionCell" destination="WMD-QQ-Rda" id="LFy-M7-tzh"/>
@@ -321,7 +318,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RQx-Yz-1G9">
-                                <rect key="frame" x="0.0" y="61" width="375" height="697"/>
+                                <rect key="frame" x="0.0" y="61" width="375" height="565"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="topHitsCell" rowHeight="75" id="MP9-Qb-M33" customClass="SellectedSectionTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -379,7 +376,7 @@
                         <constraints>
                             <constraint firstItem="RQx-Yz-1G9" firstAttribute="top" secondItem="LAY-RH-lyV" secondAttribute="top" constant="5" id="aEU-06-x6I"/>
                             <constraint firstItem="RQx-Yz-1G9" firstAttribute="trailing" secondItem="LAY-RH-lyV" secondAttribute="trailing" id="rkl-jf-g66"/>
-                            <constraint firstAttribute="bottom" secondItem="RQx-Yz-1G9" secondAttribute="bottom" id="vCL-gP-slw"/>
+                            <constraint firstAttribute="bottom" secondItem="RQx-Yz-1G9" secondAttribute="bottom" constant="132" id="vCL-gP-slw"/>
                             <constraint firstItem="RQx-Yz-1G9" firstAttribute="leading" secondItem="LAY-RH-lyV" secondAttribute="leading" id="y3t-Dh-3vP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LAY-RH-lyV"/>
@@ -1632,7 +1629,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ipC-Sq-kZH">
-                                <rect key="frame" x="0.0" y="71" width="375" height="687"/>
+                                <rect key="frame" x="0.0" y="71" width="375" height="555"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="topHitsCell" rowHeight="75" id="wFT-wD-L2Q" customClass="SellectedSectionTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -1691,7 +1688,7 @@
                             <constraint firstItem="ipC-Sq-kZH" firstAttribute="trailing" secondItem="co7-Vc-UMA" secondAttribute="trailing" id="4VE-qH-ahc"/>
                             <constraint firstItem="ipC-Sq-kZH" firstAttribute="leading" secondItem="co7-Vc-UMA" secondAttribute="leading" id="GZ8-En-C9U"/>
                             <constraint firstItem="ipC-Sq-kZH" firstAttribute="top" secondItem="co7-Vc-UMA" secondAttribute="top" constant="15" id="KFl-QX-TyA"/>
-                            <constraint firstAttribute="bottom" secondItem="ipC-Sq-kZH" secondAttribute="bottom" id="bKE-qc-5It"/>
+                            <constraint firstAttribute="bottom" secondItem="ipC-Sq-kZH" secondAttribute="bottom" constant="132" id="bKE-qc-5It"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="co7-Vc-UMA"/>
                     </view>
@@ -1714,7 +1711,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rvy-nc-J6t">
-                                <rect key="frame" x="0.0" y="71" width="375" height="687"/>
+                                <rect key="frame" x="0.0" y="71" width="375" height="555"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="topHitsCell" rowHeight="75" id="g9J-1Z-vq2" customClass="SellectedSectionTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -1773,7 +1770,7 @@
                             <constraint firstItem="Rvy-nc-J6t" firstAttribute="top" secondItem="UsB-ev-cy8" secondAttribute="top" constant="15" id="MlZ-Z0-Lpd"/>
                             <constraint firstItem="Rvy-nc-J6t" firstAttribute="trailing" secondItem="UsB-ev-cy8" secondAttribute="trailing" id="akD-YP-5Uz"/>
                             <constraint firstItem="Rvy-nc-J6t" firstAttribute="leading" secondItem="UsB-ev-cy8" secondAttribute="leading" id="peH-Cv-PI5"/>
-                            <constraint firstAttribute="bottom" secondItem="Rvy-nc-J6t" secondAttribute="bottom" id="qjE-3E-9gg"/>
+                            <constraint firstAttribute="bottom" secondItem="Rvy-nc-J6t" secondAttribute="bottom" constant="132" id="qjE-3E-9gg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UsB-ev-cy8"/>
                     </view>
