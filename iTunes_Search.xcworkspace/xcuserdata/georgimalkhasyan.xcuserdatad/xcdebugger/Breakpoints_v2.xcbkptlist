@@ -181,70 +181,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "730848B8-3C3F-48DE-B0F5-EE7E8C5A6E28"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "13E4B4A7-C2EE-4DBC-A06B-670D4AC4E7EE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "13E4B4A7-C2EE-4DBC-A06B-670D4AC4E7EE - 2ac4a7fc11aeb8e1"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (__C.WKYTPlayerState, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Wave.MyLibraryViewController.viewWillAppear(Swift.Bool) -&gt; ()"
-                  moduleName = "Wave"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/georgimalkhasyan/Desktop/iTunes_Search/iTunes_Search/Model/Controller/MyLibraryViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "131"
-                  endingLineNumber = "131"
-                  offsetFromSymbolStart = "206">
-               </Location>
-               <Location
-                  uuid = "13E4B4A7-C2EE-4DBC-A06B-670D4AC4E7EE - 2ac4a7fc11aeb8e1"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (__C.WKYTPlayerState, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Wave.MyLibraryViewController.viewWillAppear(Swift.Bool) -&gt; ()"
-                  moduleName = "Wave"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/georgimalkhasyan/Desktop/iTunes_Search/iTunes_Search/Model/Controller/MyLibraryViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "131"
-                  endingLineNumber = "131"
-                  offsetFromSymbolStart = "690">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "8364D96B-BB4F-4850-984F-4F73D0341300"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -309,22 +245,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C841BE70-EAE7-4297-8C1C-3DDCB5558003"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iTunes_Search/Model/Controller/SelectedSectionViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "94018374-F245-49C3-862F-E1B946F5BBB0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -332,8 +252,8 @@
             filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "565"
-            endingLineNumber = "565"
+            startingLineNumber = "640"
+            endingLineNumber = "640"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -341,32 +261,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BE40EB40-4B53-42C6-9358-C4A49E2AFA1D"
+            uuid = "D4EE22AD-1E20-4AAC-AA00-402B32FA6A15"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "488"
-            endingLineNumber = "488"
-            landmarkName = "tableView(_:heightForHeaderInSection:)"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "fetchRecentPlayedVideo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D5DF7F47-6C2C-4C43-B0F9-3882781AAB28"
+            uuid = "0791397D-6481-491F-B1A2-79A01106D08C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
-            landmarkName = "fetchMyLibraryList()"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

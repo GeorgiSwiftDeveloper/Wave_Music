@@ -290,6 +290,12 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         genreVideoID = selectedVideo?.videoId
         VideoPlayerClass.callVideoPlayer.superViewController = self
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo!)
+        
+        FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.singerNameLabel.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
+                          if error != nil {
+                              print(error)
+                          }
+                      }
         searchMusicTableView.reloadData()
     }
 }

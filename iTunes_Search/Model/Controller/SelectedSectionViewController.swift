@@ -378,12 +378,17 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             DispatchQueue.main.async {
                 self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
                 self.selectedVideo = self.topHitsLists[indexPath.row]
-                let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
+                let selectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
                 self.genreVideoID = self.selectedVideo?.videoId
                 self.getSelectedTopHitsVideo(indexPath)
                 self.webView.load(withVideoId: "")
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
                 
+                FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.topHitLabelText.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
+                    if error != nil {
+                        print(error)
+                    }
+                }
             }
         }
     }

@@ -419,6 +419,12 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             self.webView.load(withVideoId: "")
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            
+            FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.singerNameLabel.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
+                       if error != nil {
+                           print(error)
+                       }
+                   }
             self.genreTableView.reloadData()
         }
         //        self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)

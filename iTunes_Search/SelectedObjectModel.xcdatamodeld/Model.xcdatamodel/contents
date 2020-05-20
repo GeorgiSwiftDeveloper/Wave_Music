@@ -8,6 +8,13 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="videoId" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="RecentPlayedMusicData" representedClassName="RecentPlayedMusicData" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="playListId" optional="YES" attributeType="String"/>
+        <attribute name="songDescription" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="videoId" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="SelectedAlbumModel" representedClassName="SelectedAlbumModel" syncable="YES" codeGenerationType="class">
         <attribute name="selectedSongUrl" optional="YES" attributeType="String"/>
         <attribute name="singerName" optional="YES" attributeType="String"/>
@@ -123,8 +130,10 @@
         <element name="SelectedAlbumModel" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="TopHitsModel" positionX="0" positionY="90" width="128" height="133"/>
         <element name="YouTubeBluesData" positionX="0" positionY="45" width="128" height="133"/>
+        <element name="YouTubeCarMusicData" positionX="-9" positionY="81" width="128" height="133"/>
         <element name="YouTubeDanceData" positionX="0" positionY="72" width="128" height="133"/>
         <element name="YouTubeDataModel" positionX="-63" positionY="9" width="128" height="133"/>
+        <element name="YouTubeDeepBassData" positionX="0" positionY="90" width="128" height="133"/>
         <element name="YouTubeElectronicData" positionX="18" positionY="81" width="128" height="133"/>
         <element name="YouTubeHipHopData" positionX="-63" positionY="36" width="128" height="133"/>
         <element name="YouTubeInstrumentalData" positionX="-9" positionY="36" width="128" height="133"/>
@@ -132,7 +141,6 @@
         <element name="YouTubePopData" positionX="-54" positionY="45" width="128" height="133"/>
         <element name="YouTubeRBData" positionX="-18" positionY="63" width="128" height="133"/>
         <element name="YouTubeRockData" positionX="-36" positionY="54" width="128" height="133"/>
-        <element name="YouTubeCarMusicData" positionX="-9" positionY="81" width="128" height="133"/>
-        <element name="YouTubeDeepBassData" positionX="0" positionY="90" width="128" height="133"/>
+        <element name="RecentPlayedMusicData" positionX="0" positionY="90" width="128" height="118"/>
     </elements>
 </model>
