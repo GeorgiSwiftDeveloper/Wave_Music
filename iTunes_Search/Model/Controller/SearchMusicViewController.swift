@@ -31,7 +31,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     var selectedVideo: Video?
     var webView = WKYTPlayerView()
     var genreVideoID: String?
-//    var selectedIndex = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()

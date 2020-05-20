@@ -140,6 +140,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         super .viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
+              NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierRecentPlayedDeleteRecords(notification:)), name: Notification.Name("NotificationIdentifierRecentPlayedDeleteRecords"), object: nil)
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -172,7 +173,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.myLibraryTableView.reloadData()
         self.recentPlayedVideo = []
         fetchRecentPlayedVideo()
-//        self.recentPlayedCollectionCell.reloadData()
     }
     
 
@@ -219,6 +219,13 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         myLibraryTableView.reloadData()
         
     }
+    
+    
+    @objc func NotificationIdentifierRecentPlayedDeleteRecords(notification: Notification) {
+         recentPlayedVideo = []
+         fetchRecentPlayedVideo()
+         recentPlayedCollectionCell.reloadData()
+      }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -477,7 +484,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                         print("error")
                     }
             }else if recentPlayedVideo.count == 0 {
-                
+                cell.imageView1.image = UIImage(named: "")
+                cell.imageView2.image = UIImage(named: "")
+                cell.imageView3.image = UIImage(named: "")
+                cell.imageView4.image = UIImage(named: "")
             }
             
                 
@@ -631,7 +641,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             }else
                 if segue.identifier == "RecentlyPlayed"{
                     if  let nc = segue.destination as? SelectedSectionViewController {
-                        nc.navigationItem.title = "Recently Played"
+                        nc.navigationItem.title = "RECENTLY PLAYED"
                         if videoSelected == true{
                             nc.videoSelected = true
                         }
@@ -663,8 +673,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         getSelectedLibraryVideo(indexPath)
         self.webView.load(withVideoId: "")
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
-        
-//        print(selectedCell.musicTitleLabel.text!)
+
         
         FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.musicTitleLabel.text!, selectedCellImageViewUrl: selectedCell.imageViewUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
             if error != nil {

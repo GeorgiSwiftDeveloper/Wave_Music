@@ -33,15 +33,15 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     weak var checDelegate: CheckIfRowIsSelectedDelegate?
     
-    @IBOutlet weak var sellectedSectionTableView: UITableView!
+    @IBOutlet weak var selectedSectionTableView: UITableView!
     @IBOutlet weak var topHitsListNSBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var myLibraryListNSBottomLayout: NSLayoutConstraint!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sellectedSectionTableView.delegate = self
-        self.sellectedSectionTableView.dataSource = self
+        self.selectedSectionTableView.delegate = self
+        self.selectedSectionTableView.dataSource = self
 //        topHitsListNSBottomLayout.constant = 127
         switch checkTable {
         case "topHits":
@@ -50,11 +50,52 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
               fetchMyLibraryList()
         case "RecentPlayed":
             fetchRecentPlayedVideo()
+            let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
+            self.navigationItem.rightBarButtonItem  = deleteButton
         default:
             break
         }
         
     }
+    
+    @objc func rightButtonAction() {
+        let alert = UIAlertController(title: "RECENTLY PLAYED", message: "Are you sure you want to delete RECENTLY PLAYED music list ?", preferredStyle: .alert)
+        let actionYes = UIAlertAction(title: "YES", style: .default) { (action) in
+             NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierRecentPlayedDeleteRecords"), object: nil)
+            self.deleteRecords()
+            self.selectedSectionTableView.reloadData()
+        }
+        
+        let actionNo = UIAlertAction(title: "NO", style: .cancel) { (action) in
+           
+        }
+        
+        alert.addAction(actionYes)
+        alert.addAction(actionNo)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func deleteRecords() -> Void {
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentPlayedMusicData")
+
+        let result = try? context?.fetch(fetchRequest)
+        let resultData = result as! [NSManagedObject]
+         for object in resultData {
+            context?.delete(object)
+        }
+
+        do {
+            try context?.save()
+            recentPlayedVideo = []
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+
+        }
+    }
+
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -150,14 +191,14 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     @objc func NotificationIdentifierSearchRowSelected(notification: Notification) {
         UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
-        sellectedSectionTableView.reloadData()
+        selectedSectionTableView.reloadData()
         
     }
     
     
     @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
          UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
-         sellectedSectionTableView.reloadData()
+         selectedSectionTableView.reloadData()
 
      }
     
@@ -165,7 +206,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     func searchisSelected() {
         if searchIsSelected == true {
             UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
-            sellectedSectionTableView.reloadData()
+            selectedSectionTableView.reloadData()
         }
         searchIsSelected = false
     }
@@ -186,7 +227,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 
                 
                 topHitsLists.append(videoList)
-                sellectedSectionTableView.reloadData()
+                selectedSectionTableView.reloadData()
             }
             
         } catch {
@@ -211,7 +252,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 
                 
                 myLibraryList.append(videoList)
-                sellectedSectionTableView.reloadData()
+                selectedSectionTableView.reloadData()
             }
             
         } catch {
@@ -227,7 +268,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             }else{
                 if videoList != nil {
                     self.recentPlayedVideo.append(videoList!)
-                    self.sellectedSectionTableView.reloadData()
+                    self.selectedSectionTableView.reloadData()
                 }
             }
         }
@@ -350,8 +391,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     @objc func addToMyLibraryButton(sender: UIButton) {
         let selectedIndex = IndexPath(row: sender.tag, section: 0)
-        self.sellectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-        let selectedCell = self.sellectedSectionTableView.cellForRow(at: selectedIndex) as! SellectedSectionTableViewCell
+        self.selectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+        let selectedCell = self.selectedSectionTableView.cellForRow(at: selectedIndex) as! SellectedSectionTableViewCell
         
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
@@ -431,9 +472,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         context?.delete(resultData[indexPath.row])
         do{
             try context?.save()
-//            if myLibraryList.count <= 4 {
-//                sectionButton.isHidden = true
-//            }
         }catch {
             print("Could not remove video \(error.localizedDescription)")
         }
@@ -450,7 +488,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case "MyLibrary":
             DispatchQueue.main.async {
                 let selectedVideo = self.myLibraryList[indexPath.row]
-                let sellectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
+                let sellectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
                 self.genreVideoID = selectedVideo.videoId
                 self.getSelectedLibraryVideo(indexPath)
                 self.webView.load(withVideoId: "")
@@ -461,7 +499,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             DispatchQueue.main.async {
 //                self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
                 self.selectedVideo = self.topHitsLists[indexPath.row]
-                let selectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
+                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
                 self.genreVideoID = self.selectedVideo?.videoId
                 self.getSelectedTopHitsVideo(indexPath)
                 self.webView.load(withVideoId: "")
@@ -476,7 +514,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case "RecentPlayed":
             DispatchQueue.main.async {
                 self.selectedVideo = self.recentPlayedVideo[indexPath.row]
-                let selectedCell = self.sellectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
+                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
                 self.genreVideoID = self.selectedVideo?.videoId
                 self.getSelectedRecentlyPlayedVideo(indexPath)
                 self.webView.load(withVideoId: "")
@@ -497,7 +535,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         VideoPlayerClass.callVideoPlayer.superViewController = self
         UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
-        sellectedSectionTableView.reloadData()
+        selectedSectionTableView.reloadData()
     }
     
     
@@ -510,7 +548,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         VideoPlayerClass.callVideoPlayer.superViewController = self
         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
-        sellectedSectionTableView.reloadData()
+        selectedSectionTableView.reloadData()
       }
     
     
@@ -523,7 +561,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
           VideoPlayerClass.callVideoPlayer.superViewController = self
           UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
           UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
-          sellectedSectionTableView.reloadData()
+          selectedSectionTableView.reloadData()
         }
 }
 

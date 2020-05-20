@@ -383,7 +383,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="PH9-KG-7jy"/>
                     <connections>
-                        <outlet property="sellectedSectionTableView" destination="RQx-Yz-1G9" id="oaf-sW-zKZ"/>
+                        <outlet property="selectedSectionTableView" destination="RQx-Yz-1G9" id="oaf-sW-zKZ"/>
                         <outlet property="topHitsListNSBottomLayout" destination="vCL-gP-slw" id="kfB-aD-w9K"/>
                     </connections>
                 </viewController>
@@ -1695,7 +1695,7 @@
                     <navigationItem key="navigationItem" id="1jV-aN-3TM"/>
                     <connections>
                         <outlet property="myLibraryListNSBottomLayout" destination="bKE-qc-5It" id="sNA-5n-5vS"/>
-                        <outlet property="sellectedSectionTableView" destination="ipC-Sq-kZH" id="ZyV-eP-YJ9"/>
+                        <outlet property="selectedSectionTableView" destination="ipC-Sq-kZH" id="ZyV-eP-YJ9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mIc-iP-AFb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1777,7 +1777,7 @@
                     <navigationItem key="navigationItem" id="3jZ-2h-Zqt"/>
                     <connections>
                         <outlet property="myLibraryListNSBottomLayout" destination="qjE-3E-9gg" id="lGC-8K-bWK"/>
-                        <outlet property="sellectedSectionTableView" destination="Rvy-nc-J6t" id="8g8-Qw-R5l"/>
+                        <outlet property="selectedSectionTableView" destination="Rvy-nc-J6t" id="8g8-Qw-R5l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nle-1N-7Ue" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

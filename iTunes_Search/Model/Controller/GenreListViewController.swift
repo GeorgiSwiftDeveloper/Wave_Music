@@ -175,7 +175,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
       override func viewDidDisappear(_ animated: Bool) {
           super .viewDidDisappear(animated)
           VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
-//           self.navigationController?.navigationBar.isHidden = false
       }
       
     
@@ -253,7 +252,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             break
         }
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-        //request.predicate = NSPredicate(format: "age = %@", "12")
         request.returnsObjectsAsFaults = false
         do {
             let result = try context?.fetch(request)
@@ -431,13 +429,13 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     
-    override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "youTubeSegue" {
-              let genreVC = segue.destination as! YouTubeViewController
-                genreVC.genreVideoID  = sender as? Video
-                genreVC.selectedGenreTitle = genreTitle
-                genreVC.modalPresentationStyle = .fullScreen
-            }
-        }
+//    override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//            if segue.identifier == "youTubeSegue" {
+//              let genreVC = segue.destination as! YouTubeViewController
+//                genreVC.genreVideoID  = sender as? Video
+//                genreVC.selectedGenreTitle = genreTitle
+//                genreVC.modalPresentationStyle = .fullScreen
+//            }
+//        }
     
 }
