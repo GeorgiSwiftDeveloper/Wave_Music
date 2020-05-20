@@ -377,16 +377,20 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         switch collectionView {
         case topHitsCollectionCell:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topCell", for: indexPath) as! TopHitsCollectionViewCell
-            cell.collectionImageView.layer.cornerRadius = 7.0
-            cell.collectionImageView.layer.borderWidth = 1.0
-            cell.collectionImageView.layer.shadowRadius = 3
-            cell.collectionImageView.layer.shadowOffset = .zero
-            cell.collectionImageView.layer.borderWidth = 4
-            cell.collectionImageView.layer.masksToBounds = false
-            cell.collectionImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
-            cell.collectionImageView.layer.shadowOpacity = 2
-            cell.collectionImageView.layer.masksToBounds = true
+            cell.imageMainView.layer.cornerRadius = 3.0
+            cell.imageMainView.layer.masksToBounds = true
             cell.cellTitleLabel.text = "TOP HIT'S"
+            
+            
+            cell.collectionImageView.layer.cornerRadius = 5.0
+            cell.collectionImageView.layer.borderWidth = 1.0
+            cell.collectionImageView.layer.shadowColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            cell.collectionImageView.layer.shadowRadius = 2
+            cell.collectionImageView.layer.shadowOffset = .zero
+            cell.collectionImageView.layer.borderWidth = 2
+            cell.collectionImageView.layer.shadowOpacity = 2
+            cell.collectionImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            cell.collectionImageView.layer.masksToBounds = true
             //MARK: CHECK TO NIL
             let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl)
             let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl)
@@ -410,19 +414,20 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             collectionCell = cell
         case recentPlayedCollectionCell:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as! RecentPlayedCollectionViewCell
-            cell.collectionImageView.layer.cornerRadius = 7.0
-            cell.collectionImageView.layer.borderWidth = 1.0
-            cell.collectionImageView.layer.shadowColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-            cell.collectionImageView.layer.shadowRadius = 3
-            cell.collectionImageView.layer.shadowOffset = .zero
-            cell.collectionImageView.layer.borderWidth = 4
-            cell.collectionImageView.layer.masksToBounds = false
-            cell.collectionImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
-            cell.collectionImageView.layer.shadowOpacity = 2
-            cell.collectionImageView.layer.masksToBounds = true
+            cell.imageMainView.layer.cornerRadius = 3.0
+            cell.imageMainView.layer.masksToBounds = true
             cell.cellTitleLabel.text = "RECENTLY PLAYED"
             
              
+            cell.collectionImageView.layer.cornerRadius = 5.0
+            cell.collectionImageView.layer.borderWidth = 1.0
+            cell.collectionImageView.layer.shadowColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            cell.collectionImageView.layer.shadowRadius = 2
+            cell.collectionImageView.layer.shadowOffset = .zero
+            cell.collectionImageView.layer.borderWidth = 2
+            cell.collectionImageView.layer.shadowOpacity = 2
+            cell.collectionImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            cell.collectionImageView.layer.masksToBounds = true
             if recentPlayedVideo.count == 1 {
                 do{
                     let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl)

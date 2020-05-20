@@ -20,6 +20,8 @@ class TopHitsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var cellTitleLabel: UILabel!
     
+    @IBOutlet weak var imageMainView: UIView!
+    
     @IBOutlet weak var collectionImageView: UIView!
     func confiigurationCell(_ video: Video) {
     

@@ -22,4 +22,5 @@ class RecentPlayedCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var collectionImageView: UIView!
     
+    @IBOutlet weak var imageMainView: UIView!
 }
