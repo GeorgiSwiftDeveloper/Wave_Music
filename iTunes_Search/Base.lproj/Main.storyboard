@@ -40,7 +40,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
                                 <rect key="frame" x="0.0" y="251" width="375" height="424"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LibraryMusicCell" rowHeight="70" id="zSA-8A-8h5" customClass="MainLibrariMusciTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -226,9 +226,9 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECENTLY ADDED" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="XQ2-Et-oZ0">
-                                                            <rect key="frame" x="32.666666666666657" y="43" width="97" height="70"/>
+                                                            <rect key="frame" x="26" y="43" width="110" height="70"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="97" id="4cA-gf-Vje"/>
+                                                                <constraint firstAttribute="width" constant="110" id="4cA-gf-Vje"/>
                                                                 <constraint firstAttribute="height" constant="70" id="5yS-8v-vkG"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="19"/>
@@ -314,7 +314,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RQx-Yz-1G9">
-                                <rect key="frame" x="0.0" y="61" width="375" height="565"/>
+                                <rect key="frame" x="0.0" y="61" width="375" height="614"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="topHitsCell" rowHeight="75" id="MP9-Qb-M33" customClass="SellectedSectionTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -371,8 +371,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="RQx-Yz-1G9" firstAttribute="top" secondItem="LAY-RH-lyV" secondAttribute="top" constant="5" id="aEU-06-x6I"/>
+                            <constraint firstItem="LAY-RH-lyV" firstAttribute="bottom" secondItem="RQx-Yz-1G9" secondAttribute="bottom" id="aEh-Mh-wwZ"/>
                             <constraint firstItem="RQx-Yz-1G9" firstAttribute="trailing" secondItem="LAY-RH-lyV" secondAttribute="trailing" id="rkl-jf-g66"/>
-                            <constraint firstAttribute="bottom" secondItem="RQx-Yz-1G9" secondAttribute="bottom" constant="132" id="vCL-gP-slw"/>
                             <constraint firstItem="RQx-Yz-1G9" firstAttribute="leading" secondItem="LAY-RH-lyV" secondAttribute="leading" id="y3t-Dh-3vP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LAY-RH-lyV"/>
@@ -380,7 +380,6 @@
                     <navigationItem key="navigationItem" id="PH9-KG-7jy"/>
                     <connections>
                         <outlet property="selectedSectionTableView" destination="RQx-Yz-1G9" id="oaf-sW-zKZ"/>
-                        <outlet property="topHitsListNSBottomLayout" destination="vCL-gP-slw" id="kfB-aD-w9K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="znV-NU-xI4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -507,7 +506,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                                 <subviews>
                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="50" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6je-dD-fXC">
-                                        <rect key="frame" x="0.0" y="60" width="375" height="568"/>
+                                        <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -598,12 +597,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="6je-dD-fXC" secondAttribute="trailing" id="3WB-Dz-RZJ"/>
                                     <constraint firstItem="Kit-hq-mBy" firstAttribute="centerX" secondItem="aUv-fA-lUJ" secondAttribute="centerX" id="5Ra-Sm-Du4"/>
+                                    <constraint firstItem="6je-dD-fXC" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" id="CiE-eB-wPB"/>
                                     <constraint firstItem="Kit-hq-mBy" firstAttribute="centerY" secondItem="aUv-fA-lUJ" secondAttribute="centerY" id="M5v-pZ-4ZD"/>
-                                    <constraint firstAttribute="bottom" secondItem="6je-dD-fXC" secondAttribute="bottom" constant="130" id="OEo-Lf-Ben"/>
-                                    <constraint firstItem="6je-dD-fXC" firstAttribute="top" secondItem="aUv-fA-lUJ" secondAttribute="top" constant="60" id="Uzp-WB-fis"/>
-                                    <constraint firstAttribute="trailing" secondItem="6je-dD-fXC" secondAttribute="trailing" id="gOb-vL-ztn"/>
-                                    <constraint firstItem="6je-dD-fXC" firstAttribute="leading" secondItem="aUv-fA-lUJ" secondAttribute="leading" id="jxk-ks-O7W"/>
+                                    <constraint firstAttribute="bottom" secondItem="6je-dD-fXC" secondAttribute="bottom" constant="91" id="So1-sq-DCQ"/>
+                                    <constraint firstItem="6je-dD-fXC" firstAttribute="top" secondItem="aUv-fA-lUJ" secondAttribute="top" constant="60" id="oYe-BD-fXm"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1625,7 +1624,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ipC-Sq-kZH">
-                                <rect key="frame" x="0.0" y="61" width="375" height="565"/>
+                                <rect key="frame" x="0.0" y="61" width="375" height="614"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="topHitsCell" rowHeight="75" id="wFT-wD-L2Q" customClass="SellectedSectionTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -1684,13 +1683,12 @@
                             <constraint firstItem="ipC-Sq-kZH" firstAttribute="trailing" secondItem="co7-Vc-UMA" secondAttribute="trailing" id="4VE-qH-ahc"/>
                             <constraint firstItem="ipC-Sq-kZH" firstAttribute="leading" secondItem="co7-Vc-UMA" secondAttribute="leading" id="GZ8-En-C9U"/>
                             <constraint firstItem="ipC-Sq-kZH" firstAttribute="top" secondItem="co7-Vc-UMA" secondAttribute="top" constant="5" id="KFl-QX-TyA"/>
-                            <constraint firstAttribute="bottom" secondItem="ipC-Sq-kZH" secondAttribute="bottom" constant="132" id="bKE-qc-5It"/>
+                            <constraint firstItem="co7-Vc-UMA" firstAttribute="bottom" secondItem="ipC-Sq-kZH" secondAttribute="bottom" id="Pj6-2a-Zct"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="co7-Vc-UMA"/>
                     </view>
                     <navigationItem key="navigationItem" id="1jV-aN-3TM"/>
                     <connections>
-                        <outlet property="myLibraryListNSBottomLayout" destination="bKE-qc-5It" id="sNA-5n-5vS"/>
                         <outlet property="selectedSectionTableView" destination="ipC-Sq-kZH" id="ZyV-eP-YJ9"/>
                     </connections>
                 </viewController>
@@ -1707,7 +1705,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rvy-nc-J6t">
-                                <rect key="frame" x="0.0" y="61" width="375" height="565"/>
+                                <rect key="frame" x="0.0" y="61" width="375" height="614"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="topHitsCell" rowHeight="75" id="g9J-1Z-vq2" customClass="SellectedSectionTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -1765,14 +1763,13 @@
                         <constraints>
                             <constraint firstItem="Rvy-nc-J6t" firstAttribute="top" secondItem="UsB-ev-cy8" secondAttribute="top" constant="5" id="MlZ-Z0-Lpd"/>
                             <constraint firstItem="Rvy-nc-J6t" firstAttribute="trailing" secondItem="UsB-ev-cy8" secondAttribute="trailing" id="akD-YP-5Uz"/>
+                            <constraint firstItem="UsB-ev-cy8" firstAttribute="bottom" secondItem="Rvy-nc-J6t" secondAttribute="bottom" id="nDV-Ps-TaK"/>
                             <constraint firstItem="Rvy-nc-J6t" firstAttribute="leading" secondItem="UsB-ev-cy8" secondAttribute="leading" id="peH-Cv-PI5"/>
-                            <constraint firstAttribute="bottom" secondItem="Rvy-nc-J6t" secondAttribute="bottom" constant="132" id="qjE-3E-9gg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UsB-ev-cy8"/>
                     </view>
                     <navigationItem key="navigationItem" id="3jZ-2h-Zqt"/>
                     <connections>
-                        <outlet property="myLibraryListNSBottomLayout" destination="qjE-3E-9gg" id="lGC-8K-bWK"/>
                         <outlet property="selectedSectionTableView" destination="Rvy-nc-J6t" id="8g8-Qw-R5l"/>
                     </connections>
                 </viewController>
