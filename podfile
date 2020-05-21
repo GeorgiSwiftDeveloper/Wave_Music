@@ -3,7 +3,7 @@
 target 'iTunes_Search' do
 use_frameworks!
 pod 'Alamofire', '~> 5.1'
-pod "YoutubePlayer-in-WKWebView", "~> 0.2.0" 
+pod "YoutubePlayer-in-WKWebView", "~> 0.3.0" 
 
 
 end

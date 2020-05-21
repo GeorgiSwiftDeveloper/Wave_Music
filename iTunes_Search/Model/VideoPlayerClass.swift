@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 import YoutubePlayer_in_WKWebView
 
 class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
@@ -25,11 +26,12 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
     var musicLabelText = UILabel()
     var playButton = UIButton()
     var cardVisible = false
-    
+    var checkifAnimationHappend = Bool()
     
     var rightButton = UIButton()
     var leftButton = UIButton()
     var volumeSlider = UISlider()
+    var systemSlider = UISlider()
     var volMax = UIImageView()
     var volMin = UIImageView()
     var checkIfPause = true
@@ -53,10 +55,10 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             self.cardViewController.view.removeFromSuperview()
             checkCardView = false
         }
-//        visualEffectView = UIVisualEffectView()
-//        visualEffectView.frame = self.superViewController?.view.frame as! CGRect
-//        self.superViewController!.view.addSubview(visualEffectView)
-//        self.visualEffectView.effect = nil
+        //        visualEffectView = UIVisualEffectView()
+        //        visualEffectView.frame = self.superViewController?.view.frame as! CGRect
+        //        self.superViewController!.view.addSubview(visualEffectView)
+        //        self.visualEffectView.effect = nil
         
         self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
         self.musicLabelText.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
@@ -65,7 +67,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
         self.musicLabelText.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.musicLabelText.text = selectedVideo.videoTitle
-
+        
         
         checkCardView = true
         cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
@@ -90,14 +92,22 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         self.webView.isHidden = true
         
         
+        self.volumeSlider.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 500, width: 250, height: 25)
+        volumeSlider.minimumValue = 0
+        volumeSlider.maximumValue = 100
+        volumeSlider.setValue(80, animated: true)
+        volumeSlider.isContinuous = true
+        volumeSlider.tintColor = UIColor.white
+        volumeSlider.isHidden = true
+        self.cardViewController.view.addSubview(volumeSlider)
         self.cardViewController.view.addSubview(self.musicLabelText)
         
         
-        
+        self.cardViewController.dragdropButton.isHidden = true
         self.playButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
         self.cardViewController.view.addSubview(self.playButton)
         
-
+        
         webView.playVideo()
         self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
         UserDefaults.standard.set(true, forKey:"pause")
@@ -112,22 +122,22 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
     
     @objc func playAndPauseButtonAction(sender: UIButton){
         VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                     if let error = error {
-                         print("Error getting player state:" + error.localizedDescription)
-                     } else if let playerState = playerState as? WKYTPlayerState {
-                         
-                         self?.updatePlayerState(playerState)
-                        if self?.checkIfPaused == false {
-                            self?.webView.playVideo()
-                            self?.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-                            UserDefaults.standard.set(true, forKey:"pause")
-                        }else{
-                            self?.webView.pauseVideo()
-                            self?.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
-                            UserDefaults.standard.set(false, forKey:"pause")
-                        }
-                     }
-                 })
+            if let error = error {
+                print("Error getting player state:" + error.localizedDescription)
+            } else if let playerState = playerState as? WKYTPlayerState {
+                
+                self?.updatePlayerState(playerState)
+                if self?.checkIfPaused == false {
+                    self?.webView.playVideo()
+                    self?.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+                    UserDefaults.standard.set(true, forKey:"pause")
+                }else{
+                    self?.webView.pauseVideo()
+                    self?.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
+                    UserDefaults.standard.set(false, forKey:"pause")
+                }
+            }
+        })
     }
     
     
@@ -187,29 +197,32 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                 switch state {
                 case .expanded:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHeight
-//                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
+                    //                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
                     self.cardViewController.view.layer.opacity = 1
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
                     self.musicLabelText.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
-                          DispatchQueue.main.async {
-                    self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//                    self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    self.leftandRightButton()
-                    self.musicLabelText.numberOfLines = 0
-                    self.musicLabelText.textAlignment = .center
-                    self.superViewController?.navigationController?.navigationBar.isHidden = true
-                    self.superViewController?.tabBarController?.tabBar.isHidden = true
+                    DispatchQueue.main.async {
+                        self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                        //                    self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                        self.leftandRightButton()
+                        self.musicLabelText.numberOfLines = 0
+                        self.musicLabelText.textAlignment = .center
+                        self.superViewController?.navigationController?.navigationBar.isHidden = true
+                        self.superViewController?.tabBarController?.tabBar.isHidden = true
+                        self.volumeSlider.addTarget(self, action: #selector(self.sliderVolume(sender:)), for: .touchUpInside)
                     }
                     self.webView.isHidden = false
-                    
+                    self.volumeSlider.isHidden = false
+                    self.cardViewController.dragdropButton.isHidden = false
                 case .collapsed:
+                    self.cardViewController.dragdropButton.isHidden = true
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
-//                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
+                    //                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
                     self.musicLabelText.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
                     DispatchQueue.main.async {
-                        self.cardViewController.view.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
-//                        self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
+                        self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                        //                        self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                         self.musicLabelText.numberOfLines = 0
                         self.musicLabelText.textAlignment = .left
                         self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
@@ -217,7 +230,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                         self.superViewController?.tabBarController?.tabBar.isHidden = false
                     }
                     self.webView.isHidden = true
-//                    self.visualEffectView.removeFromSuperview()
+                    //                    self.visualEffectView.removeFromSuperview()
                 }
             }
             
@@ -245,12 +258,12 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                break
-//                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
+                    break
+                    //                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
                     
                 case .collapsed:
-                   break
-//                    self.visualEffectView.effect = nil
+                    break
+                    //                    self.visualEffectView.effect = nil
                 }
             }
             
@@ -273,16 +286,6 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         //        self.leftButton.addTarget(self, action: #selector(playPrevVideo(sender:)), for: .touchUpInside)
         self.cardViewController.view.addSubview(leftButton)
         
-        
-        self.volumeSlider.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 500, width: 250, height: 25)
-        volumeSlider.minimumValue = 0
-        volumeSlider.maximumValue = 100
-        volumeSlider.setValue(80, animated: true)
-        volumeSlider.isContinuous = true
-        volumeSlider.tintColor = UIColor.white
-        
-        self.cardViewController.view.addSubview(volumeSlider)
-        
         self.volMin.frame = CGRect(x: self.cardViewController.view.center.x - 145, y: 505, width: 15, height: 15)
         self.volMin.image = UIImage(named: "vol-min")
         self.cardViewController.view.addSubview(volMin)
@@ -292,6 +295,30 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         self.volMax.image = UIImage(named: "vol-max")
         self.cardViewController.view.addSubview(volMax)
     }
+    
+    @objc  func sliderVolume(sender: UISlider) {
+        switch Int(sender.value) {
+        case 0:
+            MPVolumeView.setVolume(0.0)
+        case 5...15:
+            MPVolumeView.setVolume(0.2)
+        case 15...20:
+            MPVolumeView.setVolume(0.3)
+        case 20...40:
+            MPVolumeView.setVolume(0.4)
+        case 40...60:
+            MPVolumeView.setVolume(0.5)
+        case 60...80:
+            MPVolumeView.setVolume(0.7)
+        case 80...100:
+            MPVolumeView.setVolume(1)
+        default:
+            break
+        }
+    }
+    
+    
+    
     
     
     func startInteractiveTransition(state:CardState, duration:TimeInterval) {
@@ -320,5 +347,16 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
     
 }
 
+
+extension MPVolumeView {
+    static func setVolume(_ volume: Float) {
+        let volumeView = MPVolumeView()
+        let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+            slider?.value = volume
+        }
+    }
+}
 
 
