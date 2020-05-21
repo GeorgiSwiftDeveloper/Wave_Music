@@ -10,14 +10,14 @@ import UIKit
 import MediaPlayer
 import YoutubePlayer_in_WKWebView
 
-class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
+class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate {
     
     static let callVideoPlayer = VideoPlayerClass()
     
     
     let cardHeight:CGFloat = 800
     let cardHandleAreaHeight:CGFloat = 130
-    
+    var playerView = UIView()
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
     var visualEffectView:UIVisualEffectView!
@@ -103,7 +103,6 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         self.cardViewController.view.addSubview(self.musicLabelText)
         
         
-        self.cardViewController.dragdropButton.isHidden = true
         self.playButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
         self.cardViewController.view.addSubview(self.playButton)
         
@@ -112,7 +111,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
         UserDefaults.standard.set(true, forKey:"pause")
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleCardTap(recognzier:)))
+        let tapGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handleCardTap(recognzier:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handleCardPan(recognizer:)))
         
         cardViewController.view.addGestureRecognizer(tapGestureRecognizer)
@@ -197,13 +196,11 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                 switch state {
                 case .expanded:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHeight
-                    //                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
                     self.cardViewController.view.layer.opacity = 1
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
                     self.musicLabelText.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
                     DispatchQueue.main.async {
                         self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                        //                    self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                         self.leftandRightButton()
                         self.musicLabelText.numberOfLines = 0
                         self.musicLabelText.textAlignment = .center
@@ -213,16 +210,13 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
                     }
                     self.webView.isHidden = false
                     self.volumeSlider.isHidden = false
-                    self.cardViewController.dragdropButton.isHidden = false
+                    self.playerView.isHidden = false
                 case .collapsed:
-                    self.cardViewController.dragdropButton.isHidden = true
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
-                    //                    self.cardViewController.headerView.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
                     self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
                     self.musicLabelText.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
                     DispatchQueue.main.async {
                         self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                        //                        self.cardViewController.waveMusicMainHeaderView.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                         self.musicLabelText.numberOfLines = 0
                         self.musicLabelText.textAlignment = .left
                         self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
@@ -295,6 +289,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate {
         self.volMax.image = UIImage(named: "vol-max")
         self.cardViewController.view.addSubview(volMax)
     }
+    
     
     @objc  func sliderVolume(sender: UISlider) {
         switch Int(sender.value) {
