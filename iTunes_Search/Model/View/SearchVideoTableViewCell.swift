@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchVideoTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var songImageView: UIImageView!
     @IBOutlet weak var singerNameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
@@ -17,26 +17,27 @@ class SearchVideoTableViewCell: UITableViewCell {
     var videoImageUrl = String()
     
     func confiigurationCell(albums: Video) {
-            singerNameLabel.text = albums.videoTitle
-            videoID = albums.videoId
-            videoImageUrl = albums.videoImageUrl
-           let imageUrl = URL(string: albums.videoImageUrl)
-           do{
-               let data:NSData = try NSData(contentsOf: imageUrl!)
-               songImageView.image =  UIImage(data: data as Data)
-               
-           }catch{
-               print("error")
-           }
-           songImageView.layer.borderWidth = 3
-           songImageView.layer.masksToBounds = false
-           songImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
-           songImageView.layer.shadowOpacity = 2
-           songImageView.layer.shadowPath = UIBezierPath(rect: songImageView.bounds).cgPath
+        DispatchQueue.main.async {
+            self.singerNameLabel.text = albums.videoTitle
+             self.videoID = albums.videoId
+             self.videoImageUrl = albums.videoImageUrl
+            let imageUrl = URL(string: albums.videoImageUrl)
+            do{
+                let data:NSData = try NSData(contentsOf: imageUrl!)
+                 self.songImageView.image =  UIImage(data: data as Data)
+                
+            }catch{
+                print("error")
+            }
+             self.songImageView.layer.borderWidth = 3
+             self.songImageView.layer.masksToBounds = false
+             self.songImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+             self.songImageView.layer.shadowOpacity = 2
+             self.songImageView.layer.shadowPath = UIBezierPath(rect:  self.songImageView.bounds).cgPath
             self.songImageView.layer.cornerRadius = self.songImageView.frame.height/2
-           songImageView.layer.shadowRadius = 5
-           songImageView.layer.shadowOffset = .zero
-           songImageView.clipsToBounds = true
+             self.songImageView.layer.shadowRadius = 5
+             self.songImageView.layer.shadowOffset = .zero
+             self.songImageView.clipsToBounds = true}
     }
-
+    
 }

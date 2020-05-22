@@ -160,7 +160,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchBar.text != "" {
             let songName = searchBar.text
-            searchConnectionManager.fetchiTunes(name: songName!)
+            searchConnectionManager.fetchYouTubeData(name: songName!)
             searchBar.text = ""
             searchController.isActive = false
         }

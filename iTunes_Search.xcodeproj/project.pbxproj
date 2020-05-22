@@ -18,7 +18,7 @@
 		6A1375E924344AB40086113D /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375E824344AB40086113D /* FavoriteViewController.swift */; };
 		6A41657A2457FB2E00910513 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4165792457FB2E00910513 /* WelcomeViewController.swift */; };
 		6A41657C2458EF0D00910513 /* SelectedSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */; };
-		6A41657E2458FC9B00910513 /* SellectedSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657D2458FC9B00910513 /* SellectedSectionTableViewCell.swift */; };
+		6A41657E2458FC9B00910513 /* SelectedSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657D2458FC9B00910513 /* SelectedSectionTableViewCell.swift */; };
 		6A433FBA2464F7C700966F2A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A433FB92464F7C700966F2A /* TabBarViewController.swift */; };
 		6A464B0824564E0F00720D79 /* TopHitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464B0724564E0F00720D79 /* TopHitsTableViewCell.swift */; };
 		6A48ECC22436643B007A82D6 /* FutureMuviesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */; };
@@ -73,7 +73,7 @@
 		6A1375E824344AB40086113D /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		6A4165792457FB2E00910513 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSectionViewController.swift; sourceTree = "<group>"; };
-		6A41657D2458FC9B00910513 /* SellectedSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellectedSectionTableViewCell.swift; sourceTree = "<group>"; };
+		6A41657D2458FC9B00910513 /* SelectedSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSectionTableViewCell.swift; sourceTree = "<group>"; };
 		6A433FB92464F7C700966F2A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		6A464B0724564E0F00720D79 /* TopHitsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHitsTableViewCell.swift; sourceTree = "<group>"; };
 		6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureMuviesTableViewCell.swift; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 				6A464B0724564E0F00720D79 /* TopHitsTableViewCell.swift */,
 				6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */,
 				6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */,
-				6A41657D2458FC9B00910513 /* SellectedSectionTableViewCell.swift */,
+				6A41657D2458FC9B00910513 /* SelectedSectionTableViewCell.swift */,
 				6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */,
 				6A568CAB245A8C9F00487EDF /* SelectedCoutryCollectionViewCell.swift */,
 				6A48ECC12436643B007A82D6 /* FutureMuviesTableViewCell.swift */,
@@ -398,7 +398,7 @@
 				6ABBC281245B822D002565E2 /* CardViewController.swift in Sources */,
 				6A66CFD52474A698004B0C44 /* FetchRecentPlayedVideo.swift in Sources */,
 				6A48ECC424366485007A82D6 /* FutureMuviesModel.swift in Sources */,
-				6A41657E2458FC9B00910513 /* SellectedSectionTableViewCell.swift in Sources */,
+				6A41657E2458FC9B00910513 /* SelectedSectionTableViewCell.swift in Sources */,
 				6AD42A01245013BA00917123 /* YouTubeTableViewCell.swift in Sources */,
 				6AD0FD2D243C2B30006BF086 /* StationRadioTableViewCell.swift in Sources */,
 				6A48ECC22436643B007A82D6 /* FutureMuviesTableViewCell.swift in Sources */,

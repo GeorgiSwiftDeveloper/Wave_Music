@@ -298,7 +298,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         var selectedTableViewCell = UITableViewCell()
         switch checkTable {
         case "topHits":
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
                 var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
                 let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
@@ -325,10 +325,10 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
                 selectedTableViewCell = cell
             }else {
-                return SellectedSectionTableViewCell()
+                return SelectedSectionTableViewCell()
             }
         case "MyLibrary":
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
                 var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
                 let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
@@ -354,10 +354,10 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 cell.addToFavoriteButton.isHidden = true
                         selectedTableViewCell = cell
             }else {
-                return SellectedSectionTableViewCell()
+                return SelectedSectionTableViewCell()
             }
         case "RecentPlayed":
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SellectedSectionTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
                 var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRecentlyPlayedRowIsSelected") as? Bool
                 let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveRecentlyPlayedSelectedIndex") as? Int
                 let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
@@ -383,7 +383,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 cell.addToFavoriteButton.isHidden = true
                 selectedTableViewCell = cell
             }else {
-                return SellectedSectionTableViewCell()
+                return SelectedSectionTableViewCell()
             }
         default:
             break
@@ -394,7 +394,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     @objc func addToMyLibraryButton(sender: UIButton) {
         let selectedIndex = IndexPath(row: sender.tag, section: 0)
         self.selectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-        let selectedCell = self.selectedSectionTableView.cellForRow(at: selectedIndex) as! SellectedSectionTableViewCell
+        let selectedCell = self.selectedSectionTableView.cellForRow(at: selectedIndex) as! SelectedSectionTableViewCell
         
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
@@ -490,7 +490,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case "MyLibrary":
             DispatchQueue.main.async {
                 let selectedVideo = self.myLibraryList[indexPath.row]
-                let sellectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
+                let sellectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.genreVideoID = selectedVideo.videoId
                 self.getSelectedLibraryVideo(indexPath)
                 self.webView.load(withVideoId: "")
@@ -501,7 +501,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             DispatchQueue.main.async {
 //                self.topHitsListNSBottomLayout.constant = CGFloat(self.topHitsListHeight)
                 self.selectedVideo = self.topHitsLists[indexPath.row]
-                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
+                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.genreVideoID = self.selectedVideo?.videoId
                 self.getSelectedTopHitsVideo(indexPath)
                 self.webView.load(withVideoId: "")
@@ -516,7 +516,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case "RecentPlayed":
             DispatchQueue.main.async {
                 self.selectedVideo = self.recentPlayedVideo[indexPath.row]
-                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SellectedSectionTableViewCell
+                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.genreVideoID = self.selectedVideo?.videoId
                 self.getSelectedRecentlyPlayedVideo(indexPath)
                 self.webView.load(withVideoId: "")

@@ -16,9 +16,9 @@ protocol AlbumManagerDelegate {
 class SearchConnection {
     var delegate: AlbumManagerDelegate?
     var videoArray = [Video]()
-    let  API_KEY = "AIzaSyD_ftHSeTLdHnAqtUv-pnWW8jOXv5TFZg8"
+    let  API_KEY = "AIzaSyDnZJailNum2kVdCTUPpK80O8ERYBqbnX4"
     
-    func fetchiTunes(name: String) {
+    func fetchYouTubeData(name: String) {
         let url1 = "https://www.googleapis.com/youtube/v3/search?part=snippet&fields=items(id,snippet(title,channelTitle,thumbnails))&order=viewCount&q=\(name)&type=video&maxResults=15&key=\(API_KEY)"
         performRequest(with: url1)
     }
