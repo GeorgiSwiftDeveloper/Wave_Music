@@ -360,8 +360,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 
                 
                 myLibraryListArray.append(videoList)
-                myLibraryTableView.reloadData()
+//                myLibraryTableView.reloadData()
             }
+               myLibraryTableView.reloadData()
             
         } catch {
             print("Failed")
@@ -613,6 +614,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "TopHitsMusic" {
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "Top Tracks"

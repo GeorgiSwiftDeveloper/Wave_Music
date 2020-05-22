@@ -9,35 +9,37 @@
 import UIKit
 
 class TopHitsTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var topHitSongTitle: UILabel!
     @IBOutlet weak var topHitImageView: UIImageView!
     @IBOutlet weak var addToFavoriteButton: UIButton!
     var videoID = String()
     var videoImageUrl = String()
+    
     func configureGenreCell(_ video: Video){
-        
-        videoID = video.videoId
-        videoImageUrl = video.videoImageUrl
-        topHitSongTitle.text = video.videoTitle
-        let imageUrl = URL(string: video.videoImageUrl)
-        do{
-            let data:NSData = try NSData(contentsOf: imageUrl!)
-            topHitImageView.image =  UIImage(data: data as Data)
-            
-        }catch{
-            print("error")
+        DispatchQueue.main.async {
+            self.videoID = video.videoId
+            self.videoImageUrl = video.videoImageUrl
+            self.topHitSongTitle.text = video.videoTitle
+            let imageUrl = URL(string: video.videoImageUrl)
+            do{
+                let data:NSData = try NSData(contentsOf: imageUrl!)
+                self.topHitImageView.image =  UIImage(data: data as Data)
+                
+            }catch{
+                print("error")
+            }
+            self.topHitImageView.layer.borderWidth = 3
+            self.topHitImageView.layer.masksToBounds = false
+            self.topHitImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            self.topHitImageView.layer.shadowOpacity = 2
+            self.topHitImageView.layer.shadowPath = UIBezierPath(rect: self.topHitImageView.bounds).cgPath
+            self.topHitImageView.layer.cornerRadius = self.topHitImageView.frame.height/2
+            self.topHitImageView.layer.shadowRadius = 3
+            self.topHitImageView.layer.shadowOffset = .zero
+            self.topHitImageView.clipsToBounds = true
         }
-        topHitImageView.layer.borderWidth = 3
-        topHitImageView.layer.masksToBounds = false
-        topHitImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        topHitImageView.layer.shadowOpacity = 2
-        topHitImageView.layer.shadowPath = UIBezierPath(rect: topHitImageView.bounds).cgPath
-        self.topHitImageView.layer.cornerRadius = self.topHitImageView.frame.height/2
-        topHitImageView.layer.shadowRadius = 3
-        topHitImageView.layer.shadowOffset = .zero
-        topHitImageView.clipsToBounds = true
     }
-
-
+    
+    
 }

@@ -18,26 +18,30 @@ class GenreVideoTableViewCell: UITableViewCell {
     var videoID = String()
     var videoImageUrl = String()
     func configureGenreCell(_ video: Video){
-        videoID = video.videoId
-        videoImageUrl = video.videoImageUrl
-        singerNameLabel.text = video.videoTitle
-        let imageUrl = URL(string: video.videoImageUrl)
-        do{
-            let data:NSData = try NSData(contentsOf: imageUrl!)
-            videoImageView.image =  UIImage(data: data as Data)
+        DispatchQueue.main.async {
             
-        }catch{
-            print("error")
+            self.videoID = video.videoId
+            self.videoImageUrl = video.videoImageUrl
+            self.singerNameLabel.text = video.videoTitle
+            let imageUrl = URL(string: video.videoImageUrl)
+            do{
+                let data:NSData = try NSData(contentsOf: imageUrl!)
+                self.videoImageView.image =  UIImage(data: data as Data)
+                
+            }catch{
+                print("error")
+            }
+            self.videoImageView.layer.borderWidth = 3
+            self.videoImageView.layer.masksToBounds = false
+            self.videoImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+            self.videoImageView.layer.shadowOpacity = 2
+            self.videoImageView.layer.shadowPath = UIBezierPath(rect:  self.videoImageView.bounds).cgPath
+            self.videoImageView.layer.cornerRadius = self.videoImageView.frame.height/2
+            self.videoImageView.layer.shadowRadius = 3
+            self.videoImageView.layer.shadowOffset = .zero
+            self.videoImageView.clipsToBounds = true
+            
         }
-       videoImageView.layer.borderWidth = 3
-       videoImageView.layer.masksToBounds = false
-       videoImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
-       videoImageView.layer.shadowOpacity = 2
-       videoImageView.layer.shadowPath = UIBezierPath(rect: videoImageView.bounds).cgPath
-       self.videoImageView.layer.cornerRadius = self.videoImageView.frame.height/2
-       videoImageView.layer.shadowRadius = 3
-       videoImageView.layer.shadowOffset = .zero
-       videoImageView.clipsToBounds = true
     }
-
+    
 }

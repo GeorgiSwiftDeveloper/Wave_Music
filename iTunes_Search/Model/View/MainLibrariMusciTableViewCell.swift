@@ -9,7 +9,7 @@
 import UIKit
 
 class MainLibrariMusciTableViewCell: UITableViewCell {
-
+    
     
     
     
@@ -22,26 +22,29 @@ class MainLibrariMusciTableViewCell: UITableViewCell {
     
     
     func configureGenreCell(_ video: Video){
-        imageViewUrl = video.videoImageUrl
-        videoID = video.videoId
-        musicTitleLabel.text = video.videoTitle
-        let imageUrl = URL(string: video.videoImageUrl)
-        do{
-            let data:NSData = try NSData(contentsOf: imageUrl!)
-            musicImageView.image =  UIImage(data: data as Data)
-            
-        }catch{
-            print("error")
+        
+        DispatchQueue.main.async {
+            self.imageViewUrl = video.videoImageUrl
+            self.videoID = video.videoId
+            self.musicTitleLabel.text = video.videoTitle
+            let imageUrl = URL(string: video.videoImageUrl)
+            do{
+                let data:NSData = try NSData(contentsOf: imageUrl!)
+                self.musicImageView.image =  UIImage(data: data as Data)
+                
+            }catch{
+                print("error")
+            }
+            self.musicImageView.layer.borderWidth = 3
+            self.musicImageView.layer.masksToBounds = false
+            self.musicImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            self.musicImageView.layer.shadowOpacity = 2
+            self.musicImageView.layer.shadowPath = UIBezierPath(rect: self.musicImageView.bounds).cgPath
+            self.musicImageView.layer.cornerRadius = self.musicImageView.frame.height/2
+            self.musicImageView.layer.shadowRadius = 3
+            self.musicImageView.layer.shadowOffset = .zero
+            self.musicImageView.clipsToBounds = true
         }
-        musicImageView.layer.borderWidth = 3
-        musicImageView.layer.masksToBounds = false
-        musicImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        musicImageView.layer.shadowOpacity = 2
-        musicImageView.layer.shadowPath = UIBezierPath(rect: musicImageView.bounds).cgPath
-        self.musicImageView.layer.cornerRadius = self.musicImageView.frame.height/2
-        musicImageView.layer.shadowRadius = 3
-        musicImageView.layer.shadowOffset = .zero
-        musicImageView.clipsToBounds = true
     }
-
+    
 }
