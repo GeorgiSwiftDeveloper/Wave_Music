@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
+import AVFoundation
 class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate,CheckIfRowIsSelectedDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
@@ -48,6 +49,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        UIApplication.shared.beginReceivingRemoteControlEvents()
+//        self.becomeFirstResponder()
+       
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         UserDefaults.standard.removeObject(forKey: "checkIfMyLibraryViewControllerRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
@@ -73,6 +77,20 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.recentPlayedCollectionCell.dataSource = self
         
         getYouTubeResults()
+    }
+    
+    override func remoteControlReceived(with event: UIEvent?) {
+        switch event?.subtype {
+        case .remoteControlTogglePlayPause:
+            VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        case .remoteControlPlay:
+            
+            VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        case .remoteControlPause:
+            VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        default:
+            break;
+        }
     }
     
     func checkIfRowIsSelectedDelegate(_ checkIf: Bool) {
@@ -204,6 +222,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         super .viewDidDisappear(animated)
         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
         self.navigationController?.navigationBar.isHidden = false
+        
+        do {
+                   try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+               } catch {
+                   print(error)
+               }
     }
     
     

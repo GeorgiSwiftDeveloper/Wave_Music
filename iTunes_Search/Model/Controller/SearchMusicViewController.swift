@@ -19,7 +19,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     @IBOutlet weak var hintView: UIView!
     
     var searchConnectionManager = SearchConnection()
-    var selectedAlbumManager = FavoriteViewController()
     var favoriteAlbum = [Video]()
     var selectedMusic = [SelectedAlbumModel]()
     let searchController = UISearchController(searchResultsController: nil)
