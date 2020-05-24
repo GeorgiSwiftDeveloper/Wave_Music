@@ -34,8 +34,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     weak var checDelegate: CheckIfRowIsSelectedDelegate?
     
     @IBOutlet weak var selectedSectionTableView: UITableView!
-    @IBOutlet weak var topHitsListNSBottomLayout: NSLayoutConstraint!
-    @IBOutlet weak var myLibraryListNSBottomLayout: NSLayoutConstraint!
+//    @IBOutlet weak var topHitsListNSBottomLayout: NSLayoutConstraint!
+//    @IBOutlet weak var myLibraryListNSBottomLayout: NSLayoutConstraint!
     
     
     override func viewDidLoad() {
@@ -161,7 +161,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         default:
             break
         }
-        self.view.layoutIfNeeded()
+//        self.view.layoutIfNeeded()
     }
     
     func showVideoPlayerPause(){
@@ -352,7 +352,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 }
                 cell.configureMyLibraryCell(myLibraryList[indexPath.row])
                 cell.addToFavoriteButton.isHidden = true
-                        selectedTableViewCell = cell
+                selectedTableViewCell = cell
             }else {
                 return SelectedSectionTableViewCell()
             }
@@ -380,7 +380,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                     }
                 }
                 cell.configureMyLibraryCell(recentPlayedVideo[indexPath.row])
-                cell.addToFavoriteButton.isHidden = true
+                cell.addToFavoriteButton.tag = indexPath.row;
+                cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
+//                cell.addToFavoriteButton.isHidden = true
                 selectedTableViewCell = cell
             }else {
                 return SelectedSectionTableViewCell()
@@ -451,7 +453,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case "MyLibrary":
             canEdit =  true
         case "RecentPlayed":
-            canEdit =  false
+            canEdit =  true
         default:
             break
         }
@@ -461,14 +463,34 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
             removeSelectedVideoRow(atIndexPath: indexPath)
-            myLibraryList.remove(at: indexPath.row)
+            switch checkTable {
+            case "topHits":
+                     break
+            case "MyLibrary":
+                     myLibraryList.remove(at: indexPath.row)
+            case "RecentPlayed":
+                    recentPlayedVideo.remove(at: indexPath.row)
+            default:
+                break
+            }
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
     }
     
     func removeSelectedVideoRow(atIndexPath indexPath: IndexPath) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        var entityName = String()
+        switch checkTable {
+        case "topHits":
+            break
+        case "MyLibrary":
+            entityName = "MyLibraryMusicData"
+        case "RecentPlayed":
+            entityName = "RecentPlayedMusicData"
+        default:
+            break
+        }
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let result = try? context?.fetch(request)
         let resultData = result as! [NSManagedObject]
         context?.delete(resultData[indexPath.row])

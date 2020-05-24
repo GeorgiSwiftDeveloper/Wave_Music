@@ -21,6 +21,7 @@ class SelectedSectionTableViewCell: UITableViewCell {
             self.videoID = video.videoId
             self.videoImageUrl = video.videoImageUrl
             self.topHitLabelText.text = video.videoTitle
+            if video.videoImageUrl != ""{
             let imageUrl = URL(string: video.videoImageUrl)
             do{
                 let data:NSData = try NSData(contentsOf: imageUrl!)
@@ -28,6 +29,7 @@ class SelectedSectionTableViewCell: UITableViewCell {
                 
             }catch{
                 print("error")
+                }
             }
             self.topHitImageView.layer.borderWidth = 3
             self.topHitImageView.layer.masksToBounds = false
@@ -44,6 +46,7 @@ class SelectedSectionTableViewCell: UITableViewCell {
     func configureMyLibraryCell(_ video: Video){
         DispatchQueue.main.async {
             self.topHitLabelText.text = video.videoTitle
+            if video.videoImageUrl != ""{
             let imageUrl = URL(string: video.videoImageUrl)
             do{
                 let data:NSData = try NSData(contentsOf: imageUrl!)
@@ -51,6 +54,7 @@ class SelectedSectionTableViewCell: UITableViewCell {
                 
             }catch{
                 print("error")
+                }
             }
             self.topHitImageView.layer.borderWidth = 3
             self.topHitImageView.layer.masksToBounds = false
