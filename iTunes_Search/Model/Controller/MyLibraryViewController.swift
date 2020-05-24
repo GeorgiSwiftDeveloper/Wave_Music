@@ -404,7 +404,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topCell", for: indexPath) as! TopHitsCollectionViewCell
             cell.imageMainView.layer.cornerRadius = 3.0
             cell.imageMainView.layer.masksToBounds = true
-            cell.cellTitleLabel.text = "TOP HIT'S"
+            cell.cellTitleLabel.text = "World Top 100"
             
             
             cell.collectionImageView.layer.cornerRadius = 5.0
@@ -612,7 +612,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         if myLibraryListArray.count >= 4{
             let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))
             button.tag = section
-            button.setTitle("See more", for: .normal)
+            button.setTitle("View all", for: .normal)
             button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
             button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
             header.addSubview(button)
@@ -641,7 +641,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         if segue.identifier == "TopHitsMusic" {
             if  let nc = segue.destination as? SelectedSectionViewController {
-                nc.navigationItem.title = "Top Tracks"
+                nc.navigationItem.title = "World Top 100"
                 if videoSelected == true{
                     nc.videoSelected = true
                     nc.checDelegate = self
