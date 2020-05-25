@@ -20,6 +20,7 @@ class SearchVideoTableViewCell: UITableViewCell {
         DispatchQueue.main.async {
             self.singerNameLabel.text = albums.videoTitle
              self.videoID = albums.videoId
+             if albums.videoImageUrl != ""{
              self.videoImageUrl = albums.videoImageUrl
             let imageUrl = URL(string: albums.videoImageUrl)
             do{
@@ -28,6 +29,7 @@ class SearchVideoTableViewCell: UITableViewCell {
                 
             }catch{
                 print("error")
+                }
             }
              self.songImageView.layer.borderWidth = 3
              self.songImageView.layer.masksToBounds = false

@@ -16,6 +16,7 @@ class YouTubeTableViewCell: UITableViewCell {
     func configureGenreCell(_ video: Video){
         
         singerNameLabel.text = video.videoTitle
+        if video.videoImageUrl != ""{
         let imageUrl = URL(string: video.videoImageUrl)
         do{
             let data:NSData = try NSData(contentsOf: imageUrl!)
@@ -23,6 +24,7 @@ class YouTubeTableViewCell: UITableViewCell {
             
         }catch{
             print("error")
+            }
         }
         videoImageView.layer.borderWidth = 3
         videoImageView.layer.masksToBounds = false

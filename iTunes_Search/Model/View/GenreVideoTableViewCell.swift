@@ -21,6 +21,7 @@ class GenreVideoTableViewCell: UITableViewCell {
         DispatchQueue.main.async {
             
             self.videoID = video.videoId
+            if video.videoImageUrl != ""{
             self.videoImageUrl = video.videoImageUrl
             self.singerNameLabel.text = video.videoTitle
             let imageUrl = URL(string: video.videoImageUrl)
@@ -30,6 +31,7 @@ class GenreVideoTableViewCell: UITableViewCell {
                 
             }catch{
                 print("error")
+                }
             }
             self.videoImageView.layer.borderWidth = 3
             self.videoImageView.layer.masksToBounds = false

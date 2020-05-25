@@ -379,10 +379,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                         cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
                     }
                 }
-                cell.configureMyLibraryCell(recentPlayedVideo[indexPath.row])
+                cell.configureRecentlyPlayedCell(recentPlayedVideo[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
-//                cell.addToFavoriteButton.isHidden = true
                 selectedTableViewCell = cell
             }else {
                 return SelectedSectionTableViewCell()

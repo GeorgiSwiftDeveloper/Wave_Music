@@ -17,10 +17,11 @@ class TopHitsTableViewCell: UITableViewCell {
     var videoImageUrl = String()
     
     func configureGenreCell(_ video: Video){
+           self.videoID = video.videoId
         DispatchQueue.main.async {
-            self.videoID = video.videoId
-            self.videoImageUrl = video.videoImageUrl
             self.topHitSongTitle.text = video.videoTitle
+            if video.videoImageUrl != ""{
+            self.videoImageUrl = video.videoImageUrl
             let imageUrl = URL(string: video.videoImageUrl)
             do{
                 let data:NSData = try NSData(contentsOf: imageUrl!)
@@ -28,6 +29,7 @@ class TopHitsTableViewCell: UITableViewCell {
                 
             }catch{
                 print("error")
+                    }
             }
             self.topHitImageView.layer.borderWidth = 3
             self.topHitImageView.layer.masksToBounds = false
