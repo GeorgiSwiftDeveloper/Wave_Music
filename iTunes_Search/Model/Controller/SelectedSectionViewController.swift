@@ -53,18 +53,12 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             self.navigationItem.rightBarButtonItem  = deleteButton
             print(recentPlayedVideo.count)
             if recentPlayedVideo.count == 0 {
-                let alert = UIAlertController(title: "There is no RECENTLY PLAYED songs", message: "Your recently played songs will be placed here", preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                    
-                }
-                
-                let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
+                let alert = UIAlertController(title: "There is no RECENTLY PLAYED songs", message: "Your recently played songs will be placed here after you play any song", preferredStyle: .alert)
+                let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
                     self.navigationController?.popViewController(animated: true)
                     self.tabBarController?.selectedIndex = 0
                     self.tabBarController?.tabBar.isHidden = false
                 }
-                
-                alert.addAction(action)
                 alert.addAction(libraryAction)
                 present(alert, animated: true, completion: nil)
             }

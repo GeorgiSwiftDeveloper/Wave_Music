@@ -64,7 +64,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         self.musicLabelText.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
         self.musicLabelText.numberOfLines = 0
         self.musicLabelText.textAlignment = .left
-        self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
+        self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 10)
         self.musicLabelText.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.musicLabelText.text = selectedVideo.videoTitle
         
@@ -219,7 +219,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
                         self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                         self.musicLabelText.numberOfLines = 0
                         self.musicLabelText.textAlignment = .left
-                        self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 12)
+                        self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 10)
                         self.superViewController?.navigationController?.navigationBar.isHidden = false
                         self.superViewController?.tabBarController?.tabBar.isHidden = false
                     }
