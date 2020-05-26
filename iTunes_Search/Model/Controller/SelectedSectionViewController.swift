@@ -51,6 +51,23 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             fetchRecentPlayedVideo()
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
             self.navigationItem.rightBarButtonItem  = deleteButton
+            print(recentPlayedVideo.count)
+            if recentPlayedVideo.count == 0 {
+                let alert = UIAlertController(title: "There is no RECENTLY PLAYED songs", message: "Your recently played songs will be placed here", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                    
+                }
+                
+                let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                    self.tabBarController?.selectedIndex = 0
+                    self.tabBarController?.tabBar.isHidden = false
+                }
+                
+                alert.addAction(action)
+                alert.addAction(libraryAction)
+                present(alert, animated: true, completion: nil)
+            }
         default:
             break
         }
@@ -285,10 +302,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-                    DispatchQueue.main.async {
+//                    DispatchQueue.main.async {
                         self.recentPlayedVideo.append(videoList!)
                         self.selectedSectionTableView.reloadData()
-                    }
+//                    }
                 }
             }
         }
