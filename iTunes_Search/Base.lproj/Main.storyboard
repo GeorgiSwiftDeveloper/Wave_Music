@@ -1199,7 +1199,7 @@
                                             <constraint firstAttribute="height" constant="45" id="kWJ-gR-z3r"/>
                                             <constraint firstAttribute="width" constant="45" id="uMG-y4-ANw"/>
                                         </constraints>
-                                        <state key="normal" image="btn-stop">
+                                        <state key="normal" image="arrowshape.turn.up.right.fill" catalog="system">
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <state key="selected" image="btn-pause"/>
@@ -1696,12 +1696,12 @@
         <image name="07012019-18" width="5000" height="4000"/>
         <image name="NowPlayingBars" width="19.666666030883789" height="19"/>
         <image name="antenna.radiowaves.left.and.right" catalog="system" width="128" height="109"/>
+        <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="106"/>
         <image name="background" width="320" height="568"/>
         <image name="btn-next" width="44" height="44"/>
         <image name="btn-pause" width="44" height="44"/>
         <image name="btn-play" width="44" height="44"/>
         <image name="btn-previous" width="44" height="44"/>
-        <image name="btn-stop" width="44" height="44"/>
         <image name="head-" width="5874" height="3921"/>
         <image name="icon-hamburger" width="22" height="16"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>

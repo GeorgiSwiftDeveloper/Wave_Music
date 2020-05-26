@@ -296,10 +296,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-//                    DispatchQueue.main.async {
                         self.recentPlayedVideo.append(videoList!)
                         self.selectedSectionTableView.reloadData()
-//                    }
                 }
             }
         }

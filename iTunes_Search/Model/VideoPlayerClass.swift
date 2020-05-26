@@ -34,6 +34,8 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     var systemSlider = UISlider()
     var volMax = UIImageView()
     var volMin = UIImageView()
+    var addToFavorite = UIButton()
+    var sharePlayedMusic = UIButton()
     var checkIfPause = true
     
     enum CardState {
@@ -111,6 +113,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
         UserDefaults.standard.set(true, forKey:"pause")
         
+        
         let tapGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handleCardTap(recognzier:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handleCardPan(recognizer:)))
         
@@ -164,10 +167,10 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     
     
     
-    @objc func handleCardTap(recognzier:UITapGestureRecognizer) {
+    @objc func handleCardTap(recognzier:UIPanGestureRecognizer) {
         switch recognzier.state {
         case .ended:
-            animateTransitionIfNeeded(state: nextState, duration: 0.9)
+            animateTransitionIfNeeded(state: nextState, duration: 0.6)
         default:
             break
         }
@@ -177,7 +180,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     @objc func handleCardPan (recognizer:UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
-            startInteractiveTransition(state: nextState, duration: 0.9)
+            startInteractiveTransition(state: nextState, duration: 0.6)
         case .changed:
             let translation = recognizer.translation(in: self.cardViewController.view)
             var fractionComplete = translation.y / cardHeight
@@ -192,7 +195,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     
     func animateTransitionIfNeeded (state:CardState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
-            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1.5) {
                 switch state {
                 case .expanded:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHeight
@@ -288,6 +291,29 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         self.volMax.frame = CGRect(x: self.cardViewController.view.center.x + 145, y: 505, width: 15, height: 15)
         self.volMax.image = UIImage(named: "vol-max")
         self.cardViewController.view.addSubview(volMax)
+        
+        
+        let textFont = UIFont(name: "Helvetica Bold", size: 11)
+        
+        self.addToFavorite.frame = CGRect(x: self.cardViewController.view.frame.origin.x, y: 600, width: 100, height: 30)
+        self.addToFavorite.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        self.addToFavorite.imageView?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.addToFavorite.imageView?.clipsToBounds = true
+        self.addToFavorite.setTitle("  My Library", for: .normal)
+        self.addToFavorite.titleLabel?.font = textFont
+        
+        self.cardViewController.view.addSubview(addToFavorite)
+        
+        
+        self.sharePlayedMusic.frame = CGRect(x: self.cardViewController.view.center.x + 40, y: 600, width: 230, height: 30)
+        self.sharePlayedMusic.setImage(UIImage(systemName: "arrowshape.turn.up.right.fill"), for: .normal)
+        self.sharePlayedMusic.imageView?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.sharePlayedMusic.imageView?.clipsToBounds = true
+        self.sharePlayedMusic.setTitle(" Share", for: .normal)
+        self.sharePlayedMusic.titleLabel?.font = textFont
+        self.cardViewController.view.addSubview(sharePlayedMusic)
+        
+        
     }
     
     
@@ -355,3 +381,24 @@ extension MPVolumeView {
 }
 
 
+
+extension UIImage {
+    func imageWithColor(tintColor: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+
+        let context = UIGraphicsGetCurrentContext()!
+        context.translateBy(x: 0, y: self.size.height)
+        context.scaleBy(x: 1.0, y: -1.0);
+        context.setBlendMode(.normal)
+
+        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height) as CGRect
+        context.clip(to: rect, mask: self.cgImage!)
+        tintColor.setFill()
+        context.fill(rect)
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return newImage
+    }
+}
