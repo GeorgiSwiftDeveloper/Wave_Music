@@ -87,7 +87,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                             let genreTitle = self.videoArray[songIndex].genreTitle
                             
                             print(genreTitle)
-
+                            
                             
                             self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle, channelId: channelId)
                             
@@ -113,70 +113,70 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-            iFMyLybraryOrSearchSelected()
-               NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSelectionLibraryRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
-            let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-            switch pause {
-            case true:
-                VideoPlayerClass.callVideoPlayer.superViewController = self
-                self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-                VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                    if let error = error {
-                        print("Error getting player state:" + error.localizedDescription)
-                    } else if let playerState = playerState as? WKYTPlayerState {
-                        
-                        self?.updatePlayerState(playerState)
-                    }
-                })
-            case false:
-                VideoPlayerClass.callVideoPlayer.superViewController = self
-                self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-                VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                    if let error = error {
-                        print("Error getting player state:" + error.localizedDescription)
-                    } else if let playerState = playerState as? WKYTPlayerState {
-                        
-                        self?.updatePlayerState(playerState)
-                    }
-                })
-            default:
-                break
-            }
+        iFMyLybraryOrSearchSelected()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSelectionLibraryRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
+        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+        switch pause {
+        case true:
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
+        case false:
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
+        default:
+            break
+        }
     }
     
     func updatePlayerState(_ playerState: WKYTPlayerState){
-              switch playerState {
-              case .ended:
-                  self.showVideoPlayerPause()
-              case .paused:
-                  self.showVideoPlayerPause()
-              case .playing:
-                  self.showVideoPlayer()
-              default:
-                  break
-              }
-          }
+        switch playerState {
+        case .ended:
+            self.showVideoPlayerPause()
+        case .paused:
+            self.showVideoPlayerPause()
+        case .playing:
+            self.showVideoPlayer()
+        default:
+            break
+        }
+    }
     
     func showVideoPlayer(){
-            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-            self.genreBottomNSLayoutConstraint.constant = 150
-            self.view.layoutIfNeeded()
+        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        self.genreBottomNSLayoutConstraint.constant = 150
+        self.view.layoutIfNeeded()
     }
     
     func showVideoPlayerPause(){
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-            self.genreBottomNSLayoutConstraint.constant = 150
-            self.view.layoutIfNeeded()
+        VideoPlayerClass.callVideoPlayer.superViewController = self
+        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        self.genreBottomNSLayoutConstraint.constant = 150
+        self.view.layoutIfNeeded()
     }
-          
-      
-      override func viewDidDisappear(_ animated: Bool) {
-          super .viewDidDisappear(animated)
-          VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
-      }
-      
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super .viewDidDisappear(animated)
+        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+    }
+    
     
     func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String, channelId: String) {
         switch genreTitle {
@@ -274,13 +274,13 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     override func viewDidAppear(_ animated: Bool) {
-           super .viewDidAppear(animated)
+        super .viewDidAppear(animated)
         
     }
-       
-
-       
-       
+    
+    
+    
+    
     func iFMyLybraryOrSearchSelected() {
         DispatchQueue.main.async {
             if self.searchIsSelected == true {
@@ -319,9 +319,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @objc func NotificationIdentifierSelectionLibraryRowSelected(notification: Notification) {
-            UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
-            genreTableView.reloadData()
-        }
+        UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
+        genreTableView.reloadData()
+    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -359,46 +359,46 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     @objc func addToFavoriteTapped(sender: UIButton){
-               let selectedIndex = IndexPath(row: sender.tag, section: 0)
-               self.genreTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-               let selectedCell = self.genreTableView.cellForRow(at: selectedIndex) as! GenreVideoTableViewCell
-               let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let selectedIndex = IndexPath(row: sender.tag, section: 0)
+        self.genreTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+        let selectedCell = self.genreTableView.cellForRow(at: selectedIndex) as! GenreVideoTableViewCell
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
-               request.predicate = predicate
-               request.fetchLimit = 1
-               
-               do{
-                   let count = try context?.count(for: request)
-                   if(count == 0){
-                       // no matching object
-                       let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
-                       let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                       newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
-                       newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
-                       newEntity.setValue(selectedCell.videoID, forKey: "videoId")
-                       try context?.save()
-                       print("data has been saved ")
-                    let alert = UIAlertController(title: "\(selectedCell.singerNameLabel.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
-                       let action = UIAlertAction(title: "OK", style: .default) { (action) in
-                       }
-                       alert.addAction(action)
-                       present(alert, animated: true, completion: nil)
-                   }
-                   else{
-                       // at least one matching object exists
-                       let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
-                       let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                       }
-                       
-                       
-                       alert.addAction(action)
-                       present(alert, animated: true, completion: nil)
-                       
-                   }
-               }
-               catch let error as NSError {
-                   print("Could not fetch \(error), \(error.userInfo)")
-               }
+        request.predicate = predicate
+        request.fetchLimit = 1
+        
+        do{
+            let count = try context?.count(for: request)
+            if(count == 0){
+                // no matching object
+                let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
+                newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
+                newEntity.setValue(selectedCell.videoID, forKey: "videoId")
+                try context?.save()
+                print("data has been saved ")
+                let alert = UIAlertController(title: "\(selectedCell.singerNameLabel.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default) { (action) in
+                }
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+            }
+            else{
+                // at least one matching object exists
+                let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                }
+                
+                
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+                
+            }
+        }
+        catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
     }
     
     
@@ -419,23 +419,23 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
             
             FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.singerNameLabel.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
-                       if error != nil {
-                           print(error)
-                       }
-                   }
+                if error != nil {
+                    print(error)
+                }
+            }
             self.genreTableView.reloadData()
         }
         //        self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
     }
     
     
-//    override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//            if segue.identifier == "youTubeSegue" {
-//              let genreVC = segue.destination as! YouTubeViewController
-//                genreVC.genreVideoID  = sender as? Video
-//                genreVC.selectedGenreTitle = genreTitle
-//                genreVC.modalPresentationStyle = .fullScreen
-//            }
-//        }
+    //    override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //            if segue.identifier == "youTubeSegue" {
+    //              let genreVC = segue.destination as! YouTubeViewController
+    //                genreVC.genreVideoID  = sender as? Video
+    //                genreVC.selectedGenreTitle = genreTitle
+    //                genreVC.modalPresentationStyle = .fullScreen
+    //            }
+    //        }
     
 }

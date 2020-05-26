@@ -48,8 +48,6 @@ static var fetchRecentPlayedVideo = FetchRecentPlayedVideo()
                 newEntity.setValue(selectedCellTitleLabel, forKey: "title")
                 newEntity.setValue(selectedCellImageViewUrl, forKey: "image")
                 newEntity.setValue(selectedCellVideoID, forKey: "videoId")
-                
-                //                    myLibraryList = []
                 try context?.save()
                 loadVideoList(true,nil)
                 print("data has been saved ")

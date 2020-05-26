@@ -45,7 +45,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         
     }
     
-   
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -53,7 +53,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-//            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.superViewController = self
             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
             VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
@@ -65,7 +64,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
                 }
             })
         case false:
-//            genreListNSLayoutBottomContraint.constant = 150
             VideoPlayerClass.callVideoPlayer.superViewController = self
             self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
             VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
@@ -87,7 +85,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             self.showVideoPlayerPause()
         case .paused:
             self.showVideoPlayerPause()
-
+            
         case .playing:
             self.showVideoPlayer()
         default:
@@ -97,22 +95,22 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     func showVideoPlayer(){
-             VideoPlayerClass.callVideoPlayer.webView.playVideo()
-     }
-     func showVideoPlayerPause(){
-             VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-     }
+        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+    }
+    func showVideoPlayerPause(){
+        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+    }
     
-
+    
     
     
     override func viewDidDisappear(_ animated: Bool) {
-         super .viewDidDisappear(animated)
-         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
-     }
+        super .viewDidDisappear(animated)
+        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+    }
     
     override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-          if segue.identifier == "genrseListSegue" {
+        if segue.identifier == "genrseListSegue" {
             let genreVC = segue.destination as! GenreListViewController
             let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
             if selectedSearch == true {
@@ -123,9 +121,9 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             if selectedmyLybrary == true {
                 genreVC.selectedmyLybrary = true
             }
-              genreVC.genreTitle  = sender as? GenreModel
-          }
-      }
+            genreVC.genreTitle  = sender as? GenreModel
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var numberRows = 0
@@ -143,43 +141,43 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = UICollectionViewCell()
-          switch collectionView {
-          case favoriteCollectionView:
-           if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
-                    cell.confiigurationCell(GenreModelService.instance.getGenreArray()[indexPath.row])
-                 UserDefaults.standard.set(indexPath.row, forKey:"selectedGenereCollectionIndex")
-                 indexArray.append(indexPath.row)
-                    return cell
-                }else {
-                    return GenresCollectionViewCell()
-                }
-          case countySelectedCollectionView:
-                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCollectionCell", for: indexPath) as? SelectedCoutryCollectionViewCell {
-                      let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
-                       cell.selectedCountryName.text = "\(countrySelected!)\n Top Hits 2020"
-                    
-                    cell.selectedCountryImageView.layer.borderWidth = 3
-                    cell.selectedCountryImageView.layer.masksToBounds = false
-                    cell.selectedCountryImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-                    cell.selectedCountryImageView.layer.shadowOpacity = 3
-                    cell.selectedCountryImageView.layer.shadowPath = UIBezierPath(rect:cell.selectedCountryImageView.bounds).cgPath
-                    cell.selectedCountryImageView.layer.shadowRadius = 5
-                    cell.selectedCountryImageView.layer.shadowOffset = .zero
-                    cell.selectedCountryImageView.layer.cornerRadius = 10.0
-                    cell.selectedCountryImageView.clipsToBounds = true
-                       return cell
-                   }else {
-                       return SelectedCoutryCollectionViewCell()
-                   }
-          default:
-              break
-          }
-          return cell
+        switch collectionView {
+        case favoriteCollectionView:
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
+                cell.confiigurationCell(GenreModelService.instance.getGenreArray()[indexPath.row])
+                UserDefaults.standard.set(indexPath.row, forKey:"selectedGenereCollectionIndex")
+                indexArray.append(indexPath.row)
+                return cell
+            }else {
+                return GenresCollectionViewCell()
+            }
+        case countySelectedCollectionView:
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCollectionCell", for: indexPath) as? SelectedCoutryCollectionViewCell {
+                let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
+                cell.selectedCountryName.text = "\(countrySelected!)\n Top Hits 2020"
+                
+                cell.selectedCountryImageView.layer.borderWidth = 3
+                cell.selectedCountryImageView.layer.masksToBounds = false
+                cell.selectedCountryImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+                cell.selectedCountryImageView.layer.shadowOpacity = 3
+                cell.selectedCountryImageView.layer.shadowPath = UIBezierPath(rect:cell.selectedCountryImageView.bounds).cgPath
+                cell.selectedCountryImageView.layer.shadowRadius = 5
+                cell.selectedCountryImageView.layer.shadowOffset = .zero
+                cell.selectedCountryImageView.layer.cornerRadius = 10.0
+                cell.selectedCountryImageView.clipsToBounds = true
+                return cell
+            }else {
+                return SelectedCoutryCollectionViewCell()
+            }
+        default:
+            break
+        }
+        return cell
     }
     
     @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
-                   UserDefaults.standard.set(selectedGenreIndexRow, forKey:"selectedGenereCollectionIndex")
-        }
+        UserDefaults.standard.set(selectedGenreIndexRow, forKey:"selectedGenereCollectionIndex")
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -191,9 +189,9 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             
             let selectedGenereCollectionIndex = UserDefaults.standard.object(forKey: "selectedGenereCollectionIndex") as? Int
             if selectedGenereCollectionIndex == selectedGenreIndexRow {
-                 UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
+                UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
             }else{
-                 UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
+                UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
             }
             self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
         case countySelectedCollectionView:
