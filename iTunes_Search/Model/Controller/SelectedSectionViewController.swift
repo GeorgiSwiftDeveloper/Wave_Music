@@ -48,6 +48,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             fetchTopHitList()
          case "MyLibrary":
               fetchMyLibraryList()
+              let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
+                  self.navigationItem.rightBarButtonItem  = deleteButton
         case "RecentPlayed":
             fetchRecentPlayedVideo()
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
@@ -59,7 +61,18 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     @objc func rightButtonAction() {
-        let alert = UIAlertController(title: "RECENTLY PLAYED", message: "Are you sure you want to delete RECENTLY PLAYED music list ?", preferredStyle: .alert)
+        var alertTitle = String()
+        switch checkTable {
+        case "topHits":
+            break
+        case "MyLibrary":
+            alertTitle = "My Library"
+        case "RecentPlayed":
+          alertTitle = "RECENTLY PLAYED"
+        default:
+            break
+        }
+        let alert = UIAlertController(title: alertTitle, message: "Are you sure you want to delete \(alertTitle) music list ?", preferredStyle: .alert)
         let actionYes = UIAlertAction(title: "YES", style: .default) { (action) in
              NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierRecentPlayedDeleteRecords"), object: nil)
             self.deleteRecords()
@@ -77,8 +90,20 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     func deleteRecords() -> Void {
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentPlayedMusicData")
-
+        var entityName = String()
+        switch checkTable {
+        case "topHits":
+            break
+        case "MyLibrary":
+            entityName = "MyLibraryMusicData"
+            myLibraryList = []
+        case "RecentPlayed":
+            entityName = "RecentPlayedMusicData"
+            recentPlayedVideo = []
+        default:
+            break
+        }
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let result = try? context?.fetch(fetchRequest)
         let resultData = result as! [NSManagedObject]
          for object in resultData {
@@ -87,7 +112,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
 
         do {
             try context?.save()
-            recentPlayedVideo = []
             print("saved!")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
