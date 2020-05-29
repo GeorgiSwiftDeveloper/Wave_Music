@@ -34,6 +34,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var sectionButton = UIButton()
     var selectedIndex = Int()
     var videoSelected = Bool()
+    var viewAllButton = UIButton()
     var isEntityIsEmpty: Bool {
         do {
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -184,7 +185,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
         self.myLibraryListArray = []
         self.fetchMyLibraryList()
-        self.myLibraryTableView.reloadData()
         self.recentPlayedVideo = []
         fetchRecentPlayedVideo()
     }
@@ -380,6 +380,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 
                 
                 myLibraryListArray.append(videoList)
+            }
+            if myLibraryListArray.count < 5 {
+                viewAllButton.isHidden = true
+            }else{
+                viewAllButton.isHidden = false
             }
             myLibraryTableView.reloadData()
             
@@ -605,14 +610,14 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 20)!
         header.textLabel?.textColor = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
         if myLibraryListArray.count >= 4{
-            let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40))
-            button.tag = section
-            button.setTitle("View all", for: .normal)
-            button.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
-            button.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
-            header.addSubview(button)
-            sectionButton = button
-            button.addTarget(self, action: #selector(destinationMyLibraryVC), for: .touchUpInside)
+            viewAllButton.frame = CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40)
+            viewAllButton.tag = section
+            viewAllButton.setTitle("View all", for: .normal)
+            viewAllButton.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
+            viewAllButton.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
+            header.addSubview(viewAllButton)
+            sectionButton = viewAllButton
+            viewAllButton.addTarget(self, action: #selector(destinationMyLibraryVC), for: .touchUpInside)
         }
     }
     

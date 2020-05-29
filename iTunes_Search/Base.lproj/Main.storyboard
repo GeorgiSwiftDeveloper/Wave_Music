@@ -793,7 +793,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xp2-09-Jqn">
-                                <rect key="frame" x="0.0" y="116" width="375" height="642"/>
+                                <rect key="frame" x="0.0" y="96" width="375" height="662"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="genreCell" rowHeight="75" id="Fr9-HG-2Et" customClass="GenreVideoTableViewCell" customModule="Wave" customModuleProvider="target">
@@ -851,10 +851,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Top Genre" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuZ-97-Hyv">
-                                <rect key="frame" x="0.0" y="56" width="375" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Top Genre" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuZ-97-Hyv">
+                                <rect key="frame" x="0.0" y="56" width="375" height="40"/>
                                 <color key="backgroundColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="16"/>
                                 <color key="textColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -863,7 +863,7 @@
                         <constraints>
                             <constraint firstItem="xp2-09-Jqn" firstAttribute="top" secondItem="WuZ-97-Hyv" secondAttribute="bottom" id="2Gw-bB-Ahr"/>
                             <constraint firstItem="WuZ-97-Hyv" firstAttribute="leading" secondItem="iax-Xf-q6G" secondAttribute="leading" id="2gR-Nc-tJW"/>
-                            <constraint firstItem="xp2-09-Jqn" firstAttribute="top" secondItem="iax-Xf-q6G" secondAttribute="top" constant="60" id="Agd-Vo-WwR"/>
+                            <constraint firstItem="xp2-09-Jqn" firstAttribute="top" secondItem="iax-Xf-q6G" secondAttribute="top" constant="40" id="Agd-Vo-WwR"/>
                             <constraint firstAttribute="bottom" secondItem="xp2-09-Jqn" secondAttribute="bottom" id="LGI-u7-xZ6"/>
                             <constraint firstItem="WuZ-97-Hyv" firstAttribute="top" secondItem="iax-Xf-q6G" secondAttribute="top" id="LQE-pU-hNO"/>
                             <constraint firstItem="WuZ-97-Hyv" firstAttribute="trailing" secondItem="iax-Xf-q6G" secondAttribute="trailing" id="Nlr-Pl-Ew1"/>
