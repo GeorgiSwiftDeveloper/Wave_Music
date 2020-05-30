@@ -79,7 +79,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         cardViewController.view.frame = CGRect(x: 0, y: superView.view.frame.height - cardHandleAreaHeight, width: superView.view.bounds.width, height: cardHeight)
         cardViewController.view.clipsToBounds = true
         
-        self.webView = WKYTPlayerView(frame: CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 220))
+        self.webView = WKYTPlayerView(frame: CGRect(x: 0, y: 55, width: UIScreen.main.bounds.width, height: 220))
         
         self.cardViewController.view.addSubview(self.webView)
         DispatchQueue.main.async {
