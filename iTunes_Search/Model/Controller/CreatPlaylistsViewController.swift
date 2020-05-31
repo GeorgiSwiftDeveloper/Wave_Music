@@ -36,14 +36,16 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         if let cell = tableView.dequeueReusableCell(withIdentifier: "playlistCell", for: indexPath) as? PlaylistsTableViewCell {
             if indexPath.row == 0 {
                 cell.playlistName.text = createdPlaylistArray[0]
-                cell.playlistName.textColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
+                cell.playlistName.textColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
+                cell.playlistName.font = UIFont(name: "Verdana-Bold", size: 14.0)
                 cell.playlistImage.image = UIImage(systemName: "list.bullet")
             }else{
                 cell.playlistName.text = createdPlaylistArray[indexPath.row]
-                cell.playlistName.textColor = UIColor.black
+                cell.playlistName.textColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                 cell.playlistName.font = UIFont(name: "Verdana", size: 12.0)
                 cell.playlistName.textAlignment = .left
                 cell.playlistImage.image = UIImage(systemName: "music.note.list")
+                cell.playlistImage.tintColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
             }
              return cell
         }else {
@@ -57,21 +59,26 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         case 0:
             var playlistTxt = UITextField()
             let alert = UIAlertController(title: "New Playlist", message: "", preferredStyle: .alert)
+            
             let action = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             }
             let createPlaylistAction = UIAlertAction(title: "Create", style: .default) { (action) in
                 let text = (alert.textFields?.first as! UITextField).text
+                if text == ""{
+                   print("data is empty")
+                }else{
                 self.createdPlaylistArray.append(text!)
                 print(self.createdPlaylistArray.count)
                 self.playlistTableView.reloadData()
+                }
             }
             
             alert.addAction(action)
             alert.addAction(createPlaylistAction)
             //Add text field
              alert.addTextField { (texfield) in
-                       playlistTxt = texfield
-                       
+                playlistTxt = texfield
+                playlistTxt.placeholder = "Enter  name for this playlist"
                    }
             present(alert, animated: true, completion: nil)
         default:

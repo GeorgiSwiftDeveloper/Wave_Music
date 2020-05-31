@@ -296,8 +296,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-                        self.recentPlayedVideo.append(videoList!)
-                        self.selectedSectionTableView.reloadData()
+                    self.recentPlayedVideo.append(videoList!)
+                    self.selectedSectionTableView.reloadData()
                 }
             }
         }
@@ -419,58 +419,104 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         return selectedTableViewCell
     }
     
-    @objc func addToMyLibraryButton(sender: UIButton) {
+    
+    @objc func addToMyLibraryButton(sender: UIButton){
         let selectedIndex = IndexPath(row: sender.tag, section: 0)
         self.selectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.selectedSectionTableView.cellForRow(at: selectedIndex) as! SelectedSectionTableViewCell
-        
-        
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         let predicate = NSPredicate(format: "title == %@", selectedCell.topHitLabelText.text! as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
-        do{
-            let count = try context?.count(for: request)
-            if(count == 0){
-                // no matching object
-                let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
-                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                newEntity.setValue(selectedCell.topHitLabelText.text!, forKey: "title")
-                newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
-                newEntity.setValue(selectedCell.videoID, forKey: "videoId")
-                myLibraryList = []
-                try context?.save()
-                print("data has been saved ")
-                let alert = UIAlertController(title: "\(selectedCell.topHitLabelText.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .default) { (action) in
+        let alert = UIAlertController(title: "\(selectedCell.topHitLabelText.text ?? "")", message: "", preferredStyle: .actionSheet)
+        let addMyLibraryAction = UIAlertAction(title: "Add to MyLibrary", style: .default) { (action) in
+            do{
+                let count = try context?.count(for: request)
+                if(count == 0){
+                    let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+                    let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                    newEntity.setValue(selectedCell.topHitLabelText.text, forKey: "title")
+                    newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
+                    newEntity.setValue(selectedCell.videoID, forKey: "videoId")
+                    try context?.save()
+                    print("data has been saved ")
+                } else{
+                    // at least one matching object exists
+                    let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                    }
+                    alert.addAction(action)
+                    self.present(alert, animated: true, completion: nil)
                 }
-                alert.addAction(action)
-                present(alert, animated: true, completion: nil)
-            }
-            else{
-                // at least one matching object exists
-                let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                    
-                }
-                
-                let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
-                    self.navigationController?.popViewController(animated: true)
-                    self.tabBarController?.selectedIndex = 0
-                    self.tabBarController?.tabBar.isHidden = false
-                }
-                
-                alert.addAction(action)
-                alert.addAction(libraryAction)
-                present(alert, animated: true, completion: nil)
-                
+            }catch{
+                print("error")
             }
         }
-        catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
+        let addPlaylistAction = UIAlertAction(title: "Add to Playlist", style: .default) { (action) in
+            self.navigationController?.popViewController(animated: true)
+            self.tabBarController?.selectedIndex = 3
         }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(addMyLibraryAction)
+        alert.addAction(addPlaylistAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
     
+    //    @objc func addToMyLibraryButton(sender: UIButton) {
+    //        let selectedIndex = IndexPath(row: sender.tag, section: 0)
+    //        self.selectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+    //        let selectedCell = self.selectedSectionTableView.cellForRow(at: selectedIndex) as! SelectedSectionTableViewCell
+    //
+    //
+    //        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+    //        let predicate = NSPredicate(format: "title == %@", selectedCell.topHitLabelText.text! as CVarArg)
+    //        request.predicate = predicate
+    //        request.fetchLimit = 1
+    //        do{
+    //            let count = try context?.count(for: request)
+    //            if(count == 0){
+    //                // no matching object
+    //                let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+    //                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+    //                newEntity.setValue(selectedCell.topHitLabelText.text!, forKey: "title")
+    //                newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
+    //                newEntity.setValue(selectedCell.videoID, forKey: "videoId")
+    //                myLibraryList = []
+    //                try context?.save()
+    //                print("data has been saved ")
+    //                let alert = UIAlertController(title: "\(selectedCell.topHitLabelText.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
+    //                let action = UIAlertAction(title: "OK", style: .default) { (action) in
+    //                }
+    //                alert.addAction(action)
+    //                present(alert, animated: true, completion: nil)
+    //            }
+    //            else{
+    //                // at least one matching object exists
+    //                let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
+    //                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+    //
+    //                }
+    //
+    //                let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
+    //                    self.navigationController?.popViewController(animated: true)
+    //                    self.tabBarController?.selectedIndex = 0
+    //                    self.tabBarController?.tabBar.isHidden = false
+    //                }
+    //
+    //                alert.addAction(action)
+    //                alert.addAction(libraryAction)
+    //                present(alert, animated: true, completion: nil)
+    //
+    //            }
+    //        }
+    //        catch let error as NSError {
+    //            print("Could not fetch \(error), \(error.userInfo)")
+    //        }
+    //    }
+    //
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         var canEdit = Bool()
         switch checkTable {

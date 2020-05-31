@@ -14,33 +14,18 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     @IBOutlet weak var navigationForMusic: UINavigationItem!
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
-    @IBOutlet weak var countySelectedCollectionView: UICollectionView!
     var selectedGenreIndexRow = Int()
     var indexArray = [Int]()
     var indexpath = Int()
     var genreCollectionViewBottomHeight = 145
     
     @IBOutlet weak var genreListNSLayoutBottomContraint: NSLayoutConstraint!
-    @IBOutlet weak var genreListNSLayoutTopContraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
-        
-        if countrySelected != "" {
-            favoriteCollectionView.isScrollEnabled = true
-            genreListNSLayoutTopContraint.constant = 200
-            countySelectedCollectionView.isHidden = false
-            self.countySelectedCollectionView.reloadData()
-        }else{
-            favoriteCollectionView.isScrollEnabled = false
-            genreListNSLayoutTopContraint.constant = 0
-            countySelectedCollectionView.isHidden = true
-        }
+        favoriteCollectionView.isScrollEnabled = false
         self.favoriteCollectionView.delegate = self
         self.favoriteCollectionView.dataSource = self
-        self.countySelectedCollectionView.delegate = self
-        self.countySelectedCollectionView.dataSource = self
         self.favoriteCollectionView.reloadData()
         
     }
@@ -109,29 +94,12 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
     }
     
-    override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "genrseListSegue" {
-            let genreVC = segue.destination as! GenreListViewController
-            let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-            if selectedSearch == true {
-                genreVC.searchIsSelected = true
-            }
-            
-            let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
-            if selectedmyLybrary == true {
-                genreVC.selectedmyLybrary = true
-            }
-            genreVC.genreTitle  = sender as? GenreModel
-        }
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var numberRows = 0
         switch collectionView {
         case favoriteCollectionView:
             numberRows = GenreModelService.instance.getGenreArray().count
-        case countySelectedCollectionView:
-            numberRows = 1
         default:
             break
         }
@@ -151,24 +119,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             }else {
                 return GenresCollectionViewCell()
             }
-        case countySelectedCollectionView:
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCollectionCell", for: indexPath) as? SelectedCoutryCollectionViewCell {
-                let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
-                cell.selectedCountryName.text = "\(countrySelected!)\n Top Hits 2020"
-                
-                cell.selectedCountryImageView.layer.borderWidth = 3
-                cell.selectedCountryImageView.layer.masksToBounds = false
-                cell.selectedCountryImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-                cell.selectedCountryImageView.layer.shadowOpacity = 3
-                cell.selectedCountryImageView.layer.shadowPath = UIBezierPath(rect:cell.selectedCountryImageView.bounds).cgPath
-                cell.selectedCountryImageView.layer.shadowRadius = 5
-                cell.selectedCountryImageView.layer.shadowOffset = .zero
-                cell.selectedCountryImageView.layer.cornerRadius = 10.0
-                cell.selectedCountryImageView.clipsToBounds = true
-                return cell
-            }else {
-                return SelectedCoutryCollectionViewCell()
-            }
         default:
             break
         }
@@ -177,6 +127,23 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
         UserDefaults.standard.set(selectedGenreIndexRow, forKey:"selectedGenereCollectionIndex")
+    }
+    
+    
+    override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "genrseListSegue" {
+            let genreVC = segue.destination as! GenreListViewController
+            let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+            if selectedSearch == true {
+                genreVC.searchIsSelected = true
+            }
+            
+            let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
+            if selectedmyLybrary == true {
+                genreVC.selectedmyLybrary = true
+            }
+            genreVC.genreTitle  = sender as? GenreModel
+        }
     }
     
     
@@ -193,9 +160,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             }else{
                 UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
             }
-            self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
-        case countySelectedCollectionView:
-            let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
+            
             self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
         default:
             break
