@@ -1509,7 +1509,6 @@
         <!--Playlists-->
         <scene sceneID="77P-ui-twf">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="r4L-vh-Vjt" sceneMemberID="firstResponder"/>
                 <viewController id="gsE-nP-3mH" customClass="CreatPlaylistsViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t2V-jf-0gN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
@@ -1583,6 +1582,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Playlists" id="mtd-xM-GaH"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r4L-vh-Vjt" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4716" y="1014.5320197044335"/>
         </scene>

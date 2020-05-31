@@ -103,7 +103,7 @@ class  YouTubeVideoConnection {
                     youTubeVideo.videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String
                     youTubeVideo.videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.description") as! String
                     youTubeVideo.videoPlaylistId =  (videos as AnyObject).value(forKeyPath:"snippet.playlistId") as! String
-                    youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.medium.url") as! String
+                    youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as! String
                     youTubeVideo.channelId =  (videos as AnyObject).value(forKeyPath:"snippet.channelId") as! String
                     youTubeVideo.genreTitle = genreType!
                     videoObjArray.append(youTubeVideo)

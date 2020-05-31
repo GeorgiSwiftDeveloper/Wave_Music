@@ -363,6 +363,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
+        
+        
         let alert = UIAlertController(title: "\(selectedCell.singerNameLabel.text ?? "")", message: "", preferredStyle: .actionSheet)
         let addMyLibraryAction = UIAlertAction(title: "Add to MyLibrary", style: .default) { (action) in
             do{
@@ -375,6 +377,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                     newEntity.setValue(selectedCell.videoID, forKey: "videoId")
                     try context?.save()
                     print("data has been saved ")
+                    let selectedImageViewUrl = selectedCell.videoImageUrl
+                    AlertView.instance.showAlert(title: "\(selectedCell.singerNameLabel.text ?? "")", message: "Was successfuly added to your Library list", alertType: .success, videoImage: selectedImageViewUrl)
                 } else{
                     // at least one matching object exists
                     let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)

@@ -440,6 +440,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                     newEntity.setValue(selectedCell.videoID, forKey: "videoId")
                     try context?.save()
                     print("data has been saved ")
+                    let selectedImageViewUrl = selectedCell.videoImageUrl
+                    AlertView.instance.showAlert(title: "\(selectedCell.topHitLabelText.text ?? "")", message: "Was successfuly added to your Library list", alertType: .success, videoImage: selectedImageViewUrl)
                 } else{
                     // at least one matching object exists
                     let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)

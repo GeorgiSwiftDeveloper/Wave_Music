@@ -87,4 +87,21 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+          if indexPath.row != 0{
+            return true
+          }else{
+            return false
+        }
+      }
+      
+      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+          if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
+              createdPlaylistArray.remove(at: indexPath.row)
+              tableView.deleteRows(at: [indexPath], with: .automatic)
+              
+          }
+      }
+    
+    
 }

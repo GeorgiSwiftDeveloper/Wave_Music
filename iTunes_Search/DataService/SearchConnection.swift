@@ -37,7 +37,7 @@ class SearchConnection {
                     youTubeVideo.videoId = (videos as AnyObject).value(forKeyPath: "id.videoId") as! String
                     youTubeVideo.videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String
                     youTubeVideo.videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.channelTitle") as! String
-                    youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.medium.url") as! String
+                    youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as! String
                     videoObjArray.append(youTubeVideo)
                     
                 }
