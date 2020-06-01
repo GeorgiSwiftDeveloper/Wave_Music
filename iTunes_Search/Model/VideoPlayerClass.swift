@@ -30,8 +30,8 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     var cardVisible = false
     var checkifAnimationHappend = Bool()
     
-    var rightButton = UIButton()
     var leftButton = UIButton()
+    var rightButton = UIButton()
     var volumeSlider = UISlider()
     var systemSlider = UISlider()
     var volMax = UIImageView()
@@ -131,6 +131,9 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         self.playButton2.isHidden = true
         self.cardViewController.view.addSubview(self.playButton2)
         
+        self.leftButton.addTarget(self, action: #selector(self.leftButtonAction(sender:)), for: .touchUpInside)
+        self.rightButton.addTarget(self, action: #selector(self.rightButtonAction(sender:)), for: .touchUpInside)
+        
         
         webView.playVideo()
         self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
@@ -145,6 +148,14 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         cardViewController.view.addGestureRecognizer(panGestureRecognizer)
         
     }
+    @objc func rightButtonAction(sender: UIButton){
+        print("a")
+    }
+    
+    @objc func leftButtonAction(sender: UIButton){
+         print("b")
+      }
+    
     
     @objc func playAndPauseButtonAction(sender: UIButton){
         VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
@@ -303,15 +314,13 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     
     func leftandRightButton(){
         
-        self.rightButton.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 400, width: 60, height: 60)
-        self.rightButton.setImage(UIImage(named: "btn-previous"), for: .normal)
-        //        self.rightButton.addTarget(self, action: #selector(playNextVideo(sender:)), for: .touchUpInside)
-        self.cardViewController.view.addSubview(rightButton)
-        
-        self.leftButton.frame = CGRect(x: self.cardViewController.view.center.x + 60, y: 400, width: 60, height: 60)
-        self.leftButton.setImage(UIImage(named: "btn-next"), for: .normal)
-        //        self.leftButton.addTarget(self, action: #selector(playPrevVideo(sender:)), for: .touchUpInside)
+        self.leftButton.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 400, width: 60, height: 60)
+        self.leftButton.setImage(UIImage(named: "btn-previous"), for: .normal)
         self.cardViewController.view.addSubview(leftButton)
+        
+        self.rightButton.frame = CGRect(x: self.cardViewController.view.center.x + 60, y: 400, width: 60, height: 60)
+        self.rightButton.setImage(UIImage(named: "btn-next"), for: .normal)
+        self.cardViewController.view.addSubview(rightButton)
         
         self.volMin.frame = CGRect(x: self.cardViewController.view.center.x - 145, y: 505, width: 15, height: 15)
         self.volMin.image = UIImage(named: "vol-min")
