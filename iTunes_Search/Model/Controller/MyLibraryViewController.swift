@@ -30,7 +30,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var musicIndexpatRow = IndexPath()
     var topHits = true
     var myLibrary = true
-    var genreVideoID: String?
+    var genreVideoID = [String]()
     var sectionButton = UIButton()
     var selectedIndex = Int()
     var videoSelected = Bool()
@@ -698,12 +698,14 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         UserDefaults.standard.set(false, forKey:"selectedSearch")
         UserDefaults.standard.set(true, forKey:"selectedmyLybrary")
         self.selectLibraryRow = false
-        let selectedVideoId = self.myLibraryListArray[indexPath.row]
+        let selectedVideo = self.myLibraryListArray[indexPath.row]
         let selectedCell = self.myLibraryTableView.cellForRow(at: indexPath) as! MainLibrariMusciTableViewCell
-        self.genreVideoID = selectedVideoId.videoId
         getSelectedLibraryVideo(indexPath)
         self.webView.load(withVideoId: "")
-        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+        for i in 0..<self.myLibraryListArray.count{
+            self.genreVideoID.append(self.myLibraryListArray[i].videoId)
+        }
+        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
         
         
         FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.musicTitleLabel.text!, selectedCellImageViewUrl: selectedCell.imageViewUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in

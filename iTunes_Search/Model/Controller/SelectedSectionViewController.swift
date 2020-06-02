@@ -24,7 +24,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var checkVideoIsSelected = false
     var libraryIsSelected = false
     var topHitsIsSelected = false
-    var genreVideoID: String?
+    var genreVideoID =  [String]()
     var webView = WKYTPlayerView()
     var selectedVideo: Video?
     var topHitsListHeight = 190
@@ -585,22 +585,27 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         switch checkTable {
         case "MyLibrary":
             DispatchQueue.main.async {
-                let selectedVideo = self.myLibraryList[indexPath.row]
-                let sellectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
-                self.genreVideoID = selectedVideo.videoId
+                self.selectedVideo = self.myLibraryList[indexPath.row]
+                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.getSelectedLibraryVideo(indexPath)
                 self.webView.load(withVideoId: "")
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: sellectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
+                for i in 0..<self.myLibraryList.count{
+                    self.genreVideoID.append(self.myLibraryList[i].videoId)
+                }
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
                 
             }
         case "topHits":
             DispatchQueue.main.async {
                 self.selectedVideo = self.topHitsLists[indexPath.row]
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
-                self.genreVideoID = self.selectedVideo?.videoId
                 self.getSelectedTopHitsVideo(indexPath)
                 self.webView.load(withVideoId: "")
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
+                
+                for i in 0..<self.topHitsLists.count{
+                    self.genreVideoID.append(self.topHitsLists[i].videoId)
+                }
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
                 
                 FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.topHitLabelText.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
                     if error != nil {
@@ -612,10 +617,13 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             DispatchQueue.main.async {
                 self.selectedVideo = self.recentPlayedVideo[indexPath.row]
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
-                self.genreVideoID = self.selectedVideo?.videoId
                 self.getSelectedRecentlyPlayedVideo(indexPath)
                 self.webView.load(withVideoId: "")
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
+                for i in 0..<self.recentPlayedVideo.count{
+                    self.genreVideoID.append(self.recentPlayedVideo[i].videoId)
+                }
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
+                
             }
         default:
             break

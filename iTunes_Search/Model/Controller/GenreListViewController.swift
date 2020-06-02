@@ -21,7 +21,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var getYouTubeData  = YouTubeVideoConnection()
     var webView = WKYTPlayerView()
     var entityName = String()
-    var genreVideoID: String?
+    var genreVideoID =  [String]()
     var selectedIndex = Int()
     var searchIsSelected = Bool()
     var selectedmyLybrary = Bool()
@@ -72,7 +72,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }else{
-                    DispatchQueue.main.async{
                         self.videoArray = loadVideolist!
                         for songIndex in 0..<self.videoArray.count{
                             let title =   self.videoArray[songIndex].videoTitle
@@ -87,8 +86,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                             
                             
                             self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle, channelId: channelId)
-                            
-                        }
                         self.genreTableView.reloadData()
                     }
                 }
@@ -347,7 +344,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell.addToFavoriteButton.tag = indexPath.row;
             cell.configureGenreCell(videoArray[indexPath.row])
-            print(videoArray[indexPath.row].channelId)
+//            print(videoArray[indexPath.row].channelId)
             return cell
         }else {
             return GenreVideoTableViewCell()
@@ -418,10 +415,13 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedVideoId = self.videoArray[indexPath.row]
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
-            self.genreVideoID = selectedVideoId.videoId
+            for i in 0..<self.videoArray.count{
+                self.genreVideoID.append(self.videoArray[i].videoId)
+            }
+//            print(self.genreVideoID)
             self.webView.load(withVideoId: "")
             VideoPlayerClass.callVideoPlayer.superViewController = self
-            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
             
             FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.singerNameLabel.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
                 if error != nil {

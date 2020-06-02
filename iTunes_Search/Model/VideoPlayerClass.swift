@@ -39,7 +39,8 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     var addToFavorite = UIButton()
     var sharePlayedMusic = UIButton()
     var checkIfPause = true
-    
+    var videoID = [String]()
+    var videoIndex = Int()
     var checkIfCollapsed = Bool()
     
     enum CardState {
@@ -56,7 +57,10 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     var superViewController: UIViewController?
     
     
-    func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:String,superView:UIViewController,ifCellIsSelected: Bool,selectedVideo: Video){
+    func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:[String],index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideo: Video){
+        
+        videoID = genreVideoID
+        videoIndex = index
         if checkCardView{
             self.cardViewController.view.removeFromSuperview()
             checkCardView = false
@@ -82,11 +86,9 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         self.webView = WKYTPlayerView(frame: CGRect(x: 0, y: 55, width: UIScreen.main.bounds.width, height: 220))
         
         self.cardViewController.view.addSubview(self.webView)
-        DispatchQueue.main.async {
-            let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
-                                                  "origin": "https://www.youtube.com"]
-            self.webView.load(withVideoId: genreVideoID, playerVars: playerVars)
-        }
+        let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
+                                              "origin": "https://www.youtube.com"]
+        self.webView.load(withVideoId: genreVideoID[index], playerVars: playerVars)
         
         self.webView.delegate = self
         self.webView.isHidden = true
@@ -101,7 +103,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         volumeSlider.isHidden = true
         self.cardViewController.view.addSubview(volumeSlider)
         
-    
+        
         
         
         
@@ -149,12 +151,34 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         
     }
     @objc func rightButtonAction(sender: UIButton){
-        print("a")
+
+        if self.videoIndex == self.videoID.count - 1{
+            self.videoIndex = -1
+                      print(self.videoIndex)
+            
+        }else{
+                      print(self.videoIndex)
+            self.videoIndex += 1
+            let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
+                                                  "origin": "https://www.youtube.com"]
+            self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)
+            
+        }
     }
     
     @objc func leftButtonAction(sender: UIButton){
-         print("b")
-      }
+        print(self.videoIndex)
+        if self.videoIndex == 0{
+            self.videoIndex = self.videoID.count
+            print(self.videoIndex)
+        }else{
+            print(self.videoIndex)
+            self.videoIndex -= 1
+            let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
+                                                  "origin": "https://www.youtube.com"]
+            self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)
+        }
+    }
     
     
     @objc func playAndPauseButtonAction(sender: UIButton){
@@ -416,28 +440,5 @@ extension MPVolumeView {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
             slider?.value = volume
         }
-    }
-}
-
-
-
-extension UIImage {
-    func imageWithColor(tintColor: UIColor) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
-        
-        let context = UIGraphicsGetCurrentContext()!
-        context.translateBy(x: 0, y: self.size.height)
-        context.scaleBy(x: 1.0, y: -1.0);
-        context.setBlendMode(.normal)
-        
-        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height) as CGRect
-        context.clip(to: rect, mask: self.cgImage!)
-        tintColor.setFill()
-        context.fill(rect)
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        return newImage
     }
 }

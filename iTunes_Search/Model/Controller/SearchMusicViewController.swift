@@ -29,7 +29,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     var selectedIndex = Int()
     var selectedVideo: Video?
     var webView = WKYTPlayerView()
-    var genreVideoID: String?
+    var genreVideoID = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -267,60 +267,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
            present(alert, animated: true, completion: nil)
        }
     
-//    @objc func addToFavoriteTapped(_ sender: UIButton) {
-//        let selectedIndex = IndexPath(row: sender.tag, section: 0)
-//        self.searchMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-//        let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndex) as! SearchVideoTableViewCell
-//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-//        let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
-//        request.predicate = predicate
-//        request.fetchLimit = 1
-//        
-//        do{
-//            let count = try context?.count(for: request)
-//            if(count == 0){
-//                // no matching object
-//                let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
-//                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-//                newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
-//                newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
-//                newEntity.setValue(selectedCell.videoID, forKey: "videoId")
-//                
-//                try context?.save()
-//                print("data has been saved ")
-//                self.navigationController?.popViewController(animated: true)
-//                self.tabBarController?.tabBar.isHidden = false
-//                let alert = UIAlertController(title: "\(selectedCell.singerNameLabel.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
-//                let action = UIAlertAction(title: "OK", style: .default) { (action) in
-//                    
-//                }
-//                alert.addAction(action)
-//                present(alert, animated: true, completion: nil)
-//            }
-//            else{
-//                // at least one matching object exists
-//                let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
-//                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-//                }
-//                
-//                let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
-//                    self.navigationController?.popViewController(animated: true)
-//                    self.tabBarController?.selectedIndex = 0
-//                    self.tabBarController?.tabBar.isHidden = false
-//                }
-//                
-//                alert.addAction(action)
-//                alert.addAction(libraryAction)
-//                present(alert, animated: true, completion: nil)
-//                
-//            }
-//        }
-//        catch let error as NSError {
-//            print("Could not fetch \(error), \(error.userInfo)")
-//        }
-//    }
-//    
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         UserDefaults.standard.set(true, forKey:"checkIfSearchRowIsSelected")
@@ -330,12 +276,14 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         let selectedIndexRow = tableView.indexPathForSelectedRow
         let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndexRow!) as! SearchVideoTableViewCell
         selectedIndex = indexPath.row
-        selectedVideo = searchMusicList[indexPath.row]
+        self.selectedVideo = searchMusicList[indexPath.row]
         webView.load(withVideoId: "")
-        genreVideoID = selectedVideo?.videoId
         VideoPlayerClass.callVideoPlayer.superViewController = self
-        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: genreVideoID!, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo!)
-        
+        for i in 0..<searchMusicList.count{
+                   self.genreVideoID.append(searchMusicList[i].videoId)
+               }
+        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
+
         FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.singerNameLabel.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
             if error != nil {
                 print(error)
