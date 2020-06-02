@@ -21,7 +21,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var getYouTubeData  = YouTubeVideoConnection()
     var webView = WKYTPlayerView()
     var entityName = String()
-    var genreVideoID =  [String]()
+    var youTubeVideoID =  [String]()
+    var youTubeVideoTitle =  [String]()
     var selectedIndex = Int()
     var searchIsSelected = Bool()
     var selectedmyLybrary = Bool()
@@ -413,15 +414,14 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             UserDefaults.standard.set(self.selectedIndex, forKey:"saveGenreSelectedIndex")
             NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
             self.genreBottomNSLayoutConstraint.constant = 150
-            let selectedVideoId = self.videoArray[indexPath.row]
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
             for i in 0..<self.videoArray.count{
-                self.genreVideoID.append(self.videoArray[i].videoId)
+                self.youTubeVideoID.append(self.videoArray[i].videoId)
+                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle)
             }
-//            print(self.genreVideoID)
             self.webView.load(withVideoId: "")
             VideoPlayerClass.callVideoPlayer.superViewController = self
-            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideoId)
+            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             
             FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.singerNameLabel.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
                 if error != nil {

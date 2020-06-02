@@ -20,7 +20,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     var playerView = UIView()
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
-    var visualEffectView:UIVisualEffectView!
+//    var visualEffectView:UIVisualEffectView!
     var checkCardView = Bool()
     var checkIfPaused = true
     var musicLabelText = UILabel()
@@ -41,6 +41,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     var checkIfPause = true
     var videoID = [String]()
     var videoIndex = Int()
+    var videoTitle = [String]()
     var checkIfCollapsed = Bool()
     
     enum CardState {
@@ -57,10 +58,11 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     var superViewController: UIViewController?
     
     
-    func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:[String],index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideo: Video){
+    func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:[String],index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: [String]){
         
         videoID = genreVideoID
         videoIndex = index
+        videoTitle = selectedVideoTitle
         if checkCardView{
             self.cardViewController.view.removeFromSuperview()
             checkCardView = false
@@ -112,14 +114,14 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         self.musicLabelText.textAlignment = .left
         self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 10)
         self.musicLabelText.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        self.musicLabelText.text = selectedVideo.videoTitle
+        self.musicLabelText.text = videoTitle[self.videoIndex]
         self.cardViewController.view.addSubview(self.musicLabelText)
         
         self.musicLabelText2.numberOfLines = 0
         self.musicLabelText2.textAlignment = .left
         self.musicLabelText2.font = UIFont(name: "Verdana-Bold", size: 10)
         self.musicLabelText2.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        self.musicLabelText2.text = selectedVideo.videoTitle
+        self.musicLabelText2.text = videoTitle[self.videoIndex]
         self.musicLabelText2.isHidden = true
         self.cardViewController.view.addSubview(self.musicLabelText2)
         
@@ -151,14 +153,17 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         
     }
     @objc func rightButtonAction(sender: UIButton){
-
+        
         if self.videoIndex == self.videoID.count - 1{
             self.videoIndex = -1
-                      print(self.videoIndex)
+            print(self.videoIndex)
             
         }else{
-                      print(self.videoIndex)
+            print(self.videoIndex)
+            
             self.videoIndex += 1
+            self.musicLabelText.text = videoTitle[self.videoIndex]
+            self.musicLabelText2.text = videoTitle[self.videoIndex]
             let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
                                                   "origin": "https://www.youtube.com"]
             self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)
@@ -174,6 +179,8 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         }else{
             print(self.videoIndex)
             self.videoIndex -= 1
+            self.musicLabelText.text = videoTitle[self.videoIndex]
+            self.musicLabelText2.text = videoTitle[self.videoIndex]
             let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
                                                   "origin": "https://www.youtube.com"]
             self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)

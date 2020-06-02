@@ -30,7 +30,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var musicIndexpatRow = IndexPath()
     var topHits = true
     var myLibrary = true
-    var genreVideoID = [String]()
+    var youTubeVideoID = [String]()
+    var youTubeVideoTitle = [String]()
+
     var sectionButton = UIButton()
     var selectedIndex = Int()
     var videoSelected = Bool()
@@ -703,11 +705,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         getSelectedLibraryVideo(indexPath)
         self.webView.load(withVideoId: "")
         for i in 0..<self.myLibraryListArray.count{
-            self.genreVideoID.append(self.myLibraryListArray[i].videoId)
+            self.youTubeVideoID.append(self.myLibraryListArray[i].videoId)
+            self.youTubeVideoTitle.append(self.myLibraryListArray[i].videoTitle)
         }
-        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: selectedVideo)
-        
-        
+  VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.musicTitleLabel.text!, selectedCellImageViewUrl: selectedCell.imageViewUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
             if error != nil {
                 print(error)

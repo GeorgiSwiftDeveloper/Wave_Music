@@ -24,7 +24,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var checkVideoIsSelected = false
     var libraryIsSelected = false
     var topHitsIsSelected = false
-    var genreVideoID =  [String]()
+    var youTubeVideoID =  [String]()
+    var youTubeVideoTitle =  [String]()
     var webView = WKYTPlayerView()
     var selectedVideo: Video?
     var topHitsListHeight = 190
@@ -590,10 +591,11 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 self.getSelectedLibraryVideo(indexPath)
                 self.webView.load(withVideoId: "")
                 for i in 0..<self.myLibraryList.count{
-                    self.genreVideoID.append(self.myLibraryList[i].videoId)
+                    self.youTubeVideoID.append(self.myLibraryList[i].videoId)
+                    self.youTubeVideoTitle.append(self.myLibraryList[i].videoTitle)
                 }
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
                 
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             }
         case "topHits":
             DispatchQueue.main.async {
@@ -603,13 +605,13 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 self.webView.load(withVideoId: "")
                 
                 for i in 0..<self.topHitsLists.count{
-                    self.genreVideoID.append(self.topHitsLists[i].videoId)
+                    self.youTubeVideoID.append(self.topHitsLists[i].videoId)
+                    self.youTubeVideoTitle.append(self.topHitsLists[i].videoTitle)
                 }
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
-                
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
                 FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.topHitLabelText.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
                     if error != nil {
-                        print(error)
+                        print(error?.localizedDescription)
                     }
                 }
             }
@@ -620,10 +622,10 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 self.getSelectedRecentlyPlayedVideo(indexPath)
                 self.webView.load(withVideoId: "")
                 for i in 0..<self.recentPlayedVideo.count{
-                    self.genreVideoID.append(self.recentPlayedVideo[i].videoId)
+                    self.youTubeVideoID.append(self.recentPlayedVideo[i].videoId)
+                    self.youTubeVideoTitle.append(self.recentPlayedVideo[i].videoTitle)
                 }
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
-                
+                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             }
         default:
             break

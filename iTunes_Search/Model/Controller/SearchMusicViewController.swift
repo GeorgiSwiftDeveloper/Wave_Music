@@ -27,9 +27,9 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     var checkIfEmptySearchText = Bool()
     
     var selectedIndex = Int()
-    var selectedVideo: Video?
     var webView = WKYTPlayerView()
-    var genreVideoID = [String]()
+    var youTubeVideoID = [String]()
+    var youTubeVideoTitle =  [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -221,51 +221,51 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     
     @objc func addToFavoriteTapped(sender: UIButton){
-           let selectedIndex = IndexPath(row: sender.tag, section: 0)
-           self.searchMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-           let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndex) as! SearchVideoTableViewCell
-           let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-           let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
-           request.predicate = predicate
-           request.fetchLimit = 1
-           let alert = UIAlertController(title: "\(selectedCell.singerNameLabel.text ?? "")", message: "", preferredStyle: .actionSheet)
-           let addMyLibraryAction = UIAlertAction(title: "Add to MyLibrary", style: .default) { (action) in
-               do{
-                   let count = try context?.count(for: request)
-                   if(count == 0){
-                       let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
-                       let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                       newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
-                       newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
-                       newEntity.setValue(selectedCell.videoID, forKey: "videoId")
-                       try context?.save()
-                       print("data has been saved ")
+        let selectedIndex = IndexPath(row: sender.tag, section: 0)
+        self.searchMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+        let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndex) as! SearchVideoTableViewCell
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        let alert = UIAlertController(title: "\(selectedCell.singerNameLabel.text ?? "")", message: "", preferredStyle: .actionSheet)
+        let addMyLibraryAction = UIAlertAction(title: "Add to MyLibrary", style: .default) { (action) in
+            do{
+                let count = try context?.count(for: request)
+                if(count == 0){
+                    let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+                    let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                    newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
+                    newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
+                    newEntity.setValue(selectedCell.videoID, forKey: "videoId")
+                    try context?.save()
+                    print("data has been saved ")
                     let selectedImageViewUrl = selectedCell.videoImageUrl
                     AlertView.instance.showAlert(title: "\(selectedCell.singerNameLabel.text ?? "")", message: "Was successfuly added to your Library list", alertType: .success, videoImage: selectedImageViewUrl)
-                   } else{
-                       // at least one matching object exists
-                       let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
-                       let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                       }
-                       alert.addAction(action)
-                       self.present(alert, animated: true, completion: nil)
-                   }
-               }catch{
-                   print("error")
-               }
-           }
-           let addPlaylistAction = UIAlertAction(title: "Add to Playlist", style: .default) { (action) in
-               self.navigationController?.popViewController(animated: true)
-               self.tabBarController?.selectedIndex = 3
-           }
-           
-           let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-           }
-           alert.addAction(addMyLibraryAction)
-           alert.addAction(addPlaylistAction)
-           alert.addAction(cancelAction)
-           present(alert, animated: true, completion: nil)
-       }
+                } else{
+                    // at least one matching object exists
+                    let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                    }
+                    alert.addAction(action)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }catch{
+                print("error")
+            }
+        }
+        let addPlaylistAction = UIAlertAction(title: "Add to Playlist", style: .default) { (action) in
+            self.navigationController?.popViewController(animated: true)
+            self.tabBarController?.selectedIndex = 3
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(addMyLibraryAction)
+        alert.addAction(addPlaylistAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -276,17 +276,17 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         let selectedIndexRow = tableView.indexPathForSelectedRow
         let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndexRow!) as! SearchVideoTableViewCell
         selectedIndex = indexPath.row
-        self.selectedVideo = searchMusicList[indexPath.row]
         webView.load(withVideoId: "")
         VideoPlayerClass.callVideoPlayer.superViewController = self
         for i in 0..<searchMusicList.count{
-                   self.genreVideoID.append(searchMusicList[i].videoId)
-               }
-        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.genreVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideo: self.selectedVideo!)
-
+            self.youTubeVideoID.append(searchMusicList[i].videoId)
+            self.youTubeVideoTitle.append(searchMusicList[i].videoTitle)
+        }
+        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+        
         FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.singerNameLabel.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
             if error != nil {
-                print(error)
+                print(error?.localizedDescription)
             }
         }
         searchMusicTableView.reloadData()
