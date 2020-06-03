@@ -438,14 +438,14 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6G-jM-TyB">
                                 <rect key="frame" x="72.666666666666686" y="684" width="230" height="45"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.0" green="0.29452693320000001" blue="0.57488495110000004" alpha="0.84891439800000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="230" id="HIa-rK-YpP"/>
                                     <constraint firstAttribute="height" constant="45" id="ykc-gd-ULN"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                 <state key="normal" title="Continue">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="nextButtonAction:" destination="xG8-CZ-7In" eventType="touchUpInside" id="anb-qq-jUl"/>
@@ -459,27 +459,14 @@
                                     <constraint firstAttribute="height" constant="150" id="bGl-Vy-C3S"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rm2-bo-QD4">
-                                <rect key="frame" x="15" y="54" width="49" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="49" id="eKD-yF-ict"/>
-                                    <constraint firstAttribute="height" constant="30" id="xmR-Vn-2OO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="12"/>
-                                <state key="normal" title="Skip">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="tma-kp-XMg" firstAttribute="centerY" secondItem="0bM-s3-nmR" secondAttribute="centerY" id="1Ay-zh-O08"/>
                             <constraint firstItem="vEp-Zf-ceL" firstAttribute="centerX" secondItem="tma-kp-XMg" secondAttribute="centerX" id="H1z-IL-67w"/>
-                            <constraint firstItem="Rm2-bo-QD4" firstAttribute="leading" secondItem="FvA-br-4lD" secondAttribute="leading" constant="15" id="W0L-40-1dX"/>
                             <constraint firstItem="B6G-jM-TyB" firstAttribute="centerX" secondItem="0bM-s3-nmR" secondAttribute="centerX" id="amb-A5-WKS"/>
                             <constraint firstItem="vEp-Zf-ceL" firstAttribute="top" secondItem="FvA-br-4lD" secondAttribute="top" constant="70" id="fAV-Gq-x3T"/>
                             <constraint firstItem="tma-kp-XMg" firstAttribute="centerX" secondItem="0bM-s3-nmR" secondAttribute="centerX" id="hNW-gU-7M1"/>
-                            <constraint firstItem="Rm2-bo-QD4" firstAttribute="top" secondItem="FvA-br-4lD" secondAttribute="top" constant="10" id="jgk-dP-OAN"/>
                             <constraint firstItem="B6G-jM-TyB" firstAttribute="top" secondItem="tma-kp-XMg" secondAttribute="bottom" constant="78" id="o7I-D8-jXY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FvA-br-4lD"/>

@@ -73,6 +73,7 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
             tabbar.modalPresentationStyle = .fullScreen
              UserDefaults.standard.set(valueSelected, forKey: "countrySelected")
              self.present(tabbar, animated: true, completion: nil)
+            self.view.removeFromSuperview()
          }
     }
     
