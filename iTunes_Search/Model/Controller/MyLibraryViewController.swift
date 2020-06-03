@@ -418,7 +418,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             cell.collectionImageView.layer.shadowOpacity = 2
             cell.collectionImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
             cell.collectionImageView.layer.masksToBounds = true
-            //MARK: CHECK TO NIL
+            
             let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl)
             let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl)
             let imageUrl3 = URL(string: topHitsArray[2].videoImageUrl)
@@ -568,30 +568,30 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
-        let checkIfMyLibraryViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfMyLibraryViewControllerRowIsSelected") as? Bool
-        musicIndexpatRow = indexPath
-        DispatchQueue.main.async {
-            if checkIfMyLibraryViewControllerRowIsSelected == true{
-                if(indexPath.row == self.selectedIndex)
-                {
-                    if self.selectLibraryRow == false{
-                        libraryMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-                    }else{
-                        libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                    }
-                }
-                else
-                {
-                    libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                    libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                }
-            }else{
-                libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-            }
-        }
+//        let checkIfMyLibraryViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfMyLibraryViewControllerRowIsSelected") as? Bool
+//        musicIndexpatRow = indexPath
+//        DispatchQueue.main.async {
+//            if checkIfMyLibraryViewControllerRowIsSelected == true{
+//                if(indexPath.row == self.selectedIndex)
+//                {
+//                    if self.selectLibraryRow == false{
+//                        libraryMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+//                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+//                    }else{
+//                        libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+//                    }
+//                }
+//                else
+//                {
+//                    libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                    libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+//                }
+//            }else{
+//                libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+//            }
+//        }
         
         libraryMusicCell.configureGenreCell(myLibraryListArray[indexPath.row])
         return libraryMusicCell

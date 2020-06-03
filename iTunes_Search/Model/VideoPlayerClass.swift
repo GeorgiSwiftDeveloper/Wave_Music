@@ -20,7 +20,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     var playerView = UIView()
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
-//    var visualEffectView:UIVisualEffectView!
+    //    var visualEffectView:UIVisualEffectView!
     var checkCardView = Bool()
     var checkIfPaused = true
     var musicLabelText = UILabel()
@@ -156,34 +156,31 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         
         if self.videoIndex == self.videoID.count - 1{
             self.videoIndex = -1
-            print(self.videoIndex)
-            
         }else{
-            print(self.videoIndex)
-            
             self.videoIndex += 1
             self.musicLabelText.text = videoTitle[self.videoIndex]
             self.musicLabelText2.text = videoTitle[self.videoIndex]
             let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
                                                   "origin": "https://www.youtube.com"]
             self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)
+            self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+            self.playButton2.setImage(UIImage(named: "btn-pause"), for: .normal)
             
         }
     }
     
     @objc func leftButtonAction(sender: UIButton){
-        print(self.videoIndex)
         if self.videoIndex == 0{
             self.videoIndex = self.videoID.count
-            print(self.videoIndex)
         }else{
-            print(self.videoIndex)
             self.videoIndex -= 1
             self.musicLabelText.text = videoTitle[self.videoIndex]
             self.musicLabelText2.text = videoTitle[self.videoIndex]
             let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
                                                   "origin": "https://www.youtube.com"]
             self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)
+            self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
+            self.playButton2.setImage(UIImage(named: "btn-pause"), for: .normal)
         }
     }
     
@@ -261,9 +258,12 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         }
     }
     
+    
+    
+    
     func animateTransitionIfNeeded (state:CardState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
-            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1.5) {
+            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.7) {
                 switch state {
                 case .expanded:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHeight
@@ -294,8 +294,6 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
                     self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 10)
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
-                    self.musicLabelText.isHidden = false
-                    self.playButton.isHidden = false
                     self.checkIfCollapsed = true
                     // self.visualEffectView.removeFromSuperview()
                 }
@@ -316,8 +314,6 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
                     self.cardViewController.view.layer.cornerRadius = 16
                 case .collapsed:
                     self.cardViewController.view.layer.cornerRadius = 12
-                    self.musicLabelText.isHidden = false
-                    self.playButton.isHidden = false
                 }
             }
             
@@ -331,7 +327,8 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
                     //                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
                     
                 case .collapsed:
-                    break
+                    self.musicLabelText.isHidden = false
+                    self.playButton.isHidden = false
                     //                    self.visualEffectView.effect = nil
                 }
             }

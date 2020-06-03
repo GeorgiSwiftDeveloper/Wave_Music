@@ -327,27 +327,27 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         switch checkTable {
         case "topHits":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
-                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
-                let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
-                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
-                if checkIfAnotherViewControllerRowIsSelected == true {
-                    checkIfRowIsSelected = false
-                }
-                DispatchQueue.main.async {
-                    if checkIfRowIsSelected == true{
-                        if(indexPath.row == saveTopHitsSelectedIndex)
-                        {
-                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-                        }else{
-                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                        }
-                    }else{
-                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                    }
-                }
+//                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
+//                let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
+//                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
+//                if checkIfAnotherViewControllerRowIsSelected == true {
+//                    checkIfRowIsSelected = false
+//                }
+//                DispatchQueue.main.async {
+//                    if checkIfRowIsSelected == true{
+//                        if(indexPath.row == saveTopHitsSelectedIndex)
+//                        {
+//                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+//                        }else{
+//                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+//                        }
+//                    }else{
+//                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+//                    }
+//                }
                 cell.configureTopHitsCell(topHitsLists[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
@@ -357,27 +357,27 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case "MyLibrary":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
-                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
-                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
-                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
-                if checkIfAnotherViewControllerRowIsSelected == true {
-                    checkIfLibraryRowIsSelected = false
-                }
-                DispatchQueue.main.async {
-                    if checkIfLibraryRowIsSelected == true{
-                        if(indexPath.row == saveLibrarySelectedIndex)
-                        {
-                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-                        }else{
-                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                        }
-                    }else{
-                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                    }
-                }
+//                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
+//                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
+//                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
+//                if checkIfAnotherViewControllerRowIsSelected == true {
+//                    checkIfLibraryRowIsSelected = false
+//                }
+//                DispatchQueue.main.async {
+//                    if checkIfLibraryRowIsSelected == true{
+//                        if(indexPath.row == saveLibrarySelectedIndex)
+//                        {
+//                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+//                        }else{
+//                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+//                        }
+//                    }else{
+//                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+//                    }
+//                }
                 cell.configureMyLibraryCell(myLibraryList[indexPath.row])
                 cell.addToFavoriteButton.isHidden = true
                 selectedTableViewCell = cell
@@ -386,27 +386,27 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case "RecentPlayed":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
-                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRecentlyPlayedRowIsSelected") as? Bool
-                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveRecentlyPlayedSelectedIndex") as? Int
-                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
-                if checkIfAnotherViewControllerRowIsSelected == true {
-                    checkIfLibraryRowIsSelected = false
-                }
-                DispatchQueue.main.async {
-                    if checkIfLibraryRowIsSelected == true{
-                        if(indexPath.row == saveLibrarySelectedIndex)
-                        {
-                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-                        }else{
-                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                        }
-                    }else{
-                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-                    }
-                }
+//                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRecentlyPlayedRowIsSelected") as? Bool
+//                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveRecentlyPlayedSelectedIndex") as? Int
+//                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
+//                if checkIfAnotherViewControllerRowIsSelected == true {
+//                    checkIfLibraryRowIsSelected = false
+//                }
+//                DispatchQueue.main.async {
+//                    if checkIfLibraryRowIsSelected == true{
+//                        if(indexPath.row == saveLibrarySelectedIndex)
+//                        {
+//                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+//                        }else{
+//                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+//                        }
+//                    }else{
+//                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+//                    }
+//                }
                 cell.configureRecentlyPlayedCell(recentPlayedVideo[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
@@ -468,58 +468,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         present(alert, animated: true, completion: nil)
     }
     
-    //    @objc func addToMyLibraryButton(sender: UIButton) {
-    //        let selectedIndex = IndexPath(row: sender.tag, section: 0)
-    //        self.selectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-    //        let selectedCell = self.selectedSectionTableView.cellForRow(at: selectedIndex) as! SelectedSectionTableViewCell
-    //
-    //
-    //        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-    //        let predicate = NSPredicate(format: "title == %@", selectedCell.topHitLabelText.text! as CVarArg)
-    //        request.predicate = predicate
-    //        request.fetchLimit = 1
-    //        do{
-    //            let count = try context?.count(for: request)
-    //            if(count == 0){
-    //                // no matching object
-    //                let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
-    //                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-    //                newEntity.setValue(selectedCell.topHitLabelText.text!, forKey: "title")
-    //                newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
-    //                newEntity.setValue(selectedCell.videoID, forKey: "videoId")
-    //                myLibraryList = []
-    //                try context?.save()
-    //                print("data has been saved ")
-    //                let alert = UIAlertController(title: "\(selectedCell.topHitLabelText.text ?? "")) was successfully added to your Library list", message: "", preferredStyle: .alert)
-    //                let action = UIAlertAction(title: "OK", style: .default) { (action) in
-    //                }
-    //                alert.addAction(action)
-    //                present(alert, animated: true, completion: nil)
-    //            }
-    //            else{
-    //                // at least one matching object exists
-    //                let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
-    //                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-    //
-    //                }
-    //
-    //                let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
-    //                    self.navigationController?.popViewController(animated: true)
-    //                    self.tabBarController?.selectedIndex = 0
-    //                    self.tabBarController?.tabBar.isHidden = false
-    //                }
-    //
-    //                alert.addAction(action)
-    //                alert.addAction(libraryAction)
-    //                present(alert, animated: true, completion: nil)
-    //
-    //            }
-    //        }
-    //        catch let error as NSError {
-    //            print("Could not fetch \(error), \(error.userInfo)")
-    //        }
-    //    }
-    //
+   
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         var canEdit = Bool()
         switch checkTable {
