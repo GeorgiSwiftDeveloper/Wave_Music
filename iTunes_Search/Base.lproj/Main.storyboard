@@ -339,10 +339,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnF-k1-AXA">
-                                                    <rect key="frame" x="340" y="25" width="25" height="25"/>
+                                                    <rect key="frame" x="330" y="20" width="35" height="35"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="yse-ff-37u"/>
-                                                        <constraint firstAttribute="width" constant="25" id="zAw-NI-WCT"/>
+                                                        <constraint firstAttribute="height" constant="35" id="yse-ff-37u"/>
+                                                        <constraint firstAttribute="width" constant="35" id="zAw-NI-WCT"/>
                                                     </constraints>
                                                     <color key="tintColor" red="0.81716113879999996" green="0.45371213570000002" blue="0.228216066" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="plus" catalog="system"/>
@@ -735,10 +735,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zwq-c1-D5c">
-                                                    <rect key="frame" x="80" y="11" width="255" height="53"/>
+                                                    <rect key="frame" x="80" y="11" width="240" height="53"/>
                                                     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="255" id="eYg-et-3HA"/>
                                                         <constraint firstAttribute="height" constant="53" id="qOn-Q6-nM0"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
@@ -753,24 +752,23 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5I-EG-mmy">
-                                                    <rect key="frame" x="340" y="25" width="25" height="25"/>
+                                                    <rect key="frame" x="330" y="20" width="35" height="35"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="F0Q-13-mkx"/>
-                                                        <constraint firstAttribute="height" constant="25" id="NJ7-Ro-LsY"/>
+                                                        <constraint firstAttribute="height" constant="35" id="D76-Cn-hdf"/>
+                                                        <constraint firstAttribute="width" constant="35" id="cFS-7H-YQx"/>
                                                     </constraints>
                                                     <color key="tintColor" red="0.81716113879999996" green="0.45371213570000002" blue="0.228216066" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="plus" catalog="system"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="a5I-EG-mmy" firstAttribute="centerY" secondItem="Fyl-Ls-8hQ" secondAttribute="centerY" id="Eno-xq-xAM"/>
-                                                <constraint firstItem="a5I-EG-mmy" firstAttribute="top" secondItem="N3d-04-G2a" secondAttribute="top" constant="25" id="L6C-o9-fAJ"/>
                                                 <constraint firstItem="Fyl-Ls-8hQ" firstAttribute="leading" secondItem="N3d-04-G2a" secondAttribute="leading" constant="15" id="QQ9-B1-liU"/>
                                                 <constraint firstItem="zwq-c1-D5c" firstAttribute="centerY" secondItem="Fyl-Ls-8hQ" secondAttribute="centerY" id="R0S-AE-AFH"/>
+                                                <constraint firstAttribute="trailing" secondItem="a5I-EG-mmy" secondAttribute="trailing" constant="10" id="Tjh-sI-68Z"/>
                                                 <constraint firstItem="zwq-c1-D5c" firstAttribute="leading" secondItem="Fyl-Ls-8hQ" secondAttribute="trailing" constant="5" id="W3V-74-4zb"/>
                                                 <constraint firstItem="zwq-c1-D5c" firstAttribute="top" secondItem="N3d-04-G2a" secondAttribute="topMargin" id="ajf-G4-Flz"/>
-                                                <constraint firstAttribute="bottom" secondItem="a5I-EG-mmy" secondAttribute="bottom" constant="25" id="cn2-ag-GBV"/>
-                                                <constraint firstAttribute="trailing" secondItem="a5I-EG-mmy" secondAttribute="trailing" constant="10" id="dR7-tk-Feu"/>
+                                                <constraint firstItem="a5I-EG-mmy" firstAttribute="centerY" secondItem="zwq-c1-D5c" secondAttribute="centerY" id="fq6-Xi-FN6"/>
+                                                <constraint firstItem="a5I-EG-mmy" firstAttribute="leading" secondItem="zwq-c1-D5c" secondAttribute="trailing" constant="10" id="j5F-cf-Nw8"/>
                                                 <constraint firstItem="zwq-c1-D5c" firstAttribute="bottom" secondItem="N3d-04-G2a" secondAttribute="bottomMargin" id="jhr-vs-uWo"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1262,10 +1260,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plN-QC-KFu">
-                                                    <rect key="frame" x="340" y="25" width="25" height="25"/>
+                                                    <rect key="frame" x="330" y="20" width="35" height="35"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="gj9-yp-rrO"/>
-                                                        <constraint firstAttribute="width" constant="25" id="kmG-d1-xhr"/>
+                                                        <constraint firstAttribute="height" constant="35" id="gj9-yp-rrO"/>
+                                                        <constraint firstAttribute="width" constant="35" id="kmG-d1-xhr"/>
                                                     </constraints>
                                                     <color key="tintColor" red="0.81716113879999996" green="0.45371213570000002" blue="0.228216066" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="plus" catalog="system"/>
@@ -1343,10 +1341,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGd-Pm-LBG">
-                                                    <rect key="frame" x="340" y="25" width="25" height="25"/>
+                                                    <rect key="frame" x="330" y="20" width="35" height="35"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="5su-EU-jQ3"/>
-                                                        <constraint firstAttribute="height" constant="25" id="WSM-ca-HUX"/>
+                                                        <constraint firstAttribute="width" constant="35" id="5su-EU-jQ3"/>
+                                                        <constraint firstAttribute="height" constant="35" id="WSM-ca-HUX"/>
                                                     </constraints>
                                                     <color key="tintColor" red="0.81716113879999996" green="0.45371213570000002" blue="0.228216066" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="plus" catalog="system"/>
