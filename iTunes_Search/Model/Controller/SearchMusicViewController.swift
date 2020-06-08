@@ -174,7 +174,9 @@ extension SearchMusicViewController: AlbumManagerDelegate {
                 self.hintView.isHidden = true
                 self.searchMusicTableView.isHidden = false
                 self.searchMusicList = album
+                     DispatchQueue.main.async {
                 self.searchMusicTableView.reloadData()
+                }
                 
             }
         }

@@ -257,7 +257,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 
                 
                 topHitsLists.append(videoList)
-                selectedSectionTableView.reloadData()
+                     DispatchQueue.main.async {
+                        self.selectedSectionTableView.reloadData()
+                }
             }
             
         } catch {
@@ -282,7 +284,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 
                 
                 myLibraryList.append(videoList)
-                selectedSectionTableView.reloadData()
+                     DispatchQueue.main.async {
+                        self.selectedSectionTableView.reloadData()
+                }
             }
             
         } catch {
@@ -298,7 +302,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             }else{
                 if videoList != nil {
                     self.recentPlayedVideo.append(videoList!)
+                         DispatchQueue.main.async {
                     self.selectedSectionTableView.reloadData()
+                    }
                 }
             }
         }

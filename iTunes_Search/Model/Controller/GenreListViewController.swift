@@ -87,7 +87,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                             
                             
                             self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle, channelId: channelId)
+                                 DispatchQueue.main.async {
                         self.genreTableView.reloadData()
+                            }
                     }
                 }
             }
@@ -98,7 +100,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 }else{
                     if videoList != nil {
                         self.videoArray.append(videoList!)
+                             DispatchQueue.main.async {
                         self.genreTableView.reloadData()
+                        }
                     }
                 }
             }
@@ -425,9 +429,10 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             
             FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.singerNameLabel.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
                 if error != nil {
-                    print(error)
+                    print(error?.localizedDescription)
                 }
             }
+            
             self.genreTableView.reloadData()
         }
         //        self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)

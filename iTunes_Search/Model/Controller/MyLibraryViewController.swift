@@ -131,7 +131,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 }else{
                     if videoList != nil {
                         self.topHitsArray.append(videoList!)
-                        self.topHitsCollectionCell.reloadData()
+                             DispatchQueue.main.async {
+                                self.topHitsCollectionCell.reloadData()
+                        }
+                        
                     }
                 }
             }
@@ -146,8 +149,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             }else{
                 if videoList != nil {
                     self.recentPlayedVideo.append(videoList!)
-                    print(self.recentPlayedVideo[0].videoImageUrl)
+//                    print(self.recentPlayedVideo[0].videoImageUrl)
+                         DispatchQueue.main.async {
                     self.recentPlayedCollectionCell.reloadData()
+                    }
                 }
             }
         }
