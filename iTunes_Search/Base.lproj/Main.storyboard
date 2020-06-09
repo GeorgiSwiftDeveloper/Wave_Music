@@ -41,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
-                                <rect key="frame" x="0.0" y="251" width="375" height="424"/>
+                                <rect key="frame" x="0.0" y="325" width="375" height="350"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LibraryMusicCell" rowHeight="70" id="zSA-8A-8h5" customClass="MainLibrariMusciTableViewCell" customModule="Wave" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
@@ -72,7 +72,7 @@
                                 </prototypes>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WMD-QQ-Rda">
-                                <rect key="frame" x="0.0" y="66" width="185" height="175"/>
+                                <rect key="frame" x="0.0" y="140" width="185" height="175"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="185" id="EdR-NN-ufO"/>
@@ -174,7 +174,7 @@
                                 </cells>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kk2-FN-dST">
-                                <rect key="frame" x="190" y="66" width="185" height="175"/>
+                                <rect key="frame" x="190" y="140" width="185" height="175"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="175" id="Kf6-vf-VfS"/>
@@ -282,12 +282,12 @@
                         <constraints>
                             <constraint firstItem="WMD-QQ-Rda" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" id="14i-FD-QiB"/>
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="4g7-z2-Odc"/>
+                            <constraint firstItem="WMD-QQ-Rda" firstAttribute="top" secondItem="n2I-F1-oFT" secondAttribute="top" constant="140" id="Cep-RO-nL5"/>
                             <constraint firstItem="TdJ-LG-cyh" firstAttribute="bottom" secondItem="sX9-sb-dl1" secondAttribute="bottom" id="ZgM-H8-EMf"/>
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="WMD-QQ-Rda" secondAttribute="bottom" constant="10" id="dVx-ut-eT6"/>
+                            <constraint firstItem="kk2-FN-dST" firstAttribute="top" secondItem="n2I-F1-oFT" secondAttribute="top" constant="140" id="gok-Jh-JUB"/>
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" id="kPL-nr-xM8"/>
-                            <constraint firstItem="WMD-QQ-Rda" firstAttribute="top" secondItem="TdJ-LG-cyh" secondAttribute="top" constant="10" id="nwx-ms-8jU"/>
                             <constraint firstItem="kk2-FN-dST" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="p8a-SQ-82e"/>
-                            <constraint firstItem="kk2-FN-dST" firstAttribute="top" secondItem="TdJ-LG-cyh" secondAttribute="top" constant="10" id="xdM-hm-77O"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TdJ-LG-cyh"/>
                     </view>
