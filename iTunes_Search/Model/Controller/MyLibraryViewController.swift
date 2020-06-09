@@ -52,15 +52,15 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        UserDefaults.standard.removeObject(forKey: "checkIfMyLibraryViewControllerRowIsSelected")
-        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "saveGenreSelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "checkIfSearchRowIsSelected")
-        UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
-        UserDefaults.standard.removeObject(forKey: "selectedSearch")
-        UserDefaults.standard.removeObject(forKey: "pause")
+//        UserDefaults.standard.removeObject(forKey: "checkIfMyLibraryViewControllerRowIsSelected")
+//        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
+//        UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
+//        UserDefaults.standard.removeObject(forKey: "saveGenreSelectedIndex")
+//        UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
+//        UserDefaults.standard.removeObject(forKey: "checkIfSearchRowIsSelected")
+//        UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
+//        UserDefaults.standard.removeObject(forKey: "selectedSearch")
+//        UserDefaults.standard.removeObject(forKey: "pause")
         UserDefaults.standard.synchronize()
         
         setupNavBar()
@@ -707,12 +707,12 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         self.selectLibraryRow = false
         let selectedVideo = self.myLibraryListArray[indexPath.row]
         let selectedCell = self.myLibraryTableView.cellForRow(at: indexPath) as! MainLibrariMusciTableViewCell
-        getSelectedLibraryVideo(indexPath)
         self.webView.load(withVideoId: "")
         for i in 0..<self.myLibraryListArray.count{
             self.youTubeVideoID.append(self.myLibraryListArray[i].videoId)
             self.youTubeVideoTitle.append(self.myLibraryListArray[i].videoTitle)
         }
+        getSelectedLibraryVideo(indexPath)
   VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.musicTitleLabel.text!, selectedCellImageViewUrl: selectedCell.imageViewUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
             if error != nil {

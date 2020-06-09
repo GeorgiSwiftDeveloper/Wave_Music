@@ -295,6 +295,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
                     self.checkIfCollapsed = true
+                    self.superViewController?.viewDidLoad()
                     // self.visualEffectView.removeFromSuperview()
                 }
             }
