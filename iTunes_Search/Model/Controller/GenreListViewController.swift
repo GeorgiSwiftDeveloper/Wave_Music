@@ -349,7 +349,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell.addToFavoriteButton.tag = indexPath.row;
             cell.configureGenreCell(videoArray[indexPath.row])
-//            print(videoArray[indexPath.row].channelId)
             return cell
         }else {
             return GenreVideoTableViewCell()
@@ -435,17 +434,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             
             self.genreTableView.reloadData()
         }
-        //        self.performSegue(withIdentifier: "youTubeSegue", sender: selectedVideoId)
+       
     }
-    
-    
-    //    override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //            if segue.identifier == "youTubeSegue" {
-    //              let genreVC = segue.destination as! YouTubeViewController
-    //                genreVC.genreVideoID  = sender as? Video
-    //                genreVC.selectedGenreTitle = genreTitle
-    //                genreVC.modalPresentationStyle = .fullScreen
-    //            }
-    //        }
-    
 }
