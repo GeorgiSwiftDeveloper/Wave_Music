@@ -149,7 +149,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             }else{
                 if videoList != nil {
                     self.recentPlayedVideo.append(videoList!)
-//                    print(self.recentPlayedVideo[0].videoImageUrl)
                          DispatchQueue.main.async {
                     self.recentPlayedCollectionCell.reloadData()
                     }
@@ -412,7 +411,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             cell.imageMainView.layer.cornerRadius = 3.0
             cell.imageMainView.layer.masksToBounds = true
             cell.cellTitleLabel.text = "World Top 100"
-            
+            cell.topHitsVideoCountLabel.text = "\(topHitsArray.count) tracks"
             
             cell.collectionImageView.layer.cornerRadius = 5.0
             cell.collectionImageView.layer.borderWidth = 1.0
@@ -449,7 +448,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             cell.imageMainView.layer.cornerRadius = 3.0
             cell.imageMainView.layer.masksToBounds = true
             cell.cellTitleLabel.text = "RECENTLY PLAYED"
-            
+            cell.recentlyPlayedVideoCountLabel.text = "\(recentPlayedVideo.count) tracks"
             
             cell.collectionImageView.layer.cornerRadius = 5.0
             cell.collectionImageView.layer.borderWidth = 1.0

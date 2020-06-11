@@ -20,6 +20,8 @@ class RecentPlayedCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var cellTitleLabel: UILabel!
     
+    @IBOutlet weak var recentlyPlayedVideoCountLabel: UILabel!
+    
     @IBOutlet weak var collectionImageView: UIView!
     
     @IBOutlet weak var imageMainView: UIView!

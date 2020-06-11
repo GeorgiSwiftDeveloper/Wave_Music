@@ -133,15 +133,25 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJ0-VQ-erS">
+                                                            <rect key="frame" x="38.333333333333343" y="117" width="85" height="18.333333333333343"/>
+                                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                                            <color key="textColor" red="0.94509803921568625" green="0.94901960784313721" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="kv7-wf-vnT" secondAttribute="trailing" constant="5.9999999999999432" id="4UK-nk-HN9"/>
                                                         <constraint firstAttribute="trailing" secondItem="1hJ-fG-sIU" secondAttribute="trailing" constant="5.9999999999999432" id="6Eb-vA-yfg"/>
                                                         <constraint firstItem="ujP-oh-ZEk" firstAttribute="leading" secondItem="Xj8-az-DTQ" secondAttribute="leading" constant="4.0000000000000746" id="87P-SJ-Esg"/>
+                                                        <constraint firstAttribute="bottom" secondItem="AJ0-VQ-erS" secondAttribute="bottom" constant="20.670000000000002" id="G0I-T6-5P0"/>
                                                         <constraint firstItem="6Dg-dp-x1f" firstAttribute="top" secondItem="Xj8-az-DTQ" secondAttribute="top" constant="1" id="GTq-b2-Mf6"/>
+                                                        <constraint firstItem="AJ0-VQ-erS" firstAttribute="leading" secondItem="Xj8-az-DTQ" secondAttribute="leading" constant="38.329999999999998" id="HAA-rR-uSH"/>
+                                                        <constraint firstItem="AJ0-VQ-erS" firstAttribute="top" secondItem="v7T-NU-klp" secondAttribute="bottom" constant="13" id="Sdf-gF-svf"/>
                                                         <constraint firstItem="kv7-wf-vnT" firstAttribute="leading" secondItem="ujP-oh-ZEk" secondAttribute="trailing" constant="2" id="a7M-ZV-1YF"/>
                                                         <constraint firstItem="ujP-oh-ZEk" firstAttribute="top" secondItem="6Dg-dp-x1f" secondAttribute="bottom" constant="2" id="aSz-O4-HG3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="AJ0-VQ-erS" secondAttribute="trailing" constant="38.670000000000002" id="cFo-83-BGP"/>
                                                         <constraint firstAttribute="bottom" secondItem="ujP-oh-ZEk" secondAttribute="bottom" constant="3" id="cvI-3z-8sv"/>
                                                         <constraint firstItem="1hJ-fG-sIU" firstAttribute="top" secondItem="Xj8-az-DTQ" secondAttribute="top" constant="2" id="eAr-hC-Gw4"/>
                                                         <constraint firstItem="kv7-wf-vnT" firstAttribute="top" secondItem="1hJ-fG-sIU" secondAttribute="bottom" constant="1" id="eWR-4y-smx"/>
@@ -169,6 +179,7 @@
                                             <outlet property="imageView2" destination="1hJ-fG-sIU" id="4Cj-D4-Wme"/>
                                             <outlet property="imageView3" destination="ujP-oh-ZEk" id="hsg-vG-pZJ"/>
                                             <outlet property="imageView4" destination="kv7-wf-vnT" id="svY-U1-oNE"/>
+                                            <outlet property="topHitsVideoCountLabel" destination="AJ0-VQ-erS" id="7Lb-ne-2WM"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -235,14 +246,23 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AhU-mc-16D">
+                                                            <rect key="frame" x="38" y="118" width="85" height="17.333333333333343"/>
+                                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                                            <color key="textColor" red="0.94509803921568625" green="0.94901960784313721" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
+                                                        <constraint firstItem="AhU-mc-16D" firstAttribute="top" secondItem="XQ2-Et-oZ0" secondAttribute="bottom" constant="5" id="04E-Th-zEi"/>
+                                                        <constraint firstAttribute="trailing" secondItem="AhU-mc-16D" secondAttribute="trailing" constant="39" id="1x7-gY-E6Z"/>
                                                         <constraint firstItem="XQ2-Et-oZ0" firstAttribute="centerX" secondItem="5ol-K7-jhc" secondAttribute="centerX" id="2aC-ci-nm7"/>
                                                         <constraint firstItem="0YF-Nb-GI0" firstAttribute="top" secondItem="5ol-K7-jhc" secondAttribute="top" constant="5" id="43k-h8-TTP"/>
                                                         <constraint firstItem="nVf-Yr-CC6" firstAttribute="leading" secondItem="0YF-Nb-GI0" secondAttribute="trailing" constant="2" id="9W1-lv-faR"/>
                                                         <constraint firstAttribute="trailing" secondItem="6ol-Gf-dTG" secondAttribute="trailing" constant="5.9999999999999432" id="I7e-dg-pFw"/>
                                                         <constraint firstAttribute="trailing" secondItem="nVf-Yr-CC6" secondAttribute="trailing" constant="5.9999999999999432" id="LQ2-8e-iS0"/>
+                                                        <constraint firstItem="AhU-mc-16D" firstAttribute="leading" secondItem="5ol-K7-jhc" secondAttribute="leading" constant="38" id="T6Y-k5-CkI"/>
                                                         <constraint firstItem="zJb-Ei-FEE" firstAttribute="leading" secondItem="5ol-K7-jhc" secondAttribute="leading" constant="4.0000000000000746" id="WVM-Kw-nQt"/>
                                                         <constraint firstItem="XQ2-Et-oZ0" firstAttribute="centerY" secondItem="5ol-K7-jhc" secondAttribute="centerY" id="aJQ-yu-KMn"/>
                                                         <constraint firstItem="6ol-Gf-dTG" firstAttribute="leading" secondItem="zJb-Ei-FEE" secondAttribute="trailing" constant="2" id="au0-63-Nnf"/>
@@ -254,6 +274,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="zJb-Ei-FEE" secondAttribute="bottom" constant="3" id="msr-ee-Rtm"/>
                                                         <constraint firstItem="0YF-Nb-GI0" firstAttribute="leading" secondItem="5ol-K7-jhc" secondAttribute="leading" constant="4.0000000000000746" id="o5R-KN-4MN"/>
                                                         <constraint firstItem="nVf-Yr-CC6" firstAttribute="top" secondItem="5ol-K7-jhc" secondAttribute="top" constant="6" id="wgk-c3-Dx4"/>
+                                                        <constraint firstAttribute="bottom" secondItem="AhU-mc-16D" secondAttribute="bottom" constant="20.670000000000002" id="xsQ-2A-GFO"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -273,6 +294,7 @@
                                             <outlet property="imageView2" destination="nVf-Yr-CC6" id="X50-rv-Zq6"/>
                                             <outlet property="imageView3" destination="zJb-Ei-FEE" id="skd-Vh-r8e"/>
                                             <outlet property="imageView4" destination="6ol-Gf-dTG" id="IMc-t2-uCS"/>
+                                            <outlet property="recentlyPlayedVideoCountLabel" destination="AhU-mc-16D" id="2by-z0-zV0"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
