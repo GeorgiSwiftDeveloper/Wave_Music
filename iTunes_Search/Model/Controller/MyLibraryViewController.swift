@@ -32,7 +32,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var myLibrary = true
     var youTubeVideoID = [String]()
     var youTubeVideoTitle = [String]()
-
+    var checkTable: String = ""
     var sectionButton = UIButton()
     var selectedIndex = Int()
     var videoSelected = Bool()
@@ -52,15 +52,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-//        UserDefaults.standard.removeObject(forKey: "checkIfMyLibraryViewControllerRowIsSelected")
-//        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
-//        UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
-//        UserDefaults.standard.removeObject(forKey: "saveGenreSelectedIndex")
-//        UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
-//        UserDefaults.standard.removeObject(forKey: "checkIfSearchRowIsSelected")
-//        UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
-//        UserDefaults.standard.removeObject(forKey: "selectedSearch")
-//        UserDefaults.standard.removeObject(forKey: "pause")
+
         UserDefaults.standard.synchronize()
         
         setupNavBar()
@@ -131,8 +123,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 }else{
                     if videoList != nil {
                         self.topHitsArray.append(videoList!)
-                             DispatchQueue.main.async {
-                                self.topHitsCollectionCell.reloadData()
+                        DispatchQueue.main.async {
+                            self.topHitsCollectionCell.reloadData()
                         }
                         
                     }
@@ -149,8 +141,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             }else{
                 if videoList != nil {
                     self.recentPlayedVideo.append(videoList!)
-                         DispatchQueue.main.async {
-                    self.recentPlayedCollectionCell.reloadData()
+                    DispatchQueue.main.async {
+                        self.recentPlayedCollectionCell.reloadData()
                     }
                 }
             }
@@ -538,9 +530,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case topHitsCollectionCell:
-            destinationTopHitsMusicVC()
+            checkTable =  "topHits"
+            self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTable)
         case recentPlayedCollectionCell:
-            destinationRecentlyPlayedMusicVC()
+            checkTable =  "RecentPlayed"
+            self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTable)
         default:
             break
         }
@@ -572,30 +566,30 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
-//        let checkIfMyLibraryViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfMyLibraryViewControllerRowIsSelected") as? Bool
-//        musicIndexpatRow = indexPath
-//        DispatchQueue.main.async {
-//            if checkIfMyLibraryViewControllerRowIsSelected == true{
-//                if(indexPath.row == self.selectedIndex)
-//                {
-//                    if self.selectLibraryRow == false{
-//                        libraryMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-//                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-//                    }else{
-//                        libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                    }
-//                }
-//                else
-//                {
-//                    libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                    libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                }
-//            }else{
-//                libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//            }
-//        }
+        //        let checkIfMyLibraryViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfMyLibraryViewControllerRowIsSelected") as? Bool
+        //        musicIndexpatRow = indexPath
+        //        DispatchQueue.main.async {
+        //            if checkIfMyLibraryViewControllerRowIsSelected == true{
+        //                if(indexPath.row == self.selectedIndex)
+        //                {
+        //                    if self.selectLibraryRow == false{
+        //                        libraryMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+        //                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+        //                    }else{
+        //                        libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        //                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        //                    libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+        //                }
+        //            }else{
+        //                libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        //                libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+        //            }
+        //        }
         
         libraryMusicCell.configureGenreCell(myLibraryListArray[indexPath.row])
         return libraryMusicCell
@@ -628,24 +622,13 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func destinationMyLibraryVC(){
-        self.performSegue(withIdentifier: "MyLibraryMusic", sender: nil)
+        checkTable =  "MyLibrary"
+        self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTable)
     }
-    
-    
-    func destinationTopHitsMusicVC(){
-        self.performSegue(withIdentifier: "TopHitsMusic", sender: nil)
-    }
-    
-    
-    func destinationRecentlyPlayedMusicVC(){
-        self.performSegue(withIdentifier: "RecentlyPlayed", sender: nil)
-    }
-    
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "TopHitsMusic" {
+        switch checkTable {
+        case "topHits":
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "World Top 100"
                 if videoSelected == true{
@@ -657,39 +640,41 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                     nc.searchIsSelected = true
                 }
                 UserDefaults.standard.set(false, forKey:"selectedSearch")
-                nc.checkTable = "topHits"
+                nc.checkTable = sender as! String
                 nc.checDelegate = self
             }
-        }else
-            if segue.identifier == "MyLibraryMusic" {
-                if  let nc = segue.destination as? SelectedSectionViewController {
-                    nc.navigationItem.title = "My Library"
-                    if videoSelected == true{
-                        nc.videoSelected = true
-                    }
-                    let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-                    if selectedSearch == true {
-                        nc.searchIsSelected = true
-                    }
-                    UserDefaults.standard.set(false, forKey:"selectedSearch")
-                    nc.checkTable = "MyLibrary"
-                    nc.checDelegate = self
+        case "MyLibrary":
+            if  let nc = segue.destination as? SelectedSectionViewController {
+                nc.navigationItem.title = "My Library"
+                if videoSelected == true{
+                    nc.videoSelected = true
                 }
-            }else
-                if segue.identifier == "RecentlyPlayed"{
-                    if  let nc = segue.destination as? SelectedSectionViewController {
-                        nc.navigationItem.title = "RECENTLY PLAYED"
-                        if videoSelected == true{
-                            nc.videoSelected = true
-                        }
-                        let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-                        if selectedSearch == true {
-                            nc.searchIsSelected = true
-                        }
-                        UserDefaults.standard.set(false, forKey:"selectedSearch")
-                        nc.checkTable = "RecentPlayed"
-                        nc.checDelegate = self
-                    }
+                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                if selectedSearch == true {
+                    nc.searchIsSelected = true
+                }
+                UserDefaults.standard.set(false, forKey:"selectedSearch")
+                nc.checkTable = sender as! String
+                nc.checDelegate = self
+            }
+            
+        case "RecentPlayed":
+            
+            if  let nc = segue.destination as? SelectedSectionViewController {
+                nc.navigationItem.title = "RECENTLY PLAYED"
+                if videoSelected == true{
+                    nc.videoSelected = true
+                }
+                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                if selectedSearch == true {
+                    nc.searchIsSelected = true
+                }
+                UserDefaults.standard.set(false, forKey:"selectedSearch")
+                nc.checkTable = sender as! String
+                nc.checDelegate = self
+            }
+        default:
+            break
         }
     }
     
@@ -712,7 +697,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             self.youTubeVideoTitle.append(self.myLibraryListArray[i].videoTitle)
         }
         getSelectedLibraryVideo(indexPath)
-  VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.musicTitleLabel.text!, selectedCellImageViewUrl: selectedCell.imageViewUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
             if error != nil {
                 print(error)
