@@ -32,11 +32,14 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var myLibrary = true
     var youTubeVideoID = [String]()
     var youTubeVideoTitle = [String]()
-    var checkTable: String = ""
+    var checkTableViewName: String = ""
     var sectionButton = UIButton()
     var selectedIndex = Int()
     var videoSelected = Bool()
     var viewAllButton = UIButton()
+    var videoPlayerClass = VideoPlayerClass()
+    
+    
     var isEntityIsEmpty: Bool {
         do {
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -46,8 +49,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             return true
         }
     }
-    
-    var videoPlayerClass = VideoPlayerClass()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -530,11 +531,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case topHitsCollectionCell:
-            checkTable =  "topHits"
-            self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTable)
+            checkTableViewName =  "topHits"
+            self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTableViewName)
         case recentPlayedCollectionCell:
-            checkTable =  "RecentPlayed"
-            self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTable)
+            checkTableViewName =  "RecentPlayed"
+            self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTableViewName)
         default:
             break
         }
@@ -622,12 +623,12 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func destinationMyLibraryVC(){
-        checkTable =  "MyLibrary"
-        self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTable)
+        checkTableViewName =  "MyLibrary"
+        self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTableViewName)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch checkTable {
+        switch sender as? String {
         case "topHits":
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "World Top 100"
@@ -640,7 +641,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                     nc.searchIsSelected = true
                 }
                 UserDefaults.standard.set(false, forKey:"selectedSearch")
-                nc.checkTable = sender as! String
+                nc.checkTableViewName = sender as! String
                 nc.checDelegate = self
             }
         case "MyLibrary":
@@ -654,7 +655,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                     nc.searchIsSelected = true
                 }
                 UserDefaults.standard.set(false, forKey:"selectedSearch")
-                nc.checkTable = sender as! String
+                nc.checkTableViewName = sender as! String
                 nc.checDelegate = self
             }
             
@@ -670,7 +671,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                     nc.searchIsSelected = true
                 }
                 UserDefaults.standard.set(false, forKey:"selectedSearch")
-                nc.checkTable = sender as! String
+                nc.checkTableViewName = sender as! String
                 nc.checDelegate = self
             }
         default:

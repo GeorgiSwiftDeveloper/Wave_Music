@@ -19,7 +19,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
     var recentPlayedVideo = [Video]()
-    var checkTable = String()
+    var checkTableViewName = String()
     var videoSelected = false
     var checkVideoIsSelected = false
     var libraryIsSelected = false
@@ -41,7 +41,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         super.viewDidLoad()
         self.selectedSectionTableView.delegate = self
         self.selectedSectionTableView.dataSource = self
-        switch checkTable {
+        switch checkTableViewName {
         case "topHits":
             fetchTopHitList()
         case "MyLibrary":
@@ -71,7 +71,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     @objc func rightButtonAction() {
         var alertTitle = String()
-        switch checkTable {
+        switch checkTableViewName {
         case "topHits":
             break
         case "MyLibrary":
@@ -100,7 +100,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     func deleteRecords() -> Void {
         var entityName = String()
-        switch checkTable {
+        switch checkTableViewName {
         case "topHits":
             break
         case "MyLibrary":
@@ -183,7 +183,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     func showVideoPlayer(){
         VideoPlayerClass.callVideoPlayer.webView.playVideo()
-        switch checkTable {
+        switch checkTableViewName {
         case "topHits":
             break
         case "MyLibrary":
@@ -197,7 +197,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     func showVideoPlayerPause(){
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-        switch checkTable {
+        switch checkTableViewName {
         case "topHits":
             break
         case "MyLibrary":
@@ -315,7 +315,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
 extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowsInSection = 0
-        switch checkTable {
+        switch checkTableViewName {
         case "topHits":
             numberOfRowsInSection = topHitsLists.count
         case "MyLibrary":
@@ -330,7 +330,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var selectedTableViewCell = UITableViewCell()
-        switch checkTable {
+        switch checkTableViewName {
         case "topHits":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
 //                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
@@ -477,7 +477,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         var canEdit = Bool()
-        switch checkTable {
+        switch checkTableViewName {
         case "topHits":
             canEdit = false
         case "MyLibrary":
@@ -493,7 +493,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
             removeSelectedVideoRow(atIndexPath: indexPath)
-            switch checkTable {
+            switch checkTableViewName {
             case "topHits":
                 break
             case "MyLibrary":
@@ -510,7 +510,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     func removeSelectedVideoRow(atIndexPath indexPath: IndexPath) {
         var entityName = String()
-        switch checkTable {
+        switch checkTableViewName {
         case "topHits":
             break
         case "MyLibrary":
@@ -538,7 +538,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
         UserDefaults.standard.set(false, forKey:"selectedSearch")
         UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
-        switch checkTable {
+        switch checkTableViewName {
         case "MyLibrary":
             DispatchQueue.main.async {
                 self.selectedVideo = self.myLibraryList[indexPath.row]

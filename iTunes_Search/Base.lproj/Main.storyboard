@@ -640,8 +640,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView multipleTouchEnabled="YES" contentMode="scaleAspectFit" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LoF-Dm-i85">
-                                <rect key="frame" x="0.0" y="56" width="375" height="702"/>
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleAspectFit" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LoF-Dm-i85">
+                                <rect key="frame" x="0.0" y="56" width="375" height="619"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="25" minimumInteritemSpacing="25" id="JVb-ja-Jig">
                                     <size key="itemSize" width="113" height="158"/>
@@ -664,21 +664,39 @@
                                                         <constraint firstAttribute="width" constant="110" id="q1Y-zh-daA"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="LRq-7x-nn3">
-                                                    <rect key="frame" x="0.0" y="125" width="113" height="33"/>
-                                                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="12"/>
-                                                    <color key="textColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="rdo-jP-kcf">
+                                                    <rect key="frame" x="6.6666666666666643" y="113" width="100" height="41"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="LRq-7x-nn3">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="Ioc-Mb-RD8"/>
+                                                                <constraint firstAttribute="height" constant="20" id="QPP-Kk-XQG"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="12"/>
+                                                            <color key="textColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ILr-iE-6Zp">
+                                                            <rect key="frame" x="0.0" y="21" width="100" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="BRj-EI-I79"/>
+                                                                <constraint firstAttribute="width" constant="100" id="WGS-Zy-ovQ"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="12"/>
+                                                            <color key="textColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="LRq-7x-nn3" secondAttribute="trailing" id="0ss-q0-CgC"/>
+                                                <constraint firstAttribute="bottom" secondItem="rdo-jP-kcf" secondAttribute="bottom" constant="4" id="2tT-xC-qZh"/>
                                                 <constraint firstItem="69N-oM-a9r" firstAttribute="leading" secondItem="0EG-rA-q3N" secondAttribute="leading" id="4XM-Cq-Yu2"/>
-                                                <constraint firstItem="LRq-7x-nn3" firstAttribute="top" secondItem="69N-oM-a9r" secondAttribute="bottom" constant="15" id="6Pu-f0-LT8"/>
                                                 <constraint firstAttribute="trailing" secondItem="69N-oM-a9r" secondAttribute="trailing" id="PgW-Ll-nxc"/>
                                                 <constraint firstItem="69N-oM-a9r" firstAttribute="top" secondItem="0EG-rA-q3N" secondAttribute="top" id="UHz-Hx-yWf"/>
-                                                <constraint firstAttribute="bottom" secondItem="LRq-7x-nn3" secondAttribute="bottom" id="Wd5-IJ-bdy"/>
-                                                <constraint firstItem="LRq-7x-nn3" firstAttribute="leading" secondItem="0EG-rA-q3N" secondAttribute="leading" id="m5S-mW-2Bl"/>
+                                                <constraint firstItem="rdo-jP-kcf" firstAttribute="centerX" secondItem="0EG-rA-q3N" secondAttribute="centerX" id="l8A-aD-0RU"/>
+                                                <constraint firstItem="rdo-jP-kcf" firstAttribute="top" secondItem="69N-oM-a9r" secondAttribute="bottom" constant="3" id="nV0-M8-4h5"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="113" height="158"/>
@@ -696,17 +714,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="LoF-Dm-i85" secondAttribute="bottom" constant="83" id="2hM-oE-DNe"/>
                             <constraint firstItem="LoF-Dm-i85" firstAttribute="trailing" secondItem="9Ur-yE-fRU" secondAttribute="trailing" id="7tm-yW-mdi"/>
-                            <constraint firstAttribute="bottom" secondItem="LoF-Dm-i85" secondAttribute="bottom" id="XUy-rT-zJh"/>
+                            <constraint firstItem="LoF-Dm-i85" firstAttribute="top" secondItem="9Ur-yE-fRU" secondAttribute="top" id="bru-G5-KOh"/>
                             <constraint firstItem="LoF-Dm-i85" firstAttribute="leading" secondItem="9Ur-yE-fRU" secondAttribute="leading" id="ri1-OI-DgH"/>
-                            <constraint firstItem="LoF-Dm-i85" firstAttribute="top" secondItem="9Ur-yE-fRU" secondAttribute="top" id="sB5-XW-Ek6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Ur-yE-fRU"/>
                     </view>
                     <navigationItem key="navigationItem" id="6z8-gZ-3JW"/>
                     <connections>
                         <outlet property="favoriteCollectionView" destination="LoF-Dm-i85" id="bUm-e2-Ogt"/>
-                        <outlet property="genreListNSLayoutBottomContraint" destination="XUy-rT-zJh" id="Eyv-6u-9WI"/>
                         <outlet property="navigationForMusic" destination="6z8-gZ-3JW" id="SCw-zy-pdD"/>
                         <segue destination="b5Q-pR-8Co" kind="show" identifier="genrseListSegue" id="eKD-ma-fTu"/>
                     </connections>
