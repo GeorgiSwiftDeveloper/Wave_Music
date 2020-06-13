@@ -462,6 +462,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         }
         let addPlaylistAction = UIAlertAction(title: "Add to Playlist", style: .default) { (action) in
+            UserDefaults.standard.set(selectedCell.videoID, forKey:"selectedVideoID")
+            UserDefaults.standard.set(selectedCell.videoImageUrl, forKey:"selectedVideoImageUrl")
+            UserDefaults.standard.set(selectedCell.topHitLabelText.text, forKey:"selectedVideoTitle")
             self.navigationController?.popViewController(animated: true)
             self.tabBarController?.selectedIndex = 3
         }
@@ -549,7 +552,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                     self.youTubeVideoID.append(self.myLibraryList[i].videoId)
                     self.youTubeVideoTitle.append(self.myLibraryList[i].videoTitle)
                 }
-                
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             }
         case "topHits":

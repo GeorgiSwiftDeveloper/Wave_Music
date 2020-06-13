@@ -703,6 +703,7 @@
                                         <connections>
                                             <outlet property="genreImageView" destination="69N-oM-a9r" id="wre-Be-aRn"/>
                                             <outlet property="genreNameLabel" destination="LRq-7x-nn3" id="WLj-ac-mGe"/>
+                                            <outlet property="trackCountLabel" destination="ILr-iE-6Zp" id="yRI-jH-V3M"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -723,7 +724,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="6z8-gZ-3JW"/>
                     <connections>
-                        <outlet property="favoriteCollectionView" destination="LoF-Dm-i85" id="bUm-e2-Ogt"/>
+                        <outlet property="genreCollectionView" destination="LoF-Dm-i85" id="bUm-e2-Ogt"/>
                         <outlet property="navigationForMusic" destination="6z8-gZ-3JW" id="SCw-zy-pdD"/>
                         <segue destination="b5Q-pR-8Co" kind="show" identifier="genrseListSegue" id="eKD-ma-fTu"/>
                     </connections>

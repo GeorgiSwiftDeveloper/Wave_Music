@@ -13,7 +13,7 @@ import YoutubePlayer_in_WKWebView
 class GenresViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource{
     
     @IBOutlet weak var navigationForMusic: UINavigationItem!
-    @IBOutlet weak var favoriteCollectionView: UICollectionView!
+    @IBOutlet weak var genreCollectionView: UICollectionView!
     var selectedGenreIndexRow = Int()
     var indexArray = [Int]()
     var indexpath = Int()
@@ -23,10 +23,10 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        favoriteCollectionView.isScrollEnabled = false
-        self.favoriteCollectionView.delegate = self
-        self.favoriteCollectionView.dataSource = self
-        self.favoriteCollectionView.reloadData()
+        genreCollectionView.isScrollEnabled = false
+        self.genreCollectionView.delegate = self
+        self.genreCollectionView.dataSource = self
+        self.genreCollectionView.reloadData()
         
     }
     
@@ -98,7 +98,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var numberRows = 0
         switch collectionView {
-        case favoriteCollectionView:
+        case genreCollectionView:
             numberRows = GenreModelService.instance.getGenreArray().count
         default:
             break
@@ -110,9 +110,10 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         
         let cell = UICollectionViewCell()
         switch collectionView {
-        case favoriteCollectionView:
+        case genreCollectionView:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
                 cell.confiigurationCell(GenreModelService.instance.getGenreArray()[indexPath.row])
+                cell.trackCountLabel.text = ""
                 UserDefaults.standard.set(indexPath.row, forKey:"selectedGenereCollectionIndex")
                 indexArray.append(indexPath.row)
                 return cell
@@ -150,7 +151,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         switch collectionView {
-        case favoriteCollectionView:
+        case genreCollectionView:
             let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
             selectedGenreIndexRow = indexPath.row
             

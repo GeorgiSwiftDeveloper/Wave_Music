@@ -11,6 +11,7 @@ import UIKit
 class GenresCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var genreImageView: UIImageView!
     @IBOutlet weak var genreNameLabel: UILabel!
+    @IBOutlet weak var trackCountLabel: UILabel!
     
     
     func confiigurationCell(_ albums: GenreModel) {
