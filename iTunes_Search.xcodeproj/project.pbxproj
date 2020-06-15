@@ -37,6 +37,7 @@
 		6A5A0CDE244969AE005150D2 /* YouTubeVideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDD244969AE005150D2 /* YouTubeVideoModel.swift */; };
 		6A5A0CE0244970D1005150D2 /* YouTubeVideoConnectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDF244970D1005150D2 /* YouTubeVideoConnectionModel.swift */; };
 		6A5A0CE2244971E0005150D2 /* GenreVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */; };
+		6A62ADFB24955D17004ABCA4 /* SelectedPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A62ADFA24955D17004ABCA4 /* SelectedPlaylistViewController.swift */; };
 		6A66CFD124734514004B0C44 /* TopHitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */; };
 		6A66CFD324734522004B0C44 /* RecentPlayedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */; };
 		6A66CFD52474A698004B0C44 /* FetchRecentPlayedVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD42474A698004B0C44 /* FetchRecentPlayedVideo.swift */; };
@@ -93,6 +94,7 @@
 		6A5A0CDF244970D1005150D2 /* YouTubeVideoConnectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoConnectionModel.swift; sourceTree = "<group>"; };
 		6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreVideoTableViewCell.swift; sourceTree = "<group>"; };
 		6A5FFEF0244D4E61006382DD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		6A62ADFA24955D17004ABCA4 /* SelectedPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPlaylistViewController.swift; sourceTree = "<group>"; };
 		6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHitsCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPlayedCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A66CFD42474A698004B0C44 /* FetchRecentPlayedVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRecentPlayedVideo.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				6ABFE228243909DD000217B5 /* GenresViewController.swift */,
 				6A5A0CD92448CFB7005150D2 /* GenreListViewController.swift */,
 				6AF255CA2482D4D700EC0E4A /* CreatPlaylistsViewController.swift */,
+				6A62ADFA24955D17004ABCA4 /* SelectedPlaylistViewController.swift */,
 				6A4FD82C244B8D37000A8533 /* YouTubeViewController.swift */,
 				6A5227D12453AABA00D77850 /* AddSelectedMusicToWaveViewController.swift */,
 				6ABBC27F245B822D002565E2 /* CardViewController.swift */,
@@ -401,6 +404,7 @@
 				6A41657C2458EF0D00910513 /* SelectedSectionViewController.swift in Sources */,
 				6A568CAC245A8C9F00487EDF /* SelectedCoutryCollectionViewCell.swift in Sources */,
 				6A5227D62453DB4D00D77850 /* MyLibraryViewController.swift in Sources */,
+				6A62ADFB24955D17004ABCA4 /* SelectedPlaylistViewController.swift in Sources */,
 				6A1375DE2433F7370086113D /* AlbumModel.swift in Sources */,
 				6A66CFD124734514004B0C44 /* TopHitsCollectionViewCell.swift in Sources */,
 				6AC4964C248452580050825B /* AlertView.swift in Sources */,

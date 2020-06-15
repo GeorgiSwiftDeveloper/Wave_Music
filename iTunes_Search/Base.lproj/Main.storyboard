@@ -1341,7 +1341,7 @@
                     <navigationItem key="navigationItem" title="Playlists" id="fR4-Q4-HNk"/>
                     <connections>
                         <outlet property="playlistTableView" destination="oxf-GL-SlG" id="Y07-Bp-M0B"/>
-                        <segue destination="gsE-nP-3mH" kind="push" id="Avs-KR-yn5"/>
+                        <segue destination="gsE-nP-3mH" kind="push" identifier="goToPlaylist" id="Avs-KR-yn5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EYn-Hf-NyJ" sceneMemberID="firstResponder"/>

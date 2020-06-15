@@ -55,8 +55,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
+        if indexPath.row == 0 {
             var playlistTxt = UITextField()
             let alert = UIAlertController(title: "New Playlist", message: "", preferredStyle: .alert)
             
@@ -81,9 +80,18 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                 playlistTxt.placeholder = "Enter  name for this playlist"
                    }
             present(alert, animated: true, completion: nil)
-        default:
-            break
+        }else{
+            
         }
+        
+        
+//        switch indexPath.row {
+//        case 0:
+//
+//
+//        default:
+//            break
+//        }
     }
     
     
