@@ -23,7 +23,7 @@ class YouTubeTableViewCell: UITableViewCell {
             videoImageView.image =  UIImage(data: data as Data)
             
         }catch{
-            print("error")
+            print("Image data not found")
             }
         }
         videoImageView.layer.borderWidth = 3

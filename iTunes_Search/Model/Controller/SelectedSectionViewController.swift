@@ -568,7 +568,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
                 FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.topHitLabelText.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
                     if error != nil {
-                        print(error?.localizedDescription)
+                        print(error?.localizedDescription as Any)
                     }
                 }
             }

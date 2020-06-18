@@ -690,7 +690,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         UserDefaults.standard.set(false, forKey:"selectedSearch")
         UserDefaults.standard.set(true, forKey:"selectedmyLybrary")
         self.selectLibraryRow = false
-        let selectedVideo = self.myLibraryListArray[indexPath.row]
         let selectedCell = self.myLibraryTableView.cellForRow(at: indexPath) as! MainLibrariMusciTableViewCell
         self.webView.load(withVideoId: "")
         for i in 0..<self.myLibraryListArray.count{
@@ -701,7 +700,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.musicTitleLabel.text!, selectedCellImageViewUrl: selectedCell.imageViewUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
             if error != nil {
-                print(error)
+                print(error?.localizedDescription as Any)
             }else{
                 if checkIfLoadIsSuccessful == true {
                     self.recentPlayedVideo = []

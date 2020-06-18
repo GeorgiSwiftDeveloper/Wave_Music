@@ -28,7 +28,7 @@ class SelectedSectionTableViewCell: UITableViewCell {
                 self.topHitImageView.image =  UIImage(data: data as Data)
                 
             }catch{
-                print("error")
+                print("Image data not found")
                 }
             }
             self.topHitImageView.layer.borderWidth = 3
@@ -53,7 +53,7 @@ class SelectedSectionTableViewCell: UITableViewCell {
                 self.topHitImageView.image =  UIImage(data: data as Data)
                 
             }catch{
-                print("error")
+                print("Image data not found")
                 }
             }
             self.topHitImageView.layer.borderWidth = 3
@@ -82,7 +82,7 @@ class SelectedSectionTableViewCell: UITableViewCell {
                   self.topHitImageView.image =  UIImage(data: data as Data)
                   
               }catch{
-                  print("error")
+                  print("Image data not found")
                   }
               }
               self.topHitImageView.layer.borderWidth = 3

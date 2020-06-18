@@ -30,7 +30,7 @@ class GenreVideoTableViewCell: UITableViewCell {
                 self.videoImageView.image =  UIImage(data: data as Data)
                 
             }catch{
-                print("error")
+                print("Image data not found")
                 }
             }
             self.videoImageView.layer.borderWidth = 3

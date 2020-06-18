@@ -210,7 +210,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
 //                    cell.singerNameLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
 //                }
 //            }
-            cell.confiigurationCell(albums: searchMusicList[indexPath.row])
+            cell.configurationCell(albums: searchMusicList[indexPath.row])
             cell.favoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell.favoriteButton.tag = indexPath.row;
             
