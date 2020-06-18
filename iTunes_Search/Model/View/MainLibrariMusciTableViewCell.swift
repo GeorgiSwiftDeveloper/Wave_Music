@@ -22,12 +22,12 @@ class MainLibrariMusciTableViewCell: UITableViewCell {
     
     
     func configureGenreCell(_ video: Video){
-        self.videoID = video.videoId
+        self.videoID = video.videoId ?? ""
         DispatchQueue.main.async {
             self.musicTitleLabel.text = video.videoTitle
             if video.videoImageUrl != ""{
-            self.imageViewUrl = video.videoImageUrl
-            let imageUrl = URL(string: video.videoImageUrl)
+            self.imageViewUrl = video.videoImageUrl ?? ""
+            let imageUrl = URL(string: video.videoImageUrl ?? "")
             do{
                 let data:NSData = try NSData(contentsOf: imageUrl!)
                 self.musicImageView.image =  UIImage(data: data as Data)

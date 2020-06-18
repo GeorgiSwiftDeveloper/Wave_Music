@@ -17,7 +17,7 @@ class YouTubeTableViewCell: UITableViewCell {
         
         singerNameLabel.text = video.videoTitle
         if video.videoImageUrl != ""{
-        let imageUrl = URL(string: video.videoImageUrl)
+        let imageUrl = URL(string: video.videoImageUrl ?? "")
         do{
             let data:NSData = try NSData(contentsOf: imageUrl!)
             videoImageView.image =  UIImage(data: data as Data)

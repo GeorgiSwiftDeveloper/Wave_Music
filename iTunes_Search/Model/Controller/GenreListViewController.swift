@@ -75,13 +75,13 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 }else{
                         self.videoArray = loadVideolist!
                         for songIndex in 0..<self.videoArray.count{
-                            let title =   self.videoArray[songIndex].videoTitle
-                            let description =  self.videoArray[songIndex].videoDescription
-                            let image =  self.videoArray[songIndex].videoImageUrl
-                            let playlistId = self.videoArray[songIndex].videoPlaylistId
-                            let videoId =  self.videoArray[songIndex].videoId
-                            let channelId =  self.videoArray[songIndex].channelId
-                            let genreTitle = self.videoArray[songIndex].genreTitle
+                            let title =   self.videoArray[songIndex].videoTitle ?? ""
+                            let description =  self.videoArray[songIndex].videoDescription ?? ""
+                            let image =  self.videoArray[songIndex].videoImageUrl ?? ""
+                            let playlistId = self.videoArray[songIndex].videoPlaylistId ?? ""
+                            let videoId =  self.videoArray[songIndex].videoId ?? ""
+                            let channelId =  self.videoArray[songIndex].channelId ?? ""
+                            let genreTitle = self.videoArray[songIndex].genreTitle ?? "" 
                             
                             print(genreTitle)
                             
@@ -419,8 +419,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
             for i in 0..<self.videoArray.count{
-                self.youTubeVideoID.append(self.videoArray[i].videoId)
-                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle)
+                self.youTubeVideoID.append(self.videoArray[i].videoId ?? "")
+                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle ?? "")
             }
             self.webView.load(withVideoId: "")
             VideoPlayerClass.callVideoPlayer.superViewController = self

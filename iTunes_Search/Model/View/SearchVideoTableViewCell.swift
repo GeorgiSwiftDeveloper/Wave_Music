@@ -19,10 +19,10 @@ class SearchVideoTableViewCell: UITableViewCell {
     func configurationCell(albums: Video) {
         DispatchQueue.main.async {
             self.singerNameLabel.text = albums.videoTitle
-            self.videoID = albums.videoId
+            self.videoID = albums.videoId ?? ""
             if albums.videoImageUrl != ""{
-                self.videoImageUrl = albums.videoImageUrl
-                let imageUrl = URL(string: albums.videoImageUrl)
+                self.videoImageUrl = albums.videoImageUrl ?? ""
+                let imageUrl = URL(string: albums.videoImageUrl ?? "")
                 do{
                     let data:NSData = try NSData(contentsOf: imageUrl!)
                     self.songImageView.image =  UIImage(data: data as Data)

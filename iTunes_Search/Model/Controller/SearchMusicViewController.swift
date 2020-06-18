@@ -281,8 +281,8 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         webView.load(withVideoId: "")
         VideoPlayerClass.callVideoPlayer.superViewController = self
         for i in 0..<searchMusicList.count{
-            self.youTubeVideoID.append(searchMusicList[i].videoId)
-            self.youTubeVideoTitle.append(searchMusicList[i].videoTitle)
+            self.youTubeVideoID.append(searchMusicList[i].videoId ?? "")
+            self.youTubeVideoTitle.append(searchMusicList[i].videoTitle ?? "")
         }
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         

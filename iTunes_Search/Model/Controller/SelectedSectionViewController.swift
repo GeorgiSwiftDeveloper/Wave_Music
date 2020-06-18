@@ -549,8 +549,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 self.getSelectedLibraryVideo(indexPath)
                 self.webView.load(withVideoId: "")
                 for i in 0..<self.myLibraryList.count{
-                    self.youTubeVideoID.append(self.myLibraryList[i].videoId)
-                    self.youTubeVideoTitle.append(self.myLibraryList[i].videoTitle)
+                    self.youTubeVideoID.append(self.myLibraryList[i].videoId ?? "")
+                    self.youTubeVideoTitle.append(self.myLibraryList[i].videoTitle ?? "")
                 }
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             }
@@ -562,8 +562,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 self.webView.load(withVideoId: "")
                 
                 for i in 0..<self.topHitsLists.count{
-                    self.youTubeVideoID.append(self.topHitsLists[i].videoId)
-                    self.youTubeVideoTitle.append(self.topHitsLists[i].videoTitle)
+                    self.youTubeVideoID.append(self.topHitsLists[i].videoId ?? "")
+                    self.youTubeVideoTitle.append(self.topHitsLists[i].videoTitle ?? "")
                 }
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
                 FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.topHitLabelText.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
@@ -579,8 +579,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 self.getSelectedRecentlyPlayedVideo(indexPath)
                 self.webView.load(withVideoId: "")
                 for i in 0..<self.recentPlayedVideo.count{
-                    self.youTubeVideoID.append(self.recentPlayedVideo[i].videoId)
-                    self.youTubeVideoTitle.append(self.recentPlayedVideo[i].videoTitle)
+                    self.youTubeVideoID.append(self.recentPlayedVideo[i].videoId ?? "")
+                    self.youTubeVideoTitle.append(self.recentPlayedVideo[i].videoTitle ?? "")
                 }
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             }

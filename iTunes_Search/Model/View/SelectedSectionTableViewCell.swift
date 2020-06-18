@@ -18,11 +18,11 @@ class SelectedSectionTableViewCell: UITableViewCell {
     
     func configureTopHitsCell(_ video: Video){
         DispatchQueue.main.async {
-            self.videoID = video.videoId
-            self.videoImageUrl = video.videoImageUrl
+            self.videoID = video.videoId ?? ""
+            self.videoImageUrl = video.videoImageUrl ?? ""
             self.topHitLabelText.text = video.videoTitle
             if video.videoImageUrl != ""{
-            let imageUrl = URL(string: video.videoImageUrl)
+            let imageUrl = URL(string: video.videoImageUrl ?? "")
             do{
                 let data:NSData = try NSData(contentsOf: imageUrl!)
                 self.topHitImageView.image =  UIImage(data: data as Data)
@@ -47,7 +47,7 @@ class SelectedSectionTableViewCell: UITableViewCell {
         DispatchQueue.main.async {
             self.topHitLabelText.text = video.videoTitle
             if video.videoImageUrl != ""{
-            let imageUrl = URL(string: video.videoImageUrl)
+            let imageUrl = URL(string: video.videoImageUrl ?? "")
             do{
                 let data:NSData = try NSData(contentsOf: imageUrl!)
                 self.topHitImageView.image =  UIImage(data: data as Data)
@@ -70,13 +70,13 @@ class SelectedSectionTableViewCell: UITableViewCell {
     
     
     func configureRecentlyPlayedCell(_ video: Video){
-          self.videoImageUrl = video.videoImageUrl
-          self.videoID = video.videoId
+          self.videoImageUrl = video.videoImageUrl ?? ""
+          self.videoID = video.videoId ?? ""
           DispatchQueue.main.async {
               self.topHitLabelText.text = video.videoTitle
                 
               if video.videoImageUrl != ""{
-              let imageUrl = URL(string: video.videoImageUrl)
+              let imageUrl = URL(string: video.videoImageUrl ?? "")
               do{
                   let data:NSData = try NSData(contentsOf: imageUrl!)
                   self.topHitImageView.image =  UIImage(data: data as Data)

@@ -9,11 +9,11 @@
 import Foundation
 
 struct Video {
-    var videoId = String()
-    var videoTitle = String()
-    var videoDescription = String()
-    var videoPlaylistId = String()
-    var videoImageUrl = String()
-    var channelId = String()
-    var genreTitle = String()
+    var videoId: String?
+    var videoTitle: String?
+    var videoDescription: String?
+    var videoPlaylistId: String?
+    var videoImageUrl: String?
+    var channelId: String?
+    var genreTitle: String?
 }

@@ -20,11 +20,11 @@ class GenreVideoTableViewCell: UITableViewCell {
     func configureGenreCell(_ video: Video){
         DispatchQueue.main.async {
             
-            self.videoID = video.videoId
+            self.videoID = video.videoId ?? ""
             if video.videoImageUrl != ""{
-            self.videoImageUrl = video.videoImageUrl
+            self.videoImageUrl = video.videoImageUrl ?? ""
             self.singerNameLabel.text = video.videoTitle
-            let imageUrl = URL(string: video.videoImageUrl)
+            let imageUrl = URL(string: video.videoImageUrl ?? "")
             do{
                 let data:NSData = try NSData(contentsOf: imageUrl!)
                 self.videoImageView.image =  UIImage(data: data as Data)

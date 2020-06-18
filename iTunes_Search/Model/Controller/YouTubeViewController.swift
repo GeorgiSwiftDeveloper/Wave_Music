@@ -66,7 +66,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
         webConfiguration.mediaTypesRequiringUserActionForPlayback = []
         self.view.addSubview(youTubeWKWebView)
         
-        loadYouTubeVideoUrl(genreVidoID: genreVideoID!.videoId)
+        loadYouTubeVideoUrl(genreVidoID: genreVideoID!.videoId ?? "" )
         
         selectedyouTubeVideoTableView.delegate = self
         selectedyouTubeVideoTableView.dataSource = self
@@ -92,7 +92,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
                             print(genreTitle)
 
 
-                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.selectedGenreTitle!.genreTitle, channelId: channelId)
+                            self.saveItems(title: title ?? "", description: description ?? "", image: image ?? "", videoId: videoId ?? "", playlistId: playlistId ?? "",genreTitle: self.selectedGenreTitle!.genreTitle, channelId: channelId ?? "")
 
                         }
                         self.selectedyouTubeVideoTableView.reloadData()
@@ -266,7 +266,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
         selectedyouTubeVideoTableView.reloadData()
         
         genreVideoID?.genreTitle = selectedVideoId.videoId
-        loadYouTubeVideoUrl(genreVidoID: selectedVideoId.videoId)
+        loadYouTubeVideoUrl(genreVidoID: selectedVideoId.videoId ?? "")
         }
     
     

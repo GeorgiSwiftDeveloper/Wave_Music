@@ -23,7 +23,7 @@ class AddSelectedMusicToWaveViewController: UIViewController {
         self.playlistTableView.delegate = self
         self.playlistTableView.dataSource = self
         customizeUI()
-        let imageUrl = URL(string: selectedMusicData!.videoImageUrl)
+        let imageUrl = URL(string: selectedMusicData!.videoImageUrl ?? "")
         do{
             let data:NSData = try NSData(contentsOf: imageUrl!)
             selectedMusicImageView.image =  UIImage(data: data as Data)
@@ -64,7 +64,7 @@ class AddSelectedMusicToWaveViewController: UIViewController {
     
     @IBAction func addToMyLibrrary(_ sender: Any) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-        let predicate = NSPredicate(format: "title == %@", selectedMusicData!.videoTitle as CVarArg)
+        let predicate = NSPredicate(format: "title == %@", (selectedMusicData!.videoTitle ?? "") as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
 

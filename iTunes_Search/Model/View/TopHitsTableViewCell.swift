@@ -17,12 +17,12 @@ class TopHitsTableViewCell: UITableViewCell {
     var videoImageUrl = String()
     
     func configureGenreCell(_ video: Video){
-           self.videoID = video.videoId
+           self.videoID = video.videoId ?? ""
         DispatchQueue.main.async {
             self.topHitSongTitle.text = video.videoTitle
             if video.videoImageUrl != ""{
-            self.videoImageUrl = video.videoImageUrl
-            let imageUrl = URL(string: video.videoImageUrl)
+            self.videoImageUrl = video.videoImageUrl ?? ""
+            let imageUrl = URL(string: video.videoImageUrl ?? "" )
             do{
                 let data:NSData = try NSData(contentsOf: imageUrl!)
                 self.topHitImageView.image =  UIImage(data: data as Data)

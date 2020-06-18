@@ -104,12 +104,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                     DispatchQueue.main.async{
                         self.topHitsArray = loadVideolist!
                         for songIndex in 0..<self.topHitsArray.count{
-                            let title =   self.topHitsArray[songIndex].videoTitle
-                            let description =  self.topHitsArray[songIndex].videoDescription
-                            let image =  self.topHitsArray[songIndex].videoImageUrl
-                            let playlistId = self.topHitsArray[songIndex].videoPlaylistId
-                            let videoId =  self.topHitsArray[songIndex].videoId
-                            let channelId =  self.topHitsArray[songIndex].channelId
+                            let title =   self.topHitsArray[songIndex].videoTitle ?? ""
+                            let description =  self.topHitsArray[songIndex].videoDescription ?? ""
+                            let image =  self.topHitsArray[songIndex].videoImageUrl ?? ""
+                            let playlistId = self.topHitsArray[songIndex].videoPlaylistId ?? ""
+                            let videoId =  self.topHitsArray[songIndex].videoId ?? ""
+                            let channelId =  self.topHitsArray[songIndex].channelId ?? ""
                             
                             self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
                             self.topHitsCollectionCell.reloadData()
@@ -416,10 +416,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             cell.collectionImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
             cell.collectionImageView.layer.masksToBounds = true
             
-            let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl)
-            let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl)
-            let imageUrl3 = URL(string: topHitsArray[2].videoImageUrl)
-            let imageUrl4 = URL(string: topHitsArray[3].videoImageUrl)
+            let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
+            let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl ?? "")
+            let imageUrl3 = URL(string: topHitsArray[2].videoImageUrl ?? "")
+            let imageUrl4 = URL(string: topHitsArray[3].videoImageUrl ?? "")
             
             do{
                 let data1:NSData = try NSData(contentsOf: imageUrl1!)
@@ -454,15 +454,15 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             cell.collectionImageView.layer.masksToBounds = true
             if recentPlayedVideo.count == 1 {
                 do{
-                    let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl)
+                    let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
                     let data1:NSData =  try NSData(contentsOf: imageUrl1!)
                     cell.imageView1.image =  UIImage(data: data1 as Data)
                 }catch{
                     print("error")
                 }
             }else if recentPlayedVideo.count == 2 {
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl)
-                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl)
+                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
+                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
                 
                 do{
                     let data1:NSData = try NSData(contentsOf: imageUrl1!)
@@ -475,9 +475,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 }
             }else if recentPlayedVideo.count == 3 {
                 
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl)
-                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl)
-                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl)
+                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
+                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
+                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl ?? "")
                 
                 do{
                     let data1:NSData = try NSData(contentsOf: imageUrl1!)
@@ -494,10 +494,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                     print("error")
                 }
             }else if recentPlayedVideo.count >= 4 {
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl)
-                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl)
-                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl)
-                let imageUrl4 = URL(string: recentPlayedVideo[3].videoImageUrl)
+                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
+                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
+                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl ?? "")
+                let imageUrl4 = URL(string: recentPlayedVideo[3].videoImageUrl ?? "")
                 do{
                     let data1:NSData = try NSData(contentsOf: imageUrl1!)
                     let data2:NSData = try NSData(contentsOf: imageUrl2!)
@@ -693,8 +693,8 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         let selectedCell = self.myLibraryTableView.cellForRow(at: indexPath) as! MainLibrariMusciTableViewCell
         self.webView.load(withVideoId: "")
         for i in 0..<self.myLibraryListArray.count{
-            self.youTubeVideoID.append(self.myLibraryListArray[i].videoId)
-            self.youTubeVideoTitle.append(self.myLibraryListArray[i].videoTitle)
+            self.youTubeVideoID.append(self.myLibraryListArray[i].videoId ?? "")
+            self.youTubeVideoTitle.append(self.myLibraryListArray[i].videoTitle ?? "")
         }
         getSelectedLibraryVideo(indexPath)
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
