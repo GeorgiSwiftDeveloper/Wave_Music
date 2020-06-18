@@ -74,7 +74,7 @@ class YouTubeViewController: UIViewController, WKNavigationDelegate, UITableView
         self.navigationItem.backBarButtonItem?.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         if checkMyLibraryIsSelected == false{
         if isEmpty{
-            self.getYouTubeData.getFeedVideos(genreType: self.selectedGenreTitle!.genreTitle, selectedViewController: "YouTubeViewController") { (loadVideolist, error) in
+            self.getYouTubeData.getYouTubeVideo(genreType: self.selectedGenreTitle!.genreTitle, selectedViewController: "YouTubeViewController") { (loadVideolist, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }else{

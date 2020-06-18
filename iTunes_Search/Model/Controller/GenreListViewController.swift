@@ -69,7 +69,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         genreTableView.delegate = self
         genreTableView.dataSource = self
         if isEmpty{
-            self.getYouTubeData.getFeedVideos(genreType: self.genreTitle!.genreTitle, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
+            self.getYouTubeData.getYouTubeVideo(genreType: self.genreTitle!.genreTitle, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }else{

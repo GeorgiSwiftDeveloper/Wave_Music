@@ -97,7 +97,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func getYouTubeResults(){
         if isEntityIsEmpty{
-            self.getYouTubeData.getFeedVideos(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
+            self.getYouTubeData.getYouTubeVideo(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
                 if error != nil  {
                     print("erorr")
                 }else{

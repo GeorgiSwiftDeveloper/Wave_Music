@@ -18,7 +18,7 @@ class  YouTubeVideoConnection {
     var genreTitle: GenreModel?
     var videoArray = [Video]()
     
-    func getFeedVideos(genreType: String?,selectedViewController: String, loadStationList: @escaping(_ returnStationList: [Video]?, _ returnError: Error? ) -> ()) {
+    func getYouTubeVideo(genreType: String?,selectedViewController: String, loadYouTubeList: @escaping(_ returnYoutubeList: [Video]?, _ returnError: Error? ) -> ()) {
         
         switch selectedViewController {
         case "GenreListViewController":
@@ -110,9 +110,9 @@ class  YouTubeVideoConnection {
                 }
                 
                 self.videoArray = videoObjArray
-                loadStationList(self.videoArray,nil)
+                loadYouTubeList(self.videoArray,nil)
             }else{
-                loadStationList(nil,Error.self as? Error)
+                loadYouTubeList(nil,Error.self as? Error)
             }
         }
     }
