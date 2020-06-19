@@ -9,10 +9,12 @@
 import UIKit
 
 class CreatPlaylistsViewController: UIViewController {
-
+    
     @IBOutlet weak var playlistTableView: UITableView!
     
     var createdPlaylistArray = ["New Playlist"]
+    
+    var selectedRowTitle: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +24,14 @@ class CreatPlaylistsViewController: UIViewController {
         playlistTableView.dataSource = self
     }
     
-
- 
-
+    
+    
+    
 }
 
 extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return createdPlaylistArray.count
+        return createdPlaylistArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -47,7 +49,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                 cell.playlistImage.image = UIImage(systemName: "music.note.list")
                 cell.playlistImage.tintColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
             }
-             return cell
+            return cell
         }else {
             return PlaylistsTableViewCell()
         }
@@ -64,52 +66,56 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             let createPlaylistAction = UIAlertAction(title: "Create", style: .default) { (action) in
                 let text = (alert.textFields?.first as! UITextField).text
                 if text == ""{
-                   print("data is empty")
+                    print("data is empty")
                 }else{
-                self.createdPlaylistArray.append(text!)
-                print(self.createdPlaylistArray.count)
-                self.playlistTableView.reloadData()
+                    self.createdPlaylistArray.append(text!)
+                    print(self.createdPlaylistArray.count)
+                    self.playlistTableView.reloadData()
                 }
             }
             
             alert.addAction(action)
             alert.addAction(createPlaylistAction)
             //Add text field
-             alert.addTextField { (texfield) in
+            alert.addTextField { (texfield) in
                 playlistTxt = texfield
                 playlistTxt.placeholder = "Enter  name for this playlist"
-                   }
+            }
             present(alert, animated: true, completion: nil)
         }else{
-            
+            selectedRowTitle = createdPlaylistArray[indexPath.row]
+            self.performSegue(withIdentifier: "IdentifireByPlaylistName", sender: selectedRowTitle)
         }
         
         
-//        switch indexPath.row {
-//        case 0:
-//
-//
-//        default:
-//            break
-//        }
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "IdentifireByPlaylistName" {
+            if let destVC = segue.destination as? PlaylistByNameViewController{
+                destVC.navigationItem.title = sender as? String
+                
+            }
+        }
     }
     
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-          if indexPath.row != 0{
+        if indexPath.row != 0{
             return true
-          }else{
+        }else{
             return false
         }
-      }
-      
-      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-          if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
-              createdPlaylistArray.remove(at: indexPath.row)
-              tableView.deleteRows(at: [indexPath], with: .automatic)
-              
-          }
-      }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
+            createdPlaylistArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+        }
+    }
     
     
 }
