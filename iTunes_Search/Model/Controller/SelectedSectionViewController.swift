@@ -296,7 +296,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     func fetchRecentPlayedVideo(){
-        FetchRecentPlayedVideo.fetchRecentPlayedVideo.fetchRecentPlayedFromCoreData { (videoList, error) in
+        FetchRecentPlayedVideo.fetchVideoInstance.fetchVideoWithEntityName { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
@@ -432,23 +432,23 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         self.selectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.selectedSectionTableView.cellForRow(at: selectedIndex) as! SelectedSectionTableViewCell
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-        let predicate = NSPredicate(format: "title == %@", selectedCell.topHitLabelText.text! as CVarArg)
+        let predicate = NSPredicate(format: "title == %@", selectedCell.videoTitleProperty as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
-        let alert = UIAlertController(title: "\(selectedCell.topHitLabelText.text ?? "")", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "\(selectedCell.videoTitleProperty)", message: "", preferredStyle: .actionSheet)
         let addMyLibraryAction = UIAlertAction(title: "Add to MyLibrary", style: .default) { (action) in
             do{
                 let count = try context?.count(for: request)
                 if(count == 0){
                     let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
                     let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                    newEntity.setValue(selectedCell.topHitLabelText.text, forKey: "title")
-                    newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
-                    newEntity.setValue(selectedCell.videoID, forKey: "videoId")
+                    newEntity.setValue(selectedCell.videoTitleProperty, forKey: "title")
+                    newEntity.setValue(selectedCell.videoImageUrlProperty, forKey: "image")
+                    newEntity.setValue(selectedCell.videoIDProperty, forKey: "videoId")
                     try context?.save()
                     print("data has been saved ")
-                    let selectedImageViewUrl = selectedCell.videoImageUrl
-                    AlertView.instance.showAlert(title: "\(selectedCell.topHitLabelText.text ?? "")", message:"Successfuly added to MyLibrary list", alertType: .success, videoImage: selectedImageViewUrl)
+                    let selectedImageViewUrl = selectedCell.videoImageUrlProperty
+                    AlertView.instance.showAlert(title: "\(selectedCell.videoTitleProperty)", message:"Successfuly added to MyLibrary list", alertType: .success, videoImage: selectedImageViewUrl)
                 } else{
                     // at least one matching object exists
                     let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
@@ -462,9 +462,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         }
         let addPlaylistAction = UIAlertAction(title: "Add to Playlist", style: .default) { (action) in
-            UserDefaults.standard.set(selectedCell.videoID, forKey:"selectedVideoID")
-            UserDefaults.standard.set(selectedCell.videoImageUrl, forKey:"selectedVideoImageUrl")
-            UserDefaults.standard.set(selectedCell.topHitLabelText.text, forKey:"selectedVideoTitle")
+      
             self.navigationController?.popViewController(animated: true)
             self.tabBarController?.selectedIndex = 3
         }
@@ -566,7 +564,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                     self.youTubeVideoTitle.append(self.topHitsLists[i].videoTitle ?? "")
                 }
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
-                FetchRecentPlayedVideo.fetchRecentPlayedVideo.saveRecentPlayedVideo(selectedCellTitleLabel: selectedCell.topHitLabelText.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID) { (checkIfLoadIsSuccessful, error) in
+                FetchRecentPlayedVideo.fetchVideoInstance.saveVideoWithEntityName(selectedCellTitleLabel: selectedCell.videoTitleProperty, selectedCellImageViewUrl: selectedCell.videoImageUrlProperty, selectedCellVideoID: selectedCell.videoIDProperty, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
                     }

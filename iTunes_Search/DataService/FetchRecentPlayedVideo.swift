@@ -10,9 +10,9 @@ import UIKit
 import CoreData
 
 class FetchRecentPlayedVideo: NSObject {
-static var fetchRecentPlayedVideo = FetchRecentPlayedVideo()
+static var fetchVideoInstance = FetchRecentPlayedVideo()
     
-    func fetchRecentPlayedFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
+    func fetchVideoWithEntityName(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentPlayedMusicData")
         request.returnsObjectsAsFaults = false
         do {
@@ -31,8 +31,8 @@ static var fetchRecentPlayedVideo = FetchRecentPlayedVideo()
         }
     }
     
-    func saveRecentPlayedVideo(selectedCellTitleLabel: String,selectedCellImageViewUrl:String,selectedCellVideoID: String, loadVideoList: @escaping(_ returnVideoList: Bool?, _ returnError: Error?)-> ()){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentPlayedMusicData")
+    func saveVideoWithEntityName(selectedCellTitleLabel: String,selectedCellImageViewUrl:String,selectedCellVideoID: String, coreDataEntityName: String, loadVideoList: @escaping(_ returnVideoList: Bool?, _ returnError: Error?)-> ()){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
         let predicate = NSPredicate(format: "title == %@", selectedCellTitleLabel as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
@@ -40,7 +40,7 @@ static var fetchRecentPlayedVideo = FetchRecentPlayedVideo()
             let count = try context?.count(for: request)
             if(count == 0){
                 // no matching object
-                let entity = NSEntityDescription.entity(forEntityName: "RecentPlayedMusicData", in: context!)
+                let entity = NSEntityDescription.entity(forEntityName: coreDataEntityName, in: context!)
                 let newEntity = NSManagedObject(entity: entity!, insertInto: context)
                 newEntity.setValue(selectedCellTitleLabel, forKey: "title")
                 newEntity.setValue(selectedCellImageViewUrl, forKey: "image")

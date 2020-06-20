@@ -13,8 +13,9 @@ class SelectedSectionTableViewCell: UITableViewCell {
     @IBOutlet weak var topHitImageView: UIImageView!
     @IBOutlet weak var topHitLabelText: UILabel!
     @IBOutlet weak var addToFavoriteButton: UIButton!
-    var videoID = String()
-    var videoImageUrl = String()
+    var videoIDProperty = String()
+    var videoImageUrlProperty = String()
+    var videoTitleProperty = String()
     
     func configureTopHitsCell(_ video: Video){
         configureMainVideoCell(video)
@@ -30,8 +31,9 @@ class SelectedSectionTableViewCell: UITableViewCell {
       }
     
     func configureMainVideoCell(_ video: Video){
-        self.videoImageUrl = video.videoImageUrl ?? ""
-        self.videoID = video.videoId ?? ""
+        self.videoImageUrlProperty = video.videoImageUrl ?? ""
+        self.videoIDProperty = video.videoId ?? ""
+        self.videoTitleProperty = video.videoTitle ?? ""
         DispatchQueue.main.async {
             self.topHitLabelText.text = video.videoTitle
               
