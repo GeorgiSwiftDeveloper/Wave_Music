@@ -19,8 +19,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     var indexpath = Int()
     var genreCollectionViewBottomHeight = 145
     
-//    @IBOutlet weak var genreListNSLayoutBottomContraint: NSLayoutConstraint!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         genreCollectionView.isScrollEnabled = false

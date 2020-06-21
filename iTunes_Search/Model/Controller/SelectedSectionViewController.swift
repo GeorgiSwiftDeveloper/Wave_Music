@@ -19,6 +19,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
     var recentPlayedVideo = [Video]()
+    var videoPlaylist = [Video]()
+    
+    
+    
     var checkTableViewName = String()
     var videoSelected = false
     var checkVideoIsSelected = false
@@ -63,6 +67,17 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 alert.addAction(libraryAction)
                 present(alert, animated: true, completion: nil)
             }
+        case "Playlist":
+            if videoPlaylist.count == 0 {
+                           let alert = UIAlertController(title: "Empty Playlist", message: "Your songs will be placed here after you add any song", preferredStyle: .alert)
+                           let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                               self.navigationController?.popViewController(animated: true)
+                               self.tabBarController?.selectedIndex = 3
+                               self.tabBarController?.tabBar.isHidden = false
+                           }
+                           alert.addAction(libraryAction)
+                           present(alert, animated: true, completion: nil)
+                       }
         default:
             break
         }
@@ -78,6 +93,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             alertTitle = "My Library"
         case "RecentPlayed":
             alertTitle = "RECENTLY PLAYED"
+        case "Playlist":
+            alertTitle = "Playlist"
         default:
             break
         }
@@ -257,8 +274,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 
                 
                 topHitsLists.append(videoList)
-                     DispatchQueue.main.async {
-                        self.selectedSectionTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.selectedSectionTableView.reloadData()
                 }
             }
             
@@ -267,7 +284,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         }
     }
     
-    
+    //MARK: MOVE TO THE MODEL
     func fetchMyLibraryList(){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         request.returnsObjectsAsFaults = false
@@ -284,8 +301,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 
                 
                 myLibraryList.append(videoList)
-                     DispatchQueue.main.async {
-                        self.selectedSectionTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.selectedSectionTableView.reloadData()
                 }
             }
             
@@ -296,14 +313,14 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     func fetchRecentPlayedVideo(){
-        FetchRecentPlayedVideo.fetchVideoInstance.fetchVideoWithEntityName { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
                     self.recentPlayedVideo.append(videoList!)
-                         DispatchQueue.main.async {
-                    self.selectedSectionTableView.reloadData()
+                    DispatchQueue.main.async {
+                        self.selectedSectionTableView.reloadData()
                     }
                 }
             }
@@ -333,27 +350,27 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         switch checkTableViewName {
         case "topHits":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
-//                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
-//                let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
-//                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
-//                if checkIfAnotherViewControllerRowIsSelected == true {
-//                    checkIfRowIsSelected = false
-//                }
-//                DispatchQueue.main.async {
-//                    if checkIfRowIsSelected == true{
-//                        if(indexPath.row == saveTopHitsSelectedIndex)
-//                        {
-//                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-//                        }else{
-//                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                        }
-//                    }else{
-//                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                    }
-//                }
+                //                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
+                //                let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
+                //                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
+                //                if checkIfAnotherViewControllerRowIsSelected == true {
+                //                    checkIfRowIsSelected = false
+                //                }
+                //                DispatchQueue.main.async {
+                //                    if checkIfRowIsSelected == true{
+                //                        if(indexPath.row == saveTopHitsSelectedIndex)
+                //                        {
+                //                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                //                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+                //                        }else{
+                //                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                //                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                //                        }
+                //                    }else{
+                //                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                //                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                //                    }
+                //                }
                 cell.configureTopHitsCell(topHitsLists[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
@@ -363,27 +380,27 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case "MyLibrary":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
-//                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
-//                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
-//                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
-//                if checkIfAnotherViewControllerRowIsSelected == true {
-//                    checkIfLibraryRowIsSelected = false
-//                }
-//                DispatchQueue.main.async {
-//                    if checkIfLibraryRowIsSelected == true{
-//                        if(indexPath.row == saveLibrarySelectedIndex)
-//                        {
-//                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-//                        }else{
-//                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                        }
-//                    }else{
-//                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                    }
-//                }
+                //                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
+                //                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
+                //                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
+                //                if checkIfAnotherViewControllerRowIsSelected == true {
+                //                    checkIfLibraryRowIsSelected = false
+                //                }
+                //                DispatchQueue.main.async {
+                //                    if checkIfLibraryRowIsSelected == true{
+                //                        if(indexPath.row == saveLibrarySelectedIndex)
+                //                        {
+                //                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                //                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+                //                        }else{
+                //                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                //                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                //                        }
+                //                    }else{
+                //                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                //                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                //                    }
+                //                }
                 cell.configureMyLibraryCell(myLibraryList[indexPath.row])
                 cell.addToFavoriteButton.isHidden = true
                 selectedTableViewCell = cell
@@ -392,27 +409,27 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case "RecentPlayed":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
-//                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRecentlyPlayedRowIsSelected") as? Bool
-//                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveRecentlyPlayedSelectedIndex") as? Int
-//                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
-//                if checkIfAnotherViewControllerRowIsSelected == true {
-//                    checkIfLibraryRowIsSelected = false
-//                }
-//                DispatchQueue.main.async {
-//                    if checkIfLibraryRowIsSelected == true{
-//                        if(indexPath.row == saveLibrarySelectedIndex)
-//                        {
-//                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-//                        }else{
-//                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                        }
-//                    }else{
-//                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                    }
-//                }
+                //                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRecentlyPlayedRowIsSelected") as? Bool
+                //                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveRecentlyPlayedSelectedIndex") as? Int
+                //                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
+                //                if checkIfAnotherViewControllerRowIsSelected == true {
+                //                    checkIfLibraryRowIsSelected = false
+                //                }
+                //                DispatchQueue.main.async {
+                //                    if checkIfLibraryRowIsSelected == true{
+                //                        if(indexPath.row == saveLibrarySelectedIndex)
+                //                        {
+                //                            cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
+                //                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+                //                        }else{
+                //                            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                //                            cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                //                        }
+                //                    }else{
+                //                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                //                        cell.topHitLabelText.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
+                //                    }
+                //                }
                 cell.configureRecentlyPlayedCell(recentPlayedVideo[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
@@ -462,7 +479,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         }
         let addPlaylistAction = UIAlertAction(title: "Add to Playlist", style: .default) { (action) in
-      
+            UserDefaults.standard.set(selectedCell.videoIDProperty, forKey:"videoId")
+            UserDefaults.standard.set(selectedCell.videoImageUrlProperty, forKey:"image")
+            UserDefaults.standard.set(selectedCell.videoTitleProperty, forKey:"title")
             self.navigationController?.popViewController(animated: true)
             self.tabBarController?.selectedIndex = 3
         }
@@ -475,7 +494,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         present(alert, animated: true, completion: nil)
     }
     
-   
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         var canEdit = Bool()
         switch checkTableViewName {
@@ -564,7 +583,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                     self.youTubeVideoTitle.append(self.topHitsLists[i].videoTitle ?? "")
                 }
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
-                FetchRecentPlayedVideo.fetchVideoInstance.saveVideoWithEntityName(selectedCellTitleLabel: selectedCell.videoTitleProperty, selectedCellImageViewUrl: selectedCell.videoImageUrlProperty, selectedCellVideoID: selectedCell.videoIDProperty, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
+                CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(selectedCellTitleLabel: selectedCell.videoTitleProperty, selectedCellImageViewUrl: selectedCell.videoImageUrlProperty, selectedCellVideoID: selectedCell.videoIDProperty, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
                     }

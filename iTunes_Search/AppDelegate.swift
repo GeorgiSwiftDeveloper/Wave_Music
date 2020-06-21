@@ -24,12 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
               UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
               UserDefaults.standard.removeObject(forKey: "selectedSearch")
               UserDefaults.standard.removeObject(forKey: "pause")
-//        do {
-//            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-//        } catch {
-//            // Handle setCategory failure
-//            print(error)
-//        }
+
         return true
     }
     

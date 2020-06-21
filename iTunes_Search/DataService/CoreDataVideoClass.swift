@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 
-class coreDataVideoClass: NSObject {
-static var coreDataVideoInstance = coreDataVideoClass()
+class CoreDataVideoClass: NSObject {
+static var coreDataVideoInstance = CoreDataVideoClass()
     
     func fetchVideoWithEntityName(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentPlayedMusicData")

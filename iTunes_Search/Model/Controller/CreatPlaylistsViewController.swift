@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CreatPlaylistsViewController: UIViewController {
     
@@ -15,6 +16,49 @@ class CreatPlaylistsViewController: UIViewController {
     var createdPlaylistArray = ["New Playlist"]
     
     var selectedRowTitle: String?
+    
+    internal var _model: NSManagedObjectModel {
+        let model = NSManagedObjectModel()
+        
+        // Create the entity
+        let entity = NSEntityDescription()
+        entity.name = "DTCachedFile"
+        // Assume that there is a correct
+        // `CachedFile` managed object class.
+        entity.managedObjectClassName = "DTCachedFile"
+        
+        // Create the attributes
+        var properties = Array<NSAttributeDescription>()
+        
+        let remoteURLAttribute = NSAttributeDescription()
+        remoteURLAttribute.name = "title"
+        remoteURLAttribute.attributeType = .stringAttributeType
+        remoteURLAttribute.isOptional = false
+        //        remoteURLAttribute.isIndexed = true
+        properties.append(remoteURLAttribute)
+        
+        let fileDataAttribute = NSAttributeDescription()
+        fileDataAttribute.name = "image"
+        fileDataAttribute.attributeType = .stringAttributeType
+        fileDataAttribute.isOptional = false
+        //        fileDataAttribute.allowsExternalBinaryDataStorage = true
+        properties.append(fileDataAttribute)
+        
+        let lastAccessDateAttribute = NSAttributeDescription()
+        lastAccessDateAttribute.name = "videoID"
+        lastAccessDateAttribute.attributeType = .stringAttributeType
+        lastAccessDateAttribute.isOptional = false
+        properties.append(lastAccessDateAttribute)
+        
+        // Add attributes to entity
+        entity.properties = properties
+        
+        // Add entity to model
+        model.entities = [entity]
+        
+        // Done :]
+        return model
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,19 +127,48 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             }
             present(alert, animated: true, completion: nil)
         }else{
+            
             selectedRowTitle = createdPlaylistArray[indexPath.row]
+            createCoreDataEntity(selectedRowTitle!)
             self.performSegue(withIdentifier: "IdentifireByPlaylistName", sender: selectedRowTitle)
         }
         
         
     }
     
+    func createCoreDataEntity(_ entityNameIs: String) {
+        let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
+        let videoImageUrlProperty = UserDefaults.standard.object(forKey: "image") as? String
+        let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "PlaylistMusicData")
+        let predicate = NSPredicate(format: "title == %@", videoTitleProperty! as CVarArg)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        do{
+            
+            let entity = NSEntityDescription.entity(forEntityName:"PlaylistMusicData", in: context!)
+            let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+            
+            
+            newEntity.setValue(videoTitleProperty, forKey: "title")
+            newEntity.setValue(videoIDProperty, forKey: "videoId")
+            newEntity.setValue(videoImageUrlProperty, forKey: "image")
+            
+            try context?.save()
+            print("data has been saved ")
+        }catch{
+            print("error")
+        }
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "IdentifireByPlaylistName" {
-            if let destVC = segue.destination as? PlaylistByNameViewController{
-                destVC.navigationItem.title = sender as? String
-                
+            if let playlistDestVC = segue.destination as? SelectedSectionViewController{
+                playlistDestVC.navigationItem.title = sender as? String
+                playlistDestVC.checkTableViewName = "Playlist"
+//                playlistDestVC.selectedPlaylistName = ("\(sender ?? "")Model")
             }
         }
     }
