@@ -47,13 +47,13 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         self.selectedSectionTableView.dataSource = self
         switch checkTableViewName {
         case "topHits":
-            fetchTopHitList()
+            fetchVideoWithEntityName("TopHitsModel")
         case "MyLibrary":
-            fetchMyLibraryList()
+            fetchVideoWithEntityName("MyLibraryMusicData")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
         case "RecentPlayed":
-            fetchRecentPlayedVideo()
+            fetchVideoWithEntityName("RecentPlayedMusicData")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
             self.navigationItem.rightBarButtonItem  = deleteButton
             print(recentPlayedVideo.count)
@@ -68,6 +68,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 present(alert, animated: true, completion: nil)
             }
         case "Playlist":
+            fetchVideoWithEntityName("PlaylistMusicData")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
             if videoPlaylist.count == 0 {
@@ -262,68 +263,29 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         }
         searchIsSelected = false
     }
-    
-    func fetchTopHitList(){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context?.fetch(request)
-            for data in result as! [NSManagedObject] {
-                let videoId = data.value(forKey: "videoId") as? String ?? ""
-                let title = data.value(forKey: "title") as? String ?? ""
-                let songDescription = data.value(forKey: "songDescription") as? String ?? ""
-                let playListId = data.value(forKey: "playListId") as? String ?? ""
-                let image = data.value(forKey: "image") as? String ?? ""
-                let channelId = data.value(forKey: "channelId") as? String ?? ""
-                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: songDescription , videoPlaylistId: playListId, videoImageUrl: image , channelId:channelId, genreTitle: "")
-                
-                
-                topHitsLists.append(videoList)
-                DispatchQueue.main.async {
-                    self.selectedSectionTableView.reloadData()
-                }
-            }
-            
-        } catch {
-            print("Failed")
-        }
-    }
-    
-    //MARK: MOVE TO THE MODEL
-    func fetchMyLibraryList(){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context?.fetch(request)
-            for data in result as! [NSManagedObject] {
-                let videoId = data.value(forKey: "videoId") as? String ?? ""
-                let title = data.value(forKey: "title") as? String ?? ""
-                let songDescription = data.value(forKey: "songDescription") as? String ?? ""
-                let playListId = data.value(forKey: "playListId") as? String ?? ""
-                let image = data.value(forKey: "image") as? String ?? ""
-                let genreTitle = data.value(forKey: "genreTitle") as? String ?? ""
-                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: songDescription , videoPlaylistId: playListId, videoImageUrl: image , channelId:"", genreTitle: genreTitle)
-                
-                
-                myLibraryList.append(videoList)
-                DispatchQueue.main.async {
-                    self.selectedSectionTableView.reloadData()
-                }
-            }
-            
-        } catch {
-            print("Failed")
-        }
-    }
+
     
     
-    func fetchRecentPlayedVideo(){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName { (videoList, error) in
+    func fetchVideoWithEntityName(_ entityName: String){
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName) { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-                    self.recentPlayedVideo.append(videoList!)
+                    switch entityName {
+                    case "TopHitsModel":
+                        self.topHitsLists.append(videoList!)
+                    case "MyLibraryMusicData":
+                        self.myLibraryList.append(videoList!)
+                    case "RecentPlayedMusicData":
+                        self.recentPlayedVideo.append(videoList!)
+                    case "PlaylistMusicData":
+                        self.videoPlaylist.append(videoList!)
+                   
+                    default:
+                        break
+                    }
+                    
                     DispatchQueue.main.async {
                         self.selectedSectionTableView.reloadData()
                     }

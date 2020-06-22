@@ -10,19 +10,22 @@ import UIKit
 import CoreData
 
 class CoreDataVideoClass: NSObject {
-static var coreDataVideoInstance = CoreDataVideoClass()
+    static var coreDataVideoInstance = CoreDataVideoClass()
     
-    func fetchVideoWithEntityName(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentPlayedMusicData")
+    func fetchVideoWithEntityName(coreDataEntityName: String, loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
         request.returnsObjectsAsFaults = false
         do {
             let result = try context?.fetch(request)
             for data in result as! [NSManagedObject] {
-                let title = data.value(forKey: "title") as! String
-                let image = data.value(forKey: "image") as! String
-                let videoId = data.value(forKey: "videoId") as! String
-                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: "", videoPlaylistId: "", videoImageUrl: image, channelId:"")
-                loadVideoList(fetchedVideoList,nil)
+                let videoId = data.value(forKey: "videoId") as? String ?? ""
+                let title = data.value(forKey: "title") as? String ?? ""
+                let songDescription = data.value(forKey: "songDescription") as? String ?? ""
+                let playListId = data.value(forKey: "playListId") as? String ?? ""
+                let image = data.value(forKey: "image") as? String ?? ""
+//                let channelId = data.value(forKey: "channelId") as? String ?? ""
+                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: songDescription , videoPlaylistId: playListId, videoImageUrl: image , channelId:"", genreTitle: "")
+                loadVideoList(videoList,nil)
             }
             
         } catch {

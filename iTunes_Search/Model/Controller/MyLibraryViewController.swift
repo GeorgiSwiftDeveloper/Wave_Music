@@ -95,6 +95,46 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
     }
     
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierRecentPlayedDeleteRecords(notification:)), name: Notification.Name("NotificationIdentifierRecentPlayedDeleteRecords"), object: nil)
+        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+        switch pause {
+        case true:
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
+        case false:
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
+        default:
+            break
+        }
+        self.myLibraryListArray = []
+        self.recentPlayedVideo = []
+        fetchVideoWithEntityName("MyLibraryMusicData")
+        fetchVideoWithEntityName("RecentPlayedMusicData")
+    }
+    
     func getYouTubeResults(){
         if isEntityIsEmpty{
             self.getYouTubeData.getYouTubeVideo(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
@@ -135,57 +175,35 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     
-    func fetchRecentPlayedVideo(){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName { (videoList, error) in
+    
+    func fetchVideoWithEntityName(_ entityName: String){
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName) { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-                    self.recentPlayedVideo.append(videoList!)
-                    DispatchQueue.main.async {
-                        self.recentPlayedCollectionCell.reloadData()
+                    switch entityName {
+                    case "MyLibraryMusicData":
+                        self.myLibraryListArray.append(videoList!)
+                        if self.myLibraryListArray.count < 5 {
+                            self.viewAllButton.isHidden = true
+                        }else{
+                            self.viewAllButton.isHidden = false
+                        }
+                        DispatchQueue.main.async {
+                            self.myLibraryTableView.reloadData()
+                        }
+                    case "RecentPlayedMusicData":
+                        self.recentPlayedVideo.append(videoList!)
+                        DispatchQueue.main.async {
+                            self.recentPlayedCollectionCell.reloadData()
+                        }
+                    default:
+                        break
                     }
                 }
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierRecentPlayedDeleteRecords(notification:)), name: Notification.Name("NotificationIdentifierRecentPlayedDeleteRecords"), object: nil)
-        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-        switch pause {
-        case true:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
-        case false:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
-        default:
-            break
-        }
-        self.myLibraryListArray = []
-        self.fetchMyLibraryList()
-        self.recentPlayedVideo = []
-        fetchRecentPlayedVideo()
     }
     
     
@@ -242,7 +260,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     @objc func NotificationIdentifierRecentPlayedDeleteRecords(notification: Notification) {
         recentPlayedVideo = []
-        fetchRecentPlayedVideo()
+        fetchVideoWithEntityName("RecentPlayedMusicData")
         recentPlayedCollectionCell.reloadData()
     }
     
@@ -303,9 +321,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("search end editing.")
         if searchBar.searchTextField.text?.isEmpty == true{
-            myLibraryListArray = []
-            fetchMyLibraryList()
-            myLibraryTableView.reloadData()
+            fetchVideoWithEntityName("MyLibraryMusicData")
         }
         
     }
@@ -318,9 +334,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         if searchText.isEmpty == false{
             fetchSearchSong(searchBar, searchText: searchText)
         }else{
-            myLibraryListArray = []
-            fetchMyLibraryList()
-            
+            fetchVideoWithEntityName("MyLibraryMusicData")
         }
     }
     
@@ -362,35 +376,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     
-    
-    func fetchMyLibraryList(){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context?.fetch(request)
-            for data in result as! [NSManagedObject] {
-                let videoId = data.value(forKey: "videoId") as? String ?? ""
-                let title = data.value(forKey: "title") as? String ?? ""
-                let songDescription = data.value(forKey: "songDescription") as? String ?? ""
-                let playListId = data.value(forKey: "playListId") as? String ?? ""
-                let image = data.value(forKey: "image") as? String ?? ""
-                let genreTitle = data.value(forKey: "genreTitle") as? String ?? ""
-                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: songDescription , videoPlaylistId: playListId, videoImageUrl: image , channelId:"", genreTitle: genreTitle)
-                
-                
-                myLibraryListArray.append(videoList)
-            }
-            if myLibraryListArray.count < 5 {
-                viewAllButton.isHidden = true
-            }else{
-                viewAllButton.isHidden = false
-            }
-            myLibraryTableView.reloadData()
-            
-        } catch {
-            print("Failed")
-        }
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
@@ -753,7 +738,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             }else{
                 if checkIfLoadIsSuccessful == true {
                     self.recentPlayedVideo = []
-                    self.fetchRecentPlayedVideo()
+                    self.fetchVideoWithEntityName("RecentPlayedMusicData")
                     self.recentPlayedCollectionCell.reloadData()
                 }
             }
