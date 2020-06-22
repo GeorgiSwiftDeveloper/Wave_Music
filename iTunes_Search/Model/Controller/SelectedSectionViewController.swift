@@ -68,16 +68,18 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 present(alert, animated: true, completion: nil)
             }
         case "Playlist":
+            let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
+            self.navigationItem.rightBarButtonItem  = deleteButton
             if videoPlaylist.count == 0 {
-                           let alert = UIAlertController(title: "Empty Playlist", message: "Your songs will be placed here after you add any song", preferredStyle: .alert)
-                           let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                               self.navigationController?.popViewController(animated: true)
-                               self.tabBarController?.selectedIndex = 3
-                               self.tabBarController?.tabBar.isHidden = false
-                           }
-                           alert.addAction(libraryAction)
-                           present(alert, animated: true, completion: nil)
-                       }
+                let alert = UIAlertController(title: "Empty Playlist", message: "Your songs will be placed here after you add any song", preferredStyle: .alert)
+                let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                    self.tabBarController?.selectedIndex = 3
+                    self.tabBarController?.tabBar.isHidden = false
+                }
+                alert.addAction(libraryAction)
+                present(alert, animated: true, completion: nil)
+            }
         default:
             break
         }
@@ -126,6 +128,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         case "RecentPlayed":
             entityName = "RecentPlayedMusicData"
             recentPlayedVideo = []
+        case "Playlist":
+                entityName = "Playlist"
+                videoPlaylist = []
         default:
             break
         }
@@ -339,6 +344,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             numberOfRowsInSection = myLibraryList.count
         case "RecentPlayed":
             numberOfRowsInSection = recentPlayedVideo.count
+        case "Playlist":
+            numberOfRowsInSection = videoPlaylist.count
+
         default:
             break
         }
@@ -431,6 +439,16 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 //                    }
                 //                }
                 cell.configureRecentlyPlayedCell(recentPlayedVideo[indexPath.row])
+                cell.addToFavoriteButton.tag = indexPath.row;
+                cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
+                selectedTableViewCell = cell
+            }else {
+                return SelectedSectionTableViewCell()
+            }
+            case "Playlist":
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
+              
+                cell.configureRecentlyPlayedCell(videoPlaylist[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
                 selectedTableViewCell = cell
