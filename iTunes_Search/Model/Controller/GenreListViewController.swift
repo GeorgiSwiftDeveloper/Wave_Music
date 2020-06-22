@@ -94,18 +94,19 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 }
             }
         }else{
-            self.fetchFromCoreData { (videoList, error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }else{
-                    if videoList != nil {
-                        self.videoArray.append(videoList!)
-                        DispatchQueue.main.async {
-                            self.genreTableView.reloadData()
-                        }
-                    }
-                }
-            }
+//            self.fetchFromCoreData { (videoList, error) in
+//                if error != nil {
+//                    print(error?.localizedDescription as Any)
+//                }else{
+//                    if videoList != nil {
+//                        self.videoArray.append(videoList!)
+//                        DispatchQueue.main.async {
+//                            self.genreTableView.reloadData()
+//                        }
+//                    }
+//                }
+//            }
+            fetchVideoWithEntityName()
             
         }
     }
@@ -220,57 +221,52 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             print("Failed saving")
         }
     }
-    //MARK: MOVE TO THE MODEL
-    func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
+    
+    
+    
+    func fetchVideoWithEntityName(){
         switch genreTitle?.genreTitle {
         case "Rap":
-            entityName = "YouTubeDataModel"
+            self.entityName = "YouTubeDataModel"
         case "Hip-Hop":
-            entityName = "YouTubeHipHopData"
+            self.entityName = "YouTubeHipHopData"
         case "Pop":
-            entityName = "YouTubePopData"
+            self.entityName = "YouTubePopData"
         case "Rock":
-            entityName = "YouTubeRockData"
+            self.entityName = "YouTubeRockData"
         case "R&B":
-            entityName = "YouTubeRBData"
+            self.entityName = "YouTubeRBData"
         case "Dance":
-            entityName = "YouTubeDanceData"
+            self.entityName = "YouTubeDanceData"
         case "Electronic":
-            entityName = "YouTubeElectronicData"
+            self.entityName = "YouTubeElectronicData"
         case "Jazz":
-            entityName = "YouTubeJazzData"
+            self.entityName = "YouTubeJazzData"
         case "Instrumental":
-            entityName = "YouTubeInstrumentalData"
+            self.entityName = "YouTubeInstrumentalData"
         case "Blues":
-            entityName = "YouTubeBluesData"
+            self.entityName = "YouTubeBluesData"
         case "Car Music":
-            entityName = "YouTubeCarMusicData"
+            self.entityName = "YouTubeCarMusicData"
         case "Deep Bass":
-            entityName = "YouTubeDeepBassData"
+            self.entityName = "YouTubeDeepBassData"
         default:
             break
         }
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context?.fetch(request)
-            for data in result as! [NSManagedObject] {
-                let title = data.value(forKey: "title") as! String
-                let image = data.value(forKey: "image") as! String
-                let videoId = data.value(forKey: "videoId") as! String
-                let songDescription = data.value(forKey: "songDescription") as! String
-                let playlistId = data.value(forKey: "playListId") as! String
-                let channelId = data.value(forKey: "channelId") as! String
-                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image, channelId:channelId)
-                loadVideoList(fetchedVideoList,nil)
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName) { (videoList, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }else{
+                if videoList != nil {
+                    self.videoArray.append(videoList!)
+                    DispatchQueue.main.async {
+                        self.genreTableView.reloadData()
+                    }
+                }
             }
-            
-        } catch {
-            loadVideoList(nil,error)
-            print("Failed")
         }
     }
-    
+
     
     
     func iFMyLybraryOrSearchSelected() {
