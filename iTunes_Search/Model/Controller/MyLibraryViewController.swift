@@ -732,7 +732,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         }
         getSelectedLibraryVideo(indexPath)
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
-        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(selectedCellTitleLabel: selectedCell.musicTitleLabel.text!, selectedCellImageViewUrl: selectedCell.imageViewUrl, selectedCellVideoID: selectedCell.videoID, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
+        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{

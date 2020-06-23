@@ -83,10 +83,40 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                         let channelId =  self.videoArray[songIndex].channelId ?? ""
                         let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
                         
-//                        print(genreTitle)
                         
-                        
-                        self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: self.genreTitle!.genreTitle, channelId: channelId)
+                        switch genreTitle {
+                        case "Rap":
+                            self.entityName = "YouTubeDataModel"
+                        case "Hip-Hop":
+                            self.entityName = "YouTubeHipHopData"
+                        case "Pop":
+                            self.entityName = "YouTubePopData"
+                        case "Rock":
+                            self.entityName = "YouTubeRockData"
+                        case "R&B":
+                            self.entityName = "YouTubeRBData"
+                        case "Dance":
+                            self.entityName = "YouTubeDanceData"
+                        case "Electronic":
+                            self.entityName = "YouTubeElectronicData"
+                        case "Jazz":
+                            self.entityName = "YouTubeJazzData"
+                        case "Instrumental":
+                            self.entityName = "YouTubeInstrumentalData"
+                        case "Blues":
+                            self.entityName = "YouTubeBluesData"
+                        case "Car Music":
+                            self.entityName = "YouTubeCarMusicData"
+                        case "Deep Bass":
+                            self.entityName = "YouTubeDeepBassData"
+                        default:
+                            break
+                        }
+                        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, coreDataEntityName:self.entityName) { (checkIfSaveIsSuccessful, error) in
+                            if error != nil {
+                                print(error?.localizedDescription as Any)
+                            }
+                        }
                         DispatchQueue.main.async {
                             self.genreTableView.reloadData()
                         }
@@ -94,18 +124,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 }
             }
         }else{
-//            self.fetchFromCoreData { (videoList, error) in
-//                if error != nil {
-//                    print(error?.localizedDescription as Any)
-//                }else{
-//                    if videoList != nil {
-//                        self.videoArray.append(videoList!)
-//                        DispatchQueue.main.async {
-//                            self.genreTableView.reloadData()
-//                        }
-//                    }
-//                }
-//            }
             fetchVideoWithEntityName()
             
         }
@@ -177,52 +195,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
     }
     
-    //MARK: MOVE TO THE MODEL
-    func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String, channelId: String) {
-        switch genreTitle {
-        case "Rap":
-            entityName = "YouTubeDataModel"
-        case "Hip-Hop":
-            entityName = "YouTubeHipHopData"
-        case "Pop":
-            entityName = "YouTubePopData"
-        case "Rock":
-            entityName = "YouTubeRockData"
-        case "R&B":
-            entityName = "YouTubeRBData"
-        case "Dance":
-            entityName = "YouTubeDanceData"
-        case "Electronic":
-            entityName = "YouTubeElectronicData"
-        case "Jazz":
-            entityName = "YouTubeJazzData"
-        case "Instrumental":
-            entityName = "YouTubeInstrumentalData"
-        case "Blues":
-            entityName = "YouTubeBluesData"
-        case "Car Music":
-            entityName = "YouTubeCarMusicData"
-        case "Deep Bass":
-            entityName = "YouTubeDeepBassData"
-        default:
-            break
-        }
-        let entity = NSEntityDescription.entity(forEntityName: entityName, in: context!)
-        let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-        newEntity.setValue(title, forKey: "title")
-        newEntity.setValue(image, forKey: "image")
-        newEntity.setValue(videoId, forKey: "videoId")
-        newEntity.setValue(description, forKey: "songDescription")
-        newEntity.setValue(playlistId, forKey: "playListId")
-        newEntity.setValue(channelId, forKey: "channelId")
-        do {
-            try context?.save()
-        } catch {
-            print("Failed saving")
-        }
-    }
-    
-    
     
     func fetchVideoWithEntityName(){
         switch genreTitle?.genreTitle {
@@ -266,7 +238,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-
+    
     
     
     func iFMyLybraryOrSearchSelected() {
@@ -415,7 +387,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(selectedCellTitleLabel: selectedCell.singerNameLabel.text!, selectedCellImageViewUrl: selectedCell.videoImageUrl, selectedCellVideoID: selectedCell.videoID, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }

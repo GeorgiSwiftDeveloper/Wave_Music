@@ -129,36 +129,25 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         }else{
             
             selectedRowTitle = createdPlaylistArray[indexPath.row]
-            createCoreDataEntity(selectedRowTitle!)
+            createCoreDataEntity()
+            
             self.performSegue(withIdentifier: "IdentifireByPlaylistName", sender: selectedRowTitle)
         }
         
         
     }
     
-    func createCoreDataEntity(_ entityNameIs: String) {
+    func createCoreDataEntity() {
         let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
         let videoImageUrlProperty = UserDefaults.standard.object(forKey: "image") as? String
         let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "PlaylistMusicData")
-        let predicate = NSPredicate(format: "title == %@", videoTitleProperty! as CVarArg)
-        request.predicate = predicate
-        request.fetchLimit = 1
-        do{
-            
-            let entity = NSEntityDescription.entity(forEntityName:"PlaylistMusicData", in: context!)
-            let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-            
-            
-            newEntity.setValue(videoTitleProperty, forKey: "title")
-            newEntity.setValue(videoIDProperty, forKey: "videoId")
-            newEntity.setValue(videoImageUrlProperty, forKey: "image")
-            
-            try context?.save()
-            print("data has been saved ")
-        }catch{
-            print("error")
+        if (videoIDProperty != nil) || (videoImageUrlProperty != nil) || (videoTitleProperty != nil) {
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, coreDataEntityName: "PlaylistMusicData") { (checkIfLoadIsSuccessful, error) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }
+            }
         }
     }
     
@@ -168,7 +157,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             if let playlistDestVC = segue.destination as? SelectedSectionViewController{
                 playlistDestVC.navigationItem.title = sender as? String
                 playlistDestVC.checkTableViewName = "Playlist"
-//                playlistDestVC.selectedPlaylistName = ("\(sender ?? "")Model")
+                //                playlistDestVC.selectedPlaylistName = ("\(sender ?? "")Model")
             }
         }
     }

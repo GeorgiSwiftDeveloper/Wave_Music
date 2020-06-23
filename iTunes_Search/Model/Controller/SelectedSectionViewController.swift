@@ -69,6 +69,11 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             }
         case "Playlist":
             fetchVideoWithEntityName("PlaylistMusicData")
+            
+            UserDefaults.standard.removeObject(forKey: "videoId")
+            UserDefaults.standard.removeObject(forKey: "image")
+            UserDefaults.standard.removeObject(forKey: "title")
+            
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
             if videoPlaylist.count == 0 {
@@ -130,8 +135,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             entityName = "RecentPlayedMusicData"
             recentPlayedVideo = []
         case "Playlist":
-                entityName = "Playlist"
-                videoPlaylist = []
+            entityName = "Playlist"
+            videoPlaylist = []
         default:
             break
         }
@@ -263,7 +268,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         }
         searchIsSelected = false
     }
-
+    
     
     
     func fetchVideoWithEntityName(_ entityName: String){
@@ -281,7 +286,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                         self.recentPlayedVideo.append(videoList!)
                     case "PlaylistMusicData":
                         self.videoPlaylist.append(videoList!)
-                   
+                        
                     default:
                         break
                     }
@@ -308,7 +313,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             numberOfRowsInSection = recentPlayedVideo.count
         case "Playlist":
             numberOfRowsInSection = videoPlaylist.count
-
+            
         default:
             break
         }
@@ -407,9 +412,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }else {
                 return SelectedSectionTableViewCell()
             }
-            case "Playlist":
+        case "Playlist":
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
-              
+                
                 cell.configureRecentlyPlayedCell(videoPlaylist[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
@@ -563,7 +568,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                     self.youTubeVideoTitle.append(self.topHitsLists[i].videoTitle ?? "")
                 }
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
-                CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(selectedCellTitleLabel: selectedCell.videoTitleProperty, selectedCellImageViewUrl: selectedCell.videoImageUrlProperty, selectedCellVideoID: selectedCell.videoIDProperty, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
+                CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
                     }

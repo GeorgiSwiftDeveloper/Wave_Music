@@ -34,9 +34,9 @@ class CoreDataVideoClass: NSObject {
         }
     }
     
-    func saveVideoWithEntityName(selectedCellTitleLabel: String,selectedCellImageViewUrl:String,selectedCellVideoID: String, coreDataEntityName: String, loadVideoList: @escaping(_ returnVideoList: Bool?, _ returnError: Error?)-> ()){
+    func saveVideoWithEntityName(videoTitle: String,videoImage:String,videoId: String, coreDataEntityName: String, loadVideoList: @escaping(_ returnVideoList: Bool?, _ returnError: Error?)-> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
-        let predicate = NSPredicate(format: "title == %@", selectedCellTitleLabel as CVarArg)
+        let predicate = NSPredicate(format: "title == %@", videoTitle as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
         do{
@@ -45,9 +45,9 @@ class CoreDataVideoClass: NSObject {
                 // no matching object
                 let entity = NSEntityDescription.entity(forEntityName: coreDataEntityName, in: context!)
                 let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                newEntity.setValue(selectedCellTitleLabel, forKey: "title")
-                newEntity.setValue(selectedCellImageViewUrl, forKey: "image")
-                newEntity.setValue(selectedCellVideoID, forKey: "videoId")
+                newEntity.setValue(videoTitle, forKey: "title")
+                newEntity.setValue(videoImage, forKey: "image")
+                newEntity.setValue(videoId, forKey: "videoId")
                 try context?.save()
                 loadVideoList(true,nil)
                 print("data has been saved ")
