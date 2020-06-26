@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-  class  YouTubeVideoConnection {
+class  YouTubeVideoConnection {
     var API_KEY = ""
     var UPLOADS_PLAYLIST_ID = ""
     
@@ -72,14 +72,15 @@ import Alamofire
                 var videoObjArray = [Video]()
                 
                 for videos in listOfVideos {
-                    var youTubeVideo  = Video()
-                    youTubeVideo.videoId = (videos as AnyObject).value(forKeyPath: "snippet.resourceId.videoId") as! String
-                    youTubeVideo.videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String
-                    youTubeVideo.videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.description") as! String
-                    youTubeVideo.videoPlaylistId =  (videos as AnyObject).value(forKeyPath:"snippet.playlistId") as! String
-                    youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as! String
-                    youTubeVideo.channelId =  (videos as AnyObject).value(forKeyPath:"snippet.channelId") as! String
-                    youTubeVideo.genreTitle = genreType!
+                    let videoId = (videos as AnyObject).value(forKeyPath: "snippet.resourceId.videoId") as? String ?? ""
+                    let videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as? String ?? ""
+                    let videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.description") as? String ?? ""
+                    let videoPlaylistId =  (videos as AnyObject).value(forKeyPath:"snippet.playlistId") as? String ?? ""
+                    let videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as? String ?? ""
+                    let channelId =  (videos as AnyObject).value(forKeyPath:"snippet.channelId") as? String ?? ""
+                    let genreTitle = genreType!
+                    
+                    let youTubeVideo  = Video(videoId: videoId, videoTitle: videoTitle, videoDescription: videoDescription, videoPlaylistId: videoPlaylistId, videoImageUrl: videoImageUrl, channelId: channelId, genreTitle: genreTitle)
                     videoObjArray.append(youTubeVideo)
                 }
                 

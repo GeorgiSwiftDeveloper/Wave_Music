@@ -33,11 +33,11 @@ class SearchConnection {
                 var videoObjArray = [Video]()
                 
                 for videos in listOfVideos {
-                    var youTubeVideo  = Video()
-                    youTubeVideo.videoId = (videos as AnyObject).value(forKeyPath: "id.videoId") as! String
-                    youTubeVideo.videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String
-                    youTubeVideo.videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.channelTitle") as! String
-                    youTubeVideo.videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as! String
+                    let videoId = (videos as AnyObject).value(forKeyPath: "id.videoId") as? String ?? ""
+                    let videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as? String ?? ""
+                    let videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.channelTitle") as? String ?? ""
+                    let videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as? String ?? ""
+                    let youTubeVideo  = Video(videoId: videoId, videoTitle: videoTitle, videoDescription: videoDescription, videoPlaylistId: "", videoImageUrl: videoImageUrl, channelId: "", genreTitle: "")
                     videoObjArray.append(youTubeVideo)
                     
                 }

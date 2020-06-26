@@ -35,10 +35,10 @@ class PlaylistByNameViewController: UIViewController {
         do {
             let result = try context?.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
-                let title = data.value(forKey: "title") as? String
-                let image = data.value(forKey: "image") as? String
-                let videoId = data.value(forKey: "videoId") as? String
-                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: "", videoPlaylistId: "", videoImageUrl: image, channelId:"")
+                let title = data.value(forKey: "title") as? String ?? ""
+                let image = data.value(forKey: "image") as? String ?? ""
+                let videoId = data.value(forKey: "videoId") as? String ?? ""
+                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: "", videoPlaylistId: "", videoImageUrl: image, channelId:"", genreTitle: "")
                 videoList = []
                 self.videoList.append(fetchedVideoList)
                 playlistNameTableView.reloadData()

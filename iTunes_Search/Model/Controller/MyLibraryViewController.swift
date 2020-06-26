@@ -270,13 +270,13 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         do {
             let result = try context?.fetch(request)
             for data in result as! [NSManagedObject] {
-                let title = data.value(forKey: "title") as! String
-                let image = data.value(forKey: "image") as! String
-                let videoId = data.value(forKey: "videoId") as! String
-                let songDescription = data.value(forKey: "songDescription") as! String
-                let playlistId = data.value(forKey: "playListId") as! String
-                let channelId = data.value(forKey: "channelId") as! String
-                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image, channelId:channelId)
+                let title = data.value(forKey: "title") as? String ?? ""
+                let image = data.value(forKey: "image") as? String ?? ""
+                let videoId = data.value(forKey: "videoId") as? String ?? ""
+                let songDescription = data.value(forKey: "songDescription") as? String ?? ""
+                let playlistId = data.value(forKey: "playListId") as? String ?? ""
+                let channelId = data.value(forKey: "channelId") as? String ?? ""
+                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image, channelId:channelId, genreTitle: "")
                 loadVideoList(fetchedVideoList,nil)
             }
             
