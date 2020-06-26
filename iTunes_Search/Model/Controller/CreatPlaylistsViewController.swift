@@ -14,7 +14,7 @@ class CreatPlaylistsViewController: UIViewController {
     @IBOutlet weak var playlistTableView: UITableView!
     
     var createdPlaylistArray = ["New Playlist"]
-    
+    var playlistVideoArray = [Video]()
     var selectedRowTitle: String?
     
     internal var _model: NSManagedObjectModel {
@@ -69,6 +69,14 @@ class CreatPlaylistsViewController: UIViewController {
     }
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        createCoreDataEntity()
+        playlistVideoArray = []
+        fetchVideoWithEntityName("PlaylistMusicData")
+    }
+    
+    
     
     
 }
@@ -81,12 +89,17 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "playlistCell", for: indexPath) as? PlaylistsTableViewCell {
             if indexPath.row == 0 {
+                cell.trackCountLabel.isHidden = true
                 cell.playlistName.text = createdPlaylistArray[0]
                 cell.playlistName.textColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                 cell.playlistName.font = UIFont(name: "Verdana-Bold", size: 14.0)
                 cell.playlistImage.image = UIImage(systemName: "list.bullet")
             }else{
+                
                 cell.playlistName.text = createdPlaylistArray[indexPath.row]
+                cell.trackCountLabel.text = "tracks \(playlistVideoArray.count)"
+                cell.trackCountLabel.textAlignment = .center
+                cell.trackCountLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
                 cell.playlistName.textColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                 cell.playlistName.font = UIFont(name: "Verdana", size: 12.0)
                 cell.playlistName.textAlignment = .left
@@ -152,12 +165,28 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     
+    func fetchVideoWithEntityName(_ entityName: String){
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName) { (videoList, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }else{
+                if videoList != nil {
+                    
+                    self.playlistVideoArray.append(videoList!)
+                    DispatchQueue.main.async {
+                        self.playlistTableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "IdentifireByPlaylistName" {
             if let playlistDestVC = segue.destination as? SelectedSectionViewController{
                 playlistDestVC.navigationItem.title = sender as? String
                 playlistDestVC.checkTableViewName = "Playlist"
-                //                playlistDestVC.selectedPlaylistName = ("\(sender ?? "")Model")
             }
         }
     }

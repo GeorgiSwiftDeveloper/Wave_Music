@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class  YouTubeVideoConnection {
+  class  YouTubeVideoConnection {
     var API_KEY = ""
     var UPLOADS_PLAYLIST_ID = ""
     
