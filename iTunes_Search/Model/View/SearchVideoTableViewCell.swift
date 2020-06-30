@@ -13,6 +13,7 @@ class SearchVideoTableViewCell: UITableViewCell {
     @IBOutlet weak var songImageView: UIImageView!
     @IBOutlet weak var singerNameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
+    
     var videoID = String()
     var videoImageUrl = String()
     

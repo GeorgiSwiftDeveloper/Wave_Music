@@ -53,8 +53,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        
-        //        UserDefaults.standard.synchronize()
+    
         
         setupNavBar()
         

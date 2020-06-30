@@ -29,14 +29,14 @@ class SearchConnection {
         AF.request(urlStrng, parameters: nil).responseJSON { response in
             if let JSON = response.value as? [String: Any] {
                 print(JSON)
-                let listOfVideos = JSON["items"] as! NSArray
+                guard let listOfVideos = JSON["items"] as? NSArray else {return}
                 var videoObjArray = [Video]()
                 
                 for videos in listOfVideos {
-                    let videoId = (videos as AnyObject).value(forKeyPath: "id.videoId") as? String ?? ""
-                    let videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as? String ?? ""
-                    let videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.channelTitle") as? String ?? ""
-                    let videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as? String ?? ""
+                    let videoId = (videos as AnyObject).value(forKeyPath: "id.videoId") as! String
+                    let videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String
+                    let videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.channelTitle") as! String
+                    let videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as! String
                     let youTubeVideo  = Video(videoId: videoId, videoTitle: videoTitle, videoDescription: videoDescription, videoPlaylistId: "", videoImageUrl: videoImageUrl, channelId: "", genreTitle: "")
                     videoObjArray.append(youTubeVideo)
                     

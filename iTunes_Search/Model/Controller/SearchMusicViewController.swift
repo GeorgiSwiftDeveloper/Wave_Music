@@ -20,7 +20,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     var searchConnectionManager = SearchConnection()
     var searchMusicList = [Video]()
-    var selectedMusic = [SelectedAlbumModel]()
     let searchController = UISearchController(searchResultsController: nil)
     
     
