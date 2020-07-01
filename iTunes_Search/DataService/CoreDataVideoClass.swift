@@ -21,11 +21,11 @@ class CoreDataVideoClass: NSObject {
             for data in result as! [NSManagedObject] {
                 let videoId = data.value(forKey: "videoId") as! String
                 let title = data.value(forKey: "title") as! String
-                let songDescription = data.value(forKey: "songDescription") as! String
-                let playListId = data.value(forKey: "playListId") as! String
                 let image = data.value(forKey: "image") as! String
-//                let channelId = data.value(forKey: "channelId") as? String ?? ""
-                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: songDescription , videoPlaylistId: playListId, videoImageUrl: image , channelId:"", genreTitle: "")
+                //                let channelId = data.value(forKey: "channelId") as? String ?? ""
+                //                let songDescription = data.value(forKey: "songDescription") as! String
+                //                let playListId = data.value(forKey: "playListId") as! String
+                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
                 loadVideoList(videoList,nil)
             }
             

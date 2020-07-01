@@ -18,6 +18,9 @@ class  YouTubeVideoConnection {
     var genreTitle: GenreModel?
     var videoArray = [Video]()
     
+    
+    static var getYouTubeVideoInstace = YouTubeVideoConnection()
+    
     func getYouTubeVideo(genreType: String?,selectedViewController: String, loadYouTubeList: @escaping(_ returnYoutubeList: [Video]?, _ returnError: Error? ) -> ()) {
         
         switch selectedViewController {

@@ -16,49 +16,7 @@ class CreatPlaylistsViewController: UIViewController {
     var createdPlaylistArray = ["New Playlist"]
     var playlistVideoArray = [Video]()
     var selectedRowTitle: String?
-    
-    internal var _model: NSManagedObjectModel {
-        let model = NSManagedObjectModel()
-        
-        // Create the entity
-        let entity = NSEntityDescription()
-        entity.name = "DTCachedFile"
-        // Assume that there is a correct
-        // `CachedFile` managed object class.
-        entity.managedObjectClassName = "DTCachedFile"
-        
-        // Create the attributes
-        var properties = Array<NSAttributeDescription>()
-        
-        let remoteURLAttribute = NSAttributeDescription()
-        remoteURLAttribute.name = "title"
-        remoteURLAttribute.attributeType = .stringAttributeType
-        remoteURLAttribute.isOptional = false
-        //        remoteURLAttribute.isIndexed = true
-        properties.append(remoteURLAttribute)
-        
-        let fileDataAttribute = NSAttributeDescription()
-        fileDataAttribute.name = "image"
-        fileDataAttribute.attributeType = .stringAttributeType
-        fileDataAttribute.isOptional = false
-        //        fileDataAttribute.allowsExternalBinaryDataStorage = true
-        properties.append(fileDataAttribute)
-        
-        let lastAccessDateAttribute = NSAttributeDescription()
-        lastAccessDateAttribute.name = "videoID"
-        lastAccessDateAttribute.attributeType = .stringAttributeType
-        lastAccessDateAttribute.isOptional = false
-        properties.append(lastAccessDateAttribute)
-        
-        // Add attributes to entity
-        entity.properties = properties
-        
-        // Add entity to model
-        model.entities = [entity]
-        
-        // Done :]
-        return model
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

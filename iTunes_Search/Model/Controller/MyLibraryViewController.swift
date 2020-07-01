@@ -23,7 +23,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var myLibraryListArray = [Video]()
     var topHitsArray = [Video]()
     var recentPlayedVideo = [Video]()
-    var getYouTubeData  = YouTubeVideoConnection()
     var webView = WKYTPlayerView()
     var selectTopHitsRow = Bool()
     var selectLibraryRow = Bool()
@@ -39,6 +38,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var viewAllButton = UIButton()
     var videoPlayerClass = VideoPlayerClass()
     
+    var recentPlayerArray = [Data]()
     
     var isEntityIsEmpty: Bool {
         do {
@@ -53,11 +53,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-    
+        
         
         setupNavBar()
         
         myLibraryTableView.alwaysBounceVertical = false
+        
         self.myLibraryTableView.delegate = self
         self.myLibraryTableView.dataSource = self
         
@@ -66,7 +67,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         
         self.recentPlayedCollectionCell.delegate = self
         self.recentPlayedCollectionCell.dataSource = self
-        
         getYouTubeResults()
     }
     
@@ -132,11 +132,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.recentPlayedVideo = []
         fetchVideoWithEntityName("MyLibraryMusicData")
         fetchVideoWithEntityName("RecentPlayedMusicData")
+        
+        recentPlayerVideoImage(videoCount: recentPlayedVideo.count) { (imageDataArray) in
+            self.recentPlayerArray = imageDataArray
+            print(self.recentPlayerArray.count)
+        }
     }
     
     func getYouTubeResults(){
         if isEntityIsEmpty{
-            self.getYouTubeData.getYouTubeVideo(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
+            YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
                 if error != nil  {
                     print("erorr")
                 }else{
@@ -346,13 +351,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         
         
         do{
-            //            let count = try context?.count(for: request)
-            //            if(count == 0){
-            //                // no matching object
-            //                print("no match")
-            //            }else{
             let fetchResult = try context?.fetch(request) as! [NSManagedObject]
-            //            print(fetchResult.count)
             for result in fetchResult {
                 let videoId = result.value(forKey: "videoId") as? String ?? ""
                 let title = result.value(forKey: "title") as? String ?? ""
@@ -368,7 +367,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             }
             print("match")
         }
-            // }
         catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
@@ -400,50 +398,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             cell.collectionImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
             cell.collectionImageView.layer.masksToBounds = true
             
-            
-            
-            if topHitsArray.count == 1 {
-                do{
-                    let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
-                    let data1:NSData =  try NSData(contentsOf: imageUrl1!)
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                }catch{
-                    print("error")
-                }
-            }else if topHitsArray.count == 2 {
-                let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl ?? "")
-                
-                do{
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                }catch{
-                    print("error")
-                }
-            }else if topHitsArray.count == 3 {
-                
-                let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl ?? "")
-                let imageUrl3 = URL(string: topHitsArray[2].videoImageUrl ?? "")
-                
-                do{
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
-                    
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                    cell.imageView3.image =  UIImage(data: data3 as Data)
-                    
-                    
-                    
-                }catch{
-                    print("error")
-                }
-            }else if topHitsArray.count >= 4 {
+            if topHitsArray.count >= 4 {
                 let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
                 let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl ?? "")
                 let imageUrl3 = URL(string: topHitsArray[2].videoImageUrl ?? "")
@@ -485,72 +440,28 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             cell.collectionImageView.layer.shadowOpacity = 2
             cell.collectionImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
             cell.collectionImageView.layer.masksToBounds = true
-            if recentPlayedVideo.count == 1 {
-                do{
-                    let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
-                    let data1:NSData =  try NSData(contentsOf: imageUrl1!)
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                }catch{
-                    print("error")
-                }
-            }else if recentPlayedVideo.count == 2 {
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
-                
-                do{
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                }catch{
-                    print("error")
-                }
-            }else if recentPlayedVideo.count == 3 {
-                
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
-                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl ?? "")
-                
-                do{
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
-                    
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                    cell.imageView3.image =  UIImage(data: data3 as Data)
-                    
-                    
-                    
-                }catch{
-                    print("error")
-                }
-            }else if recentPlayedVideo.count >= 4 {
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
-                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl ?? "")
-                let imageUrl4 = URL(string: recentPlayedVideo[3].videoImageUrl ?? "")
-                do{
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
-                    let data4:NSData = try NSData(contentsOf: imageUrl4!)
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                    cell.imageView3.image =  UIImage(data: data3 as Data)
-                    cell.imageView4.image =  UIImage(data: data4 as Data)
-                    
-                    
-                }catch{
-                    print("error")
-                }
-            }else if recentPlayedVideo.count == 0 {
-                cell.imageView1.image = UIImage(named: "")
-                cell.imageView2.image = UIImage(named: "")
-                cell.imageView3.image = UIImage(named: "")
-                cell.imageView4.image = UIImage(named: "")
+            
+            if recentPlayerArray.count != 0 {
+            switch recentPlayerArray.count {
+            case 1:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+            case 2:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
+            case 3:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
+                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
+            case 4:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
+                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
+                cell.imageView4.image =  UIImage(data: recentPlayerArray[3] as Data)
+            default:
+                break
             }
+        }
+            
             
             
             collectionCell = cell
@@ -559,6 +470,28 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             break
         }
         return collectionCell
+    }
+    
+    
+    func recentPlayerVideoImage(videoCount:Int,imageData: @escaping(_ imageData: [Data]) -> ()) {
+        
+        var imageDataArray = [Data]()
+        
+        for i in 0..<videoCount {
+            if i <= 4 {
+                let imageUrl1 = URL(string: recentPlayedVideo[i].videoImageUrl! )
+                do{
+                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
+                    
+                    imageDataArray.append(data1 as Data)
+                    
+                }catch{
+                    print("no data found")
+                }
+            }
+            imageData(imageDataArray)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -16,9 +16,10 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var genreBottomNSLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var genreTableView: UITableView!
+    
+    
     var genreTitle: GenreModel?
     var videoArray = [Video]()
-    var getYouTubeData  = YouTubeVideoConnection()
     var webView = WKYTPlayerView()
     var entityName = String()
     var youTubeVideoID =  [String]()
@@ -26,6 +27,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var selectedIndex = Int()
     var searchIsSelected = Bool()
     var selectedmyLybrary = Bool()
+    
     var isEmpty: Bool {
         switch genreTitle?.genreTitle {
         case "Rap":
@@ -69,7 +71,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         genreTableView.delegate = self
         genreTableView.dataSource = self
         if isEmpty{
-            self.getYouTubeData.getYouTubeVideo(genreType: self.genreTitle!.genreTitle, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
+            YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: self.genreTitle!.genreTitle, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }else{

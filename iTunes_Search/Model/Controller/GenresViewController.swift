@@ -16,7 +16,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var genreCollectionView: UICollectionView!
     var selectedGenreIndexRow = Int()
     var indexArray = [Int]()
-    var indexpath = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,21 +92,10 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        var numberRows = 0
-//        switch collectionView {
-//        case genreCollectionView:
-//            numberRows = GenreModelService.instance.getGenreArray().count
-//        default:
-//            break
-//        }
         return  GenreModelService.instance.getGenreArray().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//        let cell = UICollectionViewCell()
-//        switch collectionView {
-//        case genreCollectionView:
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
                 cell.confiigurationCell(GenreModelService.instance.getGenreArray()[indexPath.row])
                 cell.trackCountLabel.text = ""
@@ -117,10 +105,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             }else {
                 return GenresCollectionViewCell()
             }
-//        default:
-//            break
-//        }
-//        return cell
     }
     
     @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
@@ -146,9 +130,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        switch collectionView {
-//        case genreCollectionView:
             let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
             selectedGenreIndexRow = indexPath.row
             
@@ -160,8 +141,5 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             }
             
             self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
-//        default:
-//            break
-//        }
     }
 }

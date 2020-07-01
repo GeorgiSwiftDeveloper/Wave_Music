@@ -31,7 +31,7 @@ class PlaylistByNameViewController: UIViewController {
         request.returnsObjectsAsFaults = false
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
         fetchRequest.entity = NSEntityDescription.entity(forEntityName: "PlaylistMusicData", in: context!)
-        //
+
         do {
             let result = try context?.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
