@@ -497,10 +497,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case topHitsCollectionCell:
-            checkTableViewName =  "topHits"
+            checkTableViewName =  topHitsTableView
             self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTableViewName)
         case recentPlayedCollectionCell:
-            checkTableViewName =  "RecentPlayed"
+            checkTableViewName =  recentPlayedTableView
             self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTableViewName)
         default:
             break
@@ -589,13 +589,13 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func destinationMyLibraryVC(){
-        checkTableViewName =  "MyLibrary"
+        checkTableViewName =  libraryTableView
         self.performSegue(withIdentifier: "TopHitsMusic", sender: checkTableViewName)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch sender as? String {
-        case "topHits":
+        case topHitsTableView:
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "World Top 100"
                 if videoSelected == true{
@@ -610,7 +610,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 nc.checkTableViewName = sender as! String
                 nc.checDelegate = self
             }
-        case "MyLibrary":
+        case libraryTableView:
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "My Library"
                 if videoSelected == true{
@@ -625,7 +625,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 nc.checDelegate = self
             }
             
-        case "RecentPlayed":
+        case recentPlayedTableView:
             
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "RECENTLY PLAYED"

@@ -46,13 +46,13 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         self.selectedSectionTableView.delegate = self
         self.selectedSectionTableView.dataSource = self
         switch checkTableViewName {
-        case "topHits":
+        case topHitsTableView:
             fetchVideoWithEntityName("TopHitsModel")
-        case "MyLibrary":
+        case libraryTableView:
             fetchVideoWithEntityName("MyLibraryMusicData")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
-        case "RecentPlayed":
+        case recentPlayedTableView:
             fetchVideoWithEntityName("RecentPlayedMusicData")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
             self.navigationItem.rightBarButtonItem  = deleteButton
@@ -67,7 +67,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 alert.addAction(libraryAction)
                 present(alert, animated: true, completion: nil)
             }
-        case "Playlist":
+        case playlistTableView:
             fetchVideoWithEntityName("PlaylistMusicData")
             
             UserDefaults.standard.removeObject(forKey: "videoId")
@@ -95,13 +95,11 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     @objc func rightButtonAction() {
         var alertTitle = String()
         switch checkTableViewName {
-        case "topHits":
-            break
-        case "MyLibrary":
+        case libraryTableView:
             alertTitle = "My Library"
-        case "RecentPlayed":
+        case recentPlayedTableView:
             alertTitle = "RECENTLY PLAYED"
-        case "Playlist":
+        case playlistTableView:
             alertTitle = "Playlist"
         default:
             break
@@ -126,15 +124,13 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     func deleteRecords() -> Void {
         var entityName = String()
         switch checkTableViewName {
-        case "topHits":
-            break
-        case "MyLibrary":
+        case libraryTableView:
             entityName = "MyLibraryMusicData"
             myLibraryList = []
-        case "RecentPlayed":
+        case recentPlayedTableView:
             entityName = "RecentPlayedMusicData"
             recentPlayedVideo = []
-        case "Playlist":
+        case playlistTableView:
             entityName = "Playlist"
             videoPlaylist = []
         default:
@@ -211,30 +207,30 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     func showVideoPlayer(){
         VideoPlayerClass.callVideoPlayer.webView.playVideo()
-        switch checkTableViewName {
-        case "topHits":
-            break
-        case "MyLibrary":
-            break
-        case "RecentPlayed":
-            break
-        default:
-            break
-        }
+//        switch checkTableViewName {
+//        case  topHitsTableView:
+//            break
+//        case myLibraryTableView:
+//            break
+//        case recentPlayedTableView:
+//            break
+//        default:
+//            break
+//        }
     }
     
     func showVideoPlayerPause(){
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-        switch checkTableViewName {
-        case "topHits":
-            break
-        case "MyLibrary":
-            break
-        case "RecentPlayed":
-            break
-        default:
-            break
-        }
+//        switch checkTableViewName {
+//        case "topHits":
+//            break
+//        case "MyLibrary":
+//            break
+//        case "RecentPlayed":
+//            break
+//        default:
+//            break
+//        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -305,13 +301,13 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowsInSection = 0
         switch checkTableViewName {
-        case "topHits":
+        case topHitsTableView:
             numberOfRowsInSection = topHitsLists.count
-        case "MyLibrary":
+        case libraryTableView:
             numberOfRowsInSection = myLibraryList.count
-        case "RecentPlayed":
+        case recentPlayedTableView:
             numberOfRowsInSection = recentPlayedVideo.count
-        case "Playlist":
+        case playlistTableView:
             numberOfRowsInSection = videoPlaylist.count
             
         default:
@@ -323,7 +319,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var selectedTableViewCell = UITableViewCell()
         switch checkTableViewName {
-        case "topHits":
+        case topHitsTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
                 //                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 //                let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
@@ -353,7 +349,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }else {
                 return SelectedSectionTableViewCell()
             }
-        case "MyLibrary":
+        case libraryTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
                 //                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 //                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
@@ -382,7 +378,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }else {
                 return SelectedSectionTableViewCell()
             }
-        case "RecentPlayed":
+        case recentPlayedTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
                 //                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRecentlyPlayedRowIsSelected") as? Bool
                 //                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveRecentlyPlayedSelectedIndex") as? Int
@@ -412,7 +408,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }else {
                 return SelectedSectionTableViewCell()
             }
-        case "Playlist":
+        case playlistTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
                 
                 cell.configureRecentlyPlayedCell(videoPlaylist[indexPath.row])
@@ -483,11 +479,11 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         var canEdit = Bool()
         switch checkTableViewName {
-        case "topHits":
+        case topHitsTableView:
             canEdit = false
-        case "MyLibrary":
+        case libraryTableView:
             canEdit =  true
-        case "RecentPlayed":
+        case recentPlayedTableView:
             canEdit =  true
         default:
             break
@@ -499,11 +495,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
             removeSelectedVideoRow(atIndexPath: indexPath)
             switch checkTableViewName {
-            case "topHits":
-                break
-            case "MyLibrary":
+            case libraryTableView:
                 myLibraryList.remove(at: indexPath.row)
-            case "RecentPlayed":
+            case recentPlayedTableView:
                 recentPlayedVideo.remove(at: indexPath.row)
             default:
                 break
@@ -516,11 +510,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     func removeSelectedVideoRow(atIndexPath indexPath: IndexPath) {
         var entityName = String()
         switch checkTableViewName {
-        case "topHits":
-            break
-        case "MyLibrary":
+        case libraryTableView:
             entityName = "MyLibraryMusicData"
-        case "RecentPlayed":
+        case recentPlayedTableView:
             entityName = "RecentPlayedMusicData"
         default:
             break
@@ -544,7 +536,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         UserDefaults.standard.set(false, forKey:"selectedSearch")
         UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
         switch checkTableViewName {
-        case "MyLibrary":
+        case libraryTableView:
             DispatchQueue.main.async {
                 self.selectedVideo = self.myLibraryList[indexPath.row]
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
@@ -556,7 +548,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 }
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             }
-        case "topHits":
+        case topHitsTableView:
             DispatchQueue.main.async {
                 self.selectedVideo = self.topHitsLists[indexPath.row]
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
@@ -574,7 +566,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                     }
                 }
             }
-        case "RecentPlayed":
+        case recentPlayedTableView:
             DispatchQueue.main.async {
                 self.selectedVideo = self.recentPlayedVideo[indexPath.row]
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
