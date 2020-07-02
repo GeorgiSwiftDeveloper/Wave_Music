@@ -1,3 +1,3 @@
 # Wave_Music
 
-App has  data limitation issue  related YouTube API quota.
+App has  data limitation YouTube API quota issue.
