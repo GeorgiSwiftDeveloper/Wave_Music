@@ -12,8 +12,13 @@ import CoreData
 class CoreDataVideoClass: NSObject {
     static var coreDataVideoInstance = CoreDataVideoClass()
     
-    func fetchVideoWithEntityName(coreDataEntityName: String, loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
+    func fetchVideoWithEntityName(coreDataEntityName: String, searchBarText: String, loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
+        if searchBarText != "" {
+            let predicate = NSPredicate(format: "title contains[c]%@", searchBarText as CVarArg)
+            request.predicate = predicate
+            request.fetchLimit = 1
+        }
         request.returnsObjectsAsFaults = false
         do {
             guard  let result = try context?.fetch(request) else {return}

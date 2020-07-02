@@ -15,6 +15,6 @@ var libraryTableView = "MyLibrary"
 var recentPlayedTableView = "RecentPlayed"
 var playlistTableView = "Playlist"
 
-
-
+var selectedTableViewCellIdentifier = "selectedTableViewCell"
+var destinationViewIdentifier = "DestinationViewIdentifier"
 

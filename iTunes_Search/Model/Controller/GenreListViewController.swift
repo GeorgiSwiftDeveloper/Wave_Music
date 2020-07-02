@@ -227,7 +227,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         default:
             break
         }
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName) { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "") { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{

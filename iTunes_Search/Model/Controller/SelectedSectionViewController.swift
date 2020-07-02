@@ -12,7 +12,7 @@ import WebKit
 import  YoutubePlayer_in_WKWebView
 
 protocol CheckIfRowIsSelectedDelegate:class {
-    func checkIfRowIsSelectedDelegate(_ checkIf: Bool)
+    func checkIfRowIsSelected(_ checkIfRowIsSelected: Bool)
 }
 class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate {
     
@@ -36,7 +36,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var selectedIndex = Int()
     var searchIsSelected = Bool()
     
-    weak var checDelegate: CheckIfRowIsSelectedDelegate?
+    weak var ifRowIsSelectedDelegate: CheckIfRowIsSelectedDelegate?
     
     @IBOutlet weak var selectedSectionTableView: UITableView!
     
@@ -268,7 +268,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     func fetchVideoWithEntityName(_ entityName: String){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName) { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "") { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
@@ -320,7 +320,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         var selectedTableViewCell = UITableViewCell()
         switch checkTableViewName {
         case topHitsTableView:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
                 //                var checkIfRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 //                let saveTopHitsSelectedIndex = UserDefaults.standard.object(forKey: "saveTopHitsSelectedIndex") as? Int
                 //                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
@@ -350,7 +350,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 return SelectedSectionTableViewCell()
             }
         case libraryTableView:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
                 //                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfLibraryRowIsSelected") as? Bool
                 //                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveLibrarySelectedIndex") as? Int
                 //                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
@@ -379,7 +379,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 return SelectedSectionTableViewCell()
             }
         case recentPlayedTableView:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
                 //                var checkIfLibraryRowIsSelected = UserDefaults.standard.object(forKey: "checkIfRecentlyPlayedRowIsSelected") as? Bool
                 //                let saveLibrarySelectedIndex = UserDefaults.standard.object(forKey: "saveRecentlyPlayedSelectedIndex") as? Int
                 //                let checkIfAnotherViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfAnotherViewControllerRowIsSelected") as? Bool
@@ -409,7 +409,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 return SelectedSectionTableViewCell()
             }
         case playlistTableView:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "topHitsCell", for: indexPath) as? SelectedSectionTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
                 
                 cell.configureRecentlyPlayedCell(videoPlaylist[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
@@ -531,7 +531,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        checDelegate?.checkIfRowIsSelectedDelegate(true)
+        ifRowIsSelectedDelegate?.checkIfRowIsSelected(true)
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
         UserDefaults.standard.set(false, forKey:"selectedSearch")
         UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
