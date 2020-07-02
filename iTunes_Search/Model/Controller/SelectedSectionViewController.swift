@@ -145,7 +145,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         
         do {
             try context?.save()
-            print("saved!")
+            print("\(entityName) data has been deleted from database and Saved succesfully!")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
@@ -207,30 +207,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     func showVideoPlayer(){
         VideoPlayerClass.callVideoPlayer.webView.playVideo()
-//        switch checkTableViewName {
-//        case  topHitsTableView:
-//            break
-//        case myLibraryTableView:
-//            break
-//        case recentPlayedTableView:
-//            break
-//        default:
-//            break
-//        }
     }
     
     func showVideoPlayerPause(){
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-//        switch checkTableViewName {
-//        case "topHits":
-//            break
-//        case "MyLibrary":
-//            break
-//        case "RecentPlayed":
-//            break
-//        default:
-//            break
-//        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

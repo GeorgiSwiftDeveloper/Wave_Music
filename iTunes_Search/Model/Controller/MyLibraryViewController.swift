@@ -129,17 +129,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             break
         }
         
-        
-        self.myLibraryListArray = []
-        self.recentPlayedVideo = []
-        fetchVideoWithEntityName("MyLibraryMusicData")
-        fetchVideoWithEntityName("RecentPlayedMusicData")
-        
-        recentPlayerVideoImage(videoCount: recentPlayedVideo.count) { (imageDataArray) in
-            self.recentPlayerArray = imageDataArray
-            self.recentPlayedCollectionCell.reloadData()
-            print(self.recentPlayerArray.count)
-        }
+        fetchVideoData()
     }
     
     func fetchVideoData() {
@@ -431,12 +421,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                     cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                     cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
                     cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
-                case 4:
-                    cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                    cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                    cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
-                    cell.imageView4.image =  UIImage(data: recentPlayerArray[3] as Data)
-                    
                 default:
                     cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                     cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
@@ -629,10 +613,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
-    
-    
-    
-    
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierMyLibraryRowSelected"), object: nil)
@@ -706,7 +687,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 sectionButton.isHidden = true
             }
         }catch {
-            print("Could not remove video \(error.localizedDescription)")
+            print("Could not remove video from Database \(error.localizedDescription)")
         }
     }
 }

@@ -101,9 +101,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super .viewDidAppear(animated)  
-    }
     
     @objc func NotificationIdentifierMyLibraryRowSelected(notification: Notification) {
         UserDefaults.standard.set(false, forKey:"checkIfSearchRowIsSelected")

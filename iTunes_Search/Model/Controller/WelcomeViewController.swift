@@ -13,6 +13,8 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
+    
+    
     var countryArray = ["United States","Armenia","Argentina","Austria","Australia","Belgium","Bulgaria","Brazil","Canada","Germany","Spain","France","Georgia","India","Italy","Poland","Russia","Ukraine"]
     
     var valueSelected = String()

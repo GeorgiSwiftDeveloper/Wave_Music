@@ -78,11 +78,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                     self.videoArray = loadVideolist!
                     for songIndex in 0..<self.videoArray.count{
                         let title =   self.videoArray[songIndex].videoTitle ?? ""
-                        let description =  self.videoArray[songIndex].videoDescription ?? ""
+//                        let description =  self.videoArray[songIndex].videoDescription ?? ""
                         let image =  self.videoArray[songIndex].videoImageUrl ?? ""
-                        let playlistId = self.videoArray[songIndex].videoPlaylistId ?? ""
+//                        let playlistId = self.videoArray[songIndex].videoPlaylistId ?? ""
                         let videoId =  self.videoArray[songIndex].videoId ?? ""
-                        let channelId =  self.videoArray[songIndex].channelId ?? ""
+//                        let channelId =  self.videoArray[songIndex].channelId ?? ""
                         let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
                         
                         

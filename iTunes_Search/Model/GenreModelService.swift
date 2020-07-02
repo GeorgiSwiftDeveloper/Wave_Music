@@ -10,8 +10,7 @@ import Foundation
 
 class GenreModelService {
     static let instance = GenreModelService()
-    let countrySelected = UserDefaults.standard.string(forKey: "countrySelected")
-    
+ 
     let genreArray = [
         GenreModel(genreImage: "rap.jpg", genreTitle: "Rap"),
         GenreModel(genreImage: "hiphop.jpg", genreTitle: "Hip-Hop"),

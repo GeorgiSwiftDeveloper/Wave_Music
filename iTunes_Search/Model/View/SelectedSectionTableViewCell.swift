@@ -34,8 +34,7 @@ class SelectedSectionTableViewCell: UITableViewCell {
         self.videoImageUrlProperty = video.videoImageUrl ?? ""
         self.videoIDProperty = video.videoId ?? ""
         self.videoTitleProperty = video.videoTitle ?? ""
-        print("Thise is video title \(video.videoTitle)")
-        print("Thise is video id \(video.videoId)")
+        
         DispatchQueue.main.async {
             self.topHitLabelText.text = video.videoTitle
             if video.videoImageUrl != ""{
