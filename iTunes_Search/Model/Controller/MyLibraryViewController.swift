@@ -141,7 +141,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         recentPlayerVideoImage(videoCount: recentPlayedVideo.count) { (imageDataArray) in
             self.recentPlayerArray = imageDataArray
             self.recentPlayedCollectionCell.reloadData()
-            print(self.recentPlayerArray.count)
         }
     }
     
@@ -326,7 +325,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("search end editing.")
+        print("Search end editing")
         if searchBar.searchTextField.text?.isEmpty == true{
             self.myLibraryListArray = []
             fetchVideoWithEntityName("MyLibraryMusicData")

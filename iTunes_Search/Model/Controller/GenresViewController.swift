@@ -124,7 +124,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             if selectedmyLybrary == true {
                 genreVC.selectedmyLybrary = true
             }
-            genreVC.genreTitle  = sender as? GenreModel
+            genreVC.genreModel  = sender as? GenreModel
         }
     }
     

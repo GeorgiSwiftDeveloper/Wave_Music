@@ -18,7 +18,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var genreTableView: UITableView!
     
     
-    var genreTitle: GenreModel?
+    var genreModel: GenreModel?
     var videoArray = [Video]()
     var webView = WKYTPlayerView()
     var entityName = String()
@@ -29,36 +29,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var selectedmyLybrary = Bool()
     
     var isEmpty: Bool {
-        switch genreTitle?.genreTitle {
-        case "Rap":
-            entityName = "YouTubeDataModel"
-        case "Hip-Hop":
-            entityName = "YouTubeHipHopData"
-        case "Pop":
-            entityName = "YouTubePopData"
-        case "Rock":
-            entityName = "YouTubeRockData"
-        case "R&B":
-            entityName = "YouTubeRBData"
-        case "Dance":
-            entityName = "YouTubeDanceData"
-        case "Electronic":
-            entityName = "YouTubeElectronicData"
-        case "Jazz":
-            entityName = "YouTubeJazzData"
-        case "Instrumental":
-            entityName = "YouTubeInstrumentalData"
-        case "Blues":
-            entityName = "YouTubeBluesData"
-        case "Car Music":
-            entityName = "YouTubeCarMusicData"
-        case "Deep Bass":
-            entityName = "YouTubeDeepBassData"
-        default:
-            break
-        }
         do {
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.takeGenreName(genreModel!.genreTitle))
             let count  = try context?.count(for: request)
             return count == 0
         } catch {
@@ -67,11 +39,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title  = "  Top \(genreTitle!.genreTitle) Song's"
+        self.navigationItem.title  = "  Top \(genreModel!.genreTitle) Song's"
         genreTableView.delegate = self
         genreTableView.dataSource = self
         if isEmpty{
-            YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: self.genreTitle!.genreTitle, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
+            YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: self.genreModel!.genreTitle, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }else{
@@ -85,36 +57,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
 //                        let channelId =  self.videoArray[songIndex].channelId ?? ""
                         let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
                         
-                        
-                        switch genreTitle {
-                        case "Rap":
-                            self.entityName = "YouTubeDataModel"
-                        case "Hip-Hop":
-                            self.entityName = "YouTubeHipHopData"
-                        case "Pop":
-                            self.entityName = "YouTubePopData"
-                        case "Rock":
-                            self.entityName = "YouTubeRockData"
-                        case "R&B":
-                            self.entityName = "YouTubeRBData"
-                        case "Dance":
-                            self.entityName = "YouTubeDanceData"
-                        case "Electronic":
-                            self.entityName = "YouTubeElectronicData"
-                        case "Jazz":
-                            self.entityName = "YouTubeJazzData"
-                        case "Instrumental":
-                            self.entityName = "YouTubeInstrumentalData"
-                        case "Blues":
-                            self.entityName = "YouTubeBluesData"
-                        case "Car Music":
-                            self.entityName = "YouTubeCarMusicData"
-                        case "Deep Bass":
-                            self.entityName = "YouTubeDeepBassData"
-                        default:
-                            break
-                        }
-                        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, coreDataEntityName:self.entityName) { (checkIfSaveIsSuccessful, error) in
+                        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, coreDataEntityName:self.takeGenreName(genreTitle)) { (checkIfSaveIsSuccessful, error) in
                             if error != nil {
                                 print(error?.localizedDescription as Any)
                             }
@@ -198,8 +141,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     
-    func fetchVideoWithEntityName(){
-        switch genreTitle?.genreTitle {
+    
+    func takeGenreName(_ genreName: String) -> String {
+        switch genreName {
         case "Rap":
             self.entityName = "YouTubeDataModel"
         case "Hip-Hop":
@@ -227,7 +171,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         default:
             break
         }
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "") { (videoList, error) in
+        return entityName
+    }
+    
+    func fetchVideoWithEntityName(){
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: self.takeGenreName(genreModel!.genreTitle), searchBarText: "") { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
