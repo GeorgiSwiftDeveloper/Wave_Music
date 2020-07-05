@@ -70,7 +70,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }else{
             fetchVideoWithEntityName()
-            
         }
     }
     
