@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
-import AVFoundation
+
 class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate,CheckIfRowIsSelectedDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
@@ -42,7 +42,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     var isEntityIsEmpty: Bool {
         do {
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: topHitsEntityName)
             let count  = try context?.count(for: request)
             return count == 0
         } catch {
@@ -135,8 +135,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func fetchVideoData() {
         self.myLibraryListArray = []
         self.recentPlayedVideo = []
-        fetchVideoWithEntityName("MyLibraryMusicData")
-        fetchVideoWithEntityName("RecentPlayedMusicData")
+        fetchVideoWithEntityName(myLibraryEntityName)
+        fetchVideoWithEntityName(recentPlayedEntityName)
         
         recentPlayerVideoImage(videoCount: recentPlayedVideo.count) { (imageDataArray) in
             self.recentPlayerArray = imageDataArray
@@ -146,7 +146,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func getYouTubeResults(){
         if isEntityIsEmpty{
-            YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: "Hits", selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
+            YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: genreTypeHits, selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
                 if error != nil  {
                     print("erorr")
                 }else{
@@ -192,7 +192,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             }else{
                 if videoList != nil {
                     switch entityName {
-                    case "MyLibraryMusicData":
+                    case myLibraryEntityName:
                         self.myLibraryListArray.append(videoList!)
                         if self.myLibraryListArray.count < 5 {
                             self.viewAllButton.isHidden = true
@@ -202,7 +202,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                         DispatchQueue.main.async {
                             self.myLibraryTableView.reloadData()
                         }
-                    case "RecentPlayedMusicData":
+                    case recentPlayedEntityName:
                         self.recentPlayedVideo.append(videoList!)
                         DispatchQueue.main.async {
                             self.recentPlayedCollectionCell.reloadData()
@@ -266,7 +266,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     @objc func NotificationIdentifierRecentPlayedDeleteRecords(notification: Notification) {
         recentPlayedVideo = []
-        fetchVideoWithEntityName("RecentPlayedMusicData")
+        fetchVideoWithEntityName(recentPlayedEntityName)
         recentPlayedCollectionCell.reloadData()
     }
     
@@ -293,7 +293,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String, channelId: String) {
-        let entity = NSEntityDescription.entity(forEntityName: "TopHitsModel", in: context!)
+        let entity = NSEntityDescription.entity(forEntityName: topHitsEntityName, in: context!)
         let newEntity = NSManagedObject(entity: entity!, insertInto: context)
         newEntity.setValue(title, forKey: "title")
         newEntity.setValue(image, forKey: "image")
@@ -328,7 +328,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         print("Search end editing")
         if searchBar.searchTextField.text?.isEmpty == true{
             self.myLibraryListArray = []
-            fetchVideoWithEntityName("MyLibraryMusicData")
+            fetchVideoWithEntityName(myLibraryEntityName)
         }
         
     }
@@ -344,14 +344,14 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
         else{
             self.myLibraryListArray = []
-            fetchVideoWithEntityName("MyLibraryMusicData")
+            fetchVideoWithEntityName(myLibraryEntityName)
         }
     }
     
     
     func fetchSearchSong(_ searchBar: UISearchBar, searchText: String) {
         
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: "MyLibraryMusicData", searchBarText: searchBar.text!) { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: myLibraryEntityName, searchBarText: searchBar.text!) { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else {
@@ -633,13 +633,13 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         
-        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
+        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
                 if checkIfLoadIsSuccessful == true {
                     self.recentPlayedVideo = []
-                    self.fetchVideoWithEntityName("RecentPlayedMusicData")
+                    self.fetchVideoWithEntityName(recentPlayedEntityName)
                     self.recentPlayedCollectionCell.reloadData()
                 }
             }
@@ -676,7 +676,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func removeSelectedVideoRow(atIndexPath indexPath: IndexPath) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: myLibraryEntityName)
         let result = try? context?.fetch(request)
         let resultData = result as! [NSManagedObject]
         context?.delete(resultData[indexPath.row])

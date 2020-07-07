@@ -18,3 +18,11 @@ var playlistTableView = "Playlist"
 var selectedTableViewCellIdentifier = "selectedTableViewCell"
 var destinationViewIdentifier = "DestinationViewIdentifier"
 
+
+var topHitsEntityName = "TopHitsModel"
+var myLibraryEntityName = "MyLibraryMusicData"
+var recentPlayedEntityName = "RecentPlayedMusicData"
+
+
+var genreTypeHits = "Hits"
+
