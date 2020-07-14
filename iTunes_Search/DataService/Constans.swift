@@ -22,7 +22,7 @@ var destinationViewIdentifier = "DestinationViewIdentifier"
 var topHitsEntityName = "TopHitsModel"
 var myLibraryEntityName = "MyLibraryMusicData"
 var recentPlayedEntityName = "RecentPlayedMusicData"
-
+var playlistEntityName = "PlaylistMusicData"
 
 var genreTypeHits = "Hits"
 

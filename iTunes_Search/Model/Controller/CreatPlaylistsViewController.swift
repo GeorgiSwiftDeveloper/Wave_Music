@@ -31,7 +31,7 @@ class CreatPlaylistsViewController: UIViewController {
         super.viewDidAppear(animated)
         createCoreDataEntity()
         playlistVideoArray = []
-        fetchVideoWithEntityName("PlaylistMusicData")
+        fetchVideoWithEntityName(playlistEntityName)
     }
     
     
@@ -114,7 +114,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
         
         if (videoIDProperty != nil) || (videoImageUrlProperty != nil) || (videoTitleProperty != nil) {
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, coreDataEntityName: "PlaylistMusicData") { (checkIfLoadIsSuccessful, error) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, coreDataEntityName: playlistEntityName) { (checkIfLoadIsSuccessful, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
