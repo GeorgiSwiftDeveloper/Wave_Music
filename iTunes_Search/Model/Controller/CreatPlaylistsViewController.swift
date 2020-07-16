@@ -29,8 +29,12 @@ class CreatPlaylistsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        createCoreDataEntity()
+//        createCoreDataEntity()
         playlistVideoArray = []
+        if let musicPlaylist = UserDefaults.standard.object(forKey: "MusicPlaylist") as? [String] {
+            createdPlaylistArray = musicPlaylist
+        }
+        self.playlistTableView.reloadData()
         fetchVideoWithEntityName(playlistEntityName)
     }
     
@@ -84,7 +88,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                     print("data is empty")
                 }else{
                     self.createdPlaylistArray.append(text!)
-                    print(self.createdPlaylistArray.count)
+                    UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
                     self.playlistTableView.reloadData()
                 }
             }
@@ -100,7 +104,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         }else{
             
             selectedRowTitle = createdPlaylistArray[indexPath.row]
-            createCoreDataEntity()
+            saveSelectedMusicCoreDataEntity()
             
             self.performSegue(withIdentifier: "IdentifireByPlaylistName", sender: selectedRowTitle)
         }
@@ -108,7 +112,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         
     }
     
-    func createCoreDataEntity() {
+    func saveSelectedMusicCoreDataEntity() {
         let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
         let videoImageUrlProperty = UserDefaults.standard.object(forKey: "image") as? String
         let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
