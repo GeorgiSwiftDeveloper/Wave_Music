@@ -29,15 +29,15 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var musicIndexpatRow = IndexPath()
     var topHits = true
     var myLibrary = true
-    var youTubeVideoID = [String]()
-    var youTubeVideoTitle = [String]()
+    var youTubeVideoID = String()
+    var youTubeVideoTitle = String()
     var checkTableViewName: String = ""
     var sectionButton = UIButton()
     var selectedIndex = Int()
     var videoSelected = Bool()
     var viewAllButton = UIButton()
     var videoPlayerClass = VideoPlayerClass()
-    
+    var checkIfRecentPlaylistIsEmpty = Bool()
     var recentPlayerArray = [Data]()
     
     var isEntityIsEmpty: Bool {
@@ -132,6 +132,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         fetchVideoData()
     }
     
+    
     func fetchVideoData() {
         self.myLibraryListArray = []
         self.recentPlayedVideo = []
@@ -186,7 +187,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func fetchVideoWithEntityName(_ entityName: String){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "") { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
@@ -265,8 +266,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     @objc func NotificationIdentifierRecentPlayedDeleteRecords(notification: Notification) {
-        recentPlayedVideo = []
-        fetchVideoWithEntityName(recentPlayedEntityName)
+        //        recentPlayedVideo = []
+        //        fetchVideoWithEntityName(recentPlayedEntityName)
+        //        recentPlayedCollectionCell.reloadData()
+        //                   self.fetchVideoData()
+        
+        checkIfRecentPlaylistIsEmpty = true
         recentPlayedCollectionCell.reloadData()
     }
     
@@ -340,7 +345,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty == false{
             fetchSearchSong(searchBar, searchText: searchText)
-                     self.myLibraryTableView.reloadData()
+            self.myLibraryTableView.reloadData()
         }
         else{
             self.myLibraryListArray = []
@@ -351,7 +356,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func fetchSearchSong(_ searchBar: UISearchBar, searchText: String) {
         
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: myLibraryEntityName, searchBarText: searchBar.text!) { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: myLibraryEntityName, searchBarText: searchBar.text!, playlistName: "") { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else {
@@ -409,27 +414,42 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             cell.cellTitleLabel.text = "RECENTLY PLAYED"
             cell.recentlyPlayedVideoCountLabel.text = "\(recentPlayedVideo.count) tracks"
             
-            if recentPlayerArray.count != 0 {
-                switch recentPlayerArray.count {
-                case 1:
-                    cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                case 2:
-                    cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                    cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                case 3:
-                    cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                    cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                    cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
-                default:
-                    cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                    cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                    cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
-                    cell.imageView4.image =  UIImage(data: recentPlayerArray[3] as Data)
-                }
-            }else{
-                recentPlayedVideo = []
+            switch recentPlayerArray.count {
+            case 0:
+                cell.imageView1.image =  UIImage(named: "")
+                cell.imageView2.image =  UIImage(named: "")
+                cell.imageView3.image =  UIImage(named: "")
+                cell.imageView4.image =  UIImage(named: "")
+            case 1:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(named: "")
+                cell.imageView3.image =  UIImage(named: "")
+                cell.imageView4.image =  UIImage(named: "")
+            case 2:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
+                cell.imageView3.image =  UIImage(named: "")
+                cell.imageView4.image =  UIImage(named: "")
+            case 3:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
+                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
+                cell.imageView4.image =  UIImage(named: "")
+            default:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
+                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
+                cell.imageView4.image =  UIImage(data: recentPlayerArray[3] as Data)
             }
+
             
+            if checkIfRecentPlaylistIsEmpty == true{
+                cell.imageView1.image =  UIImage(named: "")
+                cell.imageView2.image =  UIImage(named: "")
+                cell.imageView3.image =  UIImage(named: "")
+                cell.imageView4.image =  UIImage(named: "")
+                checkIfRecentPlaylistIsEmpty = false
+            }
             
             
             collectionCell = cell
@@ -491,38 +511,14 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfRowsInSection = 1
-        numberOfRowsInSection = myLibraryListArray.count
-        return numberOfRowsInSection
+        
+        return myLibraryListArray.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
-        //        let checkIfMyLibraryViewControllerRowIsSelected = UserDefaults.standard.object(forKey: "checkIfMyLibraryViewControllerRowIsSelected") as? Bool
-        //        musicIndexpatRow = indexPath
-        //        DispatchQueue.main.async {
-        //            if checkIfMyLibraryViewControllerRowIsSelected == true{
-        //                if(indexPath.row == self.selectedIndex)
-        //                {
-        //                    if self.selectLibraryRow == false{
-        //                        libraryMusicCell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-        //                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-        //                    }else{
-        //                        libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        //                        libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        //                    libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-        //                }
-        //            }else{
-        //                libraryMusicCell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        //                libraryMusicCell.musicTitleLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-        //            }
-        //        }
+        
         
         libraryMusicCell.configureGenreCell(myLibraryListArray[indexPath.row])
         return libraryMusicCell
@@ -612,7 +608,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
-
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierMyLibraryRowSelected"), object: nil)
@@ -625,23 +621,29 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         self.webView.load(withVideoId: "")
         
-        for i in 0..<self.myLibraryListArray.count{
-            self.youTubeVideoID.append(self.myLibraryListArray[i].videoId ?? "")
-            self.youTubeVideoTitle.append(self.myLibraryListArray[i].videoTitle ?? "")
-        }
+        //        for i in 0..<self.myLibraryListArray.count{
+        //            self.youTubeVideoID.append(self.myLibraryListArray[i].videoId ?? "")
+        //            self.youTubeVideoTitle.append(self.myLibraryListArray[i].videoTitle ?? "")
+        //        }
+        
+        self.youTubeVideoID = selectedCell.videoID
+        self.youTubeVideoTitle = selectedCell.musicTitleLabel.text!
+        
         getSelectedLibraryVideo(indexPath)
         
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         
-        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error) in
+        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
-            }else{
-                if checkIfLoadIsSuccessful == true {
-                    self.recentPlayedVideo = []
-                    self.fetchVideoWithEntityName(recentPlayedEntityName)
-                    self.recentPlayedCollectionCell.reloadData()
-                }
+            }
+            else{
+                //                if checkIfLoadIsSuccessful == true {
+                //                    self.recentPlayedVideo = []
+                //                    self.fetchVideoWithEntityName(recentPlayedEntityName)
+                //                    self.recentPlayedCollectionCell.reloadData()
+                //                }
+                self.fetchVideoData()
             }
         }
         

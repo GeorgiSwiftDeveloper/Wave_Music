@@ -27,8 +27,8 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     var selectedIndex = Int()
     var webView = WKYTPlayerView()
-    var youTubeVideoID = [String]()
-    var youTubeVideoTitle =  [String]()
+    var youTubeVideoID = String()
+    var youTubeVideoTitle =  String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -276,13 +276,16 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         selectedIndex = indexPath.row
         webView.load(withVideoId: "")
         VideoPlayerClass.callVideoPlayer.superViewController = self
-        for i in 0..<searchMusicList.count{
-            self.youTubeVideoID.append(searchMusicList[i].videoId ?? "")
-            self.youTubeVideoTitle.append(searchMusicList[i].videoTitle ?? "")
-        }
+//        for i in 0..<searchMusicList.count{
+//            self.youTubeVideoID.append(searchMusicList[i].videoId ?? "")
+//            self.youTubeVideoTitle.append(searchMusicList[i].videoTitle ?? "")
+//        }
+//        
+        self.youTubeVideoID = selectedCell.videoID
+        self.youTubeVideoTitle = selectedCell.singerNameLabel.text!
         VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         
-        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
+        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
             if error != nil {
                 print(error?.localizedDescription)
             }

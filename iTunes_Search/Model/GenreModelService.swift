@@ -13,9 +13,9 @@ class GenreModelService {
  
     let genreArray = [
         GenreModel(genreImage: "rap.jpg", genreTitle: "Rap"),
-        GenreModel(genreImage: "hiphop.jpg", genreTitle: "Hip-Hop"),
+        GenreModel(genreImage: "hip-hop.jpg", genreTitle: "Hip-Hop"),
         GenreModel(genreImage: "pop.jpg", genreTitle: "Pop"),
-        GenreModel(genreImage: "rock1.jpg", genreTitle: "Rock"),
+        GenreModel(genreImage: "rock.jpg", genreTitle: "Rock"),
         GenreModel(genreImage: "r&b.jpg", genreTitle: "R&B"),
         GenreModel(genreImage: "dance.jpg", genreTitle: "Dance"),
         GenreModel(genreImage: "electro.jpg", genreTitle: "Electronic"),

@@ -30,7 +30,7 @@ class PlaylistByNameViewController: UIViewController {
     
     
     func fetchPlaylistVideoFromCoreData(){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: playlistEntityName, searchBarText: "") { (fetchVideoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: playlistEntityName, searchBarText: "", playlistName: "") { (fetchVideoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{

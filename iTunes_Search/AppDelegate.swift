@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "selectedSearch")
         UserDefaults.standard.removeObject(forKey: "pause")
+        UserDefaults.standard.removeObject(forKey: "selectedPlaylistRowTitle")
+        
         
         UserDefaults.standard.removeObject(forKey: "videoId")
         UserDefaults.standard.removeObject(forKey: "image")

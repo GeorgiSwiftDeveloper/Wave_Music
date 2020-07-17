@@ -22,8 +22,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     var videoArray = [Video]()
     var webView = WKYTPlayerView()
     var entityName = String()
-    var youTubeVideoID =  [String]()
-    var youTubeVideoTitle =  [String]()
+    var youTubeVideoID =  String()
+    var youTubeVideoTitle =  String()
     var selectedIndex = Int()
     var searchIsSelected = Bool()
     var selectedmyLybrary = Bool()
@@ -57,7 +57,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
 //                        let channelId =  self.videoArray[songIndex].channelId ?? ""
                         let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
                         
-                        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, coreDataEntityName:self.takeGenreName(genreTitle)) { (checkIfSaveIsSuccessful, error) in
+                        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle)) { (checkIfSaveIsSuccessful, error) in
                             if error != nil {
                                 print(error?.localizedDescription as Any)
                             }
@@ -174,7 +174,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func fetchVideoWithEntityName(){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: self.takeGenreName(genreModel!.genreTitle), searchBarText: "") { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: self.takeGenreName(genreModel!.genreTitle), searchBarText: "", playlistName: "") { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
@@ -328,15 +328,17 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
-            for i in 0..<self.videoArray.count{
-                self.youTubeVideoID.append(self.videoArray[i].videoId ?? "")
-                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle ?? "")
-            }
+//            for i in 0..<self.videoArray.count{
+//                self.youTubeVideoID.append(self.videoArray[i].videoId ?? "")
+//                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle ?? "")
+//            }
+            self.youTubeVideoID = selectedCell.videoID
+            self.youTubeVideoTitle = selectedCell.singerNameLabel.text!
             self.webView.load(withVideoId: "")
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }

@@ -59,9 +59,9 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             }else{
                 
                 cell.playlistName.text = createdPlaylistArray[indexPath.row]
-                cell.trackCountLabel.text = "tracks \(playlistVideoArray.count)"
-                cell.trackCountLabel.textAlignment = .center
-                cell.trackCountLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+//                cell.trackCountLabel.text = "tracks \(playlistVideoArray.count)"
+//                cell.trackCountLabel.textAlignment = .center
+//                cell.trackCountLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
                 cell.playlistName.textColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                 cell.playlistName.font = UIFont(name: "Verdana", size: 12.0)
                 cell.playlistName.textAlignment = .left
@@ -104,7 +104,8 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         }else{
             
             selectedRowTitle = createdPlaylistArray[indexPath.row]
-            saveSelectedMusicCoreDataEntity()
+            UserDefaults.standard.set(self.selectedRowTitle, forKey:"selectedPlaylistRowTitle")
+            saveSelectedMusicCoreDataEntity(selectedRowTitle!)
             
             self.performSegue(withIdentifier: "IdentifireByPlaylistName", sender: selectedRowTitle)
         }
@@ -112,13 +113,13 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         
     }
     
-    func saveSelectedMusicCoreDataEntity() {
+    func saveSelectedMusicCoreDataEntity(_ selectedPlaylistRowTitle: String) {
         let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
         let videoImageUrlProperty = UserDefaults.standard.object(forKey: "image") as? String
         let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
         
         if (videoIDProperty != nil) || (videoImageUrlProperty != nil) || (videoTitleProperty != nil) {
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, coreDataEntityName: playlistEntityName) { (checkIfLoadIsSuccessful, error) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName) { (checkIfLoadIsSuccessful, error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
@@ -128,7 +129,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     
     
     func fetchVideoWithEntityName(_ entityName: String){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "") { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
