@@ -14,6 +14,10 @@ import  YoutubePlayer_in_WKWebView
 protocol CheckIfRowIsSelectedDelegate:class {
     func checkIfRowIsSelected(_ checkIfRowIsSelected: Bool)
 }
+
+protocol CheckIfMusicRecordDeletedDelegate:class {
+    func musicRecordDeletedDelegate(_ alertTitleName: String)
+}
 class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate {
     
     var topHitsLists = [Video]()
@@ -37,6 +41,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var searchIsSelected = Bool()
     
     weak var ifRowIsSelectedDelegate: CheckIfRowIsSelectedDelegate?
+    weak var musicRecordDeletedDelegate: CheckIfMusicRecordDeletedDelegate?
     
     @IBOutlet weak var selectedSectionTableView: UITableView!
     
@@ -56,7 +61,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             fetchVideoWithEntityName("RecentPlayedMusicData", "")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
             self.navigationItem.rightBarButtonItem  = deleteButton
-            print(recentPlayedVideo.count)
             if recentPlayedVideo.count == 0 {
                 let alert = UIAlertController(title: "There is no RECENTLY PLAYED songs", message: "Your recently played songs will be placed here after you play any song", preferredStyle: .alert)
                 let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
@@ -107,7 +111,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         }
         let alert = UIAlertController(title: alertTitle, message: "Are you sure you want to delete \(alertTitle) music list ?", preferredStyle: .alert)
         let actionYes = UIAlertAction(title: "YES", style: .default) { (action) in
-            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierRecentPlayedDeleteRecords"), object: nil)
+            self.musicRecordDeletedDelegate?.musicRecordDeletedDelegate(alertTitle)
             self.deleteRecords()
             self.selectedSectionTableView.reloadData()
         }

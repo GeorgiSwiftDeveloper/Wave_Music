@@ -11,7 +11,8 @@ import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
 
-class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate,CheckIfRowIsSelectedDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate,CheckIfRowIsSelectedDelegate,CheckIfMusicRecordDeletedDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+    
     
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -100,7 +101,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         super .viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierRecentPlayedDeleteRecords(notification:)), name: Notification.Name("NotificationIdentifierRecentPlayedDeleteRecords"), object: nil)
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -265,15 +265,15 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     
-    @objc func NotificationIdentifierRecentPlayedDeleteRecords(notification: Notification) {
-        //        recentPlayedVideo = []
-        //        fetchVideoWithEntityName(recentPlayedEntityName)
-        //        recentPlayedCollectionCell.reloadData()
-        //                   self.fetchVideoData()
-        
-        checkIfRecentPlaylistIsEmpty = true
-        recentPlayedCollectionCell.reloadData()
-    }
+    func musicRecordDeletedDelegate(_ alertTitleName: String) {
+        if alertTitleName == "My Library" {
+            myLibraryListArray = []
+            myLibraryTableView.reloadData()
+        }else if alertTitleName == "RECENTLY PLAYED"{
+            checkIfRecentPlaylistIsEmpty = true
+            recentPlayedCollectionCell.reloadData()
+        }
+      }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -585,6 +585,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 UserDefaults.standard.set(false, forKey:"selectedSearch")
                 nc.checkTableViewName = sender as! String
                 nc.ifRowIsSelectedDelegate = self
+                nc.musicRecordDeletedDelegate = self
             }
             
         case recentPlayedTableView:
@@ -601,6 +602,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 UserDefaults.standard.set(false, forKey:"selectedSearch")
                 nc.checkTableViewName = sender as! String
                 nc.ifRowIsSelectedDelegate = self
+                nc.musicRecordDeletedDelegate = self
             }
         default:
             break
