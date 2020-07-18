@@ -19,6 +19,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         genreCollectionView.isScrollEnabled = false
         self.genreCollectionView.delegate = self
         self.genreCollectionView.dataSource = self
@@ -58,6 +59,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         default:
             break
         }
+         self.navigationController?.navigationBar.isHidden = true
     }
     
     func updatePlayerState(_ playerState: WKYTPlayerState){

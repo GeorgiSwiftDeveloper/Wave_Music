@@ -30,7 +30,7 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
     func updateUI(){
           self.pickerView.setValue(UIColor.white, forKeyPath: "textColor")
           nextButton.layer.cornerRadius = 8
-          nextButton.layer.borderWidth = 2
+//          nextButton.layer.borderWidth = 2
           nextButton.layer.masksToBounds = false
           nextButton.layer.shadowColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
           nextButton.layer.shadowOpacity = 3
@@ -42,7 +42,7 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
     
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
+        .darkContent
     }
     
     
@@ -65,8 +65,6 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         self.valueSelected = countryArray[row] as String
-       
-        print(valueSelected)
      }
     
 

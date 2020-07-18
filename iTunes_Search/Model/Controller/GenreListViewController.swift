@@ -104,6 +104,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         default:
             break
         }
+         self.navigationController?.navigationBar.isHidden = false
     }
     
     func updatePlayerState(_ playerState: WKYTPlayerState){

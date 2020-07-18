@@ -421,7 +421,7 @@
                                         <rect key="frame" x="15" y="93" width="283" height="115"/>
                                         <string key="text">Choose your Country and we will create separate folder for you. Add tracks to your library by searching songs, and adding them to favorites.</string>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="0.066793154470000005" green="0.058581960400000001" blue="0.154105189" alpha="0.81801188650000001" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To Wave " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEk-HX-k0R">
@@ -430,7 +430,7 @@
                                             <constraint firstAttribute="height" constant="23" id="YKm-Xm-hBO"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="22"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="0.066793154470000005" green="0.058581960400000001" blue="0.154105189" alpha="0.81801188650000001" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RAC-px-thp">
@@ -440,7 +440,7 @@
                                         </constraints>
                                     </pickerView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.87450980389999999" green="0.89411764709999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="RAC-px-thp" firstAttribute="top" secondItem="vRi-gj-M90" secondAttribute="bottom" id="45g-gD-RUx"/>
                                     <constraint firstItem="vRi-gj-M90" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" constant="15" id="8xp-jw-yTA"/>
@@ -458,14 +458,14 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6G-jM-TyB">
                                 <rect key="frame" x="72.666666666666686" y="684" width="230" height="45"/>
-                                <color key="backgroundColor" red="0.0" green="0.29452693320000001" blue="0.57488495110000004" alpha="0.84891439800000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="230" id="HIa-rK-YpP"/>
                                     <constraint firstAttribute="height" constant="45" id="ykc-gd-ULN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                 <state key="normal" title="Continue">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="nextButtonAction:" destination="xG8-CZ-7In" eventType="touchUpInside" id="anb-qq-jUl"/>
@@ -480,7 +480,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.87450980389999999" green="0.89411764709999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="tma-kp-XMg" firstAttribute="centerY" secondItem="0bM-s3-nmR" secondAttribute="centerY" id="1Ay-zh-O08"/>
                             <constraint firstItem="vEp-Zf-ceL" firstAttribute="centerX" secondItem="tma-kp-XMg" secondAttribute="centerX" id="H1z-IL-67w"/>
@@ -643,6 +643,7 @@
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleAspectFit" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LoF-Dm-i85">
                                 <rect key="frame" x="0.0" y="56" width="375" height="619"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="25" minimumInteritemSpacing="25" id="JVb-ja-Jig">
                                     <size key="itemSize" width="113" height="158"/>
                                     <size key="headerReferenceSize" width="0.0" height="20"/>
@@ -665,20 +666,20 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="rdo-jP-kcf">
-                                                    <rect key="frame" x="6.6666666666666643" y="113" width="100" height="41"/>
+                                                    <rect key="frame" x="6.6666666666666643" y="125" width="100" height="29"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="LRq-7x-nn3">
-                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="20"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="100" id="Ioc-Mb-RD8"/>
                                                                 <constraint firstAttribute="height" constant="20" id="QPP-Kk-XQG"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="12"/>
-                                                            <color key="textColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ILr-iE-6Zp">
-                                                            <rect key="frame" x="0.0" y="21" width="100" height="20"/>
+                                                            <rect key="frame" x="0.0" y="15" width="100" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="BRj-EI-I79"/>
                                                                 <constraint firstAttribute="width" constant="100" id="WGS-Zy-ovQ"/>
@@ -696,7 +697,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="69N-oM-a9r" secondAttribute="trailing" id="PgW-Ll-nxc"/>
                                                 <constraint firstItem="69N-oM-a9r" firstAttribute="top" secondItem="0EG-rA-q3N" secondAttribute="top" id="UHz-Hx-yWf"/>
                                                 <constraint firstItem="rdo-jP-kcf" firstAttribute="centerX" secondItem="0EG-rA-q3N" secondAttribute="centerX" id="l8A-aD-0RU"/>
-                                                <constraint firstItem="rdo-jP-kcf" firstAttribute="top" secondItem="69N-oM-a9r" secondAttribute="bottom" constant="3" id="nV0-M8-4h5"/>
+                                                <constraint firstItem="rdo-jP-kcf" firstAttribute="top" secondItem="69N-oM-a9r" secondAttribute="bottom" constant="15" id="nV0-M8-4h5"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="113" height="158"/>
@@ -714,6 +715,7 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="LoF-Dm-i85" secondAttribute="bottom" constant="83" id="2hM-oE-DNe"/>
                             <constraint firstItem="LoF-Dm-i85" firstAttribute="trailing" secondItem="9Ur-yE-fRU" secondAttribute="trailing" id="7tm-yW-mdi"/>
@@ -841,7 +843,6 @@
         <!--Radio Station View Controller-->
         <scene sceneID="Yyz-B0-5h3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hmL-CO-72y" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="3zV-ej-YX4" customClass="RadioStationViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dsH-eq-OpV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -963,6 +964,7 @@
                         <outlet property="tableView" destination="Xgb-gg-B8X" id="V9u-T7-xAe"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hmL-CO-72y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6999.1999999999998" y="204.67980295566502"/>
         </scene>
