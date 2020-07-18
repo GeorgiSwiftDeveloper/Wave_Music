@@ -841,6 +841,7 @@
         <!--Radio Station View Controller-->
         <scene sceneID="Yyz-B0-5h3">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hmL-CO-72y" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="3zV-ej-YX4" customClass="RadioStationViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dsH-eq-OpV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -962,7 +963,6 @@
                         <outlet property="tableView" destination="Xgb-gg-B8X" id="V9u-T7-xAe"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hmL-CO-72y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6999.1999999999998" y="204.67980295566502"/>
         </scene>

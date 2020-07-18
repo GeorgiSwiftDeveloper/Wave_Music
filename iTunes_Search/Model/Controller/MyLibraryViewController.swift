@@ -640,11 +640,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 print(error?.localizedDescription as Any)
             }
             else{
-                //                if checkIfLoadIsSuccessful == true {
-                //                    self.recentPlayedVideo = []
-                //                    self.fetchVideoWithEntityName(recentPlayedEntityName)
-                //                    self.recentPlayedCollectionCell.reloadData()
-                //                }
                 self.fetchVideoData()
             }
         }

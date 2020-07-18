@@ -190,22 +190,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchMusicCell", for: indexPath) as? SearchVideoTableViewCell {
-//            let checkIfSearchRowIsSelected = UserDefaults.standard.object(forKey: "checkIfSearchRowIsSelected") as? Bool
-//            DispatchQueue.main.async {
-//                if checkIfSearchRowIsSelected == true{
-//                    if(indexPath.row == self.selectedIndex)
-//                    {
-//                        cell.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 0.9465586656)
-//                        cell.singerNameLabel.textColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-//                    }else{
-//                        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                        cell.singerNameLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                    }
-//                }else{
-//                    cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//                    cell.singerNameLabel.textColor = #colorLiteral(red: 0.05882352941, green: 0.0395433642, blue: 0.1333333333, alpha: 1)
-//                }
-//            }
             cell.configurationCell(albums: searchMusicList[indexPath.row])
             cell.favoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell.favoriteButton.tag = indexPath.row;

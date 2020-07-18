@@ -29,7 +29,6 @@ class CreatPlaylistsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        createCoreDataEntity()
         playlistVideoArray = []
         if let musicPlaylist = UserDefaults.standard.object(forKey: "MusicPlaylist") as? [String] {
             createdPlaylistArray = musicPlaylist
@@ -59,9 +58,6 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             }else{
                 
                 cell.playlistName.text = createdPlaylistArray[indexPath.row]
-//                cell.trackCountLabel.text = "tracks \(playlistVideoArray.count)"
-//                cell.trackCountLabel.textAlignment = .center
-//                cell.trackCountLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
                 cell.playlistName.textColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                 cell.playlistName.font = UIFont(name: "Verdana", size: 12.0)
                 cell.playlistName.textAlignment = .left
