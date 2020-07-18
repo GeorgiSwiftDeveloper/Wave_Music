@@ -67,6 +67,13 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
         self.valueSelected = countryArray[row] as String
      }
     
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let myTitle = NSAttributedString(string: countryArray[row], attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+
+        return myTitle
+    }
+    
 
     @IBAction func nextButtonAction(_ sender: UIButton) {
         if let tabbar = (storyboard?.instantiateViewController(withIdentifier: "myTabbarControllerID") as? UITabBarController) {
