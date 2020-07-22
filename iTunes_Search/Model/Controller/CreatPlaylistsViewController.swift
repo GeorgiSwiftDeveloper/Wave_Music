@@ -15,7 +15,7 @@ class CreatPlaylistsViewController: UIViewController {
     
     var createdPlaylistArray = ["New Playlist"]
     var selectedPlaylistRowTitle: String?
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,9 +80,25 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                 if text == ""{
                     print("data is empty")
                 }else{
-                    self.createdPlaylistArray.append(text!)
-                    UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
-                    self.playlistTableView.reloadData()
+                    var playlistNameArray = [String]()
+                    
+                    for playlistName in self.createdPlaylistArray {
+                        playlistNameArray.append(playlistName)
+                    }
+                    
+                    if playlistNameArray.contains(text!){
+                        print("This playlist is already exists")
+                        let alert = UIAlertController(title: "Please change your Playlist name", message: "Playlist with name \(text ?? "") is already exists", preferredStyle: .alert)
+                        let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                            
+                        }
+                        alert.addAction(libraryAction)
+                        self.present(alert, animated: true, completion: nil)
+                    }else{
+                        self.createdPlaylistArray.append(text!)
+                        UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
+                        self.playlistTableView.reloadData()
+                    }
                 }
             }
             
@@ -104,7 +120,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         
     }
     
-
+    
     
     
     
@@ -137,34 +153,34 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
-
+    
     func deleteSelectedPlaylist(predicateName playlistName: String) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: playlistEntityName)
         let predicate = NSPredicate(format: "playlistName == %@", playlistName as CVarArg)
         request.predicate = predicate
         
-         do {
+        do {
             let arrMusicObject = try context?.fetch(request)
-              for musicObjc in arrMusicObject as! [NSManagedObject] { // Fetching Object
+            for musicObjc in arrMusicObject as! [NSManagedObject] { // Fetching Object
                 context?.delete(musicObjc) // Deleting Object
-             }
-         } catch {
-              print("Failed")
-         }
-
+            }
+        } catch {
+            print("Failed")
+        }
+        
         // Saving the Delete operation
-         do {
+        do {
             try context?.save()
-         } catch {
-             print("Failed saving")
-         }
+        } catch {
+            print("Failed saving")
+        }
         do{
             try context?.save()
         }catch {
             print("Could not remove music list from Database \(error.localizedDescription)")
         }
     }
-
+    
     
     
 }
