@@ -74,6 +74,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             }
         case playlistTableView:
             guard let selectedPaylistName = UserDefaults.standard.object(forKey: "selectedPlaylistRowTitle") as? String else{return}
+            saveSelectedMusicCoreDataEntity(selectedPaylistName)
             fetchVideoWithEntityName(playlistEntityName, selectedPaylistName)
             
             UserDefaults.standard.removeObject(forKey: "videoId")
@@ -96,6 +97,28 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             break
         }
         
+    }
+    
+    func saveSelectedMusicCoreDataEntity(_ selectedPlaylistRowTitle: String) {
+        let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
+        let videoImageUrlProperty = UserDefaults.standard.object(forKey: "image") as? String
+        let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
+        
+        if (videoIDProperty != nil) || (videoImageUrlProperty != nil) || (videoTitleProperty != nil) {
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase)  in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }
+                if  checkIfSongAlreadyInDatabase == true  {
+                     let alert = UIAlertController(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "") is already exist in your list", preferredStyle: .alert)
+                    let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                        
+                    }
+                    alert.addAction(libraryAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     @objc func rightButtonAction() {
@@ -324,7 +347,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case recentPlayedTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-              
+                
                 cell.configureRecentlyPlayedCell(recentPlayedVideo[indexPath.row])
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
@@ -465,10 +488,10 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.getSelectedLibraryVideo(indexPath)
                 self.webView.load(withVideoId: "")
-//                for i in 0..<self.myLibraryList.count{
-//                    self.youTubeVideoID.append(self.myLibraryList[i].videoId ?? "")
-//                    self.youTubeVideoTitle.append(self.myLibraryList[i].videoTitle ?? "")
-//                }
+                //                for i in 0..<self.myLibraryList.count{
+                //                    self.youTubeVideoID.append(self.myLibraryList[i].videoId ?? "")
+                //                    self.youTubeVideoTitle.append(self.myLibraryList[i].videoTitle ?? "")
+                //                }
                 self.youTubeVideoID = selectedCell.videoIDProperty
                 self.youTubeVideoTitle = selectedCell.topHitLabelText.text!
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
@@ -480,14 +503,14 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 self.getSelectedTopHitsVideo(indexPath)
                 self.webView.load(withVideoId: "")
                 
-//                for i in 0..<self.topHitsLists.count{
-//                    self.youTubeVideoID.append(self.topHitsLists[i].videoId ?? "")
-//                    self.youTubeVideoTitle.append(self.topHitsLists[i].videoTitle ?? "")
-//                }
+                //                for i in 0..<self.topHitsLists.count{
+                //                    self.youTubeVideoID.append(self.topHitsLists[i].videoId ?? "")
+                //                    self.youTubeVideoTitle.append(self.topHitsLists[i].videoTitle ?? "")
+                //                }
                 self.youTubeVideoID = selectedCell.videoIDProperty
                 self.youTubeVideoTitle = selectedCell.topHitLabelText.text!
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
-                CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
+                CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
                     }
@@ -499,10 +522,10 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.getSelectedRecentlyPlayedVideo(indexPath)
                 self.webView.load(withVideoId: "")
-//                for i in 0..<self.recentPlayedVideo.count{
-//                    self.youTubeVideoID.append(self.recentPlayedVideo[i].videoId ?? "")
-//                    self.youTubeVideoTitle.append(self.recentPlayedVideo[i].videoTitle ?? "")
-//                }
+                //                for i in 0..<self.recentPlayedVideo.count{
+                //                    self.youTubeVideoID.append(self.recentPlayedVideo[i].videoId ?? "")
+                //                    self.youTubeVideoTitle.append(self.recentPlayedVideo[i].videoTitle ?? "")
+                //                }
                 self.youTubeVideoID = selectedCell.videoIDProperty
                 self.youTubeVideoTitle = selectedCell.topHitLabelText.text!
                 VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
