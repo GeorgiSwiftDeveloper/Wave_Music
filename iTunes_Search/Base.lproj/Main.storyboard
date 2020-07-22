@@ -50,19 +50,35 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ybO-jW-F83">
-                                                    <rect key="frame" x="85" y="15" width="275" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ybO-jW-F83">
+                                                    <rect key="frame" x="85" y="15" width="280" height="40"/>
                                                     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="lKa-XS-wgZ"/>
+                                                        <constraint firstAttribute="width" constant="275" id="w7k-oH-LLR"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="12"/>
                                                     <color key="textColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PXj-ps-FFG">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PXj-ps-FFG">
                                                     <rect key="frame" x="15" y="5" width="60" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="NSj-ay-IrB"/>
+                                                        <constraint firstAttribute="height" constant="60" id="b69-ju-at8"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ybO-jW-F83" firstAttribute="trailing" secondItem="4Gu-Qs-Akk" secondAttribute="trailingMargin" constant="5" id="BYj-Ac-oid"/>
+                                                <constraint firstItem="PXj-ps-FFG" firstAttribute="leading" secondItem="4Gu-Qs-Akk" secondAttribute="leading" constant="15" id="Hgd-2C-rTh"/>
+                                                <constraint firstAttribute="bottom" secondItem="PXj-ps-FFG" secondAttribute="bottom" constant="5" id="LKv-N6-dxx"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ybO-jW-F83" secondAttribute="bottom" constant="4" id="OvF-ds-Aso"/>
+                                                <constraint firstItem="PXj-ps-FFG" firstAttribute="top" secondItem="4Gu-Qs-Akk" secondAttribute="top" constant="5" id="YLP-Jc-9Qt"/>
+                                                <constraint firstItem="ybO-jW-F83" firstAttribute="leading" secondItem="PXj-ps-FFG" secondAttribute="trailing" constant="10" id="dsd-YI-JVL"/>
+                                                <constraint firstItem="ybO-jW-F83" firstAttribute="centerY" secondItem="PXj-ps-FFG" secondAttribute="centerY" id="e1t-O1-XfW"/>
+                                                <constraint firstItem="ybO-jW-F83" firstAttribute="top" secondItem="4Gu-Qs-Akk" secondAttribute="topMargin" constant="4" id="gFv-A2-eXe"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="musicImageView" destination="PXj-ps-FFG" id="Fv7-Fi-X4T"/>
