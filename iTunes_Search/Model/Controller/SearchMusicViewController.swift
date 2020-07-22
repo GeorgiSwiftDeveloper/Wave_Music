@@ -32,7 +32,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchConnectionManager.delegate = self
+        searchConnectionManager.searchAlbumDelegate = self
         self.searchMusicTableView.delegate = self
         self.searchMusicTableView.dataSource = self
         setupNavBar()

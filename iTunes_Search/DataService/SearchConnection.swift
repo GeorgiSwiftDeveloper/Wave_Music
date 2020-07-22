@@ -14,7 +14,7 @@ protocol AlbumManagerDelegate {
 }
 
 class SearchConnection {
-    var delegate: AlbumManagerDelegate?
+    var searchAlbumDelegate: AlbumManagerDelegate?
     var videoArray = [Video]()
     let  API_KEY = "AIzaSyDnZJailNum2kVdCTUPpK80O8ERYBqbnX4"
     
@@ -41,9 +41,9 @@ class SearchConnection {
                     videoObjArray.append(youTubeVideo)
                     
                 }
-                self.delegate?.didUpdateAlbum(self, album: videoObjArray)
+                self.searchAlbumDelegate?.didUpdateAlbum(self, album: videoObjArray)
             }else{
-                self.delegate?.didFailWithError(error: "Something whent wrong")
+                self.searchAlbumDelegate?.didFailWithError(error: "Something whent wrong")
             }
             
         }

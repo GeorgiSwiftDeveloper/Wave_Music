@@ -14,11 +14,11 @@ class CoreDataVideoClass: NSObject {
     
     func fetchVideoWithEntityName(coreDataEntityName: String, searchBarText: String,playlistName: String, loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
-
+        
         if searchBarText != "" {
             let predicate = NSPredicate(format: "title contains[c]%@", searchBarText as CVarArg)
             request.predicate = predicate
-//            request.fetchLimit = 1
+            //            request.fetchLimit = 1
         }else if playlistName != ""{
             let predicate = NSPredicate(format: "playlistName == %@", playlistName as CVarArg)
             request.predicate = predicate
@@ -46,9 +46,14 @@ class CoreDataVideoClass: NSObject {
     
     func saveVideoWithEntityName(videoTitle: String,videoImage:String,videoId: String,playlistName: String, coreDataEntityName: String, loadVideoList: @escaping(_ returnVideoList: Bool?, _ returnError: Error?)-> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
-        let predicate = NSPredicate(format: "title == %@", videoTitle as CVarArg)
-        request.predicate = predicate
-        request.fetchLimit = 1
+        if playlistName != ""{
+            let predicate = NSPredicate(format: "title == %@ AND playlistName == %@", argumentArray: [videoTitle, playlistName])
+             request.predicate = predicate
+        }else{
+            let predicate = NSPredicate(format: "title == %@", videoTitle as CVarArg)
+            request.predicate = predicate
+        }
+        
         do{
             let count = try context?.count(for: request)
             if(count == 0){

@@ -143,7 +143,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
             selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
-            removeSelectedVideoRow(predicateName: selectedPlaylistRowTitle!)
+            deleteSelectedPlaylist(predicateName: selectedPlaylistRowTitle!)
             createdPlaylistArray.remove(at: indexPath.row)
             UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -152,7 +152,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     }
     
 
-    func removeSelectedVideoRow(predicateName playlistName: String) {
+    func deleteSelectedPlaylist(predicateName playlistName: String) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: playlistEntityName)
         let predicate = NSPredicate(format: "playlistName == %@", playlistName as CVarArg)
         request.predicate = predicate
