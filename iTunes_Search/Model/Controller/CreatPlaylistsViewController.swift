@@ -142,25 +142,42 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
-//            removeSelectedVideoRow(atIndexPath: indexPath)
+            selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
+            removeSelectedVideoRow(predicateName: selectedPlaylistRowTitle!)
             createdPlaylistArray.remove(at: indexPath.row)
+            UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
     }
     
-//
-//    func removeSelectedVideoRow(atIndexPath indexPath: IndexPath) {
-//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: playlistEntityName)
-//        let result = try? context?.fetch(request)
-//        let resultData = result as! [NSManagedObject]
-//        context?.delete(resultData[indexPath.row])
-//        do{
-//            try context?.save()
-//        }catch {
-//            print("Could not remove video from Database \(error.localizedDescription)")
-//        }
-//    }
+
+    func removeSelectedVideoRow(predicateName playlistName: String) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: playlistEntityName)
+        let predicate = NSPredicate(format: "playlistName == %@", playlistName as CVarArg)
+        request.predicate = predicate
+        
+         do {
+            let arrMusicObject = try context?.fetch(request)
+              for musicObjc in arrMusicObject as! [NSManagedObject] { // Fetching Object
+                context?.delete(musicObjc) // Deleting Object
+             }
+         } catch {
+              print("Failed")
+         }
+
+        // Saving the Delete operation
+         do {
+            try context?.save()
+         } catch {
+             print("Failed saving")
+         }
+        do{
+            try context?.save()
+        }catch {
+            print("Could not remove music list from Database \(error.localizedDescription)")
+        }
+    }
 
     
     
