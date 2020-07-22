@@ -14,8 +14,7 @@ class CreatPlaylistsViewController: UIViewController {
     @IBOutlet weak var playlistTableView: UITableView!
     
     var createdPlaylistArray = ["New Playlist"]
-    var playlistVideoArray = [Video]()
-    var selectedRowTitle: String?
+    var selectedPlaylistRowTitle: String?
 
     
     override func viewDidLoad() {
@@ -29,12 +28,10 @@ class CreatPlaylistsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        playlistVideoArray = []
         if let musicPlaylist = UserDefaults.standard.object(forKey: "MusicPlaylist") as? [String] {
             createdPlaylistArray = musicPlaylist
         }
         self.playlistTableView.reloadData()
-        fetchVideoWithEntityName(playlistEntityName)
     }
     
     
@@ -99,11 +96,11 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             present(alert, animated: true, completion: nil)
         }else{
             
-            selectedRowTitle = createdPlaylistArray[indexPath.row]
-            UserDefaults.standard.set(self.selectedRowTitle, forKey:"selectedPlaylistRowTitle")
-            saveSelectedMusicCoreDataEntity(selectedRowTitle!)
+            selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
+            UserDefaults.standard.set(self.selectedPlaylistRowTitle, forKey:"selectedPlaylistRowTitle")
+            saveSelectedMusicCoreDataEntity(selectedPlaylistRowTitle!)
             
-            self.performSegue(withIdentifier: "IdentifireByPlaylistName", sender: selectedRowTitle)
+            self.performSegue(withIdentifier: "IdentifireByPlaylistName", sender: selectedPlaylistRowTitle)
         }
         
         
@@ -123,22 +120,6 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    
-    func fetchVideoWithEntityName(_ entityName: String){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { (videoList, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-            }else{
-                if videoList != nil {
-                    
-                    self.playlistVideoArray.append(videoList!)
-                    DispatchQueue.main.async {
-                        self.playlistTableView.reloadData()
-                    }
-                }
-            }
-        }
-    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -161,11 +142,26 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
+//            removeSelectedVideoRow(atIndexPath: indexPath)
             createdPlaylistArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
     }
+    
+//
+//    func removeSelectedVideoRow(atIndexPath indexPath: IndexPath) {
+//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: playlistEntityName)
+//        let result = try? context?.fetch(request)
+//        let resultData = result as! [NSManagedObject]
+//        context?.delete(resultData[indexPath.row])
+//        do{
+//            try context?.save()
+//        }catch {
+//            print("Could not remove video from Database \(error.localizedDescription)")
+//        }
+//    }
+
     
     
 }

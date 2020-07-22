@@ -18,11 +18,10 @@ class CoreDataVideoClass: NSObject {
         if searchBarText != "" {
             let predicate = NSPredicate(format: "title contains[c]%@", searchBarText as CVarArg)
             request.predicate = predicate
-            request.fetchLimit = 1
+//            request.fetchLimit = 1
         }else if playlistName != ""{
             let predicate = NSPredicate(format: "playlistName == %@", playlistName as CVarArg)
             request.predicate = predicate
-            request.fetchLimit = 1
         }
         request.returnsObjectsAsFaults = false
         do {
