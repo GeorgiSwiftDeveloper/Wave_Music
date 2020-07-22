@@ -57,7 +57,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
 //                        let channelId =  self.videoArray[songIndex].channelId ?? ""
                         let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
                         
-                        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle)) { (checkIfSaveIsSuccessful, error) in
+                        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle)) { (checkIfSaveIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                             if error != nil {
                                 print(error?.localizedDescription as Any)
                             }
@@ -322,7 +322,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }

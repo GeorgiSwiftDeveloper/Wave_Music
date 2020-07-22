@@ -44,7 +44,7 @@ class CoreDataVideoClass: NSObject {
         }
     }
     
-    func saveVideoWithEntityName(videoTitle: String,videoImage:String,videoId: String,playlistName: String, coreDataEntityName: String, loadVideoList: @escaping(_ returnVideoList: Bool?, _ returnError: Error?)-> ()){
+    func saveVideoWithEntityName(videoTitle: String,videoImage:String,videoId: String,playlistName: String, coreDataEntityName: String, loadVideoList: @escaping(_ returnVideoList: Bool?, _ returnError: Error?, _ checkIfSongAlreadyInDatabase: Bool)-> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
         if playlistName != ""{
             let predicate = NSPredicate(format: "title == %@ AND playlistName == %@", argumentArray: [videoTitle, playlistName])
@@ -67,13 +67,14 @@ class CoreDataVideoClass: NSObject {
                 newEntity.setValue(playlistName, forKey: "playlistName")
                 }
                 try context?.save()
-                loadVideoList(true,nil)
+                loadVideoList(true,nil, false)
                 print("data has been saved ")
             }else{
                 print("this song is in database")
+                loadVideoList(false,nil, true)
             }
         }catch{
-            loadVideoList(false,error)
+            loadVideoList(false,error,false)
             print("error")
         }
     }

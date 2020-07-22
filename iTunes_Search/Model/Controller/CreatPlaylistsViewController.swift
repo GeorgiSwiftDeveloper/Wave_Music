@@ -98,27 +98,13 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             
             selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
             UserDefaults.standard.set(self.selectedPlaylistRowTitle, forKey:"selectedPlaylistRowTitle")
-            saveSelectedMusicCoreDataEntity(selectedPlaylistRowTitle!)
-            
             self.performSegue(withIdentifier: "IdentifireByPlaylistName", sender: selectedPlaylistRowTitle)
         }
         
         
     }
     
-    func saveSelectedMusicCoreDataEntity(_ selectedPlaylistRowTitle: String) {
-        let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
-        let videoImageUrlProperty = UserDefaults.standard.object(forKey: "image") as? String
-        let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
-        
-        if (videoIDProperty != nil) || (videoImageUrlProperty != nil) || (videoTitleProperty != nil) {
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName) { (checkIfLoadIsSuccessful, error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }
-            }
-        }
-    }
+
     
     
     
