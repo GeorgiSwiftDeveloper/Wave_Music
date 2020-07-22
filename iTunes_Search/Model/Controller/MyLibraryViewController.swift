@@ -315,7 +315,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func setupNavBar() {
-        searchController.searchBar.placeholder = "search My Library"
+        searchController.searchBar.placeholder = "Search Library"
         searchController.searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
         searchController.searchBar.sizeToFit()
         searchController.delegate = self

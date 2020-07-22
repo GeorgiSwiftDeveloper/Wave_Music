@@ -122,7 +122,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     func setupNavBar() {
         searchController.obscuresBackgroundDuringPresentation  = false
-        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.placeholder = "Search YouTube"
         searchController.searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
         searchController.searchBar.sizeToFit()
         searchController.delegate = self

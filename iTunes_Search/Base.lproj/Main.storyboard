@@ -442,16 +442,6 @@
                                             <constraint firstAttribute="height" constant="150" id="Z3G-dR-arK"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To Wave " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEk-HX-k0R" userLabel="Welcome To Wave">
-                                        <rect key="frame" x="61" y="30" width="197" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="197" id="3aw-19-W2f"/>
-                                            <constraint firstAttribute="height" constant="45" id="fGD-fC-gmf"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="22"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6G-jM-TyB">
                                         <rect key="frame" x="43" y="606" width="230" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -472,20 +462,17 @@
                                 <color key="backgroundColor" red="0.13454541489999999" green="0.3793318503" blue="0.49852907660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="B6G-jM-TyB" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" constant="43" id="2Lb-Np-iog"/>
-                                    <constraint firstItem="cEk-HX-k0R" firstAttribute="top" secondItem="tma-kp-XMg" secondAttribute="top" constant="30" id="Ggf-AD-vVj"/>
                                     <constraint firstAttribute="trailing" secondItem="B6G-jM-TyB" secondAttribute="trailing" constant="45" id="Mpv-3Q-xJ9"/>
                                     <constraint firstItem="vRi-gj-M90" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" constant="17" id="T8I-bx-RTB"/>
                                     <constraint firstAttribute="trailing" secondItem="vRi-gj-M90" secondAttribute="trailing" constant="18" id="TKo-4S-g32"/>
                                     <constraint firstItem="vEp-Zf-ceL" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" constant="83" id="UNs-7e-cPJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="cEk-HX-k0R" secondAttribute="trailing" constant="60" id="VS0-hk-cgw"/>
                                     <constraint firstItem="B6G-jM-TyB" firstAttribute="top" secondItem="RAC-px-thp" secondAttribute="bottom" constant="52" id="f0R-vi-zeg"/>
-                                    <constraint firstItem="cEk-HX-k0R" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" constant="61" id="mdf-lY-JYg"/>
                                     <constraint firstItem="RAC-px-thp" firstAttribute="top" secondItem="vRi-gj-M90" secondAttribute="bottom" constant="13" id="n6E-GO-ieR"/>
                                     <constraint firstItem="RAC-px-thp" firstAttribute="leading" secondItem="tma-kp-XMg" secondAttribute="leading" constant="2" id="nL5-gz-12Q"/>
                                     <constraint firstItem="vRi-gj-M90" firstAttribute="top" secondItem="vEp-Zf-ceL" secondAttribute="bottom" constant="8" id="q3v-OU-nIl"/>
                                     <constraint firstAttribute="trailing" secondItem="RAC-px-thp" secondAttribute="trailing" constant="3" id="qyL-ig-EWz"/>
                                     <constraint firstAttribute="trailing" secondItem="vEp-Zf-ceL" secondAttribute="trailing" constant="85" id="tG9-3W-bRs"/>
-                                    <constraint firstItem="vEp-Zf-ceL" firstAttribute="top" secondItem="cEk-HX-k0R" secondAttribute="bottom" constant="24" id="vcj-Vs-n6N"/>
+                                    <constraint firstItem="vEp-Zf-ceL" firstAttribute="top" secondItem="tma-kp-XMg" secondAttribute="top" constant="99" id="wV1-XC-maT"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1150,7 +1137,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8og-sb-J2T"/>
+        <segue reference="2mI-ZF-yR1"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
