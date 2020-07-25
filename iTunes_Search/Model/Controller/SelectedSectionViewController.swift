@@ -54,12 +54,15 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         switch checkTableViewName {
         case topHitsTableView:
             fetchVideoWithEntityName("TopHitsModel", "")
+            ActivityIndecator.activitySharedInstace.activityIndecator(self.view, selectedSectionTableView)
         case libraryTableView:
             fetchVideoWithEntityName("MyLibraryMusicData", "")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
+            ActivityIndecator.activitySharedInstace.activityIndecator(self.view, selectedSectionTableView)
         case recentPlayedTableView:
             fetchVideoWithEntityName("RecentPlayedMusicData", "")
+            ActivityIndecator.activitySharedInstace.activityIndecator(self.view, selectedSectionTableView)
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
             self.navigationItem.rightBarButtonItem  = deleteButton
             if recentPlayedVideo.count == 0 {
@@ -98,6 +101,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         }
         
     }
+    
     
     func saveSelectedMusicCoreDataEntity(_ selectedPlaylistRowTitle: String) {
         let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
@@ -435,6 +439,14 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             break
         }
         return canEdit
+    }
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        NSLog("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
+        if scrollView.contentOffset.y <=  0.000000 {
+              ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

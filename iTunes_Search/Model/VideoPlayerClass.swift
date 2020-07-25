@@ -298,7 +298,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
                     self.checkIfCollapsed = true
-                    if let superVC = self.superViewController as? MyLibraryViewController {
+                    if ((self.superViewController as? MyLibraryViewController) != nil) {
                        self.superViewController?.viewDidLoad()
                     }
                   

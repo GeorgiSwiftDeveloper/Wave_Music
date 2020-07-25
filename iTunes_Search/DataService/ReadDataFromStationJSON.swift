@@ -17,7 +17,8 @@ class ReadDataFromStationJSONList {
                 let fileUrl = URL(fileURLWithPath: path)
                 // Getting data from JSON file using the file URL
                 let data = try Data(contentsOf: fileUrl, options: .mappedRead)
-                let radioJsonList = try JSONDecoder().decode(PlacesResponse.self, from: data)
+                let radioJsonList = try JSONDecoder().decode(StationResponse.self, from: data)
+                
                 for i in 0..<radioJsonList.station.count{
                     let name = radioJsonList.station[i].name
                     let streamURL = radioJsonList.station[i].streamURL

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct PlacesResponse : Decodable {
+struct StationResponse : Decodable {
     var station :[RadioModel]
 }
 

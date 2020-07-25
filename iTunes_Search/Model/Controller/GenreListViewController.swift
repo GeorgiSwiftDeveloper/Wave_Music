@@ -40,6 +40,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title  = "  Top \(genreModel!.genreTitle) Song's"
+        ActivityIndecator.activitySharedInstace.activityIndecator(self.view, genreTableView)
         genreTableView.delegate = self
         genreTableView.dataSource = self
         if isEmpty{
@@ -300,6 +301,14 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+         NSLog("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
+         if scrollView.contentOffset.y <=  0.000000 {
+               ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
+         }
+     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
