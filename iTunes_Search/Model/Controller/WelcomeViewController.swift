@@ -28,7 +28,6 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
     }
     
     func updateUI(){
-//        self.pickerView.setValue(UIColor.white, forKeyPath: "textColor")
         nextButton.layer.cornerRadius = 8
         nextButton.layer.masksToBounds = false
         nextButton.clipsToBounds = true
@@ -36,7 +35,7 @@ class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerVi
     
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        .lightContent
     }
     
     
