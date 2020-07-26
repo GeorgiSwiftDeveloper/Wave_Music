@@ -30,15 +30,13 @@ class RecentPlayedCollectionViewCell: UICollectionViewCell {
     
     
     override func awakeFromNib() {
-        collectionImageView.layer.cornerRadius = 10.0
+        collectionImageView.layer.cornerRadius = 4.0
         collectionImageView.layer.borderWidth = 2.0
+        collectionImageView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         collectionImageView.layer.shadowRadius = 2
+        collectionImageView.layer.shadowColor = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
         collectionImageView.layer.shadowOffset = .zero
-        collectionImageView.layer.shadowOpacity = 2
-        collectionImageView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         collectionImageView.layer.masksToBounds = true
-        
-        imageMainView.layer.cornerRadius = 8
         imageMainView.layer.masksToBounds = true
     }
     

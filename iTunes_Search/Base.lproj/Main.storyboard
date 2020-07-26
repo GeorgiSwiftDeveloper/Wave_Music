@@ -40,33 +40,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deep" translatesAutoresizingMaskIntoConstraints="NO" id="buO-ZT-ljy">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="buO-ZT-ljy">
                                 <rect key="frame" x="0.0" y="56" width="375" height="702"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
-                                <rect key="frame" x="0.0" y="335" width="375" height="340"/>
+                                <rect key="frame" x="0.0" y="400" width="375" height="275"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LibraryMusicCell" rowHeight="70" id="zSA-8A-8h5" customClass="MainLibrariMusciTableViewCell" customModule="Wave" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LibraryMusicCell" rowHeight="80" id="zSA-8A-8h5" customClass="MainLibrariMusciTableViewCell" customModule="Wave" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zSA-8A-8h5" id="4Gu-Qs-Akk">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ybO-jW-F83">
-                                                    <rect key="frame" x="95" y="15" width="270" height="40"/>
+                                                    <rect key="frame" x="95" y="15" width="270" height="50"/>
                                                     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="lKa-XS-wgZ"/>
                                                         <constraint firstAttribute="width" constant="275" id="w7k-oH-LLR"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="12"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="10"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PXj-ps-FFG">
-                                                    <rect key="frame" x="15" y="5" width="60" height="60"/>
+                                                    <rect key="frame" x="15" y="5" width="60" height="70"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="NSj-ay-IrB"/>
                                                         <constraint firstAttribute="height" constant="60" id="b69-ju-at8"/>
@@ -161,7 +163,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="kv7-wf-vnT" secondAttribute="trailing" constant="5.9999999999999432" id="4UK-nk-HN9"/>
                                                         <constraint firstAttribute="trailing" secondItem="1hJ-fG-sIU" secondAttribute="trailing" constant="5.9999999999999432" id="6Eb-vA-yfg"/>
@@ -277,7 +279,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="162" height="156"/>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="AhU-mc-16D" firstAttribute="top" secondItem="XQ2-Et-oZ0" secondAttribute="bottom" constant="5" id="04E-Th-zEi"/>
                                                         <constraint firstAttribute="trailing" secondItem="AhU-mc-16D" secondAttribute="trailing" constant="39" id="1x7-gY-E6Z"/>
@@ -336,10 +338,11 @@
                             <constraint firstItem="buO-ZT-ljy" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="7MH-Av-hiI"/>
                             <constraint firstItem="WMD-QQ-Rda" firstAttribute="top" secondItem="n2I-F1-oFT" secondAttribute="top" constant="150" id="Cep-RO-nL5"/>
                             <constraint firstItem="TdJ-LG-cyh" firstAttribute="bottom" secondItem="sX9-sb-dl1" secondAttribute="bottom" id="ZgM-H8-EMf"/>
-                            <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="WMD-QQ-Rda" secondAttribute="bottom" constant="10" id="dVx-ut-eT6"/>
+                            <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="WMD-QQ-Rda" secondAttribute="bottom" constant="75" id="dVx-ut-eT6"/>
                             <constraint firstItem="kk2-FN-dST" firstAttribute="top" secondItem="n2I-F1-oFT" secondAttribute="top" constant="150" id="gok-Jh-JUB"/>
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" id="kPL-nr-xM8"/>
                             <constraint firstItem="kk2-FN-dST" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="p8a-SQ-82e"/>
+                            <constraint firstItem="sX9-sb-dl1" firstAttribute="centerX" secondItem="n2I-F1-oFT" secondAttribute="centerX" id="ti5-IV-OKL"/>
                             <constraint firstItem="buO-ZT-ljy" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" id="uwu-c5-Inx"/>
                             <constraint firstAttribute="bottom" secondItem="buO-ZT-ljy" secondAttribute="bottom" id="v0i-8y-INN"/>
                             <constraint firstItem="buO-ZT-ljy" firstAttribute="top" secondItem="TdJ-LG-cyh" secondAttribute="top" id="yzt-HR-bpM"/>
@@ -1184,7 +1187,6 @@
         <image name="07012019-18" width="5000" height="4000"/>
         <image name="NowPlayingBars" width="19.666666030883789" height="19"/>
         <image name="antenna.radiowaves.left.and.right" catalog="system" width="128" height="109"/>
-        <image name="deep" width="3276" height="4096"/>
         <image name="icon-hamburger" width="22" height="16"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="music.note" catalog="system" width="97" height="128"/>

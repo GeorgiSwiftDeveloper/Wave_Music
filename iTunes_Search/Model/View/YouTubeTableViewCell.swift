@@ -12,18 +12,20 @@ class YouTubeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var videoImageView: UIImageView!
     @IBOutlet weak var singerNameLabel: UILabel!
-
+    
     func configureGenreCell(_ video: Video){
         
-        singerNameLabel.text = video.videoTitle
-        if video.videoImageUrl != ""{
-        let imageUrl = URL(string: video.videoImageUrl ?? "")
-        do{
-            let data:NSData = try NSData(contentsOf: imageUrl!)
-            videoImageView.image =  UIImage(data: data as Data)
-            
-        }catch{
-            print("Image data not found")
+        DispatchQueue.main.async {
+            self.singerNameLabel.text = video.videoTitle
+            if video.videoImageUrl != ""{
+                let imageUrl = URL(string: video.videoImageUrl ?? "")
+                do{
+                    let data:NSData = try NSData(contentsOf: imageUrl!)
+                    self.videoImageView.image =  UIImage(data: data as Data)
+                    
+                }catch{
+                    print("Image data not found")
+                }
             }
         }
         videoImageView.layer.borderWidth = 3
