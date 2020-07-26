@@ -268,6 +268,9 @@
                                                             <color key="textColor" red="0.94509803921568625" green="0.94901960784313721" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u2R-91-8Co">
+                                                            <rect key="frame" x="0.0" y="0.0" width="162" height="156"/>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
@@ -279,12 +282,16 @@
                                                         <constraint firstAttribute="trailing" secondItem="6ol-Gf-dTG" secondAttribute="trailing" constant="5.9999999999999432" id="I7e-dg-pFw"/>
                                                         <constraint firstAttribute="trailing" secondItem="nVf-Yr-CC6" secondAttribute="trailing" constant="5.9999999999999432" id="LQ2-8e-iS0"/>
                                                         <constraint firstItem="AhU-mc-16D" firstAttribute="leading" secondItem="5ol-K7-jhc" secondAttribute="leading" constant="38" id="T6Y-k5-CkI"/>
+                                                        <constraint firstItem="u2R-91-8Co" firstAttribute="top" secondItem="5ol-K7-jhc" secondAttribute="top" id="WTz-iO-1dN"/>
                                                         <constraint firstItem="zJb-Ei-FEE" firstAttribute="leading" secondItem="5ol-K7-jhc" secondAttribute="leading" constant="4.0000000000000746" id="WVM-Kw-nQt"/>
+                                                        <constraint firstAttribute="bottom" secondItem="u2R-91-8Co" secondAttribute="bottom" id="YaZ-y5-2H6"/>
                                                         <constraint firstItem="XQ2-Et-oZ0" firstAttribute="centerY" secondItem="5ol-K7-jhc" secondAttribute="centerY" id="aJQ-yu-KMn"/>
                                                         <constraint firstItem="6ol-Gf-dTG" firstAttribute="leading" secondItem="zJb-Ei-FEE" secondAttribute="trailing" constant="2" id="au0-63-Nnf"/>
                                                         <constraint firstAttribute="bottom" secondItem="nVf-Yr-CC6" secondAttribute="bottom" constant="75" id="b25-Uz-3GF"/>
                                                         <constraint firstItem="6ol-Gf-dTG" firstAttribute="top" secondItem="5ol-K7-jhc" secondAttribute="top" constant="78" id="bEd-JF-YXi"/>
                                                         <constraint firstItem="zJb-Ei-FEE" firstAttribute="top" secondItem="5ol-K7-jhc" secondAttribute="top" constant="78" id="daa-YF-Otl"/>
+                                                        <constraint firstItem="u2R-91-8Co" firstAttribute="leading" secondItem="5ol-K7-jhc" secondAttribute="leading" id="dmJ-TP-044"/>
+                                                        <constraint firstAttribute="trailing" secondItem="u2R-91-8Co" secondAttribute="trailing" id="eud-ZU-kdH"/>
                                                         <constraint firstAttribute="bottom" secondItem="6ol-Gf-dTG" secondAttribute="bottom" constant="3" id="jSD-Jz-NCO"/>
                                                         <constraint firstAttribute="bottom" secondItem="0YF-Nb-GI0" secondAttribute="bottom" constant="76" id="l3P-EM-yex"/>
                                                         <constraint firstAttribute="bottom" secondItem="zJb-Ei-FEE" secondAttribute="bottom" constant="3" id="msr-ee-Rtm"/>
@@ -305,6 +312,7 @@
                                         <connections>
                                             <outlet property="cellTitleLabel" destination="XQ2-Et-oZ0" id="s78-Pr-LAt"/>
                                             <outlet property="collectionImageView" destination="Hl8-r0-RFy" id="ke7-58-wzD"/>
+                                            <outlet property="defaultImageView" destination="u2R-91-8Co" id="Jzu-XI-Inh"/>
                                             <outlet property="imageMainView" destination="5ol-K7-jhc" id="sE0-lA-wnO"/>
                                             <outlet property="imageView1" destination="0YF-Nb-GI0" id="8P6-U0-1Qc"/>
                                             <outlet property="imageView2" destination="nVf-Yr-CC6" id="X50-rv-Zq6"/>

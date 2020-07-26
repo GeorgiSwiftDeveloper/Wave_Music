@@ -273,7 +273,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             checkIfRecentPlaylistIsEmpty = true
             recentPlayedCollectionCell.reloadData()
         }
-      }
+    }
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
@@ -420,34 +420,44 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 cell.imageView2.image =  UIImage(named: "")
                 cell.imageView3.image =  UIImage(named: "")
                 cell.imageView4.image =  UIImage(named: "")
+                cell.defaultImageView.clipsToBounds = true
+                cell.defaultImageView.contentMode = .scaleAspectFill
+                cell.defaultImageView.layer.cornerRadius = 8.0
+                cell.defaultImageView.image = UIImage(named: "headPhone3.jpg")
+                cell.defaultImageView.alpha = 0.5
             case 1:
                 cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                 cell.imageView2.image =  UIImage(named: "")
                 cell.imageView3.image =  UIImage(named: "")
                 cell.imageView4.image =  UIImage(named: "")
+                cell.defaultImageView.isHidden = true
             case 2:
                 cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                 cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
                 cell.imageView3.image =  UIImage(named: "")
                 cell.imageView4.image =  UIImage(named: "")
+                cell.defaultImageView.isHidden = true
             case 3:
                 cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                 cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
                 cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
                 cell.imageView4.image =  UIImage(named: "")
+                cell.defaultImageView.isHidden = true
             default:
                 cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                 cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
                 cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
                 cell.imageView4.image =  UIImage(data: recentPlayerArray[3] as Data)
+                cell.defaultImageView.isHidden = true
             }
-
+            
             
             if checkIfRecentPlaylistIsEmpty == true{
                 cell.imageView1.image =  UIImage(named: "")
                 cell.imageView2.image =  UIImage(named: "")
                 cell.imageView3.image =  UIImage(named: "")
                 cell.imageView4.image =  UIImage(named: "")
+                cell.defaultImageView.isHidden = false
                 checkIfRecentPlaylistIsEmpty = false
             }
             

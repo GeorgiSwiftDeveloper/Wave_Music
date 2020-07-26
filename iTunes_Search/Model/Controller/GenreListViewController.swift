@@ -40,7 +40,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title  = "  Top \(genreModel!.genreTitle) Song's"
-        ActivityIndecator.activitySharedInstace.activityIndecator(self.view, genreTableView)
         genreTableView.delegate = self
         genreTableView.dataSource = self
         if isEmpty{
@@ -106,6 +105,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             break
         }
          self.navigationController?.navigationBar.isHidden = false
+         ActivityIndecator.activitySharedInstace.activityIndecator(self.view, genreTableView)
     }
     
     func updatePlayerState(_ playerState: WKYTPlayerState){

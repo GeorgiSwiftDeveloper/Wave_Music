@@ -54,15 +54,12 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         switch checkTableViewName {
         case topHitsTableView:
             fetchVideoWithEntityName("TopHitsModel", "")
-            ActivityIndecator.activitySharedInstace.activityIndecator(self.view, selectedSectionTableView)
         case libraryTableView:
             fetchVideoWithEntityName("MyLibraryMusicData", "")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
-            ActivityIndecator.activitySharedInstace.activityIndecator(self.view, selectedSectionTableView)
         case recentPlayedTableView:
             fetchVideoWithEntityName("RecentPlayedMusicData", "")
-            ActivityIndecator.activitySharedInstace.activityIndecator(self.view, selectedSectionTableView)
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
             self.navigationItem.rightBarButtonItem  = deleteButton
             if recentPlayedVideo.count == 0 {
@@ -222,6 +219,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         default:
             break
         }
+        
+         ActivityIndecator.activitySharedInstace.activityIndecator(self.view, selectedSectionTableView)
     }
     
     
