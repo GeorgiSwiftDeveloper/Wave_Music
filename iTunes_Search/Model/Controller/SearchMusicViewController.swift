@@ -71,6 +71,8 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         default:
             break
         }
+        
+        ActivityIndecator.activitySharedInstace.activityIndecator(self.view, searchMusicTableView)
     }
     
     
@@ -248,6 +250,16 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    
+    
+     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+         NSLog("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
+         if scrollView.contentOffset.y <=  0.000000 {
+               ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
+         }
+     }
+    
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

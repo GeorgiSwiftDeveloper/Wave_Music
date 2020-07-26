@@ -15,7 +15,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
     static let callVideoPlayer = VideoPlayerClass()
     
     
-    let cardHeight:CGFloat = 800
+    let cardHeight:CGFloat = 750
     let cardHandleAreaHeight:CGFloat = 130
     var playerView = UIView()
     var webView = WKYTPlayerView()
@@ -298,8 +298,8 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
                     self.checkIfCollapsed = true
-                    if ((self.superViewController as? MyLibraryViewController) != nil) {
-                       self.superViewController?.viewDidLoad()
+                    if ((self.superViewController as? GenresViewController) != nil) {
+                       self.superViewController?.navigationController?.navigationBar.isHidden = true
                     }
                   
                     // self.visualEffectView.removeFromSuperview()
