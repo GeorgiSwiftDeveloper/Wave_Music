@@ -525,8 +525,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
         
-        
-        libraryMusicCell.configureGenreCell(myLibraryListArray[indexPath.row])
+        DispatchQueue.main.async {
+            libraryMusicCell.configureGenreCell(self.myLibraryListArray[indexPath.row])
+            
+        }
         return libraryMusicCell
     }
     
@@ -543,7 +545,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         view.tintColor = UIColor.clear
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 24)!
-        header.textLabel?.textColor = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
+        header.textLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         if myLibraryListArray.count >= 4{
             viewAllButton.frame = CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40)
             viewAllButton.tag = section

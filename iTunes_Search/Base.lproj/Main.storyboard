@@ -63,7 +63,7 @@
                                                         <constraint firstAttribute="height" constant="40" id="lKa-XS-wgZ"/>
                                                         <constraint firstAttribute="width" constant="275" id="w7k-oH-LLR"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="10"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>

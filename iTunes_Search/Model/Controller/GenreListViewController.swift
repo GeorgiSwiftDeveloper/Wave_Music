@@ -50,11 +50,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                     self.videoArray = loadVideolist!
                     for songIndex in 0..<self.videoArray.count{
                         let title =   self.videoArray[songIndex].videoTitle ?? ""
-//                        let description =  self.videoArray[songIndex].videoDescription ?? ""
+                        //                        let description =  self.videoArray[songIndex].videoDescription ?? ""
                         let image =  self.videoArray[songIndex].videoImageUrl ?? ""
-//                        let playlistId = self.videoArray[songIndex].videoPlaylistId ?? ""
+                        //                        let playlistId = self.videoArray[songIndex].videoPlaylistId ?? ""
                         let videoId =  self.videoArray[songIndex].videoId ?? ""
-//                        let channelId =  self.videoArray[songIndex].channelId ?? ""
+                        //                        let channelId =  self.videoArray[songIndex].channelId ?? ""
                         let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
                         
                         CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle)) { (checkIfSaveIsSuccessful, error, checkIfSongAlreadyInDatabase) in
@@ -104,8 +104,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         default:
             break
         }
-         self.navigationController?.navigationBar.isHidden = false
-         ActivityIndecator.activitySharedInstace.activityIndecator(self.view, genreTableView)
+        self.navigationController?.navigationBar.isHidden = false
+        ActivityIndecator.activitySharedInstace.activityIndecator(self.view, genreTableView)
     }
     
     func updatePlayerState(_ playerState: WKYTPlayerState){
@@ -243,7 +243,10 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         if let cell = tableView.dequeueReusableCell(withIdentifier: "genreCell", for: indexPath) as? GenreVideoTableViewCell {
             cell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell.addToFavoriteButton.tag = indexPath.row;
-            cell.configureGenreCell(videoArray[indexPath.row])
+            DispatchQueue.main.async {
+                cell.configureGenreCell(self.videoArray[indexPath.row])
+                
+            }
             return cell
         }else {
             return GenreVideoTableViewCell()
@@ -304,11 +307,11 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-         NSLog("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
-         if scrollView.contentOffset.y <=  0.000000 {
-               ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
-         }
-     }
+        NSLog("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
+        if scrollView.contentOffset.y <=  0.000000 {
+            ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
+        }
+    }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -321,10 +324,10 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
-//            for i in 0..<self.videoArray.count{
-//                self.youTubeVideoID.append(self.videoArray[i].videoId ?? "")
-//                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle ?? "")
-//            }
+            //            for i in 0..<self.videoArray.count{
+            //                self.youTubeVideoID.append(self.videoArray[i].videoId ?? "")
+            //                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle ?? "")
+            //            }
             self.youTubeVideoID = selectedCell.videoID
             self.youTubeVideoTitle = selectedCell.singerNameLabel.text!
             self.webView.load(withVideoId: "")

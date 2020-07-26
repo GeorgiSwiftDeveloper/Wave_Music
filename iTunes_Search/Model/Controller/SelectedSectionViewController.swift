@@ -49,8 +49,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.selectedSectionTableView.delegate = self
         self.selectedSectionTableView.dataSource = self
+        
         switch checkTableViewName {
         case topHitsTableView:
             fetchVideoWithEntityName("TopHitsModel", "")
@@ -101,6 +103,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     func saveSelectedMusicCoreDataEntity(_ selectedPlaylistRowTitle: String) {
+        
         let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
         let videoImageUrlProperty = UserDefaults.standard.object(forKey: "image") as? String
         let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
@@ -111,7 +114,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                     print(error?.localizedDescription as Any)
                 }
                 if  checkIfSongAlreadyInDatabase == true  {
-                     let alert = UIAlertController(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "")  already exist in your list", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "")  already exist in your list", preferredStyle: .alert)
                     let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
                         
                     }
@@ -187,9 +190,12 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
+        
         searchisSelected()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
+        
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -220,7 +226,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             break
         }
         
-         ActivityIndecator.activitySharedInstace.activityIndecator(self.view, selectedSectionTableView)
+        ActivityIndecator.activitySharedInstace.activityIndecator(self.view, selectedSectionTableView)
     }
     
     
@@ -333,7 +339,10 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         switch checkTableViewName {
         case topHitsTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-                cell.configureTopHitsCell(topHitsLists[indexPath.row])
+                DispatchQueue.main.async {
+                    cell.configureTopHitsCell(self.topHitsLists[indexPath.row])
+                    
+                }
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
                 selectedTableViewCell = cell
@@ -342,7 +351,10 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case libraryTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-                cell.configureMyLibraryCell(myLibraryList[indexPath.row])
+                DispatchQueue.main.async {
+                    cell.configureMyLibraryCell(self.myLibraryList[indexPath.row])
+                    
+                }
                 cell.addToFavoriteButton.isHidden = true
                 selectedTableViewCell = cell
             }else {
@@ -350,8 +362,10 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case recentPlayedTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-                
-                cell.configureRecentlyPlayedCell(recentPlayedVideo[indexPath.row])
+                DispatchQueue.main.async {
+                    cell.configureRecentlyPlayedCell(self.recentPlayedVideo[indexPath.row])
+                    
+                }
                 cell.addToFavoriteButton.tag = indexPath.row;
                 cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
                 selectedTableViewCell = cell
@@ -360,8 +374,10 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         case playlistTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-                
-                cell.configureRecentlyPlayedCell(videoPlaylist[indexPath.row])
+                DispatchQueue.main.async {
+                    cell.configureRecentlyPlayedCell(self.videoPlaylist[indexPath.row])
+                    
+                }
                 cell.addToFavoriteButton.isHidden = true
                 selectedTableViewCell = cell
             }else {
@@ -444,7 +460,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         NSLog("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
         if scrollView.contentOffset.y <=  0.000000 {
-              ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
+            ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
         }
     }
     
@@ -468,9 +484,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         var entityName = String()
         switch checkTableViewName {
         case libraryTableView:
-            entityName = "MyLibraryMusicData"
+            entityName = myLibraryEntityName
         case recentPlayedTableView:
-            entityName = "RecentPlayedMusicData"
+            entityName = recentPlayedEntityName
         default:
             break
         }
