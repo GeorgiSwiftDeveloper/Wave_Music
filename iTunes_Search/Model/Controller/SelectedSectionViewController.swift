@@ -63,7 +63,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
             self.navigationItem.rightBarButtonItem  = deleteButton
             if recentPlayedVideo.count == 0 {
-                let alert = UIAlertController(title: "There is no RECENTLY PLAYED songs", message: "Your recently played songs will be placed here after you play any song", preferredStyle: .alert)
+                let alert = UIAlertController(title: "No Tracks Found", message: "Your recently played songs will be placed here after you play any song", preferredStyle: .alert)
                 let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
                     self.navigationController?.popViewController(animated: true)
                     self.tabBarController?.selectedIndex = 0
@@ -84,7 +84,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
             if videoPlaylist.count == 0 {
-                let alert = UIAlertController(title: "Empty Playlist", message: "Your songs will be placed here after you add any song", preferredStyle: .alert)
+                let alert = UIAlertController(title: "No Tracks Found", message: "Your songs will be placed here after you add any song", preferredStyle: .alert)
                 let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
                     self.navigationController?.popViewController(animated: true)
                     self.tabBarController?.selectedIndex = 3
@@ -111,7 +111,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                     print(error?.localizedDescription as Any)
                 }
                 if  checkIfSongAlreadyInDatabase == true  {
-                     let alert = UIAlertController(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "") is already exist in your list", preferredStyle: .alert)
+                     let alert = UIAlertController(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "")  already exist in your list", preferredStyle: .alert)
                     let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
                         
                     }

@@ -544,16 +544,16 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
-        view.tintColor = UIColor.white
+        view.tintColor = UIColor.clear
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 20)!
-        header.textLabel?.textColor = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
+        header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 24)!
+        header.textLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         if myLibraryListArray.count >= 4{
             viewAllButton.frame = CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40)
             viewAllButton.tag = section
             viewAllButton.setTitle("View all", for: .normal)
-            viewAllButton.titleLabel?.font =  UIFont(name: "Verdana", size: 14)
-            viewAllButton.setTitleColor(#colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), for: .normal)
+            viewAllButton.titleLabel?.font =  UIFont(name: "Verdana-Bold", size: 10)
+            viewAllButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
             header.addSubview(viewAllButton)
             sectionButton = viewAllButton
             viewAllButton.addTarget(self, action: #selector(destinationMyLibraryVC), for: .touchUpInside)
