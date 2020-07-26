@@ -68,22 +68,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         
         self.recentPlayedCollectionCell.delegate = self
         self.recentPlayedCollectionCell.dataSource = self
+        
         getYouTubeResults()
     }
     
-//    override func remoteControlReceived(with event: UIEvent?) {
-//        switch event?.subtype {
-//        case .remoteControlTogglePlayPause:
-//            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-//        case .remoteControlPlay:
-//            
-//            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-//        case .remoteControlPause:
-//            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-//        default:
-//            break;
-//        }
-//    }
+    
     
     func checkIfRowIsSelected(_ checkIf: Bool) {
         if checkIf == true{
@@ -99,8 +88,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
+        
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -154,6 +145,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                     DispatchQueue.main.async{
                         self.topHitsArray = loadVideolist!
                         for songIndex in 0..<self.topHitsArray.count{
+                            
                             let title =   self.topHitsArray[songIndex].videoTitle ?? ""
                             let description =  self.topHitsArray[songIndex].videoDescription ?? ""
                             let image =  self.topHitsArray[songIndex].videoImageUrl ?? ""
@@ -162,7 +154,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                             let channelId =  self.topHitsArray[songIndex].channelId ?? ""
                             
                             self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
+                            
                             self.topHitsCollectionCell.reloadData()
+                            
                         }
                     }
                 }
@@ -322,7 +316,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         searchController.searchBar.delegate = self
         searchController.searchBar.isHidden = false
         searchController.hidesNavigationBarDuringPresentation = true
-//        searchController.searchBar.backgroundColor = .black
         self.definesPresentationContext = true
         navigationItem.searchController?.searchBar.delegate = self
         navigationItem.searchController?.searchResultsUpdater = self
@@ -380,8 +373,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         switch collectionView {
         case topHitsCollectionCell:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topCell", for: indexPath) as! TopHitsCollectionViewCell
+            
             cell.cellTitleLabel.text = "World Top 100"
             cell.topHitsVideoCountLabel.text = "\(topHitsArray.count) tracks"
+            
+            var imageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
             
             if topHitsArray.count >= 4 {
                 let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
@@ -403,62 +399,61 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                     print("error")
                 }
             }else if topHitsArray.count == 0 {
-                cell.imageView1.image = UIImage(named: "")
-                cell.imageView2.image = UIImage(named: "")
-                cell.imageView3.image = UIImage(named: "")
-                cell.imageView4.image = UIImage(named: "")
+                
+                imageArray = imageArray.map { image in
+                    image?.image = UIImage(named: "")
+                    return image
+                }
             }
             collectionCell = cell
         case recentPlayedCollectionCell:
+            
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as! RecentPlayedCollectionViewCell
             
             cell.cellTitleLabel.text = "RECENTLY PLAYED"
             cell.recentlyPlayedVideoCountLabel.text = "\(recentPlayedVideo.count) tracks"
             
+            var imageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
+            
+            
             switch recentPlayerArray.count {
             case 0:
-                cell.imageView1.image =  UIImage(named: "")
-                cell.imageView2.image =  UIImage(named: "")
-                cell.imageView3.image =  UIImage(named: "")
-                cell.imageView4.image =  UIImage(named: "")
-                cell.defaultImageView.clipsToBounds = true
-                cell.defaultImageView.contentMode = .scaleAspectFill
-                cell.defaultImageView.layer.cornerRadius = 8.0
-                cell.defaultImageView.image = UIImage(named: "headPhone3.jpg")
-                cell.defaultImageView.alpha = 0.5
+                
+                imageArray = imageArray.map { image in
+                    image?.image = UIImage(named: "")
+                    return image
+                }
+                
             case 1:
                 cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                 cell.imageView2.image =  UIImage(named: "")
                 cell.imageView3.image =  UIImage(named: "")
                 cell.imageView4.image =  UIImage(named: "")
-                cell.defaultImageView.isHidden = true
             case 2:
                 cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                 cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
                 cell.imageView3.image =  UIImage(named: "")
                 cell.imageView4.image =  UIImage(named: "")
-                cell.defaultImageView.isHidden = true
             case 3:
                 cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                 cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
                 cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
                 cell.imageView4.image =  UIImage(named: "")
-                cell.defaultImageView.isHidden = true
             default:
                 cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
                 cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
                 cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
                 cell.imageView4.image =  UIImage(data: recentPlayerArray[3] as Data)
-                cell.defaultImageView.isHidden = true
             }
             
             
             if checkIfRecentPlaylistIsEmpty == true{
-                cell.imageView1.image =  UIImage(named: "")
-                cell.imageView2.image =  UIImage(named: "")
-                cell.imageView3.image =  UIImage(named: "")
-                cell.imageView4.image =  UIImage(named: "")
-                cell.defaultImageView.isHidden = false
+                
+                imageArray = imageArray.map { image in
+                    image?.image = UIImage(named: "")
+                    return image
+                }
+                
                 checkIfRecentPlaylistIsEmpty = false
             }
             
