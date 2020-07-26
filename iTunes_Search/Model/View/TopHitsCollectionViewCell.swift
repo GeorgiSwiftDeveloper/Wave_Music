@@ -30,7 +30,6 @@ class TopHitsCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         collectionImageView.layer.cornerRadius = 10.0
         collectionImageView.layer.borderWidth = 2.0
-        collectionImageView.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         collectionImageView.layer.shadowRadius = 2
         collectionImageView.layer.shadowOffset = .zero
         collectionImageView.layer.shadowOpacity = 2

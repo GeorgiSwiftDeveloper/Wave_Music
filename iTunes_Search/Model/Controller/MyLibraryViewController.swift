@@ -71,19 +71,19 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         getYouTubeResults()
     }
     
-    override func remoteControlReceived(with event: UIEvent?) {
-        switch event?.subtype {
-        case .remoteControlTogglePlayPause:
-            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-        case .remoteControlPlay:
-            
-            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-        case .remoteControlPause:
-            VideoPlayerClass.callVideoPlayer.webView.playVideo()
-        default:
-            break;
-        }
-    }
+//    override func remoteControlReceived(with event: UIEvent?) {
+//        switch event?.subtype {
+//        case .remoteControlTogglePlayPause:
+//            VideoPlayerClass.callVideoPlayer.webView.playVideo()
+//        case .remoteControlPlay:
+//            
+//            VideoPlayerClass.callVideoPlayer.webView.playVideo()
+//        case .remoteControlPause:
+//            VideoPlayerClass.callVideoPlayer.webView.playVideo()
+//        default:
+//            break;
+//        }
+//    }
     
     func checkIfRowIsSelected(_ checkIf: Bool) {
         if checkIf == true{
@@ -322,6 +322,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         searchController.searchBar.delegate = self
         searchController.searchBar.isHidden = false
         searchController.hidesNavigationBarDuringPresentation = true
+//        searchController.searchBar.backgroundColor = .black
         self.definesPresentationContext = true
         navigationItem.searchController?.searchBar.delegate = self
         navigationItem.searchController?.searchResultsUpdater = self

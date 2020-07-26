@@ -77,7 +77,7 @@ class VideoPlayerClass: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDel
         
         checkCardView = true
         cardViewController = CardViewController(nibName:"CardViewController", bundle:nil)
-        cardViewController.view.backgroundColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
+        cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.cardViewController.view.layer.cornerRadius = 12
         superView.addChild(cardViewController)
         superView.view.addSubview(cardViewController.view)
