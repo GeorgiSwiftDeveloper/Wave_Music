@@ -330,6 +330,34 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOt-wZ-Puk">
+                                <rect key="frame" x="16" y="423" width="343" height="177"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vfS-2s-L9L">
+                                        <rect key="frame" x="30.666666666666657" y="66.666666666666686" width="282" height="43.666666666666657"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Tracks Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMh-Ve-hXc">
+                                                <rect key="frame" x="0.0" y="0.0" width="282" height="19.666666666666668"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your song will be placed here after you add any song" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NxB-kO-Sha">
+                                                <rect key="frame" x="0.0" y="29.666666666666686" width="282" height="14"/>
+                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="vfS-2s-L9L" firstAttribute="centerY" secondItem="pOt-wZ-Puk" secondAttribute="centerY" id="0YF-hd-gVj"/>
+                                    <constraint firstItem="vfS-2s-L9L" firstAttribute="centerX" secondItem="pOt-wZ-Puk" secondAttribute="centerX" id="6Ix-U9-8Xc"/>
+                                    <constraint firstAttribute="height" constant="177" id="zRW-qK-9rC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -337,9 +365,13 @@
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="4g7-z2-Odc"/>
                             <constraint firstItem="buO-ZT-ljy" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="7MH-Av-hiI"/>
                             <constraint firstItem="WMD-QQ-Rda" firstAttribute="top" secondItem="n2I-F1-oFT" secondAttribute="top" constant="150" id="Cep-RO-nL5"/>
+                            <constraint firstItem="pOt-wZ-Puk" firstAttribute="centerX" secondItem="n2I-F1-oFT" secondAttribute="centerX" id="Hbl-5L-65n"/>
+                            <constraint firstItem="TdJ-LG-cyh" firstAttribute="trailing" secondItem="pOt-wZ-Puk" secondAttribute="trailing" constant="16" id="UQF-Xc-jce"/>
                             <constraint firstItem="TdJ-LG-cyh" firstAttribute="bottom" secondItem="sX9-sb-dl1" secondAttribute="bottom" id="ZgM-H8-EMf"/>
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="top" secondItem="WMD-QQ-Rda" secondAttribute="bottom" constant="75" id="dVx-ut-eT6"/>
+                            <constraint firstItem="pOt-wZ-Puk" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" constant="16" id="g2m-Z1-FAh"/>
                             <constraint firstItem="kk2-FN-dST" firstAttribute="top" secondItem="n2I-F1-oFT" secondAttribute="top" constant="150" id="gok-Jh-JUB"/>
+                            <constraint firstItem="TdJ-LG-cyh" firstAttribute="bottom" secondItem="pOt-wZ-Puk" secondAttribute="bottom" constant="75" id="jbq-aT-IxF"/>
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="leading" secondItem="TdJ-LG-cyh" secondAttribute="leading" id="kPL-nr-xM8"/>
                             <constraint firstItem="kk2-FN-dST" firstAttribute="trailing" secondItem="TdJ-LG-cyh" secondAttribute="trailing" id="p8a-SQ-82e"/>
                             <constraint firstItem="sX9-sb-dl1" firstAttribute="centerX" secondItem="n2I-F1-oFT" secondAttribute="centerX" id="ti5-IV-OKL"/>
@@ -352,6 +384,7 @@
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Fb4-Uf-A9G"/>
                     <connections>
                         <outlet property="myLibraryTableView" destination="sX9-sb-dl1" id="Ryy-sV-KSF"/>
+                        <outlet property="noTracksFoundView" destination="pOt-wZ-Puk" id="aRA-WQ-EjC"/>
                         <outlet property="recentPlayedCollectionCell" destination="kk2-FN-dST" id="cWm-lp-nL0"/>
                         <outlet property="topHitsCollectionCell" destination="WMD-QQ-Rda" id="LFy-M7-tzh"/>
                         <segue destination="lMr-2H-I3N" kind="show" identifier="DestinationViewIdentifier" id="2mI-ZF-yR1"/>

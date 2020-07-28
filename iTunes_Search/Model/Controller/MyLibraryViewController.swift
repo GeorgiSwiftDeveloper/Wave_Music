@@ -20,6 +20,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     @IBOutlet weak var myLibraryTableView: UITableView!
     @IBOutlet weak var topHitsCollectionCell: UICollectionView!
     @IBOutlet weak var recentPlayedCollectionCell: UICollectionView!
+    @IBOutlet weak var noTracksFoundView: UIView!
     
     var myLibraryListArray = [Video]()
     var topHitsArray = [Video]()
@@ -70,9 +71,46 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.recentPlayedCollectionCell.dataSource = self
         
         getYouTubeResults()
+//        load()
     }
     
-    
+//    func load(){
+//        let headers = [
+//            "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+//            "x-rapidapi-key": "37deb905abmsh1a5f867387ce07dp1357a1jsn4be46426c675"
+//        ]
+//
+//        let request = NSMutableURLRequest(url: NSURL(string: "https://deezerdevs-deezer.p.rapidapi.com/artist/%2Bi7D")! as URL,
+//                                          cachePolicy: .useProtocolCachePolicy,
+//                                          timeoutInterval: 10.0)
+//
+//        request.httpMethod = "GET"
+//        request.allHTTPHeaderFields = headers
+//
+//        let session = URLSession.shared
+//        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+//            if (error != nil) {
+//                print(error)
+//            } else {
+//                let httpResponse = response as? HTTPURLResponse
+//                if let data = data {
+//
+//                    do {
+//                        let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                        //                        let results = (json as! NSDictionary).object(forKey: "album") as? [Dictionary<String,AnyObject>]
+//                        //                        print(results?[0]["title"])
+//                        print(json)
+//                    } catch {
+//                        print(error)
+//                    }
+//                }
+//            }
+//        })
+//
+//        dataTask.resume()
+//
+//
+//    }
     
     func checkIfRowIsSelected(_ checkIf: Bool) {
         if checkIf == true{
@@ -121,6 +159,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
         
         fetchVideoData()
+        
+        checkIfNoTracksFound()
+    }
+    
+    func checkIfNoTracksFound () {
+        if self.myLibraryListArray.count == 0  {
+            self.noTracksFoundView.isHidden = false
+        }else{
+            self.noTracksFoundView.isHidden = true
+        }
     }
     
     
@@ -542,15 +590,15 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
-        view.tintColor = UIColor.clear
+        view.tintColor = #colorLiteral(red: 0.9254901961, green: 0.9411764706, blue: 0.9450980392, alpha: 1)
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 24)!
+        header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 18)!
         header.textLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         if myLibraryListArray.count >= 4{
             viewAllButton.frame = CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40)
             viewAllButton.tag = section
             viewAllButton.setTitle("View all", for: .normal)
-            viewAllButton.titleLabel?.font =  UIFont(name: "Verdana-Bold", size: 11)
+            viewAllButton.titleLabel?.font =  UIFont(name: "Verdana-Bold", size: 10)
             viewAllButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
             header.addSubview(viewAllButton)
             sectionButton = viewAllButton
@@ -677,6 +725,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == MainLibrariMusciTableViewCell.EditingStyle.delete{
             removeSelectedVideoRow(atIndexPath: indexPath)
             myLibraryListArray.remove(at: indexPath.row)
+            checkIfNoTracksFound()
+            if myLibraryListArray.count <= 4 {
+                         sectionButton.isHidden = true
+                     }
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
@@ -689,9 +741,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         context?.delete(resultData[indexPath.row])
         do{
             try context?.save()
-            if myLibraryListArray.count <= 4 {
-                sectionButton.isHidden = true
-            }
         }catch {
             print("Could not remove video from Database \(error.localizedDescription)")
         }
