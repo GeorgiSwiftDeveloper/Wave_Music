@@ -11,7 +11,7 @@ import  UIKit
 
 
 class Artists {
-    var artistImage: String
+    var artistImage: String?
     
     init(artistImage: String) {
         self.artistImage = artistImage
