@@ -15,6 +15,8 @@
 		6A1375CB2433D09F0086113D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A1375CA2433D09F0086113D /* Assets.xcassets */; };
 		6A1375CE2433D09F0086113D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A1375CC2433D09F0086113D /* LaunchScreen.storyboard */; };
 		6A1375D62433D0D80086113D /* SearchConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375D52433D0D80086113D /* SearchConnection.swift */; };
+		6A3919E624D0FED300306FE8 /* ArtistsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3919E524D0FED300306FE8 /* ArtistsCollectionViewCell.swift */; };
+		6A3919E824D1000500306FE8 /* Artists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3919E724D1000500306FE8 /* Artists.swift */; };
 		6A41657A2457FB2E00910513 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4165792457FB2E00910513 /* WelcomeViewController.swift */; };
 		6A41657C2458EF0D00910513 /* SelectedSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */; };
 		6A41657E2458FC9B00910513 /* SelectedSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657D2458FC9B00910513 /* SelectedSectionTableViewCell.swift */; };
@@ -72,6 +74,8 @@
 		6A1375CD2433D09F0086113D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A1375CF2433D09F0086113D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A1375D52433D0D80086113D /* SearchConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConnection.swift; sourceTree = "<group>"; };
+		6A3919E524D0FED300306FE8 /* ArtistsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsCollectionViewCell.swift; sourceTree = "<group>"; };
+		6A3919E724D1000500306FE8 /* Artists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artists.swift; sourceTree = "<group>"; };
 		6A4165792457FB2E00910513 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSectionViewController.swift; sourceTree = "<group>"; };
 		6A41657D2458FC9B00910513 /* SelectedSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSectionTableViewCell.swift; sourceTree = "<group>"; };
@@ -174,6 +178,7 @@
 				6A5A0CDD244969AE005150D2 /* YouTubeVideoModel.swift */,
 				6A5A0CD72447DB0A005150D2 /* GenreModel.swift */,
 				6A48ECC524366802007A82D6 /* MuviesModel.swift */,
+				6A3919E724D1000500306FE8 /* Artists.swift */,
 				6AD0FD30243C2DF4006BF086 /* RadioModel.swift */,
 				6A51B846245F7CCC00F72DAF /* VideoPlayerClass.swift */,
 				6AC4964B248452580050825B /* AlertView.swift */,
@@ -219,6 +224,7 @@
 				6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */,
 				6A568CAB245A8C9F00487EDF /* SelectedCoutryCollectionViewCell.swift */,
 				6AD0FD2C243C2B30006BF086 /* StationRadioTableViewCell.swift */,
+				6A3919E524D0FED300306FE8 /* ArtistsCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -406,12 +412,14 @@
 				6ABBC281245B822D002565E2 /* CardViewController.swift in Sources */,
 				6A66CFD52474A698004B0C44 /* CoreDataVideoClass.swift in Sources */,
 				6A48ECC424366485007A82D6 /* FutureMuviesModel.swift in Sources */,
+				6A3919E824D1000500306FE8 /* Artists.swift in Sources */,
 				6A41657E2458FC9B00910513 /* SelectedSectionTableViewCell.swift in Sources */,
 				6AD42A01245013BA00917123 /* YouTubeTableViewCell.swift in Sources */,
 				6AD0FD2D243C2B30006BF086 /* StationRadioTableViewCell.swift in Sources */,
 				6AF255CD2482D9BF00EC0E4A /* PlaylistsTableViewCell.swift in Sources */,
 				6A5227D42453CEAE00D77850 /* MyLibraryTableViewCell.swift in Sources */,
 				6AD0FD31243C2DF4006BF086 /* RadioModel.swift in Sources */,
+				6A3919E624D0FED300306FE8 /* ArtistsCollectionViewCell.swift in Sources */,
 				6ABFE2272439099C000217B5 /* GenresCollectionViewCell.swift in Sources */,
 				6A87017624CE649900A60499 /* SingerModel.swift in Sources */,
 				6A1375D62433D0D80086113D /* SearchConnection.swift in Sources */,

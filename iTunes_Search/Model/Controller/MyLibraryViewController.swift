@@ -20,6 +20,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     @IBOutlet weak var myLibraryTableView: UITableView!
     @IBOutlet weak var topHitsCollectionCell: UICollectionView!
     @IBOutlet weak var recentPlayedCollectionCell: UICollectionView!
+    @IBOutlet weak var artistsCollectionCell: UICollectionView!
     @IBOutlet weak var noTracksFoundView: UIView!
     
     var myLibraryListArray = [Video]()
@@ -41,6 +42,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var videoPlayerClass = VideoPlayerClass()
     var checkIfRecentPlaylistIsEmpty = Bool()
     var recentPlayerArray = [Data]()
+    
+    
+    var artImageArray  = ["justinB","justinT","eminem","beyonce1","swift"]
     
     var isEntityIsEmpty: Bool {
         do {
@@ -70,47 +74,56 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.recentPlayedCollectionCell.delegate = self
         self.recentPlayedCollectionCell.dataSource = self
         
+        self.artistsCollectionCell.delegate = self
+        self.artistsCollectionCell.dataSource = self
+        
+        artistsCollectionCell.layer.cornerRadius = 8.0
+        artistsCollectionCell.layer.borderWidth = 2.0
+        artistsCollectionCell.layer.borderColor = #colorLiteral(red: 0.9254901961, green: 0.9411764706, blue: 0.9450980392, alpha: 1)
+        artistsCollectionCell.layer.shadowRadius = 2
+        artistsCollectionCell.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        artistsCollectionCell.layer.shadowOffset = .zero
+        artistsCollectionCell.layer.masksToBounds = true
         getYouTubeResults()
-//        load()
+        //        load()
     }
     
-//    func load(){
-//        let headers = [
-//            "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-//            "x-rapidapi-key": "37deb905abmsh1a5f867387ce07dp1357a1jsn4be46426c675"
-//        ]
-//
-//        let request = NSMutableURLRequest(url: NSURL(string: "https://deezerdevs-deezer.p.rapidapi.com/artist/%2Bi7D")! as URL,
-//                                          cachePolicy: .useProtocolCachePolicy,
-//                                          timeoutInterval: 10.0)
-//
-//        request.httpMethod = "GET"
-//        request.allHTTPHeaderFields = headers
-//
-//        let session = URLSession.shared
-//        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-//            if (error != nil) {
-//                print(error)
-//            } else {
-//                let httpResponse = response as? HTTPURLResponse
-//                if let data = data {
-//
-//                    do {
-//                        let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                        //                        let results = (json as! NSDictionary).object(forKey: "album") as? [Dictionary<String,AnyObject>]
-//                        //                        print(results?[0]["title"])
-//                        print(json)
-//                    } catch {
-//                        print(error)
-//                    }
-//                }
-//            }
-//        })
-//
-//        dataTask.resume()
-//
-//
-//    }
+    //    func load(){
+    //    let headers = [
+    //        "x-rapidapi-host": "artist-info.p.rapidapi.com",
+    //        "x-rapidapi-key": "37deb905abmsh1a5f867387ce07dp1357a1jsn4be46426c675"
+    //    ]
+    //
+    //    let request = NSMutableURLRequest(url: NSURL(string: "https://artist-info.p.rapidapi.com/getArtistInfo?=Justin")! as URL,
+    //                                            cachePolicy: .useProtocolCachePolicy,
+    //                                        timeoutInterval: 10.0)
+    //        request.httpMethod = "GET"
+    //        request.allHTTPHeaderFields = headers
+    //
+    //        let session = URLSession.shared
+    //        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+    //            if (error != nil) {
+    //                print(error)
+    //            } else {
+    //                let httpResponse = response as? HTTPURLResponse
+    //                if let data = data {
+    //
+    //                    do {
+    //                        let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+    //                        //                        let results = (json as! NSDictionary).object(forKey: "album") as? [Dictionary<String,AnyObject>]
+    //                        //                        print(results?[0]["title"])
+    //                        print(json)
+    //                    } catch {
+    //                        print(error)
+    //                    }
+    //                }
+    //            }
+    //        })
+    //
+    //        dataTask.resume()
+    //
+    
+    //    }
     
     func checkIfRowIsSelected(_ checkIf: Bool) {
         if checkIf == true{
@@ -395,7 +408,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
     }
     
-    
     func fetchSearchSong(_ searchBar: UISearchBar, searchText: String) {
         
         CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: myLibraryEntityName, searchBarText: searchBar.text!, playlistName: "") { (videoList, error) in
@@ -413,7 +425,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        switch collectionView {
+        case artistsCollectionCell:
+            return artImageArray.count
+        default:
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -507,7 +524,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             
             
             collectionCell = cell
-            
+        case  artistsCollectionCell:
+            let artCell = collectionView.dequeueReusableCell(withReuseIdentifier: "artists", for: indexPath) as! ArtistsCollectionViewCell
+            artCell.configureArtistCell(artImageArray[indexPath.row])
+            print(artImageArray[indexPath.row])
+            collectionCell  = artCell
         default:
             break
         }
@@ -727,8 +748,8 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             myLibraryListArray.remove(at: indexPath.row)
             checkIfNoTracksFound()
             if myLibraryListArray.count <= 4 {
-                         sectionButton.isHidden = true
-                     }
+                sectionButton.isHidden = true
+            }
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
