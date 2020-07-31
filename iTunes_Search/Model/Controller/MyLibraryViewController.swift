@@ -26,8 +26,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var selectTopHitsRow = Bool()
     var selectLibraryRow = Bool()
     var musicIndexpatRow = IndexPath()
-    var topHits = true
-    var myLibrary = true
+
     var youTubeVideoID = String()
     var youTubeVideoTitle = String()
     var checkTableViewName: String = ""
@@ -247,9 +246,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         if alertTitleName == "My Library" {
             myLibraryListArray = []
             myLibraryTableView.reloadData()
-        }else if alertTitleName == "RECENTLY PLAYED"{
-            checkIfRecentPlaylistIsEmpty = true
-//            recentPlayedCollectionCell.reloadData()
         }
     }
     
@@ -316,7 +312,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let artCell = collectionView.dequeueReusableCell(withReuseIdentifier: "artists", for: indexPath) as! ArtistsCollectionViewCell
             artCell.configureArtistCell(artImageArray[indexPath.row])
-            print(artImageArray[indexPath.row])
         return artCell
     }
 
@@ -387,41 +382,9 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch sender as? String {
-        case topHitsTableView:
-            if  let nc = segue.destination as? SelectedSectionViewController {
-                nc.navigationItem.title = "World Top 100"
-                if videoSelected == true{
-                    nc.videoSelected = true
-                    nc.ifRowIsSelectedDelegate = self
-                }
-                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-                if selectedSearch == true {
-                    nc.searchIsSelected = true
-                }
-                UserDefaults.standard.set(false, forKey:"selectedSearch")
-                nc.checkTableViewName = sender as! String
-                nc.ifRowIsSelectedDelegate = self
-            }
         case libraryTableView:
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "My Library"
-                if videoSelected == true{
-                    nc.videoSelected = true
-                }
-                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-                if selectedSearch == true {
-                    nc.searchIsSelected = true
-                }
-                UserDefaults.standard.set(false, forKey:"selectedSearch")
-                nc.checkTableViewName = sender as! String
-                nc.ifRowIsSelectedDelegate = self
-                nc.musicRecordDeletedDelegate = self
-            }
-            
-        case recentPlayedTableView:
-            
-            if  let nc = segue.destination as? SelectedSectionViewController {
-                nc.navigationItem.title = "RECENTLY PLAYED"
                 if videoSelected == true{
                     nc.videoSelected = true
                 }
@@ -500,7 +463,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             removeSelectedVideoRow(atIndexPath: indexPath)
             myLibraryListArray.remove(at: indexPath.row)
             checkIfNoTracksFound()
-            if myLibraryListArray.count <= 4 {
+            if myLibraryListArray.count <= 6 {
                 sectionButton.isHidden = true
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)

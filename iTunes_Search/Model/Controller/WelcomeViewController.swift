@@ -11,7 +11,6 @@ import UIKit
 class WelcomeViewController: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate {
     
     @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
     
     

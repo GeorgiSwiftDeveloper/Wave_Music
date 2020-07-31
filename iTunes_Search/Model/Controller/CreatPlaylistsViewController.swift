@@ -101,6 +101,13 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     }
     
     
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super .viewDidDisappear(animated)
+        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+    }
+    
+    
     func fetchVideoData() {
         
         self.recentPlayedVideo = []

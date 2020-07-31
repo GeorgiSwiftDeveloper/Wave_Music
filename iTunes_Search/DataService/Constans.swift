@@ -9,6 +9,7 @@
 import Foundation
 
 
+var cardController = "CardViewController"
 
 var topHitsTableView = "TopHits"
 var libraryTableView = "MyLibrary"
@@ -16,6 +17,8 @@ var recentPlayedTableView = "RecentPlayed"
 var playlistTableView = "Playlist"
 
 var selectedTableViewCellIdentifier = "selectedTableViewCell"
+var genreTableViewCellIdentifier =  "genreCell"
+
 var destinationToMyLibraryIdentifier = "DestinationViewIdentifier"
 var destinationToSelectedIdentifier = "IdentifirePlaylistNameVC"
 

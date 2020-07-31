@@ -182,9 +182,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             }else{
                 if videoList != nil {
                     self.videoArray.append(videoList!)
-                    DispatchQueue.main.async {
-                        self.genreTableView.reloadData()
-                    }
+                    self.genreTableView.reloadData()
                 }
             }
         }
@@ -240,7 +238,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "genreCell", for: indexPath) as? GenreVideoTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: genreTableViewCellIdentifier, for: indexPath) as? GenreVideoTableViewCell {
             cell.addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell.addToFavoriteButton.tag = indexPath.row;
             DispatchQueue.main.async {
@@ -258,7 +256,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         let selectedIndex = IndexPath(row: sender.tag, section: 0)
         self.genreTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.genreTableView.cellForRow(at: selectedIndex) as! GenreVideoTableViewCell
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: myLibraryEntityName)
         let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
@@ -269,7 +267,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             do{
                 let count = try context?.count(for: request)
                 if(count == 0){
-                    let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+                    let entity = NSEntityDescription.entity(forEntityName: myLibraryEntityName, in: context!)
                     let newEntity = NSManagedObject(entity: entity!, insertInto: context)
                     newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
                     newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
@@ -334,7 +332,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             VideoPlayerClass.callVideoPlayer.superViewController = self
             VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
