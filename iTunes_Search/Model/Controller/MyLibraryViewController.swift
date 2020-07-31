@@ -382,7 +382,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     @objc func destinationMyLibraryVC(){
         checkTableViewName =  libraryTableView
-        self.performSegue(withIdentifier: destinationViewIdentifier, sender: checkTableViewName)
+        self.performSegue(withIdentifier: destinationToMyLibraryIdentifier, sender: checkTableViewName)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

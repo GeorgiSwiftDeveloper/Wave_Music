@@ -181,6 +181,7 @@
                         <outlet property="artistsCollectionCell" destination="Tki-MT-72U" id="aai-7x-mwf"/>
                         <outlet property="myLibraryTableView" destination="sX9-sb-dl1" id="Ryy-sV-KSF"/>
                         <outlet property="noTracksFoundView" destination="pOt-wZ-Puk" id="aRA-WQ-EjC"/>
+                        <segue destination="lMr-2H-I3N" kind="show" identifier="DestinationViewIdentifier" id="Qee-MJ-F5O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbT-d8-JTF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1231,6 +1232,9 @@
             <point key="canvasLocation" x="5778" y="205"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Qee-MJ-F5O"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="07012019-18" width="5000" height="4000"/>

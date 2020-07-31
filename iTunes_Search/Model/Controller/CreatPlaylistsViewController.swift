@@ -157,7 +157,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     
     func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: topHitsEntityName)
         request.returnsObjectsAsFaults = false
         do {
             let result = try context?.fetch(request)
@@ -350,7 +350,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             
             selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
             UserDefaults.standard.set(self.selectedPlaylistRowTitle, forKey:"selectedPlaylistRowTitle")
-            self.performSegue(withIdentifier: "IdentifirePlaylistNameVC", sender: selectedPlaylistRowTitle)
+            self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: selectedPlaylistRowTitle)
         }
         
         
@@ -560,10 +560,10 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
         switch collectionView {
         case topHitsCollectionCell:
             checkTableViewName =  topHitsTableView
-            self.performSegue(withIdentifier: "IdentifirePlaylistNameVC", sender: checkTableViewName)
+            self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: checkTableViewName)
         case recentPlayedCollectionCell:
             checkTableViewName =  recentPlayedTableView
-            self.performSegue(withIdentifier: "IdentifirePlaylistNameVC", sender: checkTableViewName)
+            self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: checkTableViewName)
         default:
             break
         }

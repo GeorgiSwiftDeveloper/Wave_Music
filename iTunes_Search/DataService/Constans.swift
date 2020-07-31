@@ -16,7 +16,8 @@ var recentPlayedTableView = "RecentPlayed"
 var playlistTableView = "Playlist"
 
 var selectedTableViewCellIdentifier = "selectedTableViewCell"
-var destinationViewIdentifier = "DestinationViewIdentifier"
+var destinationToMyLibraryIdentifier = "DestinationViewIdentifier"
+var destinationToSelectedIdentifier = "IdentifirePlaylistNameVC"
 
 
 var topHitsEntityName = "TopHitsModel"
