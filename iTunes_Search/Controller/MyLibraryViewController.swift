@@ -54,15 +54,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         
         self.artistsCollectionCell.delegate = self
         self.artistsCollectionCell.dataSource = self
-        
-        artistsCollectionCell.layer.cornerRadius = 8.0
-        artistsCollectionCell.layer.borderWidth = 2.0
-        artistsCollectionCell.layer.borderColor = #colorLiteral(red: 0.9254901961, green: 0.9411764706, blue: 0.9450980392, alpha: 1)
-        artistsCollectionCell.layer.shadowRadius = 2
-        artistsCollectionCell.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        artistsCollectionCell.layer.shadowOffset = .zero
-        artistsCollectionCell.layer.masksToBounds = true
-        
+
         myLibraryTableView.separatorColor = UIColor(white: 0.95, alpha: 1)
         //        load()
     }
@@ -361,16 +353,16 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
-        view.tintColor = #colorLiteral(red: 0.9254901961, green: 0.9411764706, blue: 0.9450980392, alpha: 1)
+        view.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 18)!
-        header.textLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 19)!
+        header.textLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         if myLibraryListArray.count >= 4{
             viewAllButton.frame = CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40)
             viewAllButton.tag = section
             viewAllButton.setTitle("View all", for: .normal)
-            viewAllButton.titleLabel?.font =  UIFont(name: "Verdana-Bold", size: 10)
-            viewAllButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+            viewAllButton.titleLabel?.font =  UIFont(name: "Verdana-Bold", size: 9)
+            viewAllButton.setTitleColor(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), for: .normal)
             header.addSubview(viewAllButton)
             sectionButton = viewAllButton
             viewAllButton.addTarget(self, action: #selector(destinationMyLibraryVC), for: .touchUpInside)

@@ -19,9 +19,9 @@ class ArtistsCollectionViewCell: UICollectionViewCell {
     
     
     override func awakeFromNib() {
-        self.artistImageView.layer.borderWidth = 1
+        self.artistImageView.layer.borderWidth = 2
         self.artistImageView.layer.masksToBounds = false
-        self.artistImageView.layer.borderColor = #colorLiteral(red: 0.06188889965, green: 0.06188889965, blue: 0.06188889965, alpha: 1)
+        self.artistImageView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.artistImageView.layer.shadowOpacity = 2
         self.artistImageView.layer.shadowPath = UIBezierPath(rect: self.artistImageView.bounds).cgPath
         self.artistImageView.layer.cornerRadius = self.artistImageView.frame.height/2
