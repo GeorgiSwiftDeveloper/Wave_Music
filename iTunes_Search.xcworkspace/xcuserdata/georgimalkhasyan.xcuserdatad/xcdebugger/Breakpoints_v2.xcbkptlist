@@ -183,22 +183,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "93E1BB7A-6C0D-4987-ACFC-57BA5A8325E2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
-            landmarkName = "fetchFromCoreData(loadVideoList:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "0568A2CC-891E-4820-878C-932C62E03A6F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -238,8 +222,8 @@
             filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "MyLibraryViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -254,8 +238,8 @@
             filePath = "iTunes_Search/Model/Controller/MyLibraryViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "530"
-            endingLineNumber = "530"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>

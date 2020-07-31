@@ -8,21 +8,53 @@
 
 import UIKit
 import CoreData
+import WebKit
+import  YoutubePlayer_in_WKWebView
 
-class CreatPlaylistsViewController: UIViewController {
+class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelegate, CheckIfMusicRecordDeletedDelegate {
+    
     
     @IBOutlet weak var playlistTableView: UITableView!
+    
+    @IBOutlet weak var topHitsCollectionCell: UICollectionView!
+    @IBOutlet weak var recentPlayedCollectionCell: UICollectionView!
     
     var createdPlaylistArray = ["New Playlist"]
     var selectedPlaylistRowTitle: String?
     
+    var topHitsArray = [Video]()
+    var recentPlayerArray = [Data]()
+    var recentPlayedVideo = [Video]()
+    var checkIfRecentPlaylistIsEmpty = Bool()
+    
+    var checkTableViewName: String = ""
+    var selectTopHitsRow = Bool()
+    var videoSelected = Bool()
+    
+    var isEntityIsEmpty: Bool {
+        do {
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: topHitsEntityName)
+            let count  = try context?.count(for: request)
+            return count == 0
+        } catch {
+            return true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.topHitsCollectionCell.delegate = self
+        self.topHitsCollectionCell.dataSource = self
+        
+        self.recentPlayedCollectionCell.delegate = self
+        self.recentPlayedCollectionCell.dataSource = self
+        
         playlistTableView.delegate = self
         playlistTableView.dataSource = self
+        
+        getYouTubeResults()
     }
     
     
@@ -35,7 +67,211 @@ class CreatPlaylistsViewController: UIViewController {
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+             
+             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+             switch pause {
+             case true:
+                 VideoPlayerClass.callVideoPlayer.superViewController = self
+                 self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+                 VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                     if let error = error {
+                         print("Error getting player state:" + error.localizedDescription)
+                     } else if let playerState = playerState as? WKYTPlayerState {
+                         
+                         self?.updatePlayerState(playerState)
+                     }
+                 })
+             case false:
+                 VideoPlayerClass.callVideoPlayer.superViewController = self
+                 self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+                 VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                     if let error = error {
+                         print("Error getting player state:" + error.localizedDescription)
+                     } else if let playerState = playerState as? WKYTPlayerState {
+                         
+                         self?.updatePlayerState(playerState)
+                     }
+                 })
+             default:
+                 break
+             }
+        fetchVideoData()
+    }
     
+    
+    func fetchVideoData() {
+        
+        self.recentPlayedVideo = []
+        fetchVideoWithEntityName(recentPlayedEntityName)
+        
+        recentPlayerVideoImage(videoCount: recentPlayedVideo.count) { (imageDataArray) in
+            self.recentPlayerArray = imageDataArray
+            self.recentPlayedCollectionCell.reloadData()
+        }
+    }
+    
+    func updatePlayerState(_ playerState: WKYTPlayerState){
+           switch playerState {
+           case .ended:
+               self.showVideoPlayerPause()
+           case .paused:
+               self.showVideoPlayerPause()
+           case .playing:
+               self.showVideoPlayer()
+           default:
+               break
+           }
+       }
+    
+    func showVideoPlayer(){
+          VideoPlayerClass.callVideoPlayer.webView.playVideo()
+      }
+      func showVideoPlayerPause(){
+          VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+      }
+    
+    
+    func fetchVideoWithEntityName(_ entityName: String){
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { (videoList, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }else{
+                if videoList != nil {
+                    switch entityName {
+                    case recentPlayedEntityName:
+                        self.recentPlayedVideo.append(videoList!)
+                        DispatchQueue.main.async {
+                            self.recentPlayedCollectionCell.reloadData()
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context?.fetch(request)
+            for data in result as! [NSManagedObject] {
+                let title = data.value(forKey: "title") as? String ?? ""
+                let image = data.value(forKey: "image") as? String ?? ""
+                let videoId = data.value(forKey: "videoId") as? String ?? ""
+                let songDescription = data.value(forKey: "songDescription") as? String ?? ""
+                let playlistId = data.value(forKey: "playListId") as? String ?? ""
+                let channelId = data.value(forKey: "channelId") as? String ?? ""
+                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image, channelId:channelId, genreTitle: "")
+                loadVideoList(fetchedVideoList,nil)
+            }
+            
+        } catch {
+            loadVideoList(nil,error)
+            print("Failed")
+        }
+    }
+    
+    func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String, channelId: String) {
+        let entity = NSEntityDescription.entity(forEntityName: topHitsEntityName, in: context!)
+        let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+        newEntity.setValue(title, forKey: "title")
+        newEntity.setValue(image, forKey: "image")
+        newEntity.setValue(videoId, forKey: "videoId")
+        newEntity.setValue(description, forKey: "songDescription")
+        newEntity.setValue(playlistId, forKey: "playListId")
+        newEntity.setValue(channelId, forKey: "channelId")
+        do {
+            try context?.save()
+        } catch {
+            print("Failed saving")
+        }
+    }
+    
+    
+    func getYouTubeResults(){
+        if isEntityIsEmpty{
+            YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: genreTypeHits, selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
+                if error != nil  {
+                    print("erorr")
+                }else{
+                    DispatchQueue.main.async{
+                        self.topHitsArray = loadVideolist!
+                        for songIndex in 0..<self.topHitsArray.count{
+                            
+                            let title =   self.topHitsArray[songIndex].videoTitle ?? ""
+                            let description =  self.topHitsArray[songIndex].videoDescription ?? ""
+                            let image =  self.topHitsArray[songIndex].videoImageUrl ?? ""
+                            let playlistId = self.topHitsArray[songIndex].videoPlaylistId ?? ""
+                            let videoId =  self.topHitsArray[songIndex].videoId ?? ""
+                            let channelId =  self.topHitsArray[songIndex].channelId ?? ""
+                            
+                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
+                            
+                            self.topHitsCollectionCell.reloadData()
+                            
+                        }
+                    }
+                }
+            }
+        }else{
+            self.fetchFromCoreData { (videoList, error) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }else{
+                    if videoList != nil {
+                        self.topHitsArray.append(videoList!)
+                        DispatchQueue.main.async {
+                            self.topHitsCollectionCell.reloadData()
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func recentPlayerVideoImage(videoCount:Int,imageData: @escaping(_ imageData: [Data]) -> ()) {
+        
+        var imageDataArray = [Data]()
+        
+        for i in 0..<videoCount {
+            let imageUrl1 = URL(string: recentPlayedVideo[i].videoImageUrl! )
+            do{
+                let data1:NSData = try NSData(contentsOf: imageUrl1!)
+                
+                imageDataArray.append(data1 as Data)
+                
+            }catch{
+                print("no image data found")
+            }
+            imageData(imageDataArray)
+        }
+        
+    }
+    
+    func checkIfRowIsSelected(_ checkIf: Bool) {
+        if checkIf == true{
+            DispatchQueue.main.async {
+                self.selectTopHitsRow = true
+            }
+        }
+    }
+    
+    
+    func musicRecordDeletedDelegate(_ alertTitleName: String) {
+        if alertTitleName == "RECENTLY PLAYED"{
+            checkIfRecentPlaylistIsEmpty = true
+            recentPlayedCollectionCell.reloadData()
+        }
+    }
     
 }
 
@@ -114,24 +350,55 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             
             selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
             UserDefaults.standard.set(self.selectedPlaylistRowTitle, forKey:"selectedPlaylistRowTitle")
-            self.performSegue(withIdentifier: "IdentifireByPlaylistName", sender: selectedPlaylistRowTitle)
+            self.performSegue(withIdentifier: "IdentifirePlaylistNameVC", sender: selectedPlaylistRowTitle)
         }
         
         
     }
     
-    
-    
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "IdentifireByPlaylistName" {
+        switch sender as? String {
+        case topHitsTableView:
+            if  let nc = segue.destination as? SelectedSectionViewController {
+                nc.navigationItem.title = "World Top 100"
+                if videoSelected == true{
+                    nc.videoSelected = true
+                    nc.ifRowIsSelectedDelegate = self
+                }
+                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                if selectedSearch == true {
+                    nc.searchIsSelected = true
+                }
+                UserDefaults.standard.set(false, forKey:"selectedSearch")
+                nc.checkTableViewName = sender as! String
+                nc.ifRowIsSelectedDelegate = self
+            }
+        case recentPlayedTableView:
+            
+            if  let nc = segue.destination as? SelectedSectionViewController {
+                nc.navigationItem.title = "RECENTLY PLAYED"
+                if videoSelected == true{
+                    nc.videoSelected = true
+                }
+                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                if selectedSearch == true {
+                    nc.searchIsSelected = true
+                }
+                UserDefaults.standard.set(false, forKey:"selectedSearch")
+                nc.checkTableViewName = sender as! String
+                nc.ifRowIsSelectedDelegate = self
+                nc.musicRecordDeletedDelegate = self
+            }
+        case selectedPlaylistRowTitle:
             if let playlistDestVC = segue.destination as? SelectedSectionViewController{
                 playlistDestVC.navigationItem.title = sender as? String
                 playlistDestVC.checkTableViewName = "Playlist"
             }
+        default:
+            break
         }
     }
+    
     
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -183,4 +450,122 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     
     
     
+}
+
+extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var collectionCell = UICollectionViewCell()
+        switch collectionView {
+        case topHitsCollectionCell:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topCell", for: indexPath) as! TopHitsCollectionViewCell
+            
+            cell.cellTitleLabel.text = "World Top 100"
+            cell.topHitsVideoCountLabel.text = "\(topHitsArray.count) tracks"
+            
+            var imageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
+            
+            if topHitsArray.count >= 4 {
+                let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
+                let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl ?? "")
+                let imageUrl3 = URL(string: topHitsArray[2].videoImageUrl ?? "")
+                let imageUrl4 = URL(string: topHitsArray[3].videoImageUrl ?? "")
+                do{
+                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
+                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
+                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
+                    let data4:NSData = try NSData(contentsOf: imageUrl4!)
+                    cell.imageView1.image =  UIImage(data: data1 as Data)
+                    cell.imageView2.image =  UIImage(data: data2 as Data)
+                    cell.imageView3.image =  UIImage(data: data3 as Data)
+                    cell.imageView4.image =  UIImage(data: data4 as Data)
+                    
+                    
+                }catch{
+                    print("error")
+                }
+            }else if topHitsArray.count == 0 {
+                
+                imageArray = imageArray.map { image in
+                    image?.image = UIImage(named: "")
+                    return image
+                }
+            }
+            collectionCell = cell
+        case recentPlayedCollectionCell:
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as! RecentPlayedCollectionViewCell
+            
+            cell.cellTitleLabel.text = "RECENTLY PLAYED"
+            cell.recentlyPlayedVideoCountLabel.text = "\(recentPlayedVideo.count) tracks"
+            
+            var imageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
+            
+            
+            switch recentPlayerArray.count {
+            case 0:
+                
+                imageArray = imageArray.map { image in
+                    image?.image = UIImage(named: "")
+                    return image
+                }
+                
+            case 1:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(named: "")
+                cell.imageView3.image =  UIImage(named: "")
+                cell.imageView4.image =  UIImage(named: "")
+            case 2:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
+                cell.imageView3.image =  UIImage(named: "")
+                cell.imageView4.image =  UIImage(named: "")
+            case 3:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
+                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
+                cell.imageView4.image =  UIImage(named: "")
+            default:
+                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
+                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
+                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
+                cell.imageView4.image =  UIImage(data: recentPlayerArray[3] as Data)
+            }
+            
+            
+            if checkIfRecentPlaylistIsEmpty == true{
+                
+                imageArray = imageArray.map { image in
+                    image?.image = UIImage(named: "")
+                    return image
+                }
+                
+                checkIfRecentPlaylistIsEmpty = false
+            }
+            
+            
+            collectionCell = cell
+        default:
+            break
+        }
+        
+        return collectionCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case topHitsCollectionCell:
+            checkTableViewName =  topHitsTableView
+            self.performSegue(withIdentifier: "IdentifirePlaylistNameVC", sender: checkTableViewName)
+        case recentPlayedCollectionCell:
+            checkTableViewName =  recentPlayedTableView
+            self.performSegue(withIdentifier: "IdentifirePlaylistNameVC", sender: checkTableViewName)
+        default:
+            break
+        }
+    }
 }

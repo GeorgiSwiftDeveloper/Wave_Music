@@ -18,14 +18,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     let searchController = UISearchController(searchResultsController: nil)
     
     @IBOutlet weak var myLibraryTableView: UITableView!
-    @IBOutlet weak var topHitsCollectionCell: UICollectionView!
-    @IBOutlet weak var recentPlayedCollectionCell: UICollectionView!
     @IBOutlet weak var artistsCollectionCell: UICollectionView!
     @IBOutlet weak var noTracksFoundView: UIView!
     
     var myLibraryListArray = [Video]()
-    var topHitsArray = [Video]()
-    var recentPlayedVideo = [Video]()
     var webView = WKYTPlayerView()
     var selectTopHitsRow = Bool()
     var selectLibraryRow = Bool()
@@ -41,20 +37,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var viewAllButton = UIButton()
     var videoPlayerClass = VideoPlayerClass()
     var checkIfRecentPlaylistIsEmpty = Bool()
-    var recentPlayerArray = [Data]()
-    
     
     var artImageArray  = ["justinB","justinT","eminem","beyonce1","swift"]
     
-    var isEntityIsEmpty: Bool {
-        do {
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: topHitsEntityName)
-            let count  = try context?.count(for: request)
-            return count == 0
-        } catch {
-            return true
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,12 +53,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.myLibraryTableView.delegate = self
         self.myLibraryTableView.dataSource = self
         
-        self.topHitsCollectionCell.delegate = self
-        self.topHitsCollectionCell.dataSource = self
-        
-        self.recentPlayedCollectionCell.delegate = self
-        self.recentPlayedCollectionCell.dataSource = self
-        
         self.artistsCollectionCell.delegate = self
         self.artistsCollectionCell.dataSource = self
         
@@ -84,7 +63,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         artistsCollectionCell.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         artistsCollectionCell.layer.shadowOffset = .zero
         artistsCollectionCell.layer.masksToBounds = true
-        getYouTubeResults()
         //        load()
     }
     
@@ -187,58 +165,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func fetchVideoData() {
         self.myLibraryListArray = []
-        self.recentPlayedVideo = []
         fetchVideoWithEntityName(myLibraryEntityName)
-        fetchVideoWithEntityName(recentPlayedEntityName)
-        
-        recentPlayerVideoImage(videoCount: recentPlayedVideo.count) { (imageDataArray) in
-            self.recentPlayerArray = imageDataArray
-            self.recentPlayedCollectionCell.reloadData()
-        }
     }
-    
-    func getYouTubeResults(){
-        if isEntityIsEmpty{
-            YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: genreTypeHits, selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
-                if error != nil  {
-                    print("erorr")
-                }else{
-                    DispatchQueue.main.async{
-                        self.topHitsArray = loadVideolist!
-                        for songIndex in 0..<self.topHitsArray.count{
-                            
-                            let title =   self.topHitsArray[songIndex].videoTitle ?? ""
-                            let description =  self.topHitsArray[songIndex].videoDescription ?? ""
-                            let image =  self.topHitsArray[songIndex].videoImageUrl ?? ""
-                            let playlistId = self.topHitsArray[songIndex].videoPlaylistId ?? ""
-                            let videoId =  self.topHitsArray[songIndex].videoId ?? ""
-                            let channelId =  self.topHitsArray[songIndex].channelId ?? ""
-                            
-                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
-                            
-                            self.topHitsCollectionCell.reloadData()
-                            
-                        }
-                    }
-                }
-            }
-        }else{
-            self.fetchFromCoreData { (videoList, error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }else{
-                    if videoList != nil {
-                        self.topHitsArray.append(videoList!)
-                        DispatchQueue.main.async {
-                            self.topHitsCollectionCell.reloadData()
-                        }
-                        
-                    }
-                }
-            }
-        }
-    }
-    
     
     
     func fetchVideoWithEntityName(_ entityName: String){
@@ -257,11 +185,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                         }
                         DispatchQueue.main.async {
                             self.myLibraryTableView.reloadData()
-                        }
-                    case recentPlayedEntityName:
-                        self.recentPlayedVideo.append(videoList!)
-                        DispatchQueue.main.async {
-                            self.recentPlayedCollectionCell.reloadData()
                         }
                     default:
                         break
@@ -326,45 +249,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             myLibraryTableView.reloadData()
         }else if alertTitleName == "RECENTLY PLAYED"{
             checkIfRecentPlaylistIsEmpty = true
-            recentPlayedCollectionCell.reloadData()
-        }
-    }
-    
-    func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TopHitsModel")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context?.fetch(request)
-            for data in result as! [NSManagedObject] {
-                let title = data.value(forKey: "title") as? String ?? ""
-                let image = data.value(forKey: "image") as? String ?? ""
-                let videoId = data.value(forKey: "videoId") as? String ?? ""
-                let songDescription = data.value(forKey: "songDescription") as? String ?? ""
-                let playlistId = data.value(forKey: "playListId") as? String ?? ""
-                let channelId = data.value(forKey: "channelId") as? String ?? ""
-                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image, channelId:channelId, genreTitle: "")
-                loadVideoList(fetchedVideoList,nil)
-            }
-            
-        } catch {
-            loadVideoList(nil,error)
-            print("Failed")
-        }
-    }
-    
-    func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String, channelId: String) {
-        let entity = NSEntityDescription.entity(forEntityName: topHitsEntityName, in: context!)
-        let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-        newEntity.setValue(title, forKey: "title")
-        newEntity.setValue(image, forKey: "image")
-        newEntity.setValue(videoId, forKey: "videoId")
-        newEntity.setValue(description, forKey: "songDescription")
-        newEntity.setValue(playlistId, forKey: "playListId")
-        newEntity.setValue(channelId, forKey: "channelId")
-        do {
-            try context?.save()
-        } catch {
-            print("Failed saving")
+//            recentPlayedCollectionCell.reloadData()
         }
     }
     
@@ -425,148 +310,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView {
-        case artistsCollectionCell:
-            return artImageArray.count
-        default:
-            return 1
-        }
+        return artImageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var collectionCell = UICollectionViewCell()
-        switch collectionView {
-        case topHitsCollectionCell:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topCell", for: indexPath) as! TopHitsCollectionViewCell
-            
-            cell.cellTitleLabel.text = "World Top 100"
-            cell.topHitsVideoCountLabel.text = "\(topHitsArray.count) tracks"
-            
-            var imageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
-            
-            if topHitsArray.count >= 4 {
-                let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl ?? "")
-                let imageUrl3 = URL(string: topHitsArray[2].videoImageUrl ?? "")
-                let imageUrl4 = URL(string: topHitsArray[3].videoImageUrl ?? "")
-                do{
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
-                    let data4:NSData = try NSData(contentsOf: imageUrl4!)
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                    cell.imageView3.image =  UIImage(data: data3 as Data)
-                    cell.imageView4.image =  UIImage(data: data4 as Data)
-                    
-                    
-                }catch{
-                    print("error")
-                }
-            }else if topHitsArray.count == 0 {
-                
-                imageArray = imageArray.map { image in
-                    image?.image = UIImage(named: "")
-                    return image
-                }
-            }
-            collectionCell = cell
-        case recentPlayedCollectionCell:
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as! RecentPlayedCollectionViewCell
-            
-            cell.cellTitleLabel.text = "RECENTLY PLAYED"
-            cell.recentlyPlayedVideoCountLabel.text = "\(recentPlayedVideo.count) tracks"
-            
-            var imageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
-            
-            
-            switch recentPlayerArray.count {
-            case 0:
-                
-                imageArray = imageArray.map { image in
-                    image?.image = UIImage(named: "")
-                    return image
-                }
-                
-            case 1:
-                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                cell.imageView2.image =  UIImage(named: "")
-                cell.imageView3.image =  UIImage(named: "")
-                cell.imageView4.image =  UIImage(named: "")
-            case 2:
-                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                cell.imageView3.image =  UIImage(named: "")
-                cell.imageView4.image =  UIImage(named: "")
-            case 3:
-                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
-                cell.imageView4.image =  UIImage(named: "")
-            default:
-                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
-                cell.imageView4.image =  UIImage(data: recentPlayerArray[3] as Data)
-            }
-            
-            
-            if checkIfRecentPlaylistIsEmpty == true{
-                
-                imageArray = imageArray.map { image in
-                    image?.image = UIImage(named: "")
-                    return image
-                }
-                
-                checkIfRecentPlaylistIsEmpty = false
-            }
-            
-            
-            collectionCell = cell
-        case  artistsCollectionCell:
             let artCell = collectionView.dequeueReusableCell(withReuseIdentifier: "artists", for: indexPath) as! ArtistsCollectionViewCell
             artCell.configureArtistCell(artImageArray[indexPath.row])
             print(artImageArray[indexPath.row])
-            collectionCell  = artCell
-        default:
-            break
-        }
-        return collectionCell
+        return artCell
     }
-    
-    
-    func recentPlayerVideoImage(videoCount:Int,imageData: @escaping(_ imageData: [Data]) -> ()) {
-        
-        var imageDataArray = [Data]()
-        
-        for i in 0..<videoCount {
-            let imageUrl1 = URL(string: recentPlayedVideo[i].videoImageUrl! )
-            do{
-                let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                
-                imageDataArray.append(data1 as Data)
-                
-            }catch{
-                print("no image data found")
-            }
-            imageData(imageDataArray)
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case topHitsCollectionCell:
-            checkTableViewName =  topHitsTableView
-            self.performSegue(withIdentifier: destinationViewIdentifier, sender: checkTableViewName)
-        case recentPlayedCollectionCell:
-            checkTableViewName =  recentPlayedTableView
-            self.performSegue(withIdentifier: destinationViewIdentifier, sender: checkTableViewName)
-        default:
-            break
-        }
-    }
+
     
     
 }
