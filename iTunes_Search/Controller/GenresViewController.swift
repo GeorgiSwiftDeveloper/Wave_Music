@@ -22,6 +22,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         genreCollectionView.isScrollEnabled = false
         self.genreCollectionView.delegate = self
         self.genreCollectionView.dataSource = self
+        collectionViewLayout()
     }
     
     
@@ -81,7 +82,14 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
     }
     
-    
+    func collectionViewLayout() {
+        let layout = self.genreCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.sectionInset = UIEdgeInsets(top: 0,left: 5,bottom: 0,right: 5)
+        layout.minimumInteritemSpacing = 5
+        layout.itemSize = CGSize(width: (self.genreCollectionView.frame.size.width - 20)/2, height: self.genreCollectionView.frame.size.height/3)
+        
+        
+    }
     
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -97,7 +105,10 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
                 cell.confiigurationCell(GenreModelService.instance.getGenreArray()[indexPath.row])
-                cell.trackCountLabel.text = ""
+                cell.layer.borderColor = UIColor.lightGray.cgColor
+                cell.layer.borderWidth = 0.5
+                cell.layer.cornerRadius = 4
+                cell.layer.backgroundColor = UIColor.white.cgColor
                 UserDefaults.standard.set(indexPath.row, forKey:"selectedGenereCollectionIndex")
                 indexArray.append(indexPath.row)
                 return cell

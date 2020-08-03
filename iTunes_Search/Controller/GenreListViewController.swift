@@ -322,6 +322,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
+            selectedCell.layer.borderColor = UIColor.gray.cgColor
+            selectedCell.layer.borderWidth = 2
             //            for i in 0..<self.videoArray.count{
             //                self.youTubeVideoID.append(self.videoArray[i].videoId ?? "")
             //                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle ?? "")

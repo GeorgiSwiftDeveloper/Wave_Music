@@ -627,7 +627,7 @@
                         <subviews>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleAspectFit" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LoF-Dm-i85">
                                 <rect key="frame" x="0.0" y="56" width="414" height="703"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="25" minimumInteritemSpacing="25" id="JVb-ja-Jig">
                                     <size key="itemSize" width="113" height="158"/>
@@ -644,17 +644,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="69N-oM-a9r">
-                                                    <rect key="frame" x="0.0" y="0.0" width="113" height="110"/>
+                                                    <rect key="frame" x="5" y="5" width="103" height="120"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="110" id="dR8-9x-a7l"/>
+                                                        <constraint firstAttribute="height" constant="120" id="dR8-9x-a7l"/>
                                                         <constraint firstAttribute="width" constant="110" id="q1Y-zh-daA"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="rdo-jP-kcf">
-                                                    <rect key="frame" x="6.6666666666666643" y="125" width="100" height="29"/>
+                                                    <rect key="frame" x="6.6666666666666643" y="130" width="100" height="24"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="LRq-7x-nn3">
-                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="14"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="100" id="Ioc-Mb-RD8"/>
                                                                 <constraint firstAttribute="height" constant="20" id="QPP-Kk-XQG"/>
@@ -663,33 +663,22 @@
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ILr-iE-6Zp">
-                                                            <rect key="frame" x="0.0" y="15" width="100" height="14"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="20" id="BRj-EI-I79"/>
-                                                                <constraint firstAttribute="width" constant="100" id="WGS-Zy-ovQ"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="12"/>
-                                                            <color key="textColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="rdo-jP-kcf" secondAttribute="bottom" constant="4" id="2tT-xC-qZh"/>
-                                                <constraint firstItem="69N-oM-a9r" firstAttribute="leading" secondItem="0EG-rA-q3N" secondAttribute="leading" id="4XM-Cq-Yu2"/>
-                                                <constraint firstAttribute="trailing" secondItem="69N-oM-a9r" secondAttribute="trailing" id="PgW-Ll-nxc"/>
-                                                <constraint firstItem="69N-oM-a9r" firstAttribute="top" secondItem="0EG-rA-q3N" secondAttribute="top" id="UHz-Hx-yWf"/>
+                                                <constraint firstItem="69N-oM-a9r" firstAttribute="leading" secondItem="0EG-rA-q3N" secondAttribute="leading" constant="5" id="4XM-Cq-Yu2"/>
+                                                <constraint firstAttribute="trailing" secondItem="69N-oM-a9r" secondAttribute="trailing" constant="5" id="PgW-Ll-nxc"/>
+                                                <constraint firstItem="69N-oM-a9r" firstAttribute="top" secondItem="0EG-rA-q3N" secondAttribute="top" constant="5" id="UHz-Hx-yWf"/>
                                                 <constraint firstItem="rdo-jP-kcf" firstAttribute="centerX" secondItem="0EG-rA-q3N" secondAttribute="centerX" id="l8A-aD-0RU"/>
-                                                <constraint firstItem="rdo-jP-kcf" firstAttribute="top" secondItem="69N-oM-a9r" secondAttribute="bottom" constant="15" id="nV0-M8-4h5"/>
+                                                <constraint firstItem="rdo-jP-kcf" firstAttribute="top" secondItem="69N-oM-a9r" secondAttribute="bottom" constant="5" id="nV0-M8-4h5"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="113" height="158"/>
                                         <connections>
                                             <outlet property="genreImageView" destination="69N-oM-a9r" id="wre-Be-aRn"/>
                                             <outlet property="genreNameLabel" destination="LRq-7x-nn3" id="WLj-ac-mGe"/>
-                                            <outlet property="trackCountLabel" destination="ILr-iE-6Zp" id="yRI-jH-V3M"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -699,7 +688,7 @@
                                 </collectionReusableView>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="LoF-Dm-i85" secondAttribute="bottom" constant="83" id="2hM-oE-DNe"/>
