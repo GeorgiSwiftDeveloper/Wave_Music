@@ -18,15 +18,6 @@ class GenresCollectionViewCell: UICollectionViewCell {
             self.genreNameLabel.text = albums.genreTitle
             self.genreImageView.image = UIImage(named: albums.genreImage)
             self.genreImageView.layer.cornerRadius = 4
-//            self.genreImageView.layer.borderWidth = 3
-//            self.genreImageView.layer.masksToBounds = false
-//            self.genreImageView.layer.borderColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-//            self.genreImageView.layer.shadowOpacity = 2
-//            self.genreImageView.layer.shadowPath = UIBezierPath(rect:  self.genreImageView.bounds).cgPath
-//            self.genreImageView.layer.shadowRadius = 5
-//            self.genreImageView.layer.shadowOffset = .zero
-//            self.genreImageView.clipsToBounds = true
-//            self.genreImageView.layer.cornerRadius = self.genreImageView.frame.height/2
     }
     
 
