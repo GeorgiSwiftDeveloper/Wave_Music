@@ -24,6 +24,7 @@ class CoreDataVideoClass: NSObject {
             request.predicate = predicate
         }
         request.returnsObjectsAsFaults = false
+        
         do {
             guard  let result = try context?.fetch(request) else {return}
             
@@ -48,34 +49,35 @@ class CoreDataVideoClass: NSObject {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
         if playlistName != ""{
             let predicate = NSPredicate(format: "title == %@ AND playlistName == %@", argumentArray: [videoTitle, playlistName])
-             request.predicate = predicate
+            request.predicate = predicate
         }else{
             let predicate = NSPredicate(format: "title == %@", videoTitle as CVarArg)
             request.predicate = predicate
         }
-        
-        do{
-            let count = try context?.count(for: request)
-            if(count == 0){
-                // no matching object
-                let entity = NSEntityDescription.entity(forEntityName: coreDataEntityName, in: context!)
-                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                newEntity.setValue(videoTitle, forKey: "title")
-                newEntity.setValue(videoImage, forKey: "image")
-                newEntity.setValue(videoId, forKey: "videoId")
-                if playlistName != ""{
-                newEntity.setValue(playlistName, forKey: "playlistName")
+        DispatchQueue.main.async {
+            do{
+                let count = try context?.count(for: request)
+                if(count == 0){
+                    // no matching object
+                    let entity = NSEntityDescription.entity(forEntityName: coreDataEntityName, in: context!)
+                    let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                    newEntity.setValue(videoTitle, forKey: "title")
+                    newEntity.setValue(videoImage, forKey: "image")
+                    newEntity.setValue(videoId, forKey: "videoId")
+                    if playlistName != ""{
+                        newEntity.setValue(playlistName, forKey: "playlistName")
+                    }
+                    try context?.save()
+                    loadVideoList(true,nil, false)
+                    print("data has been saved ")
+                }else{
+                    print("this song is in database")
+                    loadVideoList(false,nil, true)
                 }
-                try context?.save()
-                loadVideoList(true,nil, false)
-                print("data has been saved ")
-            }else{
-                print("this song is in database")
-                loadVideoList(false,nil, true)
+            }catch{
+                loadVideoList(false,error,false)
+                print("error")
             }
-        }catch{
-            loadVideoList(false,error,false)
-            print("error")
         }
     }
 }

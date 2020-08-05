@@ -97,7 +97,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         default:
             break
         }
-        fetchVideoData()
+        fetchRecentlyPlayedVideoData()
     }
     
     
@@ -108,15 +108,10 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     }
     
     
-    func fetchVideoData() {
+    func fetchRecentlyPlayedVideoData() {
         
         self.recentPlayedVideo = []
         fetchVideoWithEntityName(recentPlayedEntityName)
-        
-        recentPlayerVideoImage(videoCount: recentPlayedVideo.count) { (imageDataArray) in
-            self.recentPlayerArray = imageDataArray
-            self.recentPlayedCollectionCell.reloadData()
-        }
     }
     
     func updatePlayerState(_ playerState: WKYTPlayerState){
@@ -149,6 +144,10 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                     switch entityName {
                     case recentPlayedEntityName:
                         self.recentPlayedVideo.append(videoList!)
+                        self.recentPlayerVideoImage(videoCount: self.recentPlayedVideo.count) { (imageDataArray) in
+                               self.recentPlayerArray = imageDataArray
+                               self.recentPlayedCollectionCell.reloadData()
+                           }
                         DispatchQueue.main.async {
                             self.recentPlayedCollectionCell.reloadData()
                         }

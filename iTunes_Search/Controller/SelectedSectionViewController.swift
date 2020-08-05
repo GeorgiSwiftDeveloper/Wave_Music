@@ -340,7 +340,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case topHitsTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
                 DispatchQueue.main.async {
-                    cell.configureTopHitsCell(self.topHitsLists[indexPath.row])
+                    cell.configureSelectedVideoCell(self.topHitsLists[indexPath.row])
                     
                 }
                 cell.addToFavoriteButton.tag = indexPath.row;
@@ -352,7 +352,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case libraryTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
                 DispatchQueue.main.async {
-                    cell.configureMyLibraryCell(self.myLibraryList[indexPath.row])
+                    cell.configureSelectedVideoCell(self.myLibraryList[indexPath.row])
                     
                 }
                 cell.addToFavoriteButton.isHidden = true
@@ -363,7 +363,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case recentPlayedTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
                 DispatchQueue.main.async {
-                    cell.configureRecentlyPlayedCell(self.recentPlayedVideo[indexPath.row])
+                    cell.configureSelectedVideoCell(self.recentPlayedVideo[indexPath.row])
                     
                 }
                 cell.addToFavoriteButton.tag = indexPath.row;
@@ -375,7 +375,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case playlistTableView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
                 DispatchQueue.main.async {
-                    cell.configureRecentlyPlayedCell(self.videoPlaylist[indexPath.row])
+                    cell.configureSelectedVideoCell(self.videoPlaylist[indexPath.row])
                     
                 }
                 cell.addToFavoriteButton.isHidden = true
