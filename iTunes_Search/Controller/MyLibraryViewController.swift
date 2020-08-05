@@ -337,7 +337,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
         libraryMusicCell.contentView.backgroundColor = UIColor(white: 095, alpha: 1)
         DispatchQueue.main.async {
-            libraryMusicCell.configureGenreCell(self.myLibraryListArray[indexPath.row])
+            libraryMusicCell.configureMyLibraryCell(self.myLibraryListArray[indexPath.row])
             
         }
         return libraryMusicCell

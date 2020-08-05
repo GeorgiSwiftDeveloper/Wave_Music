@@ -18,8 +18,8 @@ class GenreVideoTableViewCell: UITableViewCell {
     var videoID = String()
     var videoImageUrl = String()
     func configureGenreCell(_ video: Video){
+        
         DispatchQueue.main.async {
-            
             self.videoID = video.videoId ?? ""
             if video.videoImageUrl != ""{
             self.videoImageUrl = video.videoImageUrl ?? ""

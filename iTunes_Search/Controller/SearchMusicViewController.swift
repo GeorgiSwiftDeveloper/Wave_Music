@@ -192,7 +192,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchMusicCell", for: indexPath) as? SearchVideoTableViewCell {
-            cell.configurationCell(albums: searchMusicList[indexPath.row])
+            cell.configureSearchCell(albums: searchMusicList[indexPath.row])
             cell.favoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell.favoriteButton.tag = indexPath.row;
             

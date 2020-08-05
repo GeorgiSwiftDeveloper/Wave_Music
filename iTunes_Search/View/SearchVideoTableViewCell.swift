@@ -17,7 +17,7 @@ class SearchVideoTableViewCell: UITableViewCell {
     var videoID = String()
     var videoImageUrl = String()
     
-    func configurationCell(albums: Video) {
+    func configureSearchCell(albums: Video) {
         DispatchQueue.main.async {
             self.singerNameLabel.text = albums.videoTitle
             self.videoID = albums.videoId ?? ""

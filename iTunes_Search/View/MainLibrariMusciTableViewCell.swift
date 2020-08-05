@@ -21,7 +21,7 @@ class MainLibrariMusciTableViewCell: UITableViewCell {
     var videoID = String()
     
     
-    func configureGenreCell(_ video: Video){
+    func configureMyLibraryCell(_ video: Video){
         self.videoID = video.videoId ?? ""
         DispatchQueue.main.async {
             self.musicTitleLabel.text = video.videoTitle
