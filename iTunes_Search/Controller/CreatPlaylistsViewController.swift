@@ -69,34 +69,34 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-             
-             let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
-             switch pause {
-             case true:
-                 VideoPlayerClass.callVideoPlayer.superViewController = self
-                 self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-                 VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                     if let error = error {
-                         print("Error getting player state:" + error.localizedDescription)
-                     } else if let playerState = playerState as? WKYTPlayerState {
-                         
-                         self?.updatePlayerState(playerState)
-                     }
-                 })
-             case false:
-                 VideoPlayerClass.callVideoPlayer.superViewController = self
-                 self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-                 VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                     if let error = error {
-                         print("Error getting player state:" + error.localizedDescription)
-                     } else if let playerState = playerState as? WKYTPlayerState {
-                         
-                         self?.updatePlayerState(playerState)
-                     }
-                 })
-             default:
-                 break
-             }
+        
+        let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
+        switch pause {
+        case true:
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
+        case false:
+            VideoPlayerClass.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                if let error = error {
+                    print("Error getting player state:" + error.localizedDescription)
+                } else if let playerState = playerState as? WKYTPlayerState {
+                    
+                    self?.updatePlayerState(playerState)
+                }
+            })
+        default:
+            break
+        }
         fetchVideoData()
     }
     
@@ -120,24 +120,24 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     }
     
     func updatePlayerState(_ playerState: WKYTPlayerState){
-           switch playerState {
-           case .ended:
-               self.showVideoPlayerPause()
-           case .paused:
-               self.showVideoPlayerPause()
-           case .playing:
-               self.showVideoPlayer()
-           default:
-               break
-           }
-       }
+        switch playerState {
+        case .ended:
+            self.showVideoPlayerPause()
+        case .paused:
+            self.showVideoPlayerPause()
+        case .playing:
+            self.showVideoPlayer()
+        default:
+            break
+        }
+    }
     
     func showVideoPlayer(){
-          VideoPlayerClass.callVideoPlayer.webView.playVideo()
-      }
-      func showVideoPlayerPause(){
-          VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-      }
+        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+    }
+    func showVideoPlayerPause(){
+        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+    }
     
     
     func fetchVideoWithEntityName(_ entityName: String){
@@ -152,6 +152,12 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                         DispatchQueue.main.async {
                             self.recentPlayedCollectionCell.reloadData()
                         }
+                    case topHitsEntityName:
+                        self.topHitsArray.append(videoList!)
+                        DispatchQueue.main.async {
+                            self.topHitsCollectionCell.reloadData()
+                        }
+                        
                     default:
                         break
                     }
@@ -160,46 +166,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         }
     }
     
-    
-    
-    
-    func fetchFromCoreData(loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: topHitsEntityName)
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context?.fetch(request)
-            for data in result as! [NSManagedObject] {
-                let title = data.value(forKey: "title") as? String ?? ""
-                let image = data.value(forKey: "image") as? String ?? ""
-                let videoId = data.value(forKey: "videoId") as? String ?? ""
-                let songDescription = data.value(forKey: "songDescription") as? String ?? ""
-                let playlistId = data.value(forKey: "playListId") as? String ?? ""
-                let channelId = data.value(forKey: "channelId") as? String ?? ""
-                let fetchedVideoList = Video(videoId: videoId, videoTitle: title, videoDescription: songDescription, videoPlaylistId: playlistId, videoImageUrl: image, channelId:channelId, genreTitle: "")
-                loadVideoList(fetchedVideoList,nil)
-            }
-            
-        } catch {
-            loadVideoList(nil,error)
-            print("Failed")
-        }
-    }
-    
-    func saveItems(title:String,description:String,image:String,videoId:String,playlistId:String,genreTitle: String, channelId: String) {
-        let entity = NSEntityDescription.entity(forEntityName: topHitsEntityName, in: context!)
-        let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-        newEntity.setValue(title, forKey: "title")
-        newEntity.setValue(image, forKey: "image")
-        newEntity.setValue(videoId, forKey: "videoId")
-        newEntity.setValue(description, forKey: "songDescription")
-        newEntity.setValue(playlistId, forKey: "playListId")
-        newEntity.setValue(channelId, forKey: "channelId")
-        do {
-            try context?.save()
-        } catch {
-            print("Failed saving")
-        }
-    }
     
     
     func getYouTubeResults(){
@@ -213,14 +179,17 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                         for songIndex in 0..<self.topHitsArray.count{
                             
                             let title =   self.topHitsArray[songIndex].videoTitle ?? ""
-                            let description =  self.topHitsArray[songIndex].videoDescription ?? ""
+                            //                            let description =  self.topHitsArray[songIndex].videoDescription ?? ""
                             let image =  self.topHitsArray[songIndex].videoImageUrl ?? ""
-                            let playlistId = self.topHitsArray[songIndex].videoPlaylistId ?? ""
+                            //                            let playlistId = self.topHitsArray[songIndex].videoPlaylistId ?? ""
                             let videoId =  self.topHitsArray[songIndex].videoId ?? ""
-                            let channelId =  self.topHitsArray[songIndex].channelId ?? ""
+                            //                            let channelId =  self.topHitsArray[songIndex].channelId ?? ""
                             
-                            self.saveItems(title: title, description: description, image: image, videoId: videoId, playlistId: playlistId,genreTitle: "Hits", channelId: channelId)
-                            
+                            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName: topHitsEntityName) { (checkIfSaveIsSuccessful, error, checkIfSongAlreadyInDatabase) in
+                                if error != nil {
+                                    print(error?.localizedDescription as Any)
+                                }
+                            }
                             self.topHitsCollectionCell.reloadData()
                             
                         }
@@ -228,19 +197,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                 }
             }
         }else{
-            self.fetchFromCoreData { (videoList, error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }else{
-                    if videoList != nil {
-                        self.topHitsArray.append(videoList!)
-                        DispatchQueue.main.async {
-                            self.topHitsCollectionCell.reloadData()
-                        }
-                        
-                    }
-                }
-            }
+            fetchVideoWithEntityName(topHitsEntityName)
         }
     }
     
