@@ -253,9 +253,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     @objc func addToFavoriteTapped(sender: UIButton){
-        let selectedIndex = IndexPath(row: sender.tag, section: 0)
-        self.genreTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-        let selectedCell = self.genreTableView.cellForRow(at: selectedIndex) as! GenreVideoTableViewCell
+        let selectedRow = IndexPath(row: sender.tag, section: 0)
+        self.genreTableView.selectRow(at: selectedRow, animated: true, scrollPosition: .none)
+        let selectedCell = self.genreTableView.cellForRow(at: selectedRow) as! GenreVideoTableViewCell
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: myLibraryEntityName)
         let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
         request.predicate = predicate
@@ -317,13 +317,13 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
             UserDefaults.standard.set(false, forKey:"selectedSearch")
             UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
-            self.selectedIndex = indexPath.row
-            UserDefaults.standard.set(self.selectedIndex, forKey:"saveGenreSelectedIndex")
+
+            
             NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
-            selectedCell.layer.borderColor = UIColor.gray.cgColor
-            selectedCell.layer.borderWidth = 2
+    
+            
             //            for i in 0..<self.videoArray.count{
             //                self.youTubeVideoID.append(self.videoArray[i].videoId ?? "")
             //                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle ?? "")

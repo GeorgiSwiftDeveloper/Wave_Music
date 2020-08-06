@@ -53,7 +53,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         
         playlistTableView.delegate = self
         playlistTableView.dataSource = self
-        
         getYouTubeResults()
     }
     
