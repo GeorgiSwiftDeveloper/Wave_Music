@@ -193,9 +193,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         super .viewWillAppear(animated)
         
         searchisSelected()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
+
         
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
@@ -259,21 +257,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         self.navigationController?.navigationBar.isHidden = false
     }
     
-    
-    
-    
-    @objc func NotificationIdentifierSearchRowSelected(notification: Notification) {
-        UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
-        selectedSectionTableView.reloadData()
-        
-    }
-    
-    
-    @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
-        UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
-        selectedSectionTableView.reloadData()
-        
-    }
     
     
     func searchisSelected() {
@@ -506,9 +489,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ifRowIsSelectedDelegate?.checkIfRowIsSelected(true)
-        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
-        UserDefaults.standard.set(false, forKey:"selectedSearch")
-        UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
         switch checkTableViewName {
         case libraryTableView:
                 self.selectedVideo = self.myLibraryList[indexPath.row]
@@ -545,40 +525,33 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
-        UserDefaults.standard.set(true, forKey:"checkIfLibraryRowIsSelected")
-        UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
+
         selectedIndex = indexPath.row
-        UserDefaults.standard.set(selectedIndex, forKey:"saveLibrarySelectedIndex")
+
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
-        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
+
         selectedSectionTableView.reloadData()
     }
     
     
     func getSelectedTopHitsVideo(_ indexPath: IndexPath){
-        UserDefaults.standard.set(true, forKey:"checkIfLibraryRowIsSelected")
-        UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
+
         selectedIndex = indexPath.row
-        UserDefaults.standard.set(selectedIndex, forKey:"saveTopHitsSelectedIndex")
+
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
-        UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
+
         selectedSectionTableView.reloadData()
     }
     
     
     func getSelectedRecentlyPlayedVideo(_ indexPath: IndexPath){
-        UserDefaults.standard.set(true, forKey:"checkIfRecentlyPlayedRowIsSelected")
-        UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
+
         selectedIndex = indexPath.row
-        UserDefaults.standard.set(selectedIndex, forKey:"saveRecentlyPlayedSelectedIndex")
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
-        UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
+        
         selectedSectionTableView.reloadData()
     }
 }

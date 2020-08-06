@@ -15,12 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //        print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
-        UserDefaults.standard.removeObject(forKey: "checkIfMyLibraryViewControllerRowIsSelected")
-        UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "saveGenreSelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
-        UserDefaults.standard.removeObject(forKey: "checkIfSearchRowIsSelected")
+
         UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "selectedSearch")
         UserDefaults.standard.removeObject(forKey: "pause")

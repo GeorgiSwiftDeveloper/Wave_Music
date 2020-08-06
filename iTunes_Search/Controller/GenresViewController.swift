@@ -29,7 +29,6 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -117,11 +116,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
             }
     }
     
-    @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
-        UserDefaults.standard.set(selectedGenreIndexRow, forKey:"selectedGenereCollectionIndex")
-    }
-    
-    
+
     override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "genrseListSegue" {
             let genreVC = segue.destination as! GenreListViewController

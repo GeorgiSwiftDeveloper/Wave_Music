@@ -58,9 +58,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSearchRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
-        
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -166,21 +163,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     
-    
-    
-    @objc func NotificationIdentifierSearchRowSelected(notification: Notification) {
-        checkIfMyLibraryViewControllerRowIsSelected()
-    }
-    
-    @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
-        
-        checkIfMyLibraryViewControllerRowIsSelected()
-    }
-    
-    func  checkIfMyLibraryViewControllerRowIsSelected() {
-        UserDefaults.standard.set(false, forKey:"checkIfMyLibraryViewControllerRowIsSelected")
-        myLibraryTableView.reloadData()
-    }
+
     
     
     func musicRecordDeletedDelegate(_ alertTitleName: String) {
@@ -341,7 +324,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                     nc.searchIsSelected = true
                 }
 //                nc.searchIsSelected = selectedSearch! ? true : false
-                UserDefaults.standard.set(false, forKey:"selectedSearch")
+//                UserDefaults.standard.set(false, forKey:"selectedSearch")
                 nc.checkTableViewName = sender as! String
                 nc.ifRowIsSelectedDelegate = self
                 nc.musicRecordDeletedDelegate = self
@@ -355,9 +338,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierMyLibraryRowSelected"), object: nil)
-        UserDefaults.standard.set(false, forKey:"selectedSearch")
-        UserDefaults.standard.set(true, forKey:"selectedmyLybrary")
         
         self.selectLibraryRow = false
         
@@ -382,8 +362,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
-        UserDefaults.standard.set(true, forKey:"checkIfMyLibraryViewControllerRowIsSelected")
-        UserDefaults.standard.set(true, forKey:"checkIfAnotherViewControllerRowIsSelected")
         selectedIndex = indexPath.row
         selectTopHitsRow = true
         VideoPlayer.callVideoPlayer.webView.pauseVideo()

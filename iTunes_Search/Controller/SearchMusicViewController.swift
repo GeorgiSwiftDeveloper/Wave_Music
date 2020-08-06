@@ -41,9 +41,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierMyLibraryRowSelected(notification:)), name: Notification.Name("NotificationIdentifierMyLibraryRowSelected"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSelectionLibraryRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierGenreRowSelected(notification:)), name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -103,23 +100,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
     }
     
-    
-    @objc func NotificationIdentifierMyLibraryRowSelected(notification: Notification) {
-        UserDefaults.standard.set(false, forKey:"checkIfSearchRowIsSelected")
-        searchMusicTableView.reloadData()
-        
-    }
-    
-    @objc func NotificationIdentifierSelectionLibraryRowSelected(notification: Notification) {
-        UserDefaults.standard.set(false, forKey:"checkIfSearchRowIsSelected")
-        searchMusicTableView.reloadData()
-    }
-    
-    @objc func NotificationIdentifierGenreRowSelected(notification: Notification) {
-        UserDefaults.standard.set(false, forKey:"checkIfSearchRowIsSelected")
-        searchMusicTableView.reloadData()
-        
-    }
     
     
     func setupNavBar() {
@@ -263,10 +243,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        UserDefaults.standard.set(true, forKey:"checkIfSearchRowIsSelected")
-        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
-        UserDefaults.standard.set(true, forKey:"selectedSearch")
-        UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
         let selectedCell = self.searchMusicTableView.cellForRow(at: tableView.indexPathForSelectedRow!) as! SearchVideoTableViewCell
         selectedIndex = indexPath.row
 

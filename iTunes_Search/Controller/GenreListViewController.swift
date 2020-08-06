@@ -75,8 +75,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        iFMyLybraryOrSearchSelected()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierSelectionLibraryRowSelected(notification:)), name: Notification.Name("NotificationIdentifierSelectionLibraryRowSelected"), object: nil)
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -190,49 +188,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     
-    func iFMyLybraryOrSearchSelected() {
-        DispatchQueue.main.async {
-            if self.searchIsSelected == true {
-                UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
-                self.genreTableView.reloadData()
-            }
-            self.searchIsSelected = false
-        }
-        
-        
-        DispatchQueue.main.async {
-            if self.selectedmyLybrary == true {
-                UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
-                self.genreTableView.reloadData()
-            }
-            self.selectedmyLybrary = false
-        }
-        
-        let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-        if selectedSearch == true {
-            DispatchQueue.main.async {
-                UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
-                self.genreTableView.reloadData()
-                
-            }
-        }
-        
-        let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
-        if selectedmyLybrary == true {
-            DispatchQueue.main.async {
-                UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
-                self.genreTableView.reloadData()
-                
-            }
-        }
-    }
-    
-    @objc func NotificationIdentifierSelectionLibraryRowSelected(notification: Notification) {
-        UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
-        genreTableView.reloadData()
-    }
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videoArray.count
     }
@@ -314,17 +269,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
-            UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
-            UserDefaults.standard.set(false, forKey:"selectedSearch")
-            UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
-
-            
-            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierGenreRowSelected"), object: nil)
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
-    
-    
-            
             VideoPlayer.callVideoPlayer.superViewController = self
             VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.singerNameLabel.text!)
             
