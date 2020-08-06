@@ -14,10 +14,13 @@ class GenresCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var trackCountLabel: UILabel!
     
     
-    func confiigurationCell(_ albums: GenreModel) {
+    func confiigurationGenreCell(_ albums: GenreModel) {
+        DispatchQueue.main.async {
             self.genreNameLabel.text = albums.genreTitle
             self.genreImageView.image = UIImage(named: albums.genreImage)
-            self.genreImageView.layer.cornerRadius = 4
+                     
+        }
+          self.genreImageView.layer.cornerRadius = 4
     }
     
 
