@@ -16,12 +16,12 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var genreCollectionView: UICollectionView!
     
     var selectedGenreIndexRow = Int()
-    var indexArray = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.genreCollectionView.delegate = self
         self.genreCollectionView.dataSource = self
+
         collectionViewLayout()
     }
     
@@ -104,13 +104,13 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
+                
                 cell.confiigurationGenreCell(GenreModelService.instance.getGenreArray()[indexPath.row])
                 cell.layer.borderColor = UIColor.lightGray.cgColor
                 cell.layer.borderWidth = 0.5
                 cell.layer.cornerRadius = 4
                 cell.layer.backgroundColor = UIColor.white.cgColor
-                UserDefaults.standard.set(indexPath.row, forKey:"selectedGenereCollectionIndex")
-                indexArray.append(indexPath.row)
+
                 return cell
             }else {
                 return GenresCollectionViewCell()
