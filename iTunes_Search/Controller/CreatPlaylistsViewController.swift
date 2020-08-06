@@ -25,11 +25,12 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     var topHitsArray = [Video]()
     var recentPlayerArray = [Data]()
     var recentPlayedVideo = [Video]()
-    var checkIfRecentPlaylistIsEmpty = Bool()
     
     var checkTableViewName: String = ""
     var selectTopHitsRow = Bool()
     var videoSelected = Bool()
+    
+    var libraryImageArray: [UIImageView] = []
     
     var isEntityIsEmpty: Bool {
         do {
@@ -44,7 +45,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         self.topHitsCollectionCell.delegate = self
         self.topHitsCollectionCell.dataSource = self
         
@@ -53,12 +53,8 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         
         playlistTableView.delegate = self
         playlistTableView.dataSource = self
+        
         getYouTubeResults()
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         if let musicPlaylist = UserDefaults.standard.object(forKey: "MusicPlaylist") as? [String] {
             createdPlaylistArray = musicPlaylist
         }
@@ -68,7 +64,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -143,18 +138,10 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                     switch entityName {
                     case recentPlayedEntityName:
                         self.recentPlayedVideo.append(videoList!)
-                        self.recentPlayerVideoImage(videoCount: self.recentPlayedVideo.count) { (imageDataArray) in
-                               self.recentPlayerArray = imageDataArray
-                               self.recentPlayedCollectionCell.reloadData()
-                           }
-                        DispatchQueue.main.async {
-                            self.recentPlayedCollectionCell.reloadData()
-                        }
+                        self.recentPlayedCollectionCell.reloadData()
                     case topHitsEntityName:
                         self.topHitsArray.append(videoList!)
-                        DispatchQueue.main.async {
-                            self.topHitsCollectionCell.reloadData()
-                        }
+                        self.topHitsCollectionCell.reloadData()
                         
                     default:
                         break
@@ -230,7 +217,10 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     func musicRecordDeletedDelegate(_ alertTitleName: String) {
         if alertTitleName == "RECENTLY PLAYED"{
-            checkIfRecentPlaylistIsEmpty = true
+            libraryImageArray = libraryImageArray.map { image in
+                image.image = nil
+                return image
+            }
             recentPlayedCollectionCell.reloadData()
         }
     }
@@ -429,7 +419,7 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
             cell.cellTitleLabel.text = "World Top 100"
             cell.topHitsVideoCountLabel.text = "\(topHitsArray.count) tracks"
             
-            var imageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
+            var topImageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
             
             if topHitsArray.count >= 4 {
                 let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
@@ -452,8 +442,8 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
                 }
             }else if topHitsArray.count == 0 {
                 
-                imageArray = imageArray.map { image in
-                    image?.image = UIImage(named: "")
+                topImageArray = topImageArray.map { image in
+                    image?.image = nil
                     return image
                 }
             }
@@ -465,48 +455,72 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
             cell.cellTitleLabel.text = "RECENTLY PLAYED"
             cell.recentlyPlayedVideoCountLabel.text = "\(recentPlayedVideo.count) tracks"
             
-            var imageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
+            libraryImageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
             
             
-            switch recentPlayerArray.count {
+            switch recentPlayedVideo.count {
             case 0:
                 
-                imageArray = imageArray.map { image in
-                    image?.image = UIImage(named: "")
+                libraryImageArray = libraryImageArray.map { image in
+                    image.image = nil
                     return image
                 }
                 
             case 1:
-                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                cell.imageView2.image =  UIImage(named: "")
-                cell.imageView3.image =  UIImage(named: "")
-                cell.imageView4.image =  UIImage(named: "")
-            case 2:
-                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                cell.imageView3.image =  UIImage(named: "")
-                cell.imageView4.image =  UIImage(named: "")
-            case 3:
-                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
-                cell.imageView4.image =  UIImage(named: "")
-            default:
-                cell.imageView1.image =  UIImage(data: recentPlayerArray[0] as Data)
-                cell.imageView2.image =  UIImage(data: recentPlayerArray[1] as Data)
-                cell.imageView3.image =  UIImage(data: recentPlayerArray[2] as Data)
-                cell.imageView4.image =  UIImage(data: recentPlayerArray[3] as Data)
-            }
-            
-            
-            if checkIfRecentPlaylistIsEmpty == true{
-                
-                imageArray = imageArray.map { image in
-                    image?.image = UIImage(named: "")
-                    return image
+                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
+                do {
+                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
+                    cell.imageView1.image =  UIImage(data: data1 as Data)
+                } catch  {
+                    print("error")
                 }
                 
-                checkIfRecentPlaylistIsEmpty = false
+            case 2:
+                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
+                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
+                do {
+                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
+                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
+                    cell.imageView1.image =  UIImage(data: data1 as Data)
+                    cell.imageView2.image =  UIImage(data: data2 as Data)
+                } catch  {
+                    print("error")
+                }
+                
+            case 3:
+                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
+                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
+                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl ?? "")
+                
+                do {
+                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
+                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
+                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
+                    
+                    cell.imageView1.image =  UIImage(data: data1 as Data)
+                    cell.imageView2.image =  UIImage(data: data2 as Data)
+                    cell.imageView3.image =  UIImage(data: data3 as Data)
+                    
+                } catch  {
+                    print("error")
+                }
+            default:
+                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
+                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
+                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl ?? "")
+                let imageUrl4 = URL(string: recentPlayedVideo[3].videoImageUrl ?? "")
+                do {
+                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
+                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
+                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
+                    let data4:NSData = try NSData(contentsOf: imageUrl4!)
+                    cell.imageView1.image =  UIImage(data: data1 as Data)
+                    cell.imageView2.image =  UIImage(data: data2 as Data)
+                    cell.imageView3.image =  UIImage(data: data3 as Data)
+                    cell.imageView4.image =  UIImage(data: data4 as Data)
+                } catch  {
+                    print("error")
+                }
             }
             
             
