@@ -205,9 +205,9 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     
     @objc func addToFavoriteTapped(sender: UIButton){
-        let selectedIndex = IndexPath(row: sender.tag, section: 0)
-        self.searchMusicTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-        let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndex) as! SearchVideoTableViewCell
+        let selectedRow = IndexPath(row: sender.tag, section: 0)
+        self.searchMusicTableView.selectRow(at: selectedRow, animated: true, scrollPosition: .none)
+        let selectedCell = self.searchMusicTableView.cellForRow(at: selectedRow) as! SearchVideoTableViewCell
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
         let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
         request.predicate = predicate
@@ -267,19 +267,12 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSearchRowSelected"), object: nil)
         UserDefaults.standard.set(true, forKey:"selectedSearch")
         UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
-        let selectedIndexRow = tableView.indexPathForSelectedRow
-        let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndexRow!) as! SearchVideoTableViewCell
+        let selectedCell = self.searchMusicTableView.cellForRow(at: tableView.indexPathForSelectedRow!) as! SearchVideoTableViewCell
         selectedIndex = indexPath.row
-        webView.load(withVideoId: "")
+
+        
         VideoPlayer.callVideoPlayer.superViewController = self
-//        for i in 0..<searchMusicList.count{
-//            self.youTubeVideoID.append(searchMusicList[i].videoId ?? "")
-//            self.youTubeVideoTitle.append(searchMusicList[i].videoTitle ?? "")
-//        }
-//        
-        self.youTubeVideoID = selectedCell.videoID
-        self.youTubeVideoTitle = selectedCell.singerNameLabel.text!
-        VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+        VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.singerNameLabel.text!)
         
         CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
             if error != nil {

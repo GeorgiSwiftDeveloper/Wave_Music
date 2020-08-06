@@ -510,53 +510,33 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         UserDefaults.standard.set(false, forKey:"selectedmyLybrary")
         switch checkTableViewName {
         case libraryTableView:
-            DispatchQueue.main.async {
                 self.selectedVideo = self.myLibraryList[indexPath.row]
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.getSelectedLibraryVideo(indexPath)
-                self.webView.load(withVideoId: "")
-                //                for i in 0..<self.myLibraryList.count{
-                //                    self.youTubeVideoID.append(self.myLibraryList[i].videoId ?? "")
-                //                    self.youTubeVideoTitle.append(self.myLibraryList[i].videoTitle ?? "")
-                //                }
-                self.youTubeVideoID = selectedCell.videoIDProperty
-                self.youTubeVideoTitle = selectedCell.topHitLabelText.text!
-                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
-            }
+         
+            
+                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.topHitLabelText.text!)
         case topHitsTableView:
-            DispatchQueue.main.async {
                 self.selectedVideo = self.topHitsLists[indexPath.row]
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.getSelectedTopHitsVideo(indexPath)
-                self.webView.load(withVideoId: "")
                 
-                //                for i in 0..<self.topHitsLists.count{
-                //                    self.youTubeVideoID.append(self.topHitsLists[i].videoId ?? "")
-                //                    self.youTubeVideoTitle.append(self.topHitsLists[i].videoTitle ?? "")
-                //                }
-                self.youTubeVideoID = selectedCell.videoIDProperty
-                self.youTubeVideoTitle = selectedCell.topHitLabelText.text!
-                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+         
+                
+                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
                 CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
-                    }
                 }
             }
         case recentPlayedTableView:
-            DispatchQueue.main.async {
                 self.selectedVideo = self.recentPlayedVideo[indexPath.row]
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
+                
                 self.getSelectedRecentlyPlayedVideo(indexPath)
-                self.webView.load(withVideoId: "")
-                //                for i in 0..<self.recentPlayedVideo.count{
-                //                    self.youTubeVideoID.append(self.recentPlayedVideo[i].videoId ?? "")
-                //                    self.youTubeVideoTitle.append(self.recentPlayedVideo[i].videoTitle ?? "")
-                //                }
-                self.youTubeVideoID = selectedCell.videoIDProperty
-                self.youTubeVideoTitle = selectedCell.topHitLabelText.text!
-                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
-            }
+             
+                
+                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
         default:
             break
         }

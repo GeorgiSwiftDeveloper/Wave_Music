@@ -40,7 +40,6 @@
 		6A66CFD124734514004B0C44 /* TopHitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */; };
 		6A66CFD324734522004B0C44 /* RecentPlayedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */; };
 		6A66CFD52474A698004B0C44 /* CoreDataVideoClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD42474A698004B0C44 /* CoreDataVideoClass.swift */; };
-		6A87017624CE649900A60499 /* SingerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87017524CE649900A60499 /* SingerModel.swift */; };
 		6ABBC281245B822D002565E2 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABBC27F245B822D002565E2 /* CardViewController.swift */; };
 		6ABBC282245B822D002565E2 /* CardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ABBC280245B822D002565E2 /* CardViewController.xib */; };
 		6ABFE2272439099C000217B5 /* GenresCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */; };
@@ -97,7 +96,6 @@
 		6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHitsCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPlayedCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A66CFD42474A698004B0C44 /* CoreDataVideoClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataVideoClass.swift; sourceTree = "<group>"; };
-		6A87017524CE649900A60499 /* SingerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingerModel.swift; sourceTree = "<group>"; };
 		6ABBC27F245B822D002565E2 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		6ABBC280245B822D002565E2 /* CardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewController.xib; sourceTree = "<group>"; };
 		6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 				6AC4964B248452580050825B /* AlertView.swift */,
 				6A08424624CCEC7200F00E0F /* ActivityIndicator.swift */,
 				6AD0FD30243C2DF4006BF086 /* RadioModel.swift */,
-				6A87017524CE649900A60499 /* SingerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -426,7 +423,6 @@
 				6AD0FD31243C2DF4006BF086 /* RadioModel.swift in Sources */,
 				6A3919E624D0FED300306FE8 /* ArtistsCollectionViewCell.swift in Sources */,
 				6ABFE2272439099C000217B5 /* GenresCollectionViewCell.swift in Sources */,
-				6A87017624CE649900A60499 /* SingerModel.swift in Sources */,
 				6A1375D62433D0D80086113D /* SearchConnection.swift in Sources */,
 				6A41657A2457FB2E00910513 /* WelcomeViewController.swift in Sources */,
 				6A1375C22433D09E0086113D /* AppDelegate.swift in Sources */,

@@ -85,6 +85,7 @@ class  YouTubeVideoConnection {
                     let genreTitle = genreType!
                     
                     let youTubeVideo  = Video(videoId: videoId, videoTitle: videoTitle, videoDescription: videoDescription, videoPlaylistId: videoPlaylistId, videoImageUrl: videoImageUrl, channelId: channelId, genreTitle: genreTitle)
+                    
                     videoObjArray.append(youTubeVideo)
                 }
                 

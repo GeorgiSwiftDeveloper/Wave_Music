@@ -323,24 +323,16 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
     
+    
             
-            //            for i in 0..<self.videoArray.count{
-            //                self.youTubeVideoID.append(self.videoArray[i].videoId ?? "")
-            //                self.youTubeVideoTitle.append(self.videoArray[i].videoTitle ?? "")
-            //            }
-            self.youTubeVideoID = selectedCell.videoID
-            self.youTubeVideoTitle = selectedCell.singerNameLabel.text!
-            self.webView.load(withVideoId: "")
             VideoPlayer.callVideoPlayer.superViewController = self
-            VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+            VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.singerNameLabel.text!)
             
             CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
             }
-            
-            self.genreTableView.reloadData()
         }
         
     }

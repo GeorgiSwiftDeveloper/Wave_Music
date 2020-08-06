@@ -362,20 +362,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         self.selectLibraryRow = false
         
         let selectedCell = self.myLibraryTableView.cellForRow(at: indexPath) as! MainLibrariMusciTableViewCell
-        
-        self.webView.load(withVideoId: "")
-        
-        //        for i in 0..<self.myLibraryListArray.count{
-        //            self.youTubeVideoID.append(self.myLibraryListArray[i].videoId ?? "")
-        //            self.youTubeVideoTitle.append(self.myLibraryListArray[i].videoTitle ?? "")
-        //        }
-        
-        self.youTubeVideoID = selectedCell.videoID
-        self.youTubeVideoTitle = selectedCell.musicTitleLabel.text!
-        
+   
         getSelectedLibraryVideo(indexPath)
         
-        VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+        VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.musicTitleLabel.text!)
         
         CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
             if error != nil {

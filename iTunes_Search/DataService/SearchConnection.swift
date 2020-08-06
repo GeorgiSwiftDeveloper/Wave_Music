@@ -37,7 +37,9 @@ class SearchConnection {
                     let videoTitle = (videos as AnyObject).value(forKeyPath:"snippet.title") as! String
                     let videoDescription =  (videos as AnyObject).value(forKeyPath:"snippet.channelTitle") as! String
                     let videoImageUrl =  (videos as AnyObject).value(forKeyPath:"snippet.thumbnails.high.url") as! String
+                    
                     let youTubeVideo  = Video(videoId: videoId, videoTitle: videoTitle, videoDescription: videoDescription, videoPlaylistId: "", videoImageUrl: videoImageUrl, channelId: "", genreTitle: "")
+                    
                     videoObjArray.append(youTubeVideo)
                     
                 }

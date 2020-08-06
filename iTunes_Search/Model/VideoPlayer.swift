@@ -95,7 +95,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         self.webView.isHidden = true
         
         DispatchQueue.main.async {
-        self.webView.load(withVideoId: genreVideoID, playerVars: playerVars)
+            self.webView.load(withVideoId: genreVideoID, playerVars: playerVars)
         }
         
         
