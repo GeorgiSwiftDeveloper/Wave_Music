@@ -80,9 +80,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -91,9 +91,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 }
             })
         case false:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -122,15 +122,15 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func showVideoPlayer(){
-        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        VideoPlayer.callVideoPlayer.webView.playVideo()
         self.genreBottomNSLayoutConstraint.constant = 150
         self.view.layoutIfNeeded()
     }
     
     func showVideoPlayerPause(){
-        VideoPlayerClass.callVideoPlayer.superViewController = self
-        self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        VideoPlayer.callVideoPlayer.superViewController = self
+        self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+        VideoPlayer.callVideoPlayer.webView.pauseVideo()
         self.genreBottomNSLayoutConstraint.constant = 150
         self.view.layoutIfNeeded()
     }
@@ -138,7 +138,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
-        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
     }
     
     
@@ -331,8 +331,8 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             self.youTubeVideoID = selectedCell.videoID
             self.youTubeVideoTitle = selectedCell.singerNameLabel.text!
             self.webView.load(withVideoId: "")
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+            VideoPlayer.callVideoPlayer.superViewController = self
+            VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             
             CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                 if error != nil {

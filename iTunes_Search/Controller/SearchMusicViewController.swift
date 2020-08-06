@@ -47,9 +47,9 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -58,9 +58,9 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
                 }
             })
         case false:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -91,16 +91,16 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     
     func showVideoPlayer(){
-        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        VideoPlayer.callVideoPlayer.webView.playVideo()
     }
     func showVideoPlayerPause(){
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        VideoPlayer.callVideoPlayer.webView.pauseVideo()
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
-        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
     }
     
     
@@ -271,7 +271,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         let selectedCell = self.searchMusicTableView.cellForRow(at: selectedIndexRow!) as! SearchVideoTableViewCell
         selectedIndex = indexPath.row
         webView.load(withVideoId: "")
-        VideoPlayerClass.callVideoPlayer.superViewController = self
+        VideoPlayer.callVideoPlayer.superViewController = self
 //        for i in 0..<searchMusicList.count{
 //            self.youTubeVideoID.append(searchMusicList[i].videoId ?? "")
 //            self.youTubeVideoTitle.append(searchMusicList[i].videoTitle ?? "")
@@ -279,7 +279,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
 //        
         self.youTubeVideoID = selectedCell.videoID
         self.youTubeVideoTitle = selectedCell.singerNameLabel.text!
-        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+        VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         
         CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
             if error != nil {

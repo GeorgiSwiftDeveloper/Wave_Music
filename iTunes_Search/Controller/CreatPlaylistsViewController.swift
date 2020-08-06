@@ -72,9 +72,9 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -83,9 +83,9 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                 }
             })
         case false:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -103,7 +103,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
-        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
     }
     
     
@@ -127,10 +127,10 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     }
     
     func showVideoPlayer(){
-        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        VideoPlayer.callVideoPlayer.webView.playVideo()
     }
     func showVideoPlayerPause(){
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        VideoPlayer.callVideoPlayer.webView.pauseVideo()
     }
     
     

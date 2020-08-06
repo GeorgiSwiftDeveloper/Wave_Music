@@ -199,10 +199,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
             
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -211,10 +211,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 }
             })
         case false:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
             
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -244,17 +244,17 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     func showVideoPlayer(){
-        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        VideoPlayer.callVideoPlayer.webView.playVideo()
     }
     
     func showVideoPlayerPause(){
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        VideoPlayer.callVideoPlayer.webView.pauseVideo()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
         searchisSelected()
-        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
         self.navigationController?.navigationBar.isHidden = false
     }
     
@@ -521,7 +521,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 //                }
                 self.youTubeVideoID = selectedCell.videoIDProperty
                 self.youTubeVideoTitle = selectedCell.topHitLabelText.text!
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             }
         case topHitsTableView:
             DispatchQueue.main.async {
@@ -536,7 +536,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 //                }
                 self.youTubeVideoID = selectedCell.videoIDProperty
                 self.youTubeVideoTitle = selectedCell.topHitLabelText.text!
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
                 CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
@@ -555,7 +555,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 //                }
                 self.youTubeVideoID = selectedCell.videoIDProperty
                 self.youTubeVideoTitle = selectedCell.topHitLabelText.text!
-                VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
             }
         default:
             break
@@ -568,8 +568,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
         selectedIndex = indexPath.row
         UserDefaults.standard.set(selectedIndex, forKey:"saveLibrarySelectedIndex")
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-        VideoPlayerClass.callVideoPlayer.superViewController = self
+        VideoPlayer.callVideoPlayer.webView.pauseVideo()
+        VideoPlayer.callVideoPlayer.superViewController = self
         UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
         selectedSectionTableView.reloadData()
@@ -581,8 +581,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
         selectedIndex = indexPath.row
         UserDefaults.standard.set(selectedIndex, forKey:"saveTopHitsSelectedIndex")
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-        VideoPlayerClass.callVideoPlayer.superViewController = self
+        VideoPlayer.callVideoPlayer.webView.pauseVideo()
+        VideoPlayer.callVideoPlayer.superViewController = self
         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveRecentlyPlayedSelectedIndex")
         selectedSectionTableView.reloadData()
@@ -594,8 +594,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         UserDefaults.standard.set(false, forKey:"checkIfAnotherViewControllerRowIsSelected")
         selectedIndex = indexPath.row
         UserDefaults.standard.set(selectedIndex, forKey:"saveRecentlyPlayedSelectedIndex")
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
-        VideoPlayerClass.callVideoPlayer.superViewController = self
+        VideoPlayer.callVideoPlayer.webView.pauseVideo()
+        VideoPlayer.callVideoPlayer.superViewController = self
         UserDefaults.standard.removeObject(forKey: "saveLibrarySelectedIndex")
         UserDefaults.standard.removeObject(forKey: "saveTopHitsSelectedIndex")
         selectedSectionTableView.reloadData()

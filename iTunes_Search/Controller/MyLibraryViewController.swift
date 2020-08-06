@@ -34,7 +34,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var selectedIndex = Int()
     var videoSelected = Bool()
     var viewAllButton = UIButton()
-    var videoPlayerClass = VideoPlayerClass()
+    var videoPlayerClass = VideoPlayer()
     var checkIfRecentPlaylistIsEmpty = Bool()
     
     var artImageArray  = ["justinB","justinT","eminem","beyonce1","swift"]
@@ -64,9 +64,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -75,9 +75,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 }
             })
         case false:
-            VideoPlayerClass.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayerClass.callVideoPlayer.cardViewController.view)
-            VideoPlayerClass.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
                 if let error = error {
                     print("Error getting player state:" + error.localizedDescription)
                 } else if let playerState = playerState as? WKYTPlayerState {
@@ -152,16 +152,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     func showVideoPlayer(){
-        VideoPlayerClass.callVideoPlayer.webView.playVideo()
+        VideoPlayer.callVideoPlayer.webView.playVideo()
     }
     func showVideoPlayerPause(){
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        VideoPlayer.callVideoPlayer.webView.pauseVideo()
     }
     
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
-        VideoPlayerClass.callVideoPlayer.cardViewController.removeFromParent()
+        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
         self.navigationController?.navigationBar.isHidden = false
     }
     
@@ -375,7 +375,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         getSelectedLibraryVideo(indexPath)
         
-        VideoPlayerClass.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
+        VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: self.youTubeVideoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: self.youTubeVideoTitle)
         
         CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
             if error != nil {
@@ -396,9 +396,9 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         UserDefaults.standard.set(true, forKey:"checkIfAnotherViewControllerRowIsSelected")
         selectedIndex = indexPath.row
         selectTopHitsRow = true
-        VideoPlayerClass.callVideoPlayer.webView.pauseVideo()
+        VideoPlayer.callVideoPlayer.webView.pauseVideo()
         videoSelected = true
-        VideoPlayerClass.callVideoPlayer.superViewController = self
+        VideoPlayer.callVideoPlayer.superViewController = self
         myLibraryTableView.reloadData()
     }
     
