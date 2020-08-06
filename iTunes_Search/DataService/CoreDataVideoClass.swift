@@ -54,8 +54,7 @@ class CoreDataVideoClass: NSObject {
             let predicate = NSPredicate(format: "title == %@", videoTitle as CVarArg)
             request.predicate = predicate
         }
-        DispatchQueue.main.async {
-            do{
+         do{
                 let count = try context?.count(for: request)
                 if(count == 0){
                     // no matching object
@@ -78,6 +77,5 @@ class CoreDataVideoClass: NSObject {
                 loadVideoList(false,error,false)
                 print("error")
             }
-        }
     }
 }

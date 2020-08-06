@@ -77,6 +77,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         case playlistTableView:
             guard let selectedPaylistName = UserDefaults.standard.object(forKey: "selectedPlaylistRowTitle") as? String else{return}
             saveSelectedMusicCoreDataEntity(selectedPaylistName)
+            
             fetchVideoWithEntityName(playlistEntityName, selectedPaylistName)
             
             UserDefaults.standard.removeObject(forKey: "videoId")
