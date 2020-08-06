@@ -45,67 +45,14 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         
-        setupNavBar()
-        
-        myLibraryTableView.alwaysBounceVertical = false
+        setupSearchNavBar()
         
         self.myLibraryTableView.delegate = self
         self.myLibraryTableView.dataSource = self
         
         self.artistsCollectionCell.delegate = self
         self.artistsCollectionCell.dataSource = self
-
-        myLibraryTableView.separatorColor = UIColor(white: 0.95, alpha: 1)
-        //        load()
     }
-    
-    //    func load(){
-    //    let headers = [
-    //        "x-rapidapi-host": "artist-info.p.rapidapi.com",
-    //        "x-rapidapi-key": "37deb905abmsh1a5f867387ce07dp1357a1jsn4be46426c675"
-    //    ]
-    //
-    //    let request = NSMutableURLRequest(url: NSURL(string: "https://artist-info.p.rapidapi.com/getArtistInfo?=Justin")! as URL,
-    //                                            cachePolicy: .useProtocolCachePolicy,
-    //                                        timeoutInterval: 10.0)
-    //        request.httpMethod = "GET"
-    //        request.allHTTPHeaderFields = headers
-    //
-    //        let session = URLSession.shared
-    //        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-    //            if (error != nil) {
-    //                print(error)
-    //            } else {
-    //                let httpResponse = response as? HTTPURLResponse
-    //                if let data = data {
-    //
-    //                    do {
-    //                        let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-    //                        //                        let results = (json as! NSDictionary).object(forKey: "album") as? [Dictionary<String,AnyObject>]
-    //                        //                        print(results?[0]["title"])
-    //                        print(json)
-    //                    } catch {
-    //                        print(error)
-    //                    }
-    //                }
-    //            }
-    //        })
-    //
-    //        dataTask.resume()
-    //
-    
-    //    }
-    
-    func checkIfRowIsSelected(_ checkIf: Bool) {
-        if checkIf == true{
-            DispatchQueue.main.async {
-                self.selectLibraryRow = true
-                self.selectTopHitsRow = true
-                self.myLibraryTableView.reloadData()
-            }
-        }
-    }
-    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -243,8 +190,18 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
     }
     
+    func checkIfRowIsSelected(_ checkIf: Bool) {
+        if checkIf == true{
+            DispatchQueue.main.async {
+                self.selectLibraryRow = true
+                self.selectTopHitsRow = true
+                self.myLibraryTableView.reloadData()
+            }
+        }
+    }
     
-    func setupNavBar() {
+    
+    func setupSearchNavBar() {
         searchController.searchBar.placeholder = "Search Library"
         searchController.searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
         searchController.searchBar.sizeToFit()
@@ -334,8 +291,8 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: "LibraryMusicCell", for: indexPath) as? MainLibrariMusciTableViewCell)!
-        libraryMusicCell.contentView.backgroundColor = UIColor(white: 095, alpha: 1)
+        let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: myLibraryTableViewCellIdentifier, for: indexPath) as? MainLibrariMusciTableViewCell)!
+
         DispatchQueue.main.async {
             libraryMusicCell.configureMyLibraryCell(self.myLibraryListArray[indexPath.row])
             
@@ -345,15 +302,12 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        var rowHeiight = 0
-        rowHeiight = 55
-        
-        return CGFloat(rowHeiight)
+        return 55
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
-        view.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        view.tintColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 19)!
         header.textLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -386,6 +340,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 if selectedSearch == true {
                     nc.searchIsSelected = true
                 }
+//                nc.searchIsSelected = selectedSearch! ? true : false
                 UserDefaults.standard.set(false, forKey:"selectedSearch")
                 nc.checkTableViewName = sender as! String
                 nc.ifRowIsSelectedDelegate = self

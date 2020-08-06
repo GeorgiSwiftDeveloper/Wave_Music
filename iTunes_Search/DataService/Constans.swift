@@ -18,7 +18,7 @@ var playlistTableView = "Playlist"
 
 var selectedTableViewCellIdentifier = "selectedTableViewCell"
 var genreTableViewCellIdentifier =  "genreCell"
-
+var myLibraryTableViewCellIdentifier =  "LibraryMusicCell"
 var destinationToMyLibraryIdentifier = "DestinationViewIdentifier"
 var destinationToSelectedIdentifier = "IdentifirePlaylistNameVC"
 
