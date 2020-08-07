@@ -20,7 +20,11 @@ class GenresCollectionViewCell: UICollectionViewCell {
             self.genreImageView.image = UIImage(named: albums.genreImage)
                      
         }
-          self.genreImageView.layer.cornerRadius = 4
+        self.genreImageView.layer.cornerRadius = 5
+        self.genreNameLabel.layer.shadowColor = UIColor.lightGray.cgColor
+        self.genreNameLabel.layer.shadowRadius = 5
+        self.genreNameLabel?.layer.shadowOpacity = 1
+        self.genreNameLabel?.layer.shadowOffset = .zero
     }
     
 

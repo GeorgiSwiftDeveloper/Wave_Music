@@ -268,7 +268,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        DispatchQueue.main.async {
             self.genreBottomNSLayoutConstraint.constant = 150
             let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
             VideoPlayer.callVideoPlayer.superViewController = self
@@ -278,7 +277,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
-            }
         }
         
     }

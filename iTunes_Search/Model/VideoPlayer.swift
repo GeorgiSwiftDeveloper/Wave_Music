@@ -23,10 +23,6 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var visualEffectView:UIVisualEffectView!
     var checkCardView = Bool()
     var checkIfPaused = true
-    var musicLabelText = UILabel()
-    var musicLabelText2 = UILabel()
-    var playButton = UIButton()
-    var playButton2 = UIButton()
     var cardVisible = false
     var checkifAnimationHappend = Bool()
     
@@ -57,6 +53,10 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var animationProgressWhenInterrupted:CGFloat = 0
     var superViewController: UIViewController?
     
+    var topMusicTextLabel = MusicTextLabel()
+    var middleMusicTextLabel = MusicTextLabel()
+    
+    var playerButton = MusicPlayerButton()
     
     func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:String,index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: String){
         
@@ -90,7 +90,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         self.cardViewController.view.addSubview(self.webView)
         let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
                                               "origin": "https://www.youtube.com"]
-
+        
         self.webView.delegate = self
         self.webView.isHidden = true
         
@@ -98,37 +98,9 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             self.webView.load(withVideoId: genreVideoID, playerVars: playerVars)
         }
         
+        self.topMusicLabelConfiguration()
+        self.musicPlayerButtonConfiguration()
         
-        
-        
-        
-        
-        self.musicLabelText.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
-        self.musicLabelText.numberOfLines = 0
-        self.musicLabelText.textAlignment = .left
-        self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 10)
-        self.musicLabelText.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        self.musicLabelText.text = videoTitle
-        self.cardViewController.view.addSubview(self.musicLabelText)
-        
-        
-        
-        
-        self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
-        self.playButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
-        self.cardViewController.view.addSubview(self.playButton)
-        
-        
-        self.playButton2.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
-        self.playButton2.isHidden = true
-        self.cardViewController.view.addSubview(self.playButton2)
-        
-        self.leftButton.addTarget(self, action: #selector(self.leftButtonAction(sender:)), for: .touchUpInside)
-        self.rightButton.addTarget(self, action: #selector(self.rightButtonAction(sender:)), for: .touchUpInside)
-        
-        
-        self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-        self.playButton2.setImage(UIImage(named: "btn-pause"), for: .normal)
         UserDefaults.standard.set(true, forKey:"pause")
         
         
@@ -145,13 +117,9 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             self.videoIndex = -1
         }else{
             self.videoIndex += 1
-            //            self.musicLabelText.text = videoTitle[self.videoIndex]
-            //            self.musicLabelText2.text = videoTitle[self.videoIndex]
             let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
                                                   "origin": "https://www.youtube.com"]
             //            self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)
-            self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-            self.playButton2.setImage(UIImage(named: "btn-pause"), for: .normal)
             
         }
     }
@@ -161,13 +129,10 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             self.videoIndex = self.videoID.count
         }else{
             self.videoIndex -= 1
-            //            self.musicLabelText.text = videoTitle[self.videoIndex]
-            //            self.musicLabelText2.text = videoTitle[self.videoIndex]
+            
             let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
                                                   "origin": "https://www.youtube.com"]
             //            self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)
-            self.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-            self.playButton2.setImage(UIImage(named: "btn-pause"), for: .normal)
         }
     }
     
@@ -181,13 +146,11 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                 self?.updatePlayerState(playerState)
                 if self?.checkIfPaused == false {
                     self?.webView.playVideo()
-                    self?.playButton.setImage(UIImage(named: "btn-pause"), for: .normal)
-                    self?.playButton2.setImage(UIImage(named: "btn-pause"), for: .normal)
+                    sender.setImage(UIImage(named: "btn-pause"), for: .normal)
                     UserDefaults.standard.set(true, forKey:"pause")
                 }else{
                     self?.webView.pauseVideo()
-                    self?.playButton.setImage(UIImage(named: "btn-play"), for: .normal)
-                    self?.playButton2.setImage(UIImage(named: "btn-play"), for: .normal)
+                    sender.setImage(UIImage(named: "btn-play"), for: .normal)
                     UserDefaults.standard.set(false, forKey:"pause")
                 }
             }
@@ -266,23 +229,15 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHeight
                     self.cardViewController.view.layer.opacity = 1
-                    self.playButton2.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
+                    
+                    self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
+                    
                     self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     self.leftandRightButton()
-                    self.musicLabelText2.textAlignment = .center
                     self.superViewController?.navigationController?.navigationBar.isHidden = true
                     self.superViewController?.tabBarController?.tabBar.isHidden = true
-           
                     
-                    self.musicLabelText2.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
-                    
-                    self.musicLabelText2.numberOfLines = 0
-                    self.musicLabelText2.textAlignment = .center
-                    self.musicLabelText2.font = UIFont(name: "Verdana-Bold", size: 10)
-                    self.musicLabelText2.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                    self.musicLabelText2.text = self.videoTitle
-                    self.cardViewController.view.addSubview(self.musicLabelText2)
-                    
+                    self.middleMusicLabelConfiguration()
                     
                     self.volumeSlider.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 500, width: 250, height: 25)
                     self.volumeSlider.minimumValue = 0
@@ -293,22 +248,18 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     self.cardViewController.view.addSubview(self.volumeSlider)
                     self.volumeSlider.addTarget(self, action: #selector(self.sliderVolume(sender:)), for: .touchUpInside)
                     
-                    self.musicLabelText2.isHidden = false
-                    self.playButton2.isHidden = false
-                    self.musicLabelText.isHidden = true
-                    self.playButton.isHidden = true
+                    self.topMusicTextLabel.isHidden = true
                     self.webView.isHidden = false
                     self.volumeSlider.isHidden = false
                     self.playerView.isHidden = false
                     self.checkIfCollapsed = false
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
-                    self.playButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
-                    self.musicLabelText.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
                     self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    self.musicLabelText.numberOfLines = 0
-                    self.musicLabelText.textAlignment = .left
-                    self.musicLabelText.font = UIFont(name: "Verdana-Bold", size: 10)
+                    self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
+                    
+                    self.topMusicLabelConfiguration()
+                    
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
                     self.checkIfCollapsed = true
@@ -348,8 +299,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     //                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
                     
                 case .collapsed:
-                    self.musicLabelText.isHidden = false
-                    self.playButton.isHidden = false
+                    break
                     //                    self.visualEffectView.effect = nil
                 }
             }
@@ -404,6 +354,30 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
     }
     
+    
+    func  topMusicLabelConfiguration() {
+        topMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .left)
+        self.cardViewController.view.addSubview(topMusicTextLabel)
+        topMusicTextLabel.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
+    }
+    
+    
+    func  middleMusicLabelConfiguration() {
+        middleMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .center)
+        self.cardViewController.view.addSubview(middleMusicTextLabel)
+        self.middleMusicTextLabel.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
+    }
+    
+    func  musicPlayerButtonConfiguration() {
+        playerButton = MusicPlayerButton(image: "btn-pause")
+        self.cardViewController.view.addSubview(playerButton)
+        self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
+        
+        self.playerButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
+        
+        self.leftButton.addTarget(self, action: #selector(self.leftButtonAction(sender:)), for: .touchUpInside)
+        self.rightButton.addTarget(self, action: #selector(self.rightButtonAction(sender:)), for: .touchUpInside)
+    }
     
     @objc  func sliderVolume(sender: UISlider) {
         switch Int(sender.value) {

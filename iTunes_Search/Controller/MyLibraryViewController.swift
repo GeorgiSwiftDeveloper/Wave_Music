@@ -25,7 +25,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var webView = WKYTPlayerView()
     var selectTopHitsRow = Bool()
     var selectLibraryRow = Bool()
-    var musicIndexpatRow = IndexPath()
+  
 
     var youTubeVideoID = String()
     var youTubeVideoTitle = String()
@@ -324,7 +324,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                     nc.searchIsSelected = true
                 }
 //                nc.searchIsSelected = selectedSearch! ? true : false
-//                UserDefaults.standard.set(false, forKey:"selectedSearch")
                 nc.checkTableViewName = sender as! String
                 nc.ifRowIsSelectedDelegate = self
                 nc.musicRecordDeletedDelegate = self

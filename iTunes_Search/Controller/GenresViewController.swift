@@ -107,7 +107,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
                 cell.confiigurationGenreCell(GenreModelService.instance.getGenreArray()[indexPath.row])
                 cell.layer.borderColor = UIColor.lightGray.cgColor
                 cell.layer.borderWidth = 0.5
-                cell.layer.cornerRadius = 4
+                cell.layer.cornerRadius = 6
                 cell.layer.backgroundColor = UIColor.white.cgColor
 
                 return cell

@@ -25,7 +25,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     var checkIfEmptySearchText = Bool()
     
-    var selectedIndex = Int()
     var webView = WKYTPlayerView()
     var youTubeVideoID = String()
     var youTubeVideoTitle =  String()
@@ -244,7 +243,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = self.searchMusicTableView.cellForRow(at: tableView.indexPathForSelectedRow!) as! SearchVideoTableViewCell
-        selectedIndex = indexPath.row
 
         
         VideoPlayer.callVideoPlayer.superViewController = self

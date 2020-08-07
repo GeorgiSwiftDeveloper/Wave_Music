@@ -22,7 +22,6 @@ class SelectedSectionTableViewCell: UITableViewCell {
     
     
     func configureSelectedVideoCell(_ video: Video){
-//        DispatchQueue.global().async(qos: .background) {
             self.videoImageUrlProperty = video.videoImageUrl ?? ""
             self.videoIDProperty = video.videoId ?? ""
             self.videoTitleProperty = video.videoTitle ?? ""
@@ -49,6 +48,5 @@ class SelectedSectionTableViewCell: UITableViewCell {
                 self.topHitImageView?.layer.shadowOffset = .zero
                 self.topHitImageView?.clipsToBounds = true
             }
-//        }
     }
 }
