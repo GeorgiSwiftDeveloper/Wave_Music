@@ -27,6 +27,7 @@
 		6A4923FA245B3518008B8911 /* Pods_iTunes_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D4A304F8316D1B993148DF /* Pods_iTunes_Search.framework */; };
 		6A4BF72224DDD6D6009DFB8B /* UILabelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4BF72124DDD6D6009DFB8B /* UILabelModel.swift */; };
 		6A4BF72424DDE9BC009DFB8B /* UIButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4BF72324DDE9BC009DFB8B /* UIButtonModel.swift */; };
+		6A4BF72624DE0175009DFB8B /* UISliderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4BF72524DE0175009DFB8B /* UISliderModel.swift */; };
 		6A51B847245F7CCC00F72DAF /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51B846245F7CCC00F72DAF /* VideoPlayer.swift */; };
 		6A5227D22453AABA00D77850 /* AddSelectedMusicToWaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5227D12453AABA00D77850 /* AddSelectedMusicToWaveViewController.swift */; };
 		6A5227D42453CEAE00D77850 /* MyLibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5227D32453CEAE00D77850 /* MyLibraryTableViewCell.swift */; };
@@ -84,6 +85,7 @@
 		6A48ECC524366802007A82D6 /* MuviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuviesModel.swift; sourceTree = "<group>"; };
 		6A4BF72124DDD6D6009DFB8B /* UILabelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelModel.swift; sourceTree = "<group>"; };
 		6A4BF72324DDE9BC009DFB8B /* UIButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonModel.swift; sourceTree = "<group>"; };
+		6A4BF72524DE0175009DFB8B /* UISliderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISliderModel.swift; sourceTree = "<group>"; };
 		6A51B846245F7CCC00F72DAF /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		6A5227D12453AABA00D77850 /* AddSelectedMusicToWaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSelectedMusicToWaveViewController.swift; sourceTree = "<group>"; };
 		6A5227D32453CEAE00D77850 /* MyLibraryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLibraryTableViewCell.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			children = (
 				6A4BF72124DDD6D6009DFB8B /* UILabelModel.swift */,
 				6A4BF72324DDE9BC009DFB8B /* UIButtonModel.swift */,
+				6A4BF72524DE0175009DFB8B /* UISliderModel.swift */,
 			);
 			name = UIElements;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				6A48ECC424366485007A82D6 /* FutureMuviesModel.swift in Sources */,
 				6A3919E824D1000500306FE8 /* Artists.swift in Sources */,
 				6A41657E2458FC9B00910513 /* SelectedSectionTableViewCell.swift in Sources */,
+				6A4BF72624DE0175009DFB8B /* UISliderModel.swift in Sources */,
 				6AD0FD2D243C2B30006BF086 /* StationRadioTableViewCell.swift in Sources */,
 				6AF255CD2482D9BF00EC0E4A /* PlaylistsTableViewCell.swift in Sources */,
 				6A5227D42453CEAE00D77850 /* MyLibraryTableViewCell.swift in Sources */,

@@ -17,7 +17,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     let cardHeight:CGFloat = 750
     let cardHandleAreaHeight:CGFloat = 130
-    var playerView = UIView()
+    
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
     var visualEffectView:UIVisualEffectView!
@@ -25,15 +25,6 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var checkIfPaused = true
     var cardVisible = false
     var checkifAnimationHappend = Bool()
-    
-    var leftButton = UIButton()
-    var rightButton = UIButton()
-    var volumeSlider = UISlider()
-    var systemSlider = UISlider()
-    var volMax = UIImageView()
-    var volMin = UIImageView()
-    var addToFavorite = UIButton()
-    var sharePlayedMusic = UIButton()
     var checkIfPause = true
     var videoID = String()
     var videoIndex = Int()
@@ -58,6 +49,17 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     var playerButton = MusicPlayerButton()
     
+    var leftButton = MusicPlayerButton()
+    var rightButton = MusicPlayerButton()
+    
+    var volMax = MusicPlayerButton()
+    var volMin = MusicPlayerButton()
+    
+    var musicVolumeSlider = MusicVolumeSlider()
+    
+    var addToFavorite = MusicPlayerButton()
+    var sharePlayedMusic = MusicPlayerButton()
+    
     func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:String,index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: String){
         
         videoID = genreVideoID
@@ -68,22 +70,16 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             self.cardViewController.view.removeFromSuperview()
             checkCardView = false
         }
-        //        setupCardVisualEffect()
-        
-        
-        
-        
+                setupCardVisualEffect()
+ 
         checkCardView = true
         
         cardViewController = CardViewController(nibName:String(cardController), bundle:nil)
-        cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.cardViewController.view.layer.cornerRadius = 12
         
         superView.addChild(cardViewController)
         superView.view.addSubview(cardViewController.view)
         
         cardViewController.view.frame = CGRect(x: 0, y: superView.view.frame.height - cardHandleAreaHeight, width: superView.view.bounds.width, height: cardHeight)
-        cardViewController.view.clipsToBounds = true
         
         self.webView = WKYTPlayerView(frame: CGRect(x: 0, y: 55, width: UIScreen.main.bounds.width, height: 220))
         
@@ -174,23 +170,19 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     
     
-    //    func setupCardVisualEffect() {
-    //        visualEffectView = UIVisualEffectView()
-    //        visualEffectView.frame = CGRect(x: 0, y: 0, width: (self.superViewController?.view.frame.width)!, height: 170)
-    //        self.superViewController!.view.addSubview(visualEffectView)
-    //
-    //    }
-    //
+        func setupCardVisualEffect() {
+            visualEffectView = UIVisualEffectView()
+            visualEffectView.frame = CGRect(x: 0, y: 0, width: (self.superViewController?.view.frame.width)!, height: 145)
+            self.superViewController!.view.addSubview(visualEffectView)
+    
+        }
+    
     
     func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
         webView.playVideo();
     }
     
-    
-    
-    
-    
-    
+
     @objc func handleCardTap(recognzier:UIPanGestureRecognizer) {
         switch recognzier.state {
         case .ended:
@@ -225,37 +217,24 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.7) {
                 switch state {
                 case .expanded:
-                    //                    self.setupCardVisualEffect()
+                                        self.setupCardVisualEffect()
                     
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHeight
-                    self.cardViewController.view.layer.opacity = 1
-                    
                     self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
                     
-                    self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    self.leftandRightButton()
+              
+                    
                     self.superViewController?.navigationController?.navigationBar.isHidden = true
                     self.superViewController?.tabBarController?.tabBar.isHidden = true
                     
                     self.middleMusicLabelConfiguration()
-                    
-                    self.volumeSlider.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 500, width: 250, height: 25)
-                    self.volumeSlider.minimumValue = 0
-                    self.volumeSlider.maximumValue = 100
-                    self.volumeSlider.setValue(80, animated: true)
-                    self.volumeSlider.isContinuous = true
-                    self.volumeSlider.tintColor = UIColor.white
-                    self.cardViewController.view.addSubview(self.volumeSlider)
-                    self.volumeSlider.addTarget(self, action: #selector(self.sliderVolume(sender:)), for: .touchUpInside)
+                    self.musicPlayerVolumeSliderConfiguration()
                     
                     self.topMusicTextLabel.isHidden = true
                     self.webView.isHidden = false
-                    self.volumeSlider.isHidden = false
-                    self.playerView.isHidden = false
                     self.checkIfCollapsed = false
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
-                    self.cardViewController.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
                     
                     self.topMusicLabelConfiguration()
@@ -267,7 +246,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                         self.superViewController?.navigationController?.navigationBar.isHidden = true
                     }
                     
-                    //                    self.visualEffectView.removeFromSuperview()
+                                        self.visualEffectView.removeFromSuperview()
                 }
             }
             
@@ -295,12 +274,12 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                    break
-                    //                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
+//                    break
+                                        self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
                     
                 case .collapsed:
-                    break
-                    //                    self.visualEffectView.effect = nil
+//                    break
+                                        self.visualEffectView.effect = nil
                 }
             }
             
@@ -311,97 +290,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     }
     
     
-    func leftandRightButton(){
-        
-        self.leftButton.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 400, width: 60, height: 60)
-        self.leftButton.setImage(UIImage(named: "btn-previous"), for: .normal)
-        self.cardViewController.view.addSubview(leftButton)
-        
-        self.rightButton.frame = CGRect(x: self.cardViewController.view.center.x + 60, y: 400, width: 60, height: 60)
-        self.rightButton.setImage(UIImage(named: "btn-next"), for: .normal)
-        self.cardViewController.view.addSubview(rightButton)
-        
-        self.volMin.frame = CGRect(x: self.cardViewController.view.center.x - 145, y: 505, width: 15, height: 15)
-        self.volMin.image = UIImage(named: "vol-min")
-        self.cardViewController.view.addSubview(volMin)
-        
-        
-        self.volMax.frame = CGRect(x: self.cardViewController.view.center.x + 145, y: 505, width: 15, height: 15)
-        self.volMax.image = UIImage(named: "vol-max")
-        self.cardViewController.view.addSubview(volMax)
-        
-        
-        let textFont = UIFont(name: "Helvetica Bold", size: 11)
-        
-        self.addToFavorite.frame = CGRect(x: self.cardViewController.view.frame.origin.x, y: 600, width: 100, height: 30)
-        self.addToFavorite.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        self.addToFavorite.imageView?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        self.addToFavorite.imageView?.clipsToBounds = true
-        self.addToFavorite.setTitle("  My Library", for: .normal)
-        self.addToFavorite.titleLabel?.font = textFont
-        
-        self.cardViewController.view.addSubview(addToFavorite)
-        
-        
-        self.sharePlayedMusic.frame = CGRect(x: self.cardViewController.view.center.x + 40, y: 600, width: 230, height: 30)
-        self.sharePlayedMusic.setImage(UIImage(systemName: "arrowshape.turn.up.right.fill"), for: .normal)
-        self.sharePlayedMusic.imageView?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        self.sharePlayedMusic.imageView?.clipsToBounds = true
-        self.sharePlayedMusic.setTitle(" Share", for: .normal)
-        self.sharePlayedMusic.titleLabel?.font = textFont
-        self.cardViewController.view.addSubview(sharePlayedMusic)
-        
-        
-    }
-    
-    
-    func  topMusicLabelConfiguration() {
-        topMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .left)
-        self.cardViewController.view.addSubview(topMusicTextLabel)
-        topMusicTextLabel.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
-    }
-    
-    
-    func  middleMusicLabelConfiguration() {
-        middleMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .center)
-        self.cardViewController.view.addSubview(middleMusicTextLabel)
-        self.middleMusicTextLabel.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
-    }
-    
-    func  musicPlayerButtonConfiguration() {
-        playerButton = MusicPlayerButton(image: "btn-pause")
-        self.cardViewController.view.addSubview(playerButton)
-        self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
-        
-        self.playerButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
-        
-        self.leftButton.addTarget(self, action: #selector(self.leftButtonAction(sender:)), for: .touchUpInside)
-        self.rightButton.addTarget(self, action: #selector(self.rightButtonAction(sender:)), for: .touchUpInside)
-    }
-    
-    @objc  func sliderVolume(sender: UISlider) {
-        switch Int(sender.value) {
-        case 0:
-            MPVolumeView.setVolume(0.0)
-        case 5...15:
-            MPVolumeView.setVolume(0.2)
-        case 15...20:
-            MPVolumeView.setVolume(0.3)
-        case 20...40:
-            MPVolumeView.setVolume(0.4)
-        case 40...60:
-            MPVolumeView.setVolume(0.5)
-        case 60...80:
-            MPVolumeView.setVolume(0.7)
-        case 80...100:
-            MPVolumeView.setVolume(1)
-        default:
-            break
-        }
-    }
-    
-    
-    
+  
     
     
     func startInteractiveTransition(state:CardState, duration:TimeInterval) {
@@ -426,6 +315,88 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         }
     }
     
+    
+    
+    final   func  topMusicLabelConfiguration() {
+        topMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .left)
+        self.cardViewController.view.addSubview(topMusicTextLabel)
+        topMusicTextLabel.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
+    }
+    
+    
+    final  func  middleMusicLabelConfiguration() {
+        middleMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .center)
+        self.cardViewController.view.addSubview(middleMusicTextLabel)
+        self.middleMusicTextLabel.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
+    }
+    
+    final func  musicPlayerButtonConfiguration() {
+        playerButton = MusicPlayerButton(image: "btn-pause")
+        self.cardViewController.view.addSubview(playerButton)
+        self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
+        
+        self.playerButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
+        
+        leftButton = MusicPlayerButton(image: "btn-previous")
+        self.cardViewController.view.addSubview(leftButton)
+        self.leftButton.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 400, width: 60, height: 60)
+        self.leftButton.addTarget(self, action: #selector(self.leftButtonAction(sender:)), for: .touchUpInside)
+        
+        
+        rightButton = MusicPlayerButton(image: "btn-next")
+        self.cardViewController.view.addSubview(rightButton)
+        self.rightButton.frame = CGRect(x: self.cardViewController.view.center.x + 60, y: 400, width: 60, height: 60)
+        self.rightButton.addTarget(self, action: #selector(self.rightButtonAction(sender:)), for: .touchUpInside)
+    }
+    
+    
+    final func  musicPlayerVolumeSliderConfiguration() {
+        self.cardViewController.view.addSubview(self.musicVolumeSlider)
+        self.musicVolumeSlider.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 500, width: 250, height: 25)
+        self.musicVolumeSlider.addTarget(self, action: #selector(self.sliderVolume(sender:)), for: .touchUpInside)
+        
+        volMin = MusicPlayerButton(image: "vol-min")
+        self.volMin.frame = CGRect(x: self.cardViewController.view.center.x - 145, y: 505, width: 15, height: 15)
+        self.cardViewController.view.addSubview(volMin)
+        
+        
+        
+        volMax = MusicPlayerButton(image: "vol-max")
+        self.volMax.frame = CGRect(x: self.cardViewController.view.center.x + 145, y: 505, width: 15, height: 15)
+        self.cardViewController.view.addSubview(volMax)
+        
+        addToFavorite = AddToFavoriteButton(image: "star.fill")
+        self.addToFavorite.frame = CGRect(x: self.cardViewController.view.frame.origin.x, y: 600, width: 100, height: 30)
+        self.cardViewController.view.addSubview(addToFavorite)
+        
+        
+        sharePlayedMusic = AddToFavoriteButton(image: "arrowshape.turn.up.right.fill")
+        self.sharePlayedMusic.frame = CGRect(x: self.cardViewController.view.center.x + 40, y: 600, width: 230, height: 30)
+        self.cardViewController.view.addSubview(sharePlayedMusic)
+        
+        
+    }
+    
+    @objc  func sliderVolume(sender: UISlider) {
+        switch Int(sender.value) {
+        case 0:
+            MPVolumeView.setVolume(0.0)
+        case 5...15:
+            MPVolumeView.setVolume(0.2)
+        case 15...20:
+            MPVolumeView.setVolume(0.3)
+        case 20...40:
+            MPVolumeView.setVolume(0.4)
+        case 40...60:
+            MPVolumeView.setVolume(0.5)
+        case 60...80:
+            MPVolumeView.setVolume(0.7)
+        case 80...100:
+            MPVolumeView.setVolume(1)
+        default:
+            break
+        }
+    }
     
     
 }
