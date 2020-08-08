@@ -32,31 +32,36 @@ class MusicPlayerButton: UIButton {
     func configureMusicPlayerButton(image: String) {
         self.setImage(UIImage(named: image), for: .normal)
     }
+    
 }
 
 class AddToFavoriteButton: MusicPlayerButton {
     
-    override func configureMusicPlayerButton(image: String) {
-        setImage(UIImage(systemName: image), for: .normal)
-        imageView?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        imageView?.clipsToBounds = true
-        setTitle("My Library", for: .normal)
-        titleLabel?.font = UIFont(name: "Helvetica Bold", size: 11)
+    convenience init(image: String, text: String) {
+        self.init(frame: .zero)
+        configureMusicAddButton(image: image,text: text)
     }
     
+     func configureMusicAddButton(image: String, text: String) {
+        setImage(UIImage(systemName: image), for: .normal)
+        updateUI(text: text )
+    }
+    
+    func updateUI(text: String) {
+        imageView?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        imageView?.clipsToBounds = true
+        setTitle(text, for: .normal)
+        titleLabel?.font = UIFont(name: "Helvetica Bold", size: 11)
+    }
     
 }
 
 
 class SharePlayedMusicButton: AddToFavoriteButton {
     
-    override func configureMusicPlayerButton(image: String) {
+    override func configureMusicAddButton(image: String,text: String) {
         setImage(UIImage(systemName: image), for: .normal)
-        imageView?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        imageView?.clipsToBounds = true
-        setTitle(" Share", for: .normal)
-        titleLabel?.font = UIFont(name: "Helvetica Bold", size: 11)
+        updateUI(text: text)
     }
-    
     
 }

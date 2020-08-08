@@ -58,7 +58,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var musicVolumeSlider = MusicVolumeSlider()
     
     var addToFavorite = MusicPlayerButton()
-    var sharePlayedMusic = MusicPlayerButton()
+    var sharePlayedMusic = SharePlayedMusicButton()
     
     func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:String,index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: String){
         
@@ -365,12 +365,12 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         self.volMax.frame = CGRect(x: self.cardViewController.view.center.x + 145, y: 505, width: 15, height: 15)
         self.cardViewController.view.addSubview(volMax)
         
-        addToFavorite = AddToFavoriteButton(image: "star.fill")
+        addToFavorite = AddToFavoriteButton(image: "star.fill", text: "Library")
         self.addToFavorite.frame = CGRect(x: self.cardViewController.view.frame.origin.x, y: 600, width: 100, height: 30)
         self.cardViewController.view.addSubview(addToFavorite)
         
         
-        sharePlayedMusic = AddToFavoriteButton(image: "arrowshape.turn.up.right.fill")
+        sharePlayedMusic = SharePlayedMusicButton(image: "arrowshape.turn.up.right.fill", text: "Share")
         self.sharePlayedMusic.frame = CGRect(x: self.cardViewController.view.center.x + 40, y: 600, width: 230, height: 30)
         self.cardViewController.view.addSubview(sharePlayedMusic)
         

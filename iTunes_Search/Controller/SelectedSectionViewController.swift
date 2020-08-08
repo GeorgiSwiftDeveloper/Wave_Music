@@ -442,7 +442,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        NSLog("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
         if scrollView.contentOffset.y <=  0.000000 {
             ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
         }
