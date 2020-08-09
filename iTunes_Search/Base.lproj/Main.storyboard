@@ -610,6 +610,8 @@
                     <navigationItem key="navigationItem" id="bNe-j1-HrP"/>
                     <connections>
                         <outlet property="hintView" destination="Kit-hq-mBy" id="1MC-Ml-zcb"/>
+                        <outlet property="searchHintImageView" destination="ojG-np-OQp" id="PdK-3V-Lx3"/>
+                        <outlet property="searchHintLabelText" destination="WNQ-XC-pv7" id="C8u-Ge-RLS"/>
                         <outlet property="searchMusicTableView" destination="6je-dD-fXC" id="TB0-Xx-d6z"/>
                     </connections>
                 </viewController>

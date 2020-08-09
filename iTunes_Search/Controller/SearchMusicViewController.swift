@@ -18,17 +18,22 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     @IBOutlet weak var searchMusicTableView: UITableView!
     @IBOutlet weak var hintView: UIView!
+    @IBOutlet weak var searchHintImageView: UIImageView!
+    @IBOutlet weak var searchHintLabelText: UILabel!
+    
     
     var searchConnectionManager = SearchConnection()
     var searchMusicList = [Video]()
     let searchController = UISearchController(searchResultsController: nil)
-    
+    var activityIndicator = ActivityIndecator()
     
     var checkIfEmptySearchText = Bool()
     
     var webView = WKYTPlayerView()
     var youTubeVideoID = String()
     var youTubeVideoTitle =  String()
+    
+    var timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +121,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-
+    
     func updateSearchResults(for searchController: UISearchController) {
         print("update search results ... called here")
     }
@@ -127,11 +132,19 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         if searchBar.text != "" {
             let songName = searchBar.text
             searchConnectionManager.fetchYouTubeData(name: songName!)
-            searchBar.text = ""
-            searchController.isActive = false
+            searchController.searchBar.text  = songName
+            searchController.isActive = true
+            self.searchHintImageView.isHidden = true
+            self.searchHintLabelText.isHidden = true
+            activityIndicator.activityLoadIndecator(self.view, self.hintView)
+            activityIndicator.activityIndicatorView.startAnimating()
+
         }
     }
+    
 }
+
+
 
 extension SearchMusicViewController: AlbumManagerDelegate {
     func didUpdateAlbum(_ albumManager: SearchConnection, album: [Video]) {
@@ -141,10 +154,15 @@ extension SearchMusicViewController: AlbumManagerDelegate {
                 self.hintView.isHidden = true
                 self.searchMusicTableView.isHidden = false
                 self.searchMusicList = album
-                     DispatchQueue.main.async {
-                self.searchMusicTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.searchMusicTableView.reloadData()
                 }
-                
+                self.searchMusicTableView.isHidden = false
+                self.hintView.isHidden = true
+                ActivityIndecator.activitySharedInstace.activityIndicatorView.stopAnimating()
+                self.view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+                self.searchHintImageView.isHidden = false
+                self.searchHintLabelText.isHidden = false
             }
         }
     }
@@ -222,17 +240,17 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     
     
-     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-         if scrollView.contentOffset.y <=  0.000000 {
-               ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
-         }
-     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y <=  0.000000 {
+            ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
+        }
+    }
     
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = self.searchMusicTableView.cellForRow(at: tableView.indexPathForSelectedRow!) as! SearchVideoTableViewCell
-
+        
         
         VideoPlayer.callVideoPlayer.superViewController = self
         VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.singerNameLabel.text!)
