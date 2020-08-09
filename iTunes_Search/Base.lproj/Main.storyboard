@@ -625,6 +625,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nkg-uk-wAc">
+                                <rect key="frame" x="47.666666666666657" y="357" width="319" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="KuP-I8-YS4"/>
+                                    <constraint firstAttribute="width" constant="319" id="VzT-be-WEY"/>
+                                </constraints>
+                            </view>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleAspectFit" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LoF-Dm-i85">
                                 <rect key="frame" x="0.0" y="56" width="414" height="703"/>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -691,23 +699,26 @@
                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="LoF-Dm-i85" secondAttribute="bottom" constant="83" id="2hM-oE-DNe"/>
-                            <constraint firstItem="LoF-Dm-i85" firstAttribute="trailing" secondItem="9Ur-yE-fRU" secondAttribute="trailing" id="7tm-yW-mdi"/>
-                            <constraint firstItem="LoF-Dm-i85" firstAttribute="top" secondItem="9Ur-yE-fRU" secondAttribute="top" id="bru-G5-KOh"/>
-                            <constraint firstItem="LoF-Dm-i85" firstAttribute="leading" secondItem="9Ur-yE-fRU" secondAttribute="leading" id="ri1-OI-DgH"/>
+                            <constraint firstItem="LoF-Dm-i85" firstAttribute="trailing" secondItem="9Ur-yE-fRU" secondAttribute="trailing" id="Fwx-aL-W9G"/>
+                            <constraint firstItem="LoF-Dm-i85" firstAttribute="bottom" secondItem="9Ur-yE-fRU" secondAttribute="bottom" id="KP6-lP-yKx"/>
+                            <constraint firstItem="nkg-uk-wAc" firstAttribute="centerY" secondItem="afr-wl-t0b" secondAttribute="centerY" id="aOY-M5-xco"/>
+                            <constraint firstItem="LoF-Dm-i85" firstAttribute="leading" secondItem="9Ur-yE-fRU" secondAttribute="leading" id="avO-n8-H3h"/>
+                            <constraint firstItem="nkg-uk-wAc" firstAttribute="centerX" secondItem="afr-wl-t0b" secondAttribute="centerX" id="tHo-51-Fih"/>
+                            <constraint firstItem="LoF-Dm-i85" firstAttribute="top" secondItem="9Ur-yE-fRU" secondAttribute="top" id="u09-eb-YHA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Ur-yE-fRU"/>
                     </view>
                     <navigationItem key="navigationItem" id="6z8-gZ-3JW"/>
                     <connections>
                         <outlet property="genreCollectionView" destination="LoF-Dm-i85" id="bUm-e2-Ogt"/>
+                        <outlet property="indicatorView" destination="nkg-uk-wAc" id="zbk-kV-YCg"/>
                         <outlet property="navigationForMusic" destination="6z8-gZ-3JW" id="SCw-zy-pdD"/>
                         <segue destination="b5Q-pR-8Co" kind="show" identifier="genrseListSegue" id="eKD-ma-fTu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lSs-Pi-2T4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2453.5999999999999" y="204.67980295566502"/>
+            <point key="canvasLocation" x="2452.1739130434785" y="204.24107142857142"/>
         </scene>
         <!--Gnerelists-->
         <scene sceneID="82d-fc-TeJ">

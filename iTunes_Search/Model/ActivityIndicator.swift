@@ -9,7 +9,7 @@
 import Foundation
 import  UIKit
 
-class ActivityIndecator {
+struct ActivityIndecator {
     
     
     static var activitySharedInstace =  ActivityIndecator()
@@ -32,16 +32,27 @@ class ActivityIndecator {
     }
     
     
-    func activityLoadIndecator(_ view: UIView, _ mainView: AnyObject) {
-           activityIndicatorView.frame = CGRect(x: view.center.x, y:view.center.y, width: 50, height: 50)
-           activityLabelView.frame = CGRect(x: view.frame.width / 2 - 85, y: -60, width: 200, height: 50)
-           activityLabelView.text  =  "Uploading music information..."
-           activityLabelView.font = UIFont.init(name: "Verdana", size: 12)
-           activityIndicatorView.color = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
-           activityLabelView.textColor = UIColor.lightGray
-           mainView.addSubview(activityLabelView)
-           view.addSubview(activityIndicatorView)
-       }
+    func activityLoadIndecator(_ view: UIView, _ mainView: UIView) {
+        activityLabelView.text  =  "LOADING..."
+        activityLabelView.font = UIFont.init(name: "Verdana-bold", size: 14)
+        activityLabelView.textColor = UIColor.black
+        
+        activityIndicatorView.color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        view.backgroundColor = .white
+        
+        mainView.addSubview(activityIndicatorView)
+        mainView.addSubview(activityLabelView)
+        
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.centerYAnchor.constraint(equalTo: mainView.centerYAnchor).isActive = true
+        activityIndicatorView.centerXAnchor.constraint(equalTo: mainView.centerXAnchor).isActive = true
+        
+        
+        activityLabelView.translatesAutoresizingMaskIntoConstraints = false
+        activityLabelView.bottomAnchor.constraint(equalTo: activityIndicatorView.bottomAnchor,constant: 25.0).isActive = true
+        activityLabelView.centerXAnchor.constraint(equalTo: mainView.centerXAnchor).isActive = true
+
+    }
     
-     
+    
 }

@@ -324,7 +324,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 if selectedSearch == true {
                     nc.searchIsSelected = true
                 }
-//                nc.searchIsSelected = selectedSearch! ? true : false
                 nc.checkTableViewName = sender as! String
                 nc.ifRowIsSelectedDelegate = self
                 nc.musicRecordDeletedDelegate = self
