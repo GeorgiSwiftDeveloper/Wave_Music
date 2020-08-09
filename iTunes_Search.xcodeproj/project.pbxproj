@@ -157,9 +157,9 @@
 		6A1375C02433D09E0086113D /* iTunes_Search */ = {
 			isa = PBXGroup;
 			children = (
-				6A4BF72024DDD6A8009DFB8B /* UIElements */,
 				6A1375C12433D09E0086113D /* AppDelegate.swift */,
 				6A1375C32433D09E0086113D /* SceneDelegate.swift */,
+				6A4BF72024DDD6A8009DFB8B /* UIElements */,
 				6A3CB2A424D4B99A0066712D /* TableViewDesign */,
 				6A1375E3243435160086113D /* Model */,
 				6A1375E52434354F0086113D /* View */,

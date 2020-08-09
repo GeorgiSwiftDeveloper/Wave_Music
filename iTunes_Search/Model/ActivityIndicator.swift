@@ -32,5 +32,16 @@ class ActivityIndecator {
     }
     
     
+    func activityLoadIndecator(_ view: UIView, _ mainView: AnyObject) {
+           activityIndicatorView.frame = CGRect(x: view.center.x, y:view.center.y, width: 50, height: 50)
+           activityLabelView.frame = CGRect(x: view.frame.width / 2 - 85, y: -60, width: 200, height: 50)
+           activityLabelView.text  =  "Uploading music information..."
+           activityLabelView.font = UIFont.init(name: "Verdana", size: 12)
+           activityIndicatorView.color = #colorLiteral(red: 0.06852825731, green: 0.05823112279, blue: 0.1604561806, alpha: 0.8180118865)
+           activityLabelView.textColor = UIColor.lightGray
+           mainView.addSubview(activityLabelView)
+           view.addSubview(activityIndicatorView)
+       }
+    
      
 }

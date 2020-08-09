@@ -31,7 +31,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var youTubeVideoTitle = String()
     var checkTableViewName: String = ""
     var sectionButton = UIButton()
-    var selectedIndex = Int()
     var videoSelected = Bool()
     var viewAllButton = UIButton()
     var videoPlayerClass = VideoPlayer()
@@ -261,8 +260,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var titleName = ""
-        titleName = "My Library"
+        let titleName =  "My Library"
         return titleName
     }
     
@@ -285,7 +283,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 55
+        return 50
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
@@ -294,7 +292,8 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 19)!
         header.textLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        if myLibraryListArray.count >= 4{
+        let myLibraryCount: Bool = myLibraryListArray.count >= 4 ? true : false
+        if  myLibraryCount == true{
             viewAllButton.frame = CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40)
             viewAllButton.tag = section
             viewAllButton.setTitle("View all", for: .normal)
@@ -316,10 +315,12 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         case libraryTableView:
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "My Library"
+    
                 if videoSelected == true{
                     nc.videoSelected = true
                 }
                 let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                
                 if selectedSearch == true {
                     nc.searchIsSelected = true
                 }
@@ -361,7 +362,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
-        selectedIndex = indexPath.row
         selectTopHitsRow = true
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         videoSelected = true

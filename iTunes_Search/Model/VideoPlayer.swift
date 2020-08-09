@@ -13,7 +13,7 @@ import YoutubePlayer_in_WKWebView
 class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate {
     
     static let callVideoPlayer = VideoPlayer()
-    
+
     
     let cardHeight:CGFloat = 750
     let cardHandleAreaHeight:CGFloat = 130
@@ -21,15 +21,14 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
     var visualEffectView:UIVisualEffectView!
+    
     var checkCardView = Bool()
     var checkIfPaused = true
     var cardVisible = false
     var checkifAnimationHappend = Bool()
     var checkIfPause = true
     var videoID = String()
-    var videoIndex = Int()
     var videoTitle = String()
-    var checkIfCollapsed = Bool()
     
     enum CardState {
         case expanded
@@ -63,7 +62,6 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:String,index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: String){
         
         videoID = genreVideoID
-        videoIndex = index
         videoTitle = selectedVideoTitle
         
         if checkCardView{
@@ -84,7 +82,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         self.webView = WKYTPlayerView(frame: CGRect(x: 0, y: 55, width: UIScreen.main.bounds.width, height: 220))
         
         self.cardViewController.view.addSubview(self.webView)
-        let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
+        let playerVars: [AnyHashable: Any] = ["playsinline" : 1,"controls": "0","showinfo": "0",
                                               "origin": "https://www.youtube.com"]
         
         self.webView.delegate = self
@@ -108,28 +106,11 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
     }
     @objc func rightButtonAction(sender: UIButton){
-        
-        if self.videoIndex == self.videoID.count - 1{
-            self.videoIndex = -1
-        }else{
-            self.videoIndex += 1
-            let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
-                                                  "origin": "https://www.youtube.com"]
-            //            self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)
-            
-        }
+        webView.nextVideo()
     }
     
     @objc func leftButtonAction(sender: UIButton){
-        if self.videoIndex == 0{
-            self.videoIndex = self.videoID.count
-        }else{
-            self.videoIndex -= 1
-            
-            let playerVars: [AnyHashable: Any] = ["playsinline" : 1,
-                                                  "origin": "https://www.youtube.com"]
-            //            self.webView.load(withVideoId: self.videoID[self.videoIndex], playerVars: playerVars)
-        }
+    
     }
     
     
@@ -137,7 +118,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
             if let error = error {
                 print("Error getting player state:" + error.localizedDescription)
-            } else if let playerState = playerState as? WKYTPlayerState {
+            } else {
                 
                 self?.updatePlayerState(playerState)
                 if self?.checkIfPaused == false {
@@ -232,7 +213,6 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     
                     self.topMusicTextLabel.isHidden = true
                     self.webView.isHidden = false
-                    self.checkIfCollapsed = false
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
                     self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
@@ -241,12 +221,11 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
-                    self.checkIfCollapsed = true
                     if ((self.superViewController as? GenresViewController) != nil) {
                         self.superViewController?.navigationController?.navigationBar.isHidden = true
                     }
                     
-                                        self.visualEffectView.removeFromSuperview()
+                    self.visualEffectView.removeFromSuperview()
                 }
             }
             
@@ -274,12 +253,10 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-//                    break
-                                        self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
+                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
                     
                 case .collapsed:
-//                    break
-                                        self.visualEffectView.effect = nil
+                    self.visualEffectView.effect = nil
                 }
             }
             

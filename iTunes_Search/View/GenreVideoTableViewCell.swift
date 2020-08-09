@@ -16,11 +16,14 @@ class GenreVideoTableViewCell: UITableViewCell {
     @IBOutlet weak var addToFavoriteButton: UIButton!
     
     var videoID = String()
+    var playlistID = String()
     var videoImageUrl = String()
+    
     func configureGenreCell(_ video: Video){
         
         DispatchQueue.main.async {
             self.videoID = video.videoId ?? ""
+            self.playlistID = video.videoPlaylistId ?? ""
             if video.videoImageUrl != ""{
             self.videoImageUrl = video.videoImageUrl ?? ""
             self.singerNameLabel.text = video.videoTitle

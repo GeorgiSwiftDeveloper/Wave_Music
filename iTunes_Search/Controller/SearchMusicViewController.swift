@@ -15,6 +15,7 @@ let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContain
 
 class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UISearchBarDelegate,UISearchResultsUpdating {
     
+    
     @IBOutlet weak var searchMusicTableView: UITableView!
     @IBOutlet weak var hintView: UIView!
     
@@ -115,18 +116,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("search end editing.")
-        
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("search end editing.")
-    }
-    
-    
+
     func updateSearchResults(for searchController: UISearchController) {
         print("update search results ... called here")
     }
@@ -233,7 +223,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
          if scrollView.contentOffset.y <=  0.000000 {
                ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
          }
@@ -253,6 +242,5 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
                 print(error?.localizedDescription)
             }
         }
-        searchMusicTableView.reloadData()
     }
 }

@@ -38,7 +38,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var webView = WKYTPlayerView()
     var selectedVideo: Video?
     var topHitsListHeight = 190
-    var selectedIndex = Int()
     var searchIsSelected = Bool()
     
     weak var ifRowIsSelectedDelegate: CheckIfRowIsSelectedDelegate?
@@ -494,16 +493,14 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.getSelectedLibraryVideo(indexPath)
          
-            
                 VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.topHitLabelText.text!)
         case topHitsTableView:
                 self.selectedVideo = self.topHitsLists[indexPath.row]
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 self.getSelectedTopHitsVideo(indexPath)
                 
-         
-                
                 VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
+                
                 CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
@@ -514,8 +511,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
                 
                 self.getSelectedRecentlyPlayedVideo(indexPath)
-             
-                
+        
                 VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
         default:
             break
@@ -524,8 +520,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
-
-        selectedIndex = indexPath.row
 
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
@@ -536,8 +530,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     func getSelectedTopHitsVideo(_ indexPath: IndexPath){
 
-        selectedIndex = indexPath.row
-
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
 
@@ -547,7 +539,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     func getSelectedRecentlyPlayedVideo(_ indexPath: IndexPath){
 
-        selectedIndex = indexPath.row
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
         
