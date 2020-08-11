@@ -11,11 +11,11 @@ import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
 
-protocol CheckIfRowIsSelectedDelegate:class {
+protocol CheckIfRowIsSelectedDelegate:AnyObject {
     func checkIfRowIsSelected(_ checkIfRowIsSelected: Bool)
 }
 
-protocol CheckIfMusicRecordDeletedDelegate:class {
+protocol CheckIfMusicRecordDeletedDelegate:AnyObject {
     func musicRecordDeletedDelegate(_ alertTitleName: String)
 }
 
@@ -87,10 +87,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             self.navigationItem.rightBarButtonItem  = deleteButton
             if videoPlaylist.count == 0 {
                 let alert = UIAlertController(title: "No Tracks Found", message: "Your songs will be placed here after you add any song", preferredStyle: .alert)
-                let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                    self.navigationController?.popViewController(animated: true)
-                    self.tabBarController?.selectedIndex = 3
-                    self.tabBarController?.tabBar.isHidden = false
+                let libraryAction = UIAlertAction(title: "OK", style: .default) {[weak self] (action) in
+                    self?.navigationController?.popViewController(animated: true)
+                    self?.tabBarController?.selectedIndex = 3
+                    self?.tabBarController?.tabBar.isHidden = false
                 }
                 alert.addAction(libraryAction)
                 present(alert, animated: true, completion: nil)
@@ -109,7 +109,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
         
         if (videoIDProperty != nil) || (videoImageUrlProperty != nil) || (videoTitleProperty != nil) {
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase)  in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName) {[weak self] (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase)  in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
@@ -119,7 +119,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                         
                     }
                     alert.addAction(libraryAction)
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
             }
         }
@@ -138,10 +138,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             break
         }
         let alert = UIAlertController(title: alertTitle, message: "Are you sure you want to delete \(alertTitle) music list ?", preferredStyle: .alert)
-        let actionYes = UIAlertAction(title: "YES", style: .default) { (action) in
-            self.musicRecordDeletedDelegate?.musicRecordDeletedDelegate(alertTitle)
-            self.deleteRecords()
-            self.selectedSectionTableView.reloadData()
+        let actionYes = UIAlertAction(title: "YES", style: .default) { [weak self](action) in
+            self?.musicRecordDeletedDelegate?.musicRecordDeletedDelegate(alertTitle)
+            self?.deleteRecords()
+            self?.selectedSectionTableView.reloadData()
         }
         
         let actionNo = UIAlertAction(title: "NO", style: .cancel) { (action) in
@@ -269,27 +269,27 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     func fetchVideoWithEntityName(_ entityName: String, _ selectedPlaylistName: String){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
                     switch entityName {
                     case "TopHitsModel":
-                        self.topHitsLists.append(videoList!)
+                        self?.topHitsLists.append(videoList!)
                     case "MyLibraryMusicData":
-                        self.myLibraryList.append(videoList!)
+                        self?.myLibraryList.append(videoList!)
                     case "RecentPlayedMusicData":
-                        self.recentPlayedVideo.append(videoList!)
+                        self?.recentPlayedVideo.append(videoList!)
                     case "PlaylistMusicData":
-                        self.videoPlaylist.append(videoList!)
+                        self?.videoPlaylist.append(videoList!)
                         
                     default:
                         break
                     }
                     
                     DispatchQueue.main.async {
-                        self.selectedSectionTableView.reloadData()
+                        self?.selectedSectionTableView.reloadData()
                     }
                 }
             }
@@ -382,7 +382,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         request.predicate = predicate
         request.fetchLimit = 1
         let alert = UIAlertController(title: "\(selectedCell.videoTitleProperty)", message: "", preferredStyle: .actionSheet)
-        let addMyLibraryAction = UIAlertAction(title: "Add to MyLibrary", style: .default) { (action) in
+        let addMyLibraryAction = UIAlertAction(title: "Add to MyLibrary", style: .default) { [weak self](action) in
             do{
                 let count = try context?.count(for: request)
                 if(count == 0){
@@ -401,7 +401,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                     let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
                     }
                     alert.addAction(action)
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
             }catch{
                 print("error")

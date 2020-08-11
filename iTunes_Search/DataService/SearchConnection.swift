@@ -8,13 +8,14 @@
 
 import UIKit
 import Alamofire
-protocol AlbumManagerDelegate {
+
+protocol AlbumManagerDelegate: AnyObject {
     func didUpdateAlbum(_ albumManager:SearchConnection, album: [Video])
     func didFailWithError(error: String)
 }
 
 class SearchConnection {
-    var searchAlbumDelegate: AlbumManagerDelegate?
+   weak var searchAlbumDelegate: AlbumManagerDelegate?
     var videoArray = [Video]()
     let  API_KEY = "AIzaSyDnZJailNum2kVdCTUPpK80O8ERYBqbnX4"
     
@@ -26,7 +27,7 @@ class SearchConnection {
     
     func performRequest(with urlStrng: String) {
         
-        AF.request(urlStrng, parameters: nil).responseJSON { response in
+        AF.request(urlStrng, parameters: nil).responseJSON {[weak self] response in
             if let JSON = response.value as? [String: Any] {
                 print(JSON)
                 guard let listOfVideos = JSON["items"] as? NSArray else {return}
@@ -43,9 +44,9 @@ class SearchConnection {
                     videoObjArray.append(youTubeVideo)
                     
                 }
-                self.searchAlbumDelegate?.didUpdateAlbum(self, album: videoObjArray)
+                self?.searchAlbumDelegate?.didUpdateAlbum(self!, album: videoObjArray)
             }else{
-                self.searchAlbumDelegate?.didFailWithError(error: "Something whent wrong")
+                self?.searchAlbumDelegate?.didFailWithError(error: "Something whent wrong")
             }
             
         }

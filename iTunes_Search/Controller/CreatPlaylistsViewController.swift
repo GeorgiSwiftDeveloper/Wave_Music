@@ -361,15 +361,31 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
-            selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
-            deleteSelectedPlaylist(predicateName: selectedPlaylistRowTitle!)
-            createdPlaylistArray.remove(at: indexPath.row)
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
+//            selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
+//            deleteSelectedPlaylist(predicateName: selectedPlaylistRowTitle!)
+//            createdPlaylistArray.remove(at: indexPath.row)
+//            UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
+//
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "", handler: {a,b,c in
+            // example of your delete function
+            self.selectedPlaylistRowTitle = self.createdPlaylistArray[indexPath.row]
+            print(self.selectedPlaylistRowTitle!)
+            self.deleteSelectedPlaylist(predicateName: self.selectedPlaylistRowTitle!)
+            self.createdPlaylistArray.remove(at: indexPath.row)
             UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            
-        }
+        })
+
+        deleteAction.image = UIImage(systemName: "trash")
+        deleteAction.backgroundColor = .black
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
     

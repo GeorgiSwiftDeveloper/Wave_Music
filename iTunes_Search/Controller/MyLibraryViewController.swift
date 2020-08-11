@@ -106,21 +106,19 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func fetchVideoWithEntityName(_ entityName: String){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { [weak self](videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
                     switch entityName {
                     case myLibraryEntityName:
-                        self.myLibraryListArray.append(videoList!)
-                        if self.myLibraryListArray.count < 5 {
-                            self.viewAllButton.isHidden = true
-                        }else{
-                            self.viewAllButton.isHidden = false
-                        }
+                        self?.myLibraryListArray.append(videoList!)
+                        let libraryCount: Bool = (self?.myLibraryListArray.count)! <= 5 ? true : false
+                        self?.viewAllButton.isHidden = libraryCount
+
                         DispatchQueue.main.async {
-                            self.myLibraryTableView.reloadData()
+                            self?.myLibraryTableView.reloadData()
                         }
                     default:
                         break
@@ -185,7 +183,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func setupSearchNavBar() {
         searchController.searchBar.placeholder = "Search Library"
-        searchController.searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+        
+        searchController.searchBar.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
         searchController.searchBar.sizeToFit()
         searchController.delegate = self
         searchController.searchBar.delegate = self
@@ -196,7 +195,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         navigationItem.searchController?.searchResultsUpdater = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        
+
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle.fill"), style: .done, target: self, action: #selector(settingsButtonSelected))
     }
+    
+     
+//    @objc func  settingsButtonSelected()  {
+//        print("selected")
+//
+//        }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("Search end editing")
@@ -315,7 +323,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         case libraryTableView:
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "My Library"
-    
+            
                 if videoSelected == true{
                     nc.videoSelected = true
                 }
@@ -378,9 +386,9 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             removeSelectedVideoRow(atIndexPath: indexPath)
             myLibraryListArray.remove(at: indexPath.row)
             checkIfNoTracksFound()
-            if myLibraryListArray.count <= 6 {
-                sectionButton.isHidden = true
-            }
+            let libraryCount: Bool = (self.myLibraryListArray.count) <= 5 ? true : false
+            sectionButton.isHidden = libraryCount
+
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }

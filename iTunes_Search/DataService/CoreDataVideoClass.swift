@@ -18,7 +18,7 @@ class CoreDataVideoClass: NSObject {
         if searchBarText != "" {
             let predicate = NSPredicate(format: "title contains[c]%@", searchBarText as CVarArg)
             request.predicate = predicate
-       
+            
         }else if playlistName != ""{
             let predicate = NSPredicate(format: "playlistName == %@", playlistName as CVarArg)
             request.predicate = predicate
@@ -35,8 +35,8 @@ class CoreDataVideoClass: NSObject {
                 //                let channelId = data.value(forKey: "channelId") as? String ?? ""
                 //                let songDescription = data.value(forKey: "songDescription") as! String
                 //                let playListId = data.value(forKey: "playListId") as! String
-                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
-                loadVideoList(videoList,nil)
+                 let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
+                    loadVideoList(videoList,nil)
             }
             
         } catch {
@@ -54,28 +54,28 @@ class CoreDataVideoClass: NSObject {
             let predicate = NSPredicate(format: "title == %@", videoTitle as CVarArg)
             request.predicate = predicate
         }
-         do{
-                let count = try context?.count(for: request)
-                if(count == 0){
-                    // no matching object
-                    let entity = NSEntityDescription.entity(forEntityName: coreDataEntityName, in: context!)
-                    let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                    newEntity.setValue(videoTitle, forKey: "title")
-                    newEntity.setValue(videoImage, forKey: "image")
-                    newEntity.setValue(videoId, forKey: "videoId")
-                    if playlistName != ""{
-                        newEntity.setValue(playlistName, forKey: "playlistName")
-                    }
-                    try context?.save()
-                    loadVideoList(true,nil, false)
-                    print("data has been saved ")
-                }else{
-                    print("this song is in database")
-                    loadVideoList(false,nil, true)
+        do{
+            let count = try context?.count(for: request)
+            if(count == 0){
+                // no matching object
+                let entity = NSEntityDescription.entity(forEntityName: coreDataEntityName, in: context!)
+                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                newEntity.setValue(videoTitle, forKey: "title")
+                newEntity.setValue(videoImage, forKey: "image")
+                newEntity.setValue(videoId, forKey: "videoId")
+                if playlistName != ""{
+                    newEntity.setValue(playlistName, forKey: "playlistName")
                 }
-            }catch{
-                loadVideoList(false,error,false)
-                print("error")
+                try context?.save()
+                loadVideoList(true,nil, false)
+                print("data has been saved ")
+            }else{
+                print("this song is in database")
+                loadVideoList(false,nil, true)
             }
+        }catch{
+            loadVideoList(false,error,false)
+            print("error")
+        }
     }
 }

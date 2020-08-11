@@ -86,15 +86,15 @@ class AddSelectedMusicToWaveViewController: UIViewController {
             else{
             // at least one matching object exists
                 let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                    self.doneButton.isEnabled = false
-                    self.doneButton.alpha = 0.75;
+                let action = UIAlertAction(title: "OK", style: .cancel) {[weak self] (action) in
+                    self?.doneButton.isEnabled = false
+                    self?.doneButton.alpha = 0.75;
                 }
                 
-                let libraryAction = UIAlertAction(title: "My Library", style: .default) { (action) in
-                     self.navigationController?.popViewController(animated: true)
-                     self.tabBarController?.selectedIndex = 0
-                     self.tabBarController?.tabBar.isHidden = false
+                let libraryAction = UIAlertAction(title: "My Library", style: .default) { [weak self](action) in
+                    self?.navigationController?.popViewController(animated: true)
+                    self?.tabBarController?.selectedIndex = 0
+                    self?.tabBarController?.tabBar.isHidden = false
                 }
                 
                 alert.addAction(action)

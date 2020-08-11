@@ -68,7 +68,7 @@ class  YouTubeVideoConnection {
         }
         
         let parameters = ["part":"snippet","playlistId":UPLOADS_PLAYLIST_ID, "key":API_KEY]
-        AF.request(YouTubeUrl, parameters: parameters).responseJSON { response in
+        AF.request(YouTubeUrl, parameters: parameters).responseJSON { [weak self] response in
             if let JSON = response.value as? [String: Any] {
                 print(JSON)
                 guard  let listOfVideos = JSON["items"] as? NSArray else {return}
@@ -89,8 +89,8 @@ class  YouTubeVideoConnection {
                     videoObjArray.append(youTubeVideo)
                 }
                 
-                self.videoArray = videoObjArray
-                loadYouTubeList(self.videoArray,nil)
+                self?.videoArray = videoObjArray
+                loadYouTubeList(self?.videoArray,nil)
             }else{
                 loadYouTubeList(nil,Error.self as? Error)
             }
