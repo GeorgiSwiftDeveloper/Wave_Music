@@ -13,7 +13,7 @@ import YoutubePlayer_in_WKWebView
 class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate {
     
     static let callVideoPlayer = VideoPlayer()
-
+    
     
     let cardHeight:CGFloat = 750
     let cardHandleAreaHeight:CGFloat = 130
@@ -21,13 +21,11 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
     var visualEffectView:UIVisualEffectView!
-    
-    var checkCardView = Bool()
+
     var checkIfPaused = true
     var cardVisible = false
     var checkifAnimationHappend = Bool()
     var checkIfPause = true
-    var videoID = String()
     var videoTitle = String()
     
     enum CardState {
@@ -59,18 +57,10 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var addToFavorite = MusicPlayerButton()
     var sharePlayedMusic = SharePlayedMusicButton()
     
-    func videoPalyerClass(sellectedCell: UITableViewCell,genreVideoID:String,index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: String){
+    func videoPalyerClass(genreVideoID:String,index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: String){
         
-        videoID = genreVideoID
         videoTitle = selectedVideoTitle
-        
-        if checkCardView{
-            self.cardViewController.view.removeFromSuperview()
-            checkCardView = false
-        }
-                setupCardVisualEffect()
- 
-        checkCardView = true
+        setupCardVisualEffect()
         
         cardViewController = CardViewController(nibName:String(cardController), bundle:nil)
         
@@ -79,15 +69,22 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
         cardViewController.view.frame = CGRect(x: 0, y: superView.view.frame.height - cardHandleAreaHeight, width: superView.view.bounds.width, height: cardHeight)
         
-        self.webView = WKYTPlayerView(frame: CGRect(x: 0, y: 55, width: UIScreen.main.bounds.width, height: 220))
         
         self.cardViewController.view.addSubview(self.webView)
-        let playerVars: [AnyHashable: Any] = ["playsinline" : 1,"controls": "0","showinfo": "0",
-                                              "origin": "https://www.youtube.com"]
+        
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
+        self.webView.topAnchor.constraint(equalToSystemSpacingBelow: cardViewController.view.topAnchor, multiplier: 0).isActive = true
+        self.webView.leadingAnchor.constraint(equalToSystemSpacingAfter: cardViewController.view.leadingAnchor, multiplier: 0).isActive  = true
+        self.webView.trailingAnchor.constraint(equalToSystemSpacingAfter: cardViewController.view.trailingAnchor, multiplier: 0).isActive = true
+        self.webView.heightAnchor.constraint(greaterThanOrEqualToConstant: 300).isActive = true
+        self.webView.widthAnchor.constraint(greaterThanOrEqualToConstant: UIScreen.main.bounds.width).isActive = true
+        
         
         self.webView.delegate = self
         self.webView.isHidden = true
         
+        let playerVars: [AnyHashable: Any] = ["playsinline" : 1,"controls": "0","showinfo": "0",
+                                              "origin": "https://www.youtube.com"]
         DispatchQueue.main.async {
             self.webView.load(withVideoId: genreVideoID, playerVars: playerVars)
         }
@@ -106,11 +103,11 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
     }
     @objc func rightButtonAction(sender: UIButton){
-        webView.nextVideo()
+
     }
     
     @objc func leftButtonAction(sender: UIButton){
-    
+        
     }
     
     
@@ -151,19 +148,19 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     
     
-        func setupCardVisualEffect() {
-            visualEffectView = UIVisualEffectView()
-            visualEffectView.frame = CGRect(x: 0, y: 0, width: (self.superViewController?.view.frame.width)!, height: 145)
-            self.superViewController!.view.addSubview(visualEffectView)
-    
-        }
+    func setupCardVisualEffect() {
+        visualEffectView = UIVisualEffectView()
+        visualEffectView.frame = CGRect(x: 0, y: 0, width: (self.superViewController?.view.frame.width)!, height: 145)
+        self.superViewController!.view.addSubview(visualEffectView)
+        
+    }
     
     
     func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
         webView.playVideo();
     }
     
-
+    
     @objc func handleCardTap(recognzier:UIPanGestureRecognizer) {
         switch recognzier.state {
         case .ended:
@@ -198,12 +195,12 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.7) {
                 switch state {
                 case .expanded:
-                                        self.setupCardVisualEffect()
+                    self.setupCardVisualEffect()
                     
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHeight
                     self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
                     
-              
+                    
                     
                     self.superViewController?.navigationController?.navigationBar.isHidden = true
                     self.superViewController?.tabBarController?.tabBar.isHidden = true
@@ -221,6 +218,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
+                    self.webView.isHidden = true
                     if ((self.superViewController as? GenresViewController) != nil) {
                         self.superViewController?.navigationController?.navigationBar.isHidden = true
                     }
@@ -267,7 +265,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     }
     
     
-  
+    
     
     
     func startInteractiveTransition(state:CardState, duration:TimeInterval) {

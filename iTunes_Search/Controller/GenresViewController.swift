@@ -54,27 +54,31 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         case false:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         default:
             break
         }
@@ -113,15 +117,10 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     }
     
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super .viewDidDisappear(animated)
-        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
-    }
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return  GenreModelService.instance.getGenreArray().count
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {

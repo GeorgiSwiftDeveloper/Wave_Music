@@ -67,39 +67,37 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         case false:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         default:
             break
         }
         fetchRecentlyPlayedVideoData()
     }
     
-    
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super .viewDidDisappear(animated)
-        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
-    }
     
     
     func fetchRecentlyPlayedVideoData() {
@@ -361,16 +359,16 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
-//            selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
-//            deleteSelectedPlaylist(predicateName: selectedPlaylistRowTitle!)
-//            createdPlaylistArray.remove(at: indexPath.row)
-//            UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    //        if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
+    //            selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
+    //            deleteSelectedPlaylist(predicateName: selectedPlaylistRowTitle!)
+    //            createdPlaylistArray.remove(at: indexPath.row)
+    //            UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
+    //            tableView.deleteRows(at: [indexPath], with: .automatic)
+    //
+    //        }
+    //    }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "", handler: {a,b,c in
@@ -382,7 +380,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
             tableView.deleteRows(at: [indexPath], with: .automatic)
         })
-
+        
         deleteAction.image = UIImage(systemName: "trash")
         deleteAction.backgroundColor = .black
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -553,7 +551,7 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
         case topHitsCollectionCell:
             self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: SelectedTableView.topHitsTableView.rawValue)
         case recentPlayedCollectionCell:
-
+            
             self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: SelectedTableView.recentPlayedTableView.rawValue)
         default:
             break

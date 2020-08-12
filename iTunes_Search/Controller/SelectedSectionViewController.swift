@@ -192,34 +192,38 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         super .viewWillAppear(animated)
         
         searchisSelected()
-
+        
         
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         case false:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         default:
             break
         }
@@ -252,7 +256,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
         searchisSelected()
-        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
         self.navigationController?.navigationBar.isHidden = false
     }
     
@@ -489,30 +492,30 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         ifRowIsSelectedDelegate?.checkIfRowIsSelected(true)
         switch checkTableViewName {
         case SelectedTableView.libraryTableView.rawValue:
-                self.selectedVideo = self.myLibraryList[indexPath.row]
-                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
-                self.getSelectedLibraryVideo(indexPath)
-         
-                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.topHitLabelText.text!)
+            self.selectedVideo = self.myLibraryList[indexPath.row]
+            let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
+            self.getSelectedLibraryVideo(indexPath)
+            
+            VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.topHitLabelText.text!)
         case SelectedTableView.topHitsTableView.rawValue:
-                self.selectedVideo = self.topHitsLists[indexPath.row]
-                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
-                self.getSelectedTopHitsVideo(indexPath)
-                
-                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
-                
-                CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
-                    if error != nil {
-                        print(error?.localizedDescription as Any)
+            self.selectedVideo = self.topHitsLists[indexPath.row]
+            let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
+            self.getSelectedTopHitsVideo(indexPath)
+            
+            VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
+            
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
                 }
             }
         case SelectedTableView.recentPlayedTableView.rawValue:
-                self.selectedVideo = self.recentPlayedVideo[indexPath.row]
-                let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
-                
-                self.getSelectedRecentlyPlayedVideo(indexPath)
-        
-                VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
+            self.selectedVideo = self.recentPlayedVideo[indexPath.row]
+            let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
+            
+            self.getSelectedRecentlyPlayedVideo(indexPath)
+            
+            VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
         default:
             break
         }
@@ -520,25 +523,25 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
-
+        
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
-
+        
         selectedSectionTableView.reloadData()
     }
     
     
     func getSelectedTopHitsVideo(_ indexPath: IndexPath){
-
+        
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
-
+        
         selectedSectionTableView.reloadData()
     }
     
     
     func getSelectedRecentlyPlayedVideo(_ indexPath: IndexPath){
-
+        
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
         

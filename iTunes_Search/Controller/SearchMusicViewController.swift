@@ -49,27 +49,34 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })
+            }
         case false:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })
+            }
         default:
             break
         }
@@ -100,10 +107,6 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super .viewDidDisappear(animated)
-        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
-    }
     
     
     
@@ -128,7 +131,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
             self.searchHintLabelText.isHidden = true
             activityIndicator.activityLoadIndecator(self.view, self.hintView)
             activityIndicator.activityIndicatorView.startAnimating()
-
+            
         }
     }
     
@@ -243,7 +246,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         
         
         VideoPlayer.callVideoPlayer.superViewController = self
-        VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.singerNameLabel.text!)
+        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.singerNameLabel.text!)
         
         CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
             if error != nil {

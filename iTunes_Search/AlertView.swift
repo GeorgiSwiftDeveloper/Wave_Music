@@ -19,7 +19,6 @@ class AlertView: UIView {
     @IBOutlet weak var alerView: UIView!
     @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-//    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var musicImageView: UIImageView!
     
@@ -56,10 +55,7 @@ class AlertView: UIView {
     
     func showAlert(title: String, message: String, alertType: AlertType,videoImage:String){
         self.titleLabel.text = title
-//        self.messageLabel.text = message
-
-        
-        
+    
         let imageUrl = URL(string: videoImage)
         do{
             let data:NSData = try NSData(contentsOf: imageUrl!)

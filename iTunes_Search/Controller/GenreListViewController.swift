@@ -78,27 +78,31 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         case false:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         default:
             break
         }
@@ -131,12 +135,6 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         self.genreBottomNSLayoutConstraint.constant = 150
         self.view.layoutIfNeeded()
-    }
-    
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super .viewDidDisappear(animated)
-        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
     }
     
     
@@ -267,15 +265,15 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            self.genreBottomNSLayoutConstraint.constant = 150
-            let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
-            VideoPlayer.callVideoPlayer.superViewController = self
-            VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.singerNameLabel.text!)
-            
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }
+        self.genreBottomNSLayoutConstraint.constant = 150
+        let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
+        VideoPlayer.callVideoPlayer.superViewController = self
+        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.singerNameLabel.text!)
+        
+        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }
         }
         
     }

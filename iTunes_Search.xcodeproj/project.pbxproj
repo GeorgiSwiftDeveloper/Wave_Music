@@ -187,9 +187,6 @@
 				6A5A0CD72447DB0A005150D2 /* GenreModel.swift */,
 				6A48ECC524366802007A82D6 /* MuviesModel.swift */,
 				6A3919E724D1000500306FE8 /* Artists.swift */,
-				6A51B846245F7CCC00F72DAF /* VideoPlayer.swift */,
-				6AC4964B248452580050825B /* AlertView.swift */,
-				6A08424624CCEC7200F00E0F /* ActivityIndicator.swift */,
 				6AD0FD30243C2DF4006BF086 /* RadioModel.swift */,
 			);
 			path = Model;
@@ -261,6 +258,9 @@
 				6A4BF72324DDE9BC009DFB8B /* UIButtonModel.swift */,
 				6A4BF72524DE0175009DFB8B /* UISliderModel.swift */,
 				6A701D2124E34AC600D9A15E /* SearchControllerModel.swift */,
+				6AC4964B248452580050825B /* AlertView.swift */,
+				6A08424624CCEC7200F00E0F /* ActivityIndicator.swift */,
+				6A51B846245F7CCC00F72DAF /* VideoPlayer.swift */,
 			);
 			name = UIElements;
 			sourceTree = "<group>";

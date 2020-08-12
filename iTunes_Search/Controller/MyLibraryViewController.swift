@@ -25,8 +25,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var webView = WKYTPlayerView()
     var selectTopHitsRow = Bool()
     var selectLibraryRow = Bool()
-  
-
+    
+    
     var youTubeVideoID = String()
     var youTubeVideoTitle = String()
     var checkTableViewName: String = ""
@@ -49,8 +49,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.myLibraryTableView.delegate = self
         self.myLibraryTableView.dataSource = self
         
-//        self.artistsCollectionCell.delegate = self
-//        self.artistsCollectionCell.dataSource = self
+        //        self.artistsCollectionCell.delegate = self
+        //        self.artistsCollectionCell.dataSource = self
     }
     
     
@@ -60,27 +60,31 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         case false:
-            VideoPlayer.callVideoPlayer.superViewController = self
-            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-            VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                if let error = error {
-                    print("Error getting player state:" + error.localizedDescription)
-                } else if let playerState = playerState as? WKYTPlayerState {
-                    
-                    self?.updatePlayerState(playerState)
-                }
-            })
+            DispatchQueue.main.async {
+                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+                VideoPlayer.callVideoPlayer.superViewController = self
+                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+                    if let error = error {
+                        print("Error getting player state:" + error.localizedDescription)
+                    } else if let playerState = playerState as? WKYTPlayerState {
+                        
+                        self?.updatePlayerState(playerState)
+                    }
+                })}
         default:
             break
         }
@@ -116,7 +120,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                         self?.myLibraryListArray.append(videoList!)
                         let libraryCount: Bool = (self?.myLibraryListArray.count)! <= 5 ? true : false
                         self?.viewAllButton.isHidden = libraryCount
-
+                        
                         DispatchQueue.main.async {
                             self?.myLibraryTableView.reloadData()
                         }
@@ -155,12 +159,11 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
-        VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
         self.navigationController?.navigationBar.isHidden = false
     }
     
     
-
+    
     
     
     func musicRecordDeletedDelegate(_ alertTitleName: String) {
@@ -183,14 +186,14 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func setupSearchNavBar() {
         SearchController.sharedSearchControllerInstace.searchController(searchController, superViewController: self, navigationItem: self.navigationItem, searchPlaceholder: SearchPlaceholder.librarySearch)
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle.fill"), style: .done, target: self, action: #selector(settingsButtonSelected))
+        //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle.fill"), style: .done, target: self, action: #selector(settingsButtonSelected))
     }
     
-     
-//    @objc func  settingsButtonSelected()  {
-//        print("selected")
-//
-//        }
+    
+    //    @objc func  settingsButtonSelected()  {
+    //        print("selected")
+    //
+    //        }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("Search end editing")
@@ -232,16 +235,16 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return artImageArray.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//            let artCell = collectionView.dequeueReusableCell(withReuseIdentifier: "artists", for: indexPath) as! ArtistsCollectionViewCell
-//            artCell.configureArtistCell(artImageArray[indexPath.row])
-//        return artCell
-//    }
-
+    //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    //        return artImageArray.count
+    //    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    //            let artCell = collectionView.dequeueReusableCell(withReuseIdentifier: "artists", for: indexPath) as! ArtistsCollectionViewCell
+    //            artCell.configureArtistCell(artImageArray[indexPath.row])
+    //        return artCell
+    //    }
+    
     
     
 }
@@ -267,7 +270,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: myLibraryTableViewCellIdentifier, for: indexPath) as? MainLibrariMusciTableViewCell)!
-
+        
         DispatchQueue.main.async {
             libraryMusicCell.configureMyLibraryCell(self.myLibraryListArray[indexPath.row])
             
@@ -304,22 +307,22 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-            if  let nc = segue.destination as? SelectedSectionViewController {
-                nc.navigationItem.title = "My Library"
+        
+        if  let nc = segue.destination as? SelectedSectionViewController {
+            nc.navigationItem.title = "My Library"
             
-                if videoSelected == true{
-                    nc.videoSelected = true
-                }
-                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-                
-                if selectedSearch == true {
-                    nc.searchIsSelected = true
-                }
-                nc.checkTableViewName = sender as! String
-                nc.ifRowIsSelectedDelegate = self
-                nc.musicRecordDeletedDelegate = self
+            if videoSelected == true{
+                nc.videoSelected = true
             }
+            let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+            
+            if selectedSearch == true {
+                nc.searchIsSelected = true
+            }
+            nc.checkTableViewName = sender as! String
+            nc.ifRowIsSelectedDelegate = self
+            nc.musicRecordDeletedDelegate = self
+        }
     }
     
     
@@ -330,10 +333,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         self.selectLibraryRow = false
         
         let selectedCell = self.myLibraryTableView.cellForRow(at: indexPath) as! MainLibrariMusciTableViewCell
-   
+        
         getSelectedLibraryVideo(indexPath)
         
-        VideoPlayer.callVideoPlayer.videoPalyerClass(sellectedCell: selectedCell, genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.musicTitleLabel.text!)
+        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.musicTitleLabel.text!)
         
         CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
             if error != nil {
@@ -369,7 +372,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             checkIfNoTracksFound()
             let libraryCount: Bool = (self.myLibraryListArray.count) <= 5 ? true : false
             sectionButton.isHidden = libraryCount
-
+            
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
