@@ -11,9 +11,9 @@ import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
 
-class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate,CheckIfRowIsSelectedDelegate,CheckIfMusicRecordDeletedDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    
+
+
+class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate,CheckIfRowIsSelectedDelegate,CheckIfMusicRecordDeletedDelegate  {
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -49,8 +49,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.myLibraryTableView.delegate = self
         self.myLibraryTableView.dataSource = self
         
-        self.artistsCollectionCell.delegate = self
-        self.artistsCollectionCell.dataSource = self
+//        self.artistsCollectionCell.delegate = self
+//        self.artistsCollectionCell.dataSource = self
     }
     
     
@@ -182,21 +182,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func setupSearchNavBar() {
-        searchController.searchBar.placeholder = "Search Library"
-        
-        searchController.searchBar.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
-        searchController.searchBar.sizeToFit()
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
-        searchController.searchBar.isHidden = false
-        searchController.hidesNavigationBarDuringPresentation = true
-        self.definesPresentationContext = true
-        navigationItem.searchController?.searchBar.delegate = self
-        navigationItem.searchController?.searchResultsUpdater = self
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        
-
+        SearchController.sharedSearchControllerInstace.searchController(searchController, superViewController: self, navigationItem: self.navigationItem, searchPlaceholder: SearchPlaceholder.librarySearch)
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle.fill"), style: .done, target: self, action: #selector(settingsButtonSelected))
     }
     
@@ -246,15 +232,15 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return artImageArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let artCell = collectionView.dequeueReusableCell(withReuseIdentifier: "artists", for: indexPath) as! ArtistsCollectionViewCell
-            artCell.configureArtistCell(artImageArray[indexPath.row])
-        return artCell
-    }
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return artImageArray.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//            let artCell = collectionView.dequeueReusableCell(withReuseIdentifier: "artists", for: indexPath) as! ArtistsCollectionViewCell
+//            artCell.configureArtistCell(artImageArray[indexPath.row])
+//        return artCell
+//    }
 
     
     
@@ -298,7 +284,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     {
         view.tintColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 19)!
+        header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 18)!
         header.textLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         let myLibraryCount: Bool = myLibraryListArray.count >= 4 ? true : false
         if  myLibraryCount == true{
@@ -314,13 +300,11 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func destinationMyLibraryVC(){
-        checkTableViewName =  libraryTableView
-        self.performSegue(withIdentifier: destinationToMyLibraryIdentifier, sender: checkTableViewName)
+        self.performSegue(withIdentifier: destinationToMyLibraryIdentifier, sender: SelectedTableView.libraryTableView.rawValue)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch sender as? String {
-        case libraryTableView:
+
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "My Library"
             
@@ -336,9 +320,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 nc.ifRowIsSelectedDelegate = self
                 nc.musicRecordDeletedDelegate = self
             }
-        default:
-            break
-        }
     }
     
     

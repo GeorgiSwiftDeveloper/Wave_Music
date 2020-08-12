@@ -310,7 +310,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch sender as? String {
-        case topHitsTableView:
+        case SelectedTableView.topHitsTableView.rawValue:
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "World Top 100"
                 if videoSelected == true{
@@ -325,7 +325,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                 nc.checkTableViewName = sender as! String
                 nc.ifRowIsSelectedDelegate = self
             }
-        case recentPlayedTableView:
+        case SelectedTableView.recentPlayedTableView.rawValue:
             
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "RECENTLY PLAYED"
@@ -551,11 +551,10 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case topHitsCollectionCell:
-            checkTableViewName =  topHitsTableView
-            self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: checkTableViewName)
+            self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: SelectedTableView.topHitsTableView.rawValue)
         case recentPlayedCollectionCell:
-            checkTableViewName =  recentPlayedTableView
-            self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: checkTableViewName)
+
+            self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: SelectedTableView.recentPlayedTableView.rawValue)
         default:
             break
         }

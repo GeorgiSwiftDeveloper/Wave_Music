@@ -108,17 +108,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     
     func setupNavBar() {
-        searchController.obscuresBackgroundDuringPresentation  = false
-        searchController.searchBar.placeholder = "Search YouTube"
-        searchController.searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
-        searchController.searchBar.sizeToFit()
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
-        searchController.searchBar.isHidden = false
-        navigationItem.searchController?.searchBar.delegate = self
-        navigationItem.searchController?.searchResultsUpdater = self
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+        SearchController.sharedSearchControllerInstace.searchController(searchController, superViewController: self, navigationItem: self.navigationItem, searchPlaceholder: SearchPlaceholder.youTubeSearch)
     }
     
     

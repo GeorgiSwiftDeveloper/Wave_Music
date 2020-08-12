@@ -43,6 +43,7 @@
 		6A66CFD124734514004B0C44 /* TopHitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */; };
 		6A66CFD324734522004B0C44 /* RecentPlayedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */; };
 		6A66CFD52474A698004B0C44 /* CoreDataVideoClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD42474A698004B0C44 /* CoreDataVideoClass.swift */; };
+		6A701D2224E34AC600D9A15E /* SearchControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A701D2124E34AC600D9A15E /* SearchControllerModel.swift */; };
 		6ABBC281245B822D002565E2 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABBC27F245B822D002565E2 /* CardViewController.swift */; };
 		6ABBC282245B822D002565E2 /* CardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ABBC280245B822D002565E2 /* CardViewController.xib */; };
 		6ABFE2272439099C000217B5 /* GenresCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */; };
@@ -102,6 +103,7 @@
 		6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHitsCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPlayedCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A66CFD42474A698004B0C44 /* CoreDataVideoClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataVideoClass.swift; sourceTree = "<group>"; };
+		6A701D2124E34AC600D9A15E /* SearchControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchControllerModel.swift; sourceTree = "<group>"; };
 		6ABBC27F245B822D002565E2 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		6ABBC280245B822D002565E2 /* CardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewController.xib; sourceTree = "<group>"; };
 		6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				6A4BF72124DDD6D6009DFB8B /* UILabelModel.swift */,
 				6A4BF72324DDE9BC009DFB8B /* UIButtonModel.swift */,
 				6A4BF72524DE0175009DFB8B /* UISliderModel.swift */,
+				6A701D2124E34AC600D9A15E /* SearchControllerModel.swift */,
 			);
 			name = UIElements;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				6ABFE229243909DD000217B5 /* GenresViewController.swift in Sources */,
 				6A66CFD324734522004B0C44 /* RecentPlayedCollectionViewCell.swift in Sources */,
 				6A51B847245F7CCC00F72DAF /* VideoPlayer.swift in Sources */,
+				6A701D2224E34AC600D9A15E /* SearchControllerModel.swift in Sources */,
 				6AF255CB2482D4D700EC0E4A /* CreatPlaylistsViewController.swift in Sources */,
 				6A08424724CCEC7200F00E0F /* ActivityIndicator.swift in Sources */,
 				6A3CB2A624D4B9C90066712D /* DesignView.swift in Sources */,
