@@ -49,6 +49,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.myLibraryTableView.delegate = self
         self.myLibraryTableView.dataSource = self
         
+        
         //        self.artistsCollectionCell.delegate = self
         //        self.artistsCollectionCell.dataSource = self
     }
@@ -60,31 +61,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            DispatchQueue.main.async {
-                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
-                VideoPlayer.callVideoPlayer.superViewController = self
-                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                    if let error = error {
-                        print("Error getting player state:" + error.localizedDescription)
-                    } else if let playerState = playerState as? WKYTPlayerState {
-                        
-                        self?.updatePlayerState(playerState)
-                    }
-                })}
+            updatePlayerView()
         case false:
-            DispatchQueue.main.async {
-                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
-                VideoPlayer.callVideoPlayer.superViewController = self
-                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                    if let error = error {
-                        print("Error getting player state:" + error.localizedDescription)
-                    } else if let playerState = playerState as? WKYTPlayerState {
-                        
-                        self?.updatePlayerState(playerState)
-                    }
-                })}
+            updatePlayerView()
         default:
             break
         }
@@ -92,6 +71,22 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         fetchVideoData()
         
         checkIfNoTracksFound()
+    }
+    
+    func  updatePlayerView() {
+        DispatchQueue.main.async {
+            VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+        }
+        VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            if let error = error {
+                print("Error getting player state:" + error.localizedDescription)
+            } else if let playerState = playerState as? WKYTPlayerState {
+                
+                self?.updatePlayerState(playerState)
+            }
+        })
     }
     
     func checkIfNoTracksFound () {

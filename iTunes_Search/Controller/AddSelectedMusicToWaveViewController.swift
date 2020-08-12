@@ -67,11 +67,11 @@ class AddSelectedMusicToWaveViewController: UIViewController {
         let predicate = NSPredicate(format: "title == %@", (selectedMusicData!.videoTitle ?? "") as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
-
+        
         do{
             let count = try context?.count(for: request)
             if(count == 0){
-            // no matching object
+                // no matching object
                 let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
                 let newEntity = NSManagedObject(entity: entity!, insertInto: context)
                 newEntity.setValue(selectedMusicData?.videoTitle, forKey: "title")
@@ -79,12 +79,12 @@ class AddSelectedMusicToWaveViewController: UIViewController {
                 newEntity.setValue(selectedMusicData?.videoId, forKey: "videoId")
                 
                 try context?.save()
-                           print("data has been saved ")
-                           self.navigationController?.popViewController(animated: true)
-                           self.tabBarController?.tabBar.isHidden = false
+                print("data has been saved ")
+                self.navigationController?.popViewController(animated: true)
+                self.tabBarController?.tabBar.isHidden = false
             }
             else{
-            // at least one matching object exists
+                // at least one matching object exists
                 let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .cancel) {[weak self] (action) in
                     self?.doneButton.isEnabled = false
@@ -102,11 +102,11 @@ class AddSelectedMusicToWaveViewController: UIViewController {
                 present(alert, animated: true, completion: nil)
                 
             }
-          }
+        }
         catch let error as NSError {
-             print("Could not fetch \(error), \(error.userInfo)")
-          }
-   }
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+    }
     
 }
 

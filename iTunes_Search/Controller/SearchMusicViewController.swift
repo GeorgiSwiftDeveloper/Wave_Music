@@ -49,39 +49,30 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-            DispatchQueue.main.async {
-                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
-                VideoPlayer.callVideoPlayer.superViewController = self
-                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                    if let error = error {
-                        print("Error getting player state:" + error.localizedDescription)
-                    } else if let playerState = playerState as? WKYTPlayerState {
-                        
-                        self?.updatePlayerState(playerState)
-                    }
-                })
-            }
+            updatePlayerView()
         case false:
-            
-            DispatchQueue.main.async {
-                VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
-                VideoPlayer.callVideoPlayer.superViewController = self
-                self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
-                VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
-                    if let error = error {
-                        print("Error getting player state:" + error.localizedDescription)
-                    } else if let playerState = playerState as? WKYTPlayerState {
-                        
-                        self?.updatePlayerState(playerState)
-                    }
-                })
-            }
+            updatePlayerView()
         default:
             break
         }
         
         ActivityIndecator.activitySharedInstace.activityIndecator(self.view, searchMusicTableView)
+    }
+    
+    func  updatePlayerView() {
+        DispatchQueue.main.async {
+            VideoPlayer.callVideoPlayer.cardViewController.removeFromParent()
+            VideoPlayer.callVideoPlayer.superViewController = self
+            self.view.addSubview(VideoPlayer.callVideoPlayer.cardViewController.view)
+        }
+        VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
+            if let error = error {
+                print("Error getting player state:" + error.localizedDescription)
+            } else if let playerState = playerState as? WKYTPlayerState {
+                
+                self?.updatePlayerState(playerState)
+            }
+        })
     }
     
     
