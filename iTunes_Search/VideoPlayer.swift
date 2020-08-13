@@ -74,8 +74,8 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
         self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.topAnchor.constraint(equalToSystemSpacingBelow: cardViewController.view.topAnchor, multiplier: 5).isActive = true
-        self.webView.leadingAnchor.constraint(equalToSystemSpacingAfter: cardViewController.view.leadingAnchor, multiplier: 0).isActive  = true
-        self.webView.trailingAnchor.constraint(equalToSystemSpacingAfter: cardViewController.view.trailingAnchor, multiplier: 0).isActive = true
+        self.webView.rightAnchor.constraint(equalToSystemSpacingAfter: cardViewController.view.rightAnchor, multiplier: 0).isActive  = true
+        self.webView.leftAnchor.constraint(equalToSystemSpacingAfter: cardViewController.view.leftAnchor, multiplier: 0).isActive = true
         self.webView.heightAnchor.constraint(greaterThanOrEqualToConstant: 300).isActive = true
         self.webView.widthAnchor.constraint(greaterThanOrEqualToConstant: UIScreen.main.bounds.width).isActive = true
         
@@ -90,8 +90,8 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         }
         middlePlayerButton = MusicPlayerButton(image: "btn-pause")
         
-        self.topMusicLabelConfiguration()
         self.musicPlayerButtonConfiguration()
+        self.topMusicLabelConfiguration()
         
         UserDefaults.standard.set(true, forKey:"pause")
         
@@ -202,8 +202,8 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     self.superViewController?.navigationController?.navigationBar.isHidden = true
                     self.superViewController?.tabBarController?.tabBar.isHidden = true
                     
-                    self.middleMusicLabelConfiguration()
                     self.middleMusicPlayerButtonConfiguration()
+                    self.middleMusicLabelConfiguration()
                     self.musicPrevNextButtons()
                     self.musicPlayerVolumeSliderConfiguration()
                     self.topMusicTextLabel.isHidden = true
@@ -294,9 +294,9 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         topMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .left)
         self.cardViewController.view.addSubview(topMusicTextLabel)
         topMusicTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        topMusicTextLabel.topAnchor.constraint(equalToSystemSpacingBelow: self.cardViewController.view.topAnchor, multiplier: 2).isActive = true
+        topMusicTextLabel.topAnchor.constraint(equalToSystemSpacingBelow: self.cardViewController.view.topAnchor, multiplier: 1.5).isActive = true
         topMusicTextLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: self.cardViewController.view.leadingAnchor, multiplier: 2).isActive = true
-        
+        topMusicTextLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.playerButton.leadingAnchor, constant: -30).isActive = true
         
     }
     
@@ -307,6 +307,8 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         middleMusicTextLabel.translatesAutoresizingMaskIntoConstraints = false
         
         middleMusicTextLabel.topAnchor.constraint(equalToSystemSpacingBelow: self.webView.bottomAnchor, multiplier: 5).isActive = true
+        middleMusicTextLabel.leftAnchor.constraint(equalTo: self.cardViewController.view.leftAnchor, constant: 10).isActive = true
+        middleMusicTextLabel.rightAnchor.constraint(equalTo: self.cardViewController.view.rightAnchor, constant: -10).isActive = true
         middleMusicTextLabel.centerXAnchor.constraint(equalToSystemSpacingAfter: self.cardViewController.view.centerXAnchor, multiplier: 0).isActive = true
     }
     
@@ -317,7 +319,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         playerButton.translatesAutoresizingMaskIntoConstraints = false
         
         playerButton.topAnchor.constraint(equalToSystemSpacingBelow: self.cardViewController.view.topAnchor, multiplier: 1).isActive = true
-        playerButton.trailingAnchor.constraint(lessThanOrEqualTo: self.cardViewController.view.trailingAnchor, constant: -20).isActive = true
+        playerButton.rightAnchor.constraint(equalTo: self.cardViewController.view.rightAnchor, constant: -10).isActive = true
         playerButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         playerButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
@@ -330,7 +332,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         middlePlayerButton.translatesAutoresizingMaskIntoConstraints = false
         
         middlePlayerButton.centerXAnchor.constraint(equalToSystemSpacingAfter: self.cardViewController.view.centerXAnchor, multiplier: 0).isActive = true
-        middlePlayerButton.centerYAnchor.constraint(lessThanOrEqualTo: self.cardViewController.view.centerYAnchor, constant: 100).isActive = true
+        middlePlayerButton.centerYAnchor.constraint(lessThanOrEqualTo: self.cardViewController.view.centerYAnchor, constant: 120).isActive = true
         
         
         self.middlePlayerButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
