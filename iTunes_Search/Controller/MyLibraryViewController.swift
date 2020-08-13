@@ -112,8 +112,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 if videoList != nil {
                     switch entityName {
                     case myLibraryEntityName:
+
                         self?.myLibraryListArray.append(videoList!)
                         let libraryCount: Bool = (self?.myLibraryListArray.count)! <= 5 ? true : false
+                            
                         self?.viewAllButton.isHidden = libraryCount
                         
                         DispatchQueue.main.async {

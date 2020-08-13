@@ -21,7 +21,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
     var visualEffectView:UIVisualEffectView!
-
+    
     var checkIfPaused = true
     var cardVisible = false
     var checkifAnimationHappend = Bool()
@@ -103,7 +103,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
     }
     @objc func rightButtonAction(sender: UIButton){
-
+        
     }
     
     @objc func leftButtonAction(sender: UIButton){
@@ -198,22 +198,19 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     self.setupCardVisualEffect()
                     
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHeight
-                    self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x - 30, y: 400, width: 60, height: 60)
-                    
-                    
-                    
                     self.superViewController?.navigationController?.navigationBar.isHidden = true
                     self.superViewController?.tabBarController?.tabBar.isHidden = true
                     
+                    
                     self.middleMusicLabelConfiguration()
                     self.musicPlayerVolumeSliderConfiguration()
-                    
+                    self.musicPrevNextButtons()
                     self.topMusicTextLabel.isHidden = true
+                    self.playerButton.isHidden = true
                     self.webView.isHidden = false
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
-                    self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
-                    
+                    self.playerButton.isHidden  = false
                     self.topMusicLabelConfiguration()
                     
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
@@ -295,23 +292,38 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     final   func  topMusicLabelConfiguration() {
         topMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .left)
         self.cardViewController.view.addSubview(topMusicTextLabel)
-        topMusicTextLabel.frame = CGRect(x: 10, y: 5, width: Int(UIScreen.main.bounds.width - 100), height: 40)
+        topMusicTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        topMusicTextLabel.topAnchor.constraint(equalToSystemSpacingBelow: self.cardViewController.view.topAnchor, multiplier: 2).isActive = true
+        topMusicTextLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: self.cardViewController.view.leadingAnchor, multiplier: 2).isActive = true
+        
+        
     }
     
     
     final  func  middleMusicLabelConfiguration() {
         middleMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .center)
         self.cardViewController.view.addSubview(middleMusicTextLabel)
-        self.middleMusicTextLabel.frame = CGRect(x: 10, y: Int(self.cardViewController.view.center.y) - 180, width: Int(UIScreen.main.bounds.width) - 20, height: 50)
+        middleMusicTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        middleMusicTextLabel.topAnchor.constraint(equalToSystemSpacingBelow: self.webView.bottomAnchor, multiplier: 5).isActive = true
+        middleMusicTextLabel.centerXAnchor.constraint(equalToSystemSpacingAfter: self.cardViewController.view.centerXAnchor, multiplier: 0).isActive = true
     }
     
     final func  musicPlayerButtonConfiguration() {
         playerButton = MusicPlayerButton(image: "btn-pause")
         self.cardViewController.view.addSubview(playerButton)
-        self.playerButton.frame = CGRect(x: self.cardViewController.view.center.x + 160, y: 10, width: 30, height: 30)
+        
+        playerButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        playerButton.topAnchor.constraint(equalToSystemSpacingBelow: self.cardViewController.view.topAnchor, multiplier: 1).isActive = true
+        playerButton.trailingAnchor.constraint(lessThanOrEqualTo: self.cardViewController.view.trailingAnchor, constant: -20).isActive = true
+        playerButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        playerButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         self.playerButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
-        
+    }
+    
+    func musicPrevNextButtons() {
         leftButton = MusicPlayerButton(image: "btn-previous")
         self.cardViewController.view.addSubview(leftButton)
         self.leftButton.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 400, width: 60, height: 60)
