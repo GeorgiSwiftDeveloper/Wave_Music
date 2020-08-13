@@ -203,9 +203,9 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     self.superViewController?.tabBarController?.tabBar.isHidden = true
                     
                     self.middleMusicLabelConfiguration()
-                    self.musicPlayerVolumeSliderConfiguration()
-                    self.musicPrevNextButtons()
                     self.middleMusicPlayerButtonConfiguration()
+                    self.musicPrevNextButtons()
+                    self.musicPlayerVolumeSliderConfiguration()
                     self.topMusicTextLabel.isHidden = true
                     self.playerButton.isHidden = true
                     self.webView.isHidden = false
@@ -216,7 +216,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
-//                    self.webView.isHidden = true
+                    
                     if ((self.superViewController as? GenresViewController) != nil) {
                         self.superViewController?.navigationController?.navigationBar.isHidden = true
                     }
@@ -328,9 +328,10 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         self.cardViewController.view.addSubview(middlePlayerButton)
         
         middlePlayerButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        middlePlayerButton.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: self.middleMusicTextLabel.bottomAnchor, multiplier: 5).isActive = true
+            
         middlePlayerButton.centerXAnchor.constraint(equalToSystemSpacingAfter: self.cardViewController.view.centerXAnchor, multiplier: 0).isActive = true
+        middlePlayerButton.centerYAnchor.constraint(lessThanOrEqualTo: self.cardViewController.view.centerYAnchor, constant: 100).isActive = true
+ 
         
         self.middlePlayerButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
     }
@@ -339,45 +340,49 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         leftButton = MusicPlayerButton(image: "btn-previous")
         self.cardViewController.view.addSubview(leftButton)
         leftButton.translatesAutoresizingMaskIntoConstraints = false
-        leftButton.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: self.middleMusicTextLabel.bottomAnchor, multiplier: 5).isActive = true
-        leftButton.centerXAnchor.constraint(lessThanOrEqualTo: self.cardViewController.view.centerXAnchor, constant: -75).isActive = true
-        
+
+        leftButton.centerYAnchor.constraint(lessThanOrEqualTo: self.cardViewController.view.centerYAnchor, constant: 100).isActive = true
+        leftButton.trailingAnchor.constraint(lessThanOrEqualTo: self.middlePlayerButton.leadingAnchor, constant: -50).isActive = true
         self.leftButton.addTarget(self, action: #selector(self.leftButtonAction(sender:)), for: .touchUpInside)
         
         
         rightButton = MusicPlayerButton(image: "btn-next")
         self.cardViewController.view.addSubview(rightButton)
         rightButton.translatesAutoresizingMaskIntoConstraints = false
-        rightButton.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: self.middleMusicTextLabel.bottomAnchor, multiplier: 5).isActive = true
-        rightButton.centerXAnchor.constraint(lessThanOrEqualTo: self.cardViewController.view.centerXAnchor, constant: 75).isActive = true
-        
+
+          rightButton.centerYAnchor.constraint(lessThanOrEqualTo: self.cardViewController.view.centerYAnchor, constant: 100).isActive = true
+          rightButton.leadingAnchor.constraint(lessThanOrEqualTo: self.middlePlayerButton.trailingAnchor, constant: 50).isActive = true
         self.rightButton.addTarget(self, action: #selector(self.rightButtonAction(sender:)), for: .touchUpInside)
     }
     
     
     final func  musicPlayerVolumeSliderConfiguration() {
         self.cardViewController.view.addSubview(self.musicVolumeSlider)
-        self.musicVolumeSlider.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 500, width: 250, height: 25)
+        
+        self.musicVolumeSlider.translatesAutoresizingMaskIntoConstraints = true
+
+        
+//        self.musicVolumeSlider.frame = CGRect(x: self.cardViewController.view.center.x - 120, y: 500, width: 250, height: 25)
         self.musicVolumeSlider.addTarget(self, action: #selector(self.sliderVolume(sender:)), for: .touchUpInside)
         
-        volMin = MusicPlayerButton(image: "vol-min")
-        self.volMin.frame = CGRect(x: self.cardViewController.view.center.x - 145, y: 505, width: 15, height: 15)
-        self.cardViewController.view.addSubview(volMin)
-        
-        
-        
-        volMax = MusicPlayerButton(image: "vol-max")
-        self.volMax.frame = CGRect(x: self.cardViewController.view.center.x + 145, y: 505, width: 15, height: 15)
-        self.cardViewController.view.addSubview(volMax)
-        
-        addToFavorite = AddToFavoriteButton(image: "star.fill", text: "Library")
-        self.addToFavorite.frame = CGRect(x: self.cardViewController.view.frame.origin.x, y: 600, width: 100, height: 30)
-        self.cardViewController.view.addSubview(addToFavorite)
-        
-        
-        sharePlayedMusic = SharePlayedMusicButton(image: "arrowshape.turn.up.right.fill", text: "Share")
-        self.sharePlayedMusic.frame = CGRect(x: self.cardViewController.view.center.x + 40, y: 600, width: 230, height: 30)
-        self.cardViewController.view.addSubview(sharePlayedMusic)
+//        volMin = MusicPlayerButton(image: "vol-min")
+//        self.volMin.frame = CGRect(x: self.cardViewController.view.center.x - 145, y: 505, width: 15, height: 15)
+//        self.cardViewController.view.addSubview(volMin)
+//
+//
+//
+//        volMax = MusicPlayerButton(image: "vol-max")
+//        self.volMax.frame = CGRect(x: self.cardViewController.view.center.x + 145, y: 505, width: 15, height: 15)
+//        self.cardViewController.view.addSubview(volMax)
+//
+//        addToFavorite = AddToFavoriteButton(image: "star.fill", text: "Library")
+//        self.addToFavorite.frame = CGRect(x: self.cardViewController.view.frame.origin.x, y: 600, width: 100, height: 30)
+//        self.cardViewController.view.addSubview(addToFavorite)
+//
+//
+//        sharePlayedMusic = SharePlayedMusicButton(image: "arrowshape.turn.up.right.fill", text: "Share")
+//        self.sharePlayedMusic.frame = CGRect(x: self.cardViewController.view.center.x + 40, y: 600, width: 230, height: 30)
+//        self.cardViewController.view.addSubview(sharePlayedMusic)
         
         
     }
