@@ -16,7 +16,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     @IBOutlet weak var playlistTableView: UITableView!
     
-    @IBOutlet weak var topHitsCollectionCell: UICollectionView!
+//    @IBOutlet weak var topHitsCollectionCell: UICollectionView!
     @IBOutlet weak var recentPlayedCollectionCell: UICollectionView!
     
     var createdPlaylistArray = ["New Playlist"]
@@ -45,8 +45,8 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.topHitsCollectionCell.delegate = self
-        self.topHitsCollectionCell.dataSource = self
+//        self.topHitsCollectionCell.delegate = self
+//        self.topHitsCollectionCell.dataSource = self
         
         self.recentPlayedCollectionCell.delegate = self
         self.recentPlayedCollectionCell.dataSource = self
@@ -132,7 +132,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                         self.recentPlayedCollectionCell.reloadData()
                     case topHitsEntityName:
                         self.topHitsArray.append(videoList!)
-                        self.topHitsCollectionCell.reloadData()
+                         self.recentPlayedCollectionCell.reloadData()
                         
                     default:
                         break
@@ -166,7 +166,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                                     print(error?.localizedDescription as Any)
                                 }
                             }
-                            self.topHitsCollectionCell.reloadData()
+                            self.recentPlayedCollectionCell.reloadData()
                             
                         }
                     }
@@ -413,18 +413,18 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
 
 extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var collectionCell = UICollectionViewCell()
-        switch collectionView {
-        case topHitsCollectionCell:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topCell", for: indexPath) as! TopHitsCollectionViewCell
+       
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! RecentPlayedCollectionViewCell
             
+        if indexPath.row == 0 {
             cell.cellTitleLabel.text = "World Top 100"
-            cell.topHitsVideoCountLabel.text = "\(topHitsArray.count) tracks"
+            cell.recentlyPlayedVideoCountLabel.text = "\(topHitsArray.count) tracks"
             
             var topImageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
             
@@ -455,10 +455,9 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
                 }
             }
             collectionCell = cell
-        case recentPlayedCollectionCell:
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as! RecentPlayedCollectionViewCell
-            
+
+        }else{
+     
             cell.cellTitleLabel.text = "RECENTLY PLAYED"
             cell.recentlyPlayedVideoCountLabel.text = "\(recentPlayedVideo.count) tracks"
             
@@ -532,22 +531,17 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
             
             
             collectionCell = cell
-        default:
-            break
         }
         
         return collectionCell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case topHitsCollectionCell:
+        if indexPath.row == 0{
             self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: SelectedTableView.topHitsTableView.rawValue)
-        case recentPlayedCollectionCell:
-            
+
+        }else{
             self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: SelectedTableView.recentPlayedTableView.rawValue)
-        default:
-            break
-        }
+            }
     }
 }
