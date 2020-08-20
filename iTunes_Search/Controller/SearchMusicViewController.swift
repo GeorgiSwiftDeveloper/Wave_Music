@@ -37,6 +37,8 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.accessibilityIdentifier = "SearchView"
+        self.searchController.searchBar.accessibilityIdentifier = "Search"
         searchConnectionManager.searchAlbumDelegate = self
         self.searchMusicTableView.delegate = self
         self.searchMusicTableView.dataSource = self

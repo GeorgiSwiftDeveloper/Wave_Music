@@ -15,8 +15,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     
     @IBOutlet weak var playlistTableView: UITableView!
-    
-//    @IBOutlet weak var topHitsCollectionCell: UICollectionView!
     @IBOutlet weak var recentPlayedCollectionCell: UICollectionView!
     
     var createdPlaylistArray = ["New Playlist"]
@@ -44,9 +42,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        self.topHitsCollectionCell.delegate = self
-//        self.topHitsCollectionCell.dataSource = self
+        self.view.accessibilityIdentifier = "PlaylistView"
         
         self.recentPlayedCollectionCell.delegate = self
         self.recentPlayedCollectionCell.dataSource = self

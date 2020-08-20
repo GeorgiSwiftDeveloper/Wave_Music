@@ -26,6 +26,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.accessibilityIdentifier = "GenreList"
         self.genreCollectionView.delegate = self
         self.genreCollectionView.dataSource = self
         
