@@ -33,8 +33,8 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         activityIndicator.activityLoadIndecator(self.view, indicatorView)
         activityIndicator.activityIndicatorView.startAnimating()
         
-        collectionViewLayout()
-        
+//        collectionViewDesign()
+//        
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.removeActivityIndicator), userInfo: nil, repeats: true)
     }
     
@@ -101,7 +101,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
     }
     
-    func collectionViewLayout() {
+    func collectionViewDesign() {
         let layout = self.genreCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.sectionInset = UIEdgeInsets(top: 0,left: 5,bottom: 0,right: 5)
         layout.minimumInteritemSpacing = 5

@@ -40,10 +40,10 @@
 		6A5A0CDE244969AE005150D2 /* YouTubeVideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDD244969AE005150D2 /* YouTubeVideoModel.swift */; };
 		6A5A0CE0244970D1005150D2 /* YouTubeVideoConnectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDF244970D1005150D2 /* YouTubeVideoConnectionModel.swift */; };
 		6A5A0CE2244971E0005150D2 /* GenreVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */; };
-		6A66CFD124734514004B0C44 /* TopHitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */; };
 		6A66CFD324734522004B0C44 /* RecentPlayedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */; };
 		6A66CFD52474A698004B0C44 /* CoreDataVideoClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD42474A698004B0C44 /* CoreDataVideoClass.swift */; };
 		6A701D2224E34AC600D9A15E /* SearchControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A701D2124E34AC600D9A15E /* SearchControllerModel.swift */; };
+		6A8532DC24EE516700498245 /* WaveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8532DB24EE516700498245 /* WaveUITests.swift */; };
 		6ABBC281245B822D002565E2 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABBC27F245B822D002565E2 /* CardViewController.swift */; };
 		6ABBC282245B822D002565E2 /* CardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ABBC280245B822D002565E2 /* CardViewController.xib */; };
 		6ABFE2272439099C000217B5 /* GenresCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */; };
@@ -62,6 +62,16 @@
 		6AF255CD2482D9BF00EC0E4A /* PlaylistsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF255CC2482D9BF00EC0E4A /* PlaylistsTableViewCell.swift */; };
 		6AFA495A24AC3877006A6991 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFA495924AC3877006A6991 /* Constans.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6A8532DE24EE516700498245 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A1375B62433D09D0086113D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A1375BD2433D09E0086113D;
+			remoteInfo = iTunes_Search;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		34D4A304F8316D1B993148DF /* Pods_iTunes_Search.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iTunes_Search.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,10 +110,12 @@
 		6A5A0CDF244970D1005150D2 /* YouTubeVideoConnectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoConnectionModel.swift; sourceTree = "<group>"; };
 		6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreVideoTableViewCell.swift; sourceTree = "<group>"; };
 		6A5FFEF0244D4E61006382DD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHitsCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPlayedCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A66CFD42474A698004B0C44 /* CoreDataVideoClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataVideoClass.swift; sourceTree = "<group>"; };
 		6A701D2124E34AC600D9A15E /* SearchControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchControllerModel.swift; sourceTree = "<group>"; };
+		6A8532D924EE516700498245 /* WaveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A8532DB24EE516700498245 /* WaveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveUITests.swift; sourceTree = "<group>"; };
+		6A8532DD24EE516700498245 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6ABBC27F245B822D002565E2 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		6ABBC280245B822D002565E2 /* CardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewController.xib; sourceTree = "<group>"; };
 		6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -135,6 +147,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A8532D624EE516700498245 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -142,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				6A1375C02433D09E0086113D /* iTunes_Search */,
+				6A8532DA24EE516700498245 /* WaveUITests */,
 				6A1375BF2433D09E0086113D /* Products */,
 				FD062CBB0F7B8719AA79E8A0 /* Pods */,
 				F275C05A9D8551F9331A93C6 /* Frameworks */,
@@ -152,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				6A1375BE2433D09E0086113D /* Wave.app */,
+				6A8532D924EE516700498245 /* WaveUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,6 +187,7 @@
 				6A1375E3243435160086113D /* Model */,
 				6A1375E52434354F0086113D /* View */,
 				6A1375E4243435300086113D /* Controller */,
+				6A1375CF2433D09F0086113D /* Info.plist */,
 				6A4165782457AFE600910513 /* DataService */,
 				6AD0FD29243C29CC006BF086 /* Data */,
 				6A1375CA2433D09F0086113D /* Assets.xcassets */,
@@ -174,7 +196,6 @@
 				6AC4964924844BD20050825B /* AlerView.xib */,
 				6ABBC280245B822D002565E2 /* CardViewController.xib */,
 				6A1375CC2433D09F0086113D /* LaunchScreen.storyboard */,
-				6A1375CF2433D09F0086113D /* Info.plist */,
 			);
 			path = iTunes_Search;
 			sourceTree = "<group>";
@@ -217,7 +238,6 @@
 				6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */,
 				6A5227D32453CEAE00D77850 /* MyLibraryTableViewCell.swift */,
 				6A56285F2454B38200CCEB63 /* MainLibrariMusciTableViewCell.swift */,
-				6A66CFD024734514004B0C44 /* TopHitsCollectionViewCell.swift */,
 				6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */,
 				6A41657D2458FC9B00910513 /* SelectedSectionTableViewCell.swift */,
 				6AF255CC2482D9BF00EC0E4A /* PlaylistsTableViewCell.swift */,
@@ -263,6 +283,15 @@
 				6A51B846245F7CCC00F72DAF /* VideoPlayer.swift */,
 			);
 			name = UIElements;
+			sourceTree = "<group>";
+		};
+		6A8532DA24EE516700498245 /* WaveUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6A8532DB24EE516700498245 /* WaveUITests.swift */,
+				6A8532DD24EE516700498245 /* Info.plist */,
+			);
+			path = WaveUITests;
 			sourceTree = "<group>";
 		};
 		6AD0FD29243C29CC006BF086 /* Data */ = {
@@ -314,18 +343,41 @@
 			productReference = 6A1375BE2433D09E0086113D /* Wave.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6A8532D824EE516700498245 /* WaveUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A8532E024EE516700498245 /* Build configuration list for PBXNativeTarget "WaveUITests" */;
+			buildPhases = (
+				6A8532D524EE516700498245 /* Sources */,
+				6A8532D624EE516700498245 /* Frameworks */,
+				6A8532D724EE516700498245 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A8532DF24EE516700498245 /* PBXTargetDependency */,
+			);
+			name = WaveUITests;
+			productName = WaveUITests;
+			productReference = 6A8532D924EE516700498245 /* WaveUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		6A1375B62433D09D0086113D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				DefaultBuildSystemTypeForWorkspace = Original;
+				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = Malkhasyan;
 				TargetAttributes = {
 					6A1375BD2433D09E0086113D = {
 						CreatedOnToolsVersion = 11.4;
+					};
+					6A8532D824EE516700498245 = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = 6A1375BD2433D09E0086113D;
 					};
 				};
 			};
@@ -343,6 +395,7 @@
 			projectRoot = "";
 			targets = (
 				6A1375BD2433D09E0086113D /* iTunes_Search */,
+				6A8532D824EE516700498245 /* WaveUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -358,6 +411,13 @@
 				6ABBC282245B822D002565E2 /* CardViewController.xib in Resources */,
 				6AD0FD35243C426F006BF086 /* station.json in Resources */,
 				6A1375C92433D09E0086113D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A8532D724EE516700498245 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,7 +491,6 @@
 				6A41657C2458EF0D00910513 /* SelectedSectionViewController.swift in Sources */,
 				6A568CAC245A8C9F00487EDF /* SelectedCoutryCollectionViewCell.swift in Sources */,
 				6A5227D62453DB4D00D77850 /* MyLibraryViewController.swift in Sources */,
-				6A66CFD124734514004B0C44 /* TopHitsCollectionViewCell.swift in Sources */,
 				6AC4964C248452580050825B /* AlertView.swift in Sources */,
 				6ABBC281245B822D002565E2 /* CardViewController.swift in Sources */,
 				6A66CFD52474A698004B0C44 /* CoreDataVideoClass.swift in Sources */,
@@ -458,7 +517,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A8532D524EE516700498245 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A8532DC24EE516700498245 /* WaveUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6A8532DF24EE516700498245 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A1375BD2433D09E0086113D /* iTunes_Search */;
+			targetProxy = 6A8532DE24EE516700498245 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6A1375C72433D09E0086113D /* Main.storyboard */ = {
@@ -638,6 +713,44 @@
 			};
 			name = Release;
 		};
+		6A8532E124EE516700498245 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CVH85UHVWD;
+				INFOPLIST_FILE = WaveUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = georgi.malkhasyan.HealthyPost.WaveUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iTunes_Search;
+			};
+			name = Debug;
+		};
+		6A8532E224EE516700498245 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CVH85UHVWD;
+				INFOPLIST_FILE = WaveUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = georgi.malkhasyan.HealthyPost.WaveUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iTunes_Search;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -655,6 +768,15 @@
 			buildConfigurations = (
 				6A1375D32433D09F0086113D /* Debug */,
 				6A1375D42433D09F0086113D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A8532E024EE516700498245 /* Build configuration list for PBXNativeTarget "WaveUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A8532E124EE516700498245 /* Debug */,
+				6A8532E224EE516700498245 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

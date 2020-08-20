@@ -67,7 +67,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 let alert = UIAlertController(title: "No Tracks Found", message: "Your recently played songs will be placed here after you play any song", preferredStyle: .alert)
                 let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
                     self.navigationController?.popViewController(animated: true)
-                    self.tabBarController?.selectedIndex = 0
+                    self.tabBarController?.selectedIndex = 3
                     self.tabBarController?.tabBar.isHidden = false
                 }
                 alert.addAction(libraryAction)
