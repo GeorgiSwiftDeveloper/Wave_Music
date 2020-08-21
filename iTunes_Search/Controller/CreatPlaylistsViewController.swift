@@ -300,10 +300,10 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         case SelectedTableView.topHitsTableView.rawValue:
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "World Top 100"
-                if videoSelected == true{
-                    nc.videoSelected = true
-                    nc.ifRowIsSelectedDelegate = self
-                }
+//                if videoSelected == true{
+//                    nc.videoSelected = true
+//                    nc.ifRowIsSelectedDelegate = self
+//                }
                 let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
                 if selectedSearch == true {
                     nc.searchIsSelected = true
@@ -316,9 +316,9 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "RECENTLY PLAYED"
-                if videoSelected == true{
-                    nc.videoSelected = true
-                }
+//                if videoSelected == true{
+//                    nc.videoSelected = true
+//                }
                 let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
                 if selectedSearch == true {
                     nc.searchIsSelected = true

@@ -29,14 +29,14 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     var checkTableViewName = String()
-    var videoSelected = false
-    var checkVideoIsSelected = false
-    var libraryIsSelected = false
-    var topHitsIsSelected = false
-    var youTubeVideoID =  String()
-    var youTubeVideoTitle =  String()
+//    var videoSelected = false
+//    var checkVideoIsSelected = false
+//    var libraryIsSelected = false
+//    var topHitsIsSelected = false
+
+
     var webView = WKYTPlayerView()
-    var selectedVideo: Video?
+    
     var topHitsListHeight = 190
     var searchIsSelected = Bool()
     
@@ -484,17 +484,13 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         ifRowIsSelectedDelegate?.checkIfRowIsSelected(true)
         switch checkTableViewName {
         case SelectedTableView.libraryTableView.rawValue:
-            self.selectedVideo = self.myLibraryList[indexPath.row]
-            let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
-            self.getSelectedLibraryVideo(indexPath)
             
-            VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.topHitLabelText.text!)
+            self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
+            
         case SelectedTableView.topHitsTableView.rawValue:
-            self.selectedVideo = self.topHitsLists[indexPath.row]
-            let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
-            self.getSelectedTopHitsVideo(indexPath)
             
-            VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
+            let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
+            self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
             CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
                 if error != nil {
@@ -502,40 +498,26 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 }
             }
         case SelectedTableView.recentPlayedTableView.rawValue:
-            self.selectedVideo = self.recentPlayedVideo[indexPath.row]
-            let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
             
-            self.getSelectedRecentlyPlayedVideo(indexPath)
             
-            VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
+            self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
+            
+        case SelectedTableView.playlistTableView.rawValue:
+            
+            self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
         default:
             break
         }
     }
     
     
-    func getSelectedLibraryVideo(_ indexPath: IndexPath){
+    func getSelectedMusicRowAndPlayVideoPlayer(_ indexPath: IndexPath){
+        let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
         
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
         
-        selectedSectionTableView.reloadData()
-    }
-    
-    
-    func getSelectedTopHitsVideo(_ indexPath: IndexPath){
-        
-        VideoPlayer.callVideoPlayer.webView.pauseVideo()
-        VideoPlayer.callVideoPlayer.superViewController = self
-        
-        selectedSectionTableView.reloadData()
-    }
-    
-    
-    func getSelectedRecentlyPlayedVideo(_ indexPath: IndexPath){
-        
-        VideoPlayer.callVideoPlayer.webView.pauseVideo()
-        VideoPlayer.callVideoPlayer.superViewController = self
+        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
         
         selectedSectionTableView.reloadData()
     }
