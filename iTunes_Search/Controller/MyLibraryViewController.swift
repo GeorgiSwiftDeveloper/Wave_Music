@@ -307,10 +307,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         if  let nc = segue.destination as? SelectedSectionViewController {
             nc.navigationItem.title = "My Library"
-            
-//            if videoSelected == true{
-//                nc.videoSelected = true
-//            }
+
             let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
             
             if selectedSearch == true {
@@ -330,7 +327,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         self.selectLibraryRow = false
         
         let selectedCell = self.myLibraryTableView.cellForRow(at: indexPath) as! MainLibrariMusciTableViewCell
-        
+
         getSelectedLibraryVideo(indexPath)
         
         VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.musicTitleLabel.text!)
@@ -350,6 +347,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func getSelectedLibraryVideo(_ indexPath: IndexPath){
+        VideoPlayer.callVideoPlayer.cardViewController.view = nil
         selectTopHitsRow = true
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         videoSelected = true

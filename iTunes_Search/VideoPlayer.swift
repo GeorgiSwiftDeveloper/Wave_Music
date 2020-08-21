@@ -58,7 +58,6 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var sharePlayedMusic = SharePlayedMusicButton()
     
     func videoPalyerClass(genreVideoID:String,index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: String){
-        
         videoTitle = selectedVideoTitle
         setupCardVisualEffect()
         

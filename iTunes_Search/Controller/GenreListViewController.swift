@@ -262,6 +262,9 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.genreBottomNSLayoutConstraint.constant = 150
         let selectedCell = self.genreTableView.cellForRow(at: indexPath) as! GenreVideoTableViewCell
+        
+        VideoPlayer.callVideoPlayer.cardViewController.view = nil
+        
         VideoPlayer.callVideoPlayer.superViewController = self
         VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle:selectedCell.singerNameLabel.text!)
         

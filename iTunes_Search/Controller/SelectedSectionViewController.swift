@@ -29,10 +29,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     var checkTableViewName = String()
-//    var videoSelected = false
-//    var checkVideoIsSelected = false
-//    var libraryIsSelected = false
-//    var topHitsIsSelected = false
 
 
     var webView = WKYTPlayerView()
@@ -512,6 +508,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func getSelectedMusicRowAndPlayVideoPlayer(_ indexPath: IndexPath){
+         VideoPlayer.callVideoPlayer.cardViewController.view = nil
         let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
         
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
