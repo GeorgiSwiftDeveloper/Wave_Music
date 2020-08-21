@@ -22,7 +22,7 @@ class WaveUITests: XCTestCase {
       app = nil
     }
 
-    func  testTabBar_Controller() {
+    func testTabBar_Controller() {
         
         app.launch()
         

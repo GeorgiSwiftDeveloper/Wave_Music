@@ -1055,20 +1055,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="N1T-ot-eL4">
-                                        <rect key="frame" x="0.0" y="77" width="414" height="202"/>
+                                        <rect key="frame" x="0.0" y="112" width="414" height="202"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="202" id="IoC-HL-Cnq"/>
+                                            <constraint firstAttribute="height" constant="202" id="wUF-Pa-dvx"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="25" minimumInteritemSpacing="0.0" id="mru-lE-vGd">
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="mru-lE-vGd">
                                             <size key="itemSize" width="172" height="166"/>
                                             <size key="headerReferenceSize" width="0.0" height="20"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                            <inset key="sectionInset" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="Jg8-65-krY" customClass="RecentPlayedCollectionViewCell" customModule="Wave" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="18" width="172" height="166"/>
+                                                <rect key="frame" x="5" y="18" width="172" height="166"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="1F3-Zg-x7m">
                                                     <rect key="frame" x="0.0" y="0.0" width="172" height="166"/>
@@ -1176,11 +1176,15 @@
                                             </collectionViewCell>
                                         </cells>
                                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="EGl-R4-Paw">
+                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionReusableView>
                                     </collectionView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="50" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oxf-GL-SlG">
                                         <rect key="frame" x="0.0" y="314" width="414" height="528"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="528" id="BKV-DV-rLr"/>
+                                        </constraints>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -1238,13 +1242,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="N1T-ot-eL4" firstAttribute="top" secondItem="zpq-St-Gal" secondAttribute="top" constant="77" id="AF8-9A-4bE"/>
-                                    <constraint firstItem="oxf-GL-SlG" firstAttribute="top" secondItem="N1T-ot-eL4" secondAttribute="bottom" constant="35" id="GgX-Nm-ah9"/>
-                                    <constraint firstItem="N1T-ot-eL4" firstAttribute="leading" secondItem="zpq-St-Gal" secondAttribute="leading" id="KRY-V8-s1c"/>
                                     <constraint firstAttribute="trailing" secondItem="oxf-GL-SlG" secondAttribute="trailing" id="MDA-Yq-XaP"/>
                                     <constraint firstAttribute="bottom" secondItem="oxf-GL-SlG" secondAttribute="bottom" id="XbN-my-Auk"/>
+                                    <constraint firstAttribute="trailing" secondItem="N1T-ot-eL4" secondAttribute="trailing" id="ZLs-26-u9W"/>
+                                    <constraint firstItem="N1T-ot-eL4" firstAttribute="leading" secondItem="zpq-St-Gal" secondAttribute="leading" id="gHR-yK-emx"/>
                                     <constraint firstItem="oxf-GL-SlG" firstAttribute="leading" secondItem="zpq-St-Gal" secondAttribute="leading" id="jjc-HZ-6HQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="N1T-ot-eL4" secondAttribute="trailing" id="q3l-ln-GzH"/>
+                                    <constraint firstItem="oxf-GL-SlG" firstAttribute="top" secondItem="N1T-ot-eL4" secondAttribute="bottom" id="mJ4-nd-Sxf"/>
                                 </constraints>
                             </view>
                         </subviews>
