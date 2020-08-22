@@ -46,7 +46,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         
         self.recentPlayedCollectionCell.delegate = self
         self.recentPlayedCollectionCell.dataSource = self
-        
+        collectionViewDesign()
         playlistTableView.delegate = self
         playlistTableView.dataSource = self
         
@@ -57,6 +57,13 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         self.playlistTableView.reloadData()
     }
     
+    
+        func collectionViewDesign() {
+            let layout = self.recentPlayedCollectionCell.collectionViewLayout as! UICollectionViewFlowLayout
+            layout.sectionInset = UIEdgeInsets(top: 0,left: 10,bottom: 0,right: 0)
+            layout.minimumInteritemSpacing = 0
+            layout.itemSize = CGSize(width: (self.view.frame.size.width - 30)/2, height: (self.recentPlayedCollectionCell.frame.size.width - 40)/2)
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

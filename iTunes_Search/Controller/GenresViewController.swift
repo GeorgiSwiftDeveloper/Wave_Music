@@ -102,14 +102,14 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
     }
     
-    func collectionViewDesign() {
-        let layout = self.genreCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.sectionInset = UIEdgeInsets(top: 0,left: 5,bottom: 0,right: 5)
-        layout.minimumInteritemSpacing = 5
-        layout.itemSize = CGSize(width: (self.genreCollectionView.frame.size.width - 20)/2, height: self.genreCollectionView.frame.size.height/3)
-        
-        
-    }
+//    func collectionViewDesign() {
+//        let layout = self.genreCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+////        layout.sectionInset = UIEdgeInsets(top: 0,left: 5,bottom: 0,right: 5)
+////        layout.minimumInteritemSpacing = 10
+//        layout.itemSize = CGSize(width: (self.genreCollectionView.frame.size.width - 20)/3, height: self.genreCollectionView.frame.size.width/3)
+//        
+//        
+//    }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
