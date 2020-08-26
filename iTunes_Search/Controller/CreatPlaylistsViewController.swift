@@ -27,6 +27,8 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     var checkTableViewName: String = ""
     var selectTopHitsRow = Bool()
     var videoSelected = Bool()
+    var musicCount = Int()
+    
     
     var libraryImageArray: [UIImageView] = []
     
@@ -46,14 +48,21 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         
         self.recentPlayedCollectionCell.delegate = self
         self.recentPlayedCollectionCell.dataSource = self
+        
         collectionViewConstraints()
+        
         playlistTableView.delegate = self
         playlistTableView.dataSource = self
         
         getYouTubeResults()
+        
         if let musicPlaylist = UserDefaults.standard.object(forKey: "MusicPlaylist") as? [String] {
             createdPlaylistArray = musicPlaylist
         }
+        
+//        if let musicCount = UserDefaults.standard.object(forKey: "MusicCount") as? Int {
+//            musicCount = musicCount
+//        }
         self.playlistTableView.reloadData()
     }
     

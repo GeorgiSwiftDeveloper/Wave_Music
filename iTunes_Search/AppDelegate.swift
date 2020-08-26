@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //        print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
         
-//        resetState()
+        resetState()
         
         return true
     }
@@ -55,8 +55,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func resetState(){
-        guard let bundleIdentifier = Bundle.main.bundleIdentifier else{fatalError()}
-        UserDefaults.standard.removePersistentDomain(forName: bundleIdentifier)
+        //        guard let bundleIdentifier = Bundle.main.bundleIdentifier else{fatalError()}
+        //        UserDefaults.standard.removePersistentDomain(forName: bundleIdentifier)
+        UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
+        UserDefaults.standard.removeObject(forKey: "selectedSearch")
+        UserDefaults.standard.removeObject(forKey: "pause")
+        UserDefaults.standard.removeObject(forKey: "selectedPlaylistRowTitle")
+        
+        
+        UserDefaults.standard.removeObject(forKey: "videoId")
+        UserDefaults.standard.removeObject(forKey: "image")
+        UserDefaults.standard.removeObject(forKey: "title")
     }
     
     
