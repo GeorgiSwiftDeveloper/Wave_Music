@@ -90,6 +90,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 }
                 alert.addAction(libraryAction)
                 present(alert, animated: true, completion: nil)
+            }else{
+                UserDefaults.standard.set(videoPlaylist.count, forKey: "videoPlaylistCount")
             }
         default:
             break

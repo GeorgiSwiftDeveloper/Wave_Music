@@ -686,10 +686,10 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vMN-El-leR">
-                                        <rect key="frame" x="149.66666666666666" y="0.0" width="114.99999999999997" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="0.0" width="115" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mX2-WB-MwD">
-                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -710,10 +710,10 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="q4C-Lj-i5b">
-                                        <rect key="frame" x="149.66666666666666" y="170" width="115" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="170" width="114.99999999999997" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Mvh-us-vpg">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -734,10 +734,10 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6Wv-1H-y7w">
-                                        <rect key="frame" x="149.66666666666666" y="340" width="115" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="340" width="114.99999999999997" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="t6N-kZ-YPG">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -758,10 +758,10 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="K97-pR-imt">
-                                        <rect key="frame" x="149.66666666666666" y="510" width="115" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="510" width="114.99999999999997" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ycc-Qs-2OP">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -1300,7 +1300,7 @@
                                                             <color key="textColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wv1-9g-5se">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wv1-9g-5se">
                                                             <rect key="frame" x="314" y="11" width="95" height="48"/>
                                                             <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="10"/>
                                                             <nil key="textColor"/>

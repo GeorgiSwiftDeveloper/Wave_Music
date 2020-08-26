@@ -262,13 +262,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                 if text == ""{
                     print("data is empty")
                 }else{
-                    var playlistNameArray = [String]()
-                    
-                    for playlistName in self.createdPlaylistArray {
-                        playlistNameArray.append(playlistName)
-                    }
-                    
-                    if playlistNameArray.contains(text!){
+                    if self.createdPlaylistArray.contains(text!){
                         print("This playlist is already exists")
                         let alert = UIAlertController(title: "Please change your Playlist name", message: "Playlist with name \(text ?? "") is already exists", preferredStyle: .alert)
                         let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
