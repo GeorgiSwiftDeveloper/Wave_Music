@@ -46,7 +46,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         
         self.recentPlayedCollectionCell.delegate = self
         self.recentPlayedCollectionCell.dataSource = self
-        collectionViewDesign()
+        collectionViewConstraints()
         playlistTableView.delegate = self
         playlistTableView.dataSource = self
         
@@ -58,7 +58,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     }
     
     
-        func collectionViewDesign() {
+        func collectionViewConstraints() {
             let layout = self.recentPlayedCollectionCell.collectionViewLayout as! UICollectionViewFlowLayout
             layout.sectionInset = UIEdgeInsets(top: 0,left: 10,bottom: 0,right: 0)
             layout.minimumInteritemSpacing = 0
