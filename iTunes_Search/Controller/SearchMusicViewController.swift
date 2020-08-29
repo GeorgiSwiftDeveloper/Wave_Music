@@ -70,7 +70,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
             if let error = error {
                 print("Error getting player state:" + error.localizedDescription)
-            } else if let playerState = playerState as? WKYTPlayerState {
+            } else {
                 
                 self?.updatePlayerState(playerState)
             }

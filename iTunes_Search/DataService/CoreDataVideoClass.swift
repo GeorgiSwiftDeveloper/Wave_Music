@@ -12,7 +12,7 @@ import CoreData
 class CoreDataVideoClass: NSObject {
     static var coreDataVideoInstance = CoreDataVideoClass()
     
-    func fetchVideoWithEntityName(coreDataEntityName: String, searchBarText: String,playlistName: String, loadVideoList: @escaping(_ returnVideoList: Video?, _ returnError: Error? ) -> ()){
+    func fetchVideoWithEntityName(coreDataEntityName: String, searchBarText: String,playlistName: String, loadVideoList: @escaping(_ returnVideoList: [Video]?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
         
         if searchBarText != "" {
@@ -28,7 +28,9 @@ class CoreDataVideoClass: NSObject {
         do {
             guard  let result = try context?.fetch(request) else {return}
             print(result.count)
+            var videoArray = [Video]()
             for data in result as! [NSManagedObject] {
+                
                 let videoId = data.value(forKey: "videoId") as! String
                 let title = data.value(forKey: "title") as! String
                 let image = data.value(forKey: "image") as! String
@@ -36,9 +38,10 @@ class CoreDataVideoClass: NSObject {
                 //                let songDescription = data.value(forKey: "songDescription") as! String
                 //                let playListId = data.value(forKey: "playListId") as! String
                  let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
-                    loadVideoList(videoList,nil)
+                videoArray.append(videoList)
+//                    loadVideoList(videoList,nil)
             }
-            
+                loadVideoList(videoArray,nil)
         } catch {
             loadVideoList(nil,error)
             print("Failed")

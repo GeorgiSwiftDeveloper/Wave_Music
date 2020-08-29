@@ -29,8 +29,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     var checkTableViewName = String()
-
-
+    
+    
     var webView = WKYTPlayerView()
     
     var topHitsListHeight = 190
@@ -269,13 +269,13 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 if videoList != nil {
                     switch entityName {
                     case "TopHitsModel":
-                        self?.topHitsLists.append(videoList!)
+                        self?.topHitsLists.append(contentsOf: videoList!)
                     case "MyLibraryMusicData":
-                        self?.myLibraryList.append(videoList!)
+                        self?.myLibraryList.append(contentsOf: videoList!)
                     case "RecentPlayedMusicData":
-                        self?.recentPlayedVideo.append(videoList!)
+                        self?.recentPlayedVideo.append(contentsOf: videoList!)
                     case "PlaylistMusicData":
-                        self?.videoPlaylist.append(videoList!)
+                        self?.videoPlaylist.append(contentsOf: videoList!)
                         
                     default:
                         break
@@ -510,7 +510,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func getSelectedMusicRowAndPlayVideoPlayer(_ indexPath: IndexPath){
-         VideoPlayer.callVideoPlayer.cardViewController.view = nil
+        VideoPlayer.callVideoPlayer.cardViewController.view = nil
         let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
         
         VideoPlayer.callVideoPlayer.webView.pauseVideo()

@@ -27,8 +27,10 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     var checkTableViewName: String = ""
     var selectTopHitsRow = Bool()
     var videoSelected = Bool()
-    var musicCount = Int()
+
     
+
+    var videoPlaylistCount = [Int]()
     
     var libraryImageArray: [UIImageView] = []
     
@@ -60,32 +62,64 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
             createdPlaylistArray = musicPlaylist
         }
         
-//        if let musicCount = UserDefaults.standard.object(forKey: "MusicCount") as? Int {
-//            musicCount = musicCount
-//        }
         self.playlistTableView.reloadData()
     }
     
     
-        func collectionViewConstraints() {
-            let layout = self.recentPlayedCollectionCell.collectionViewLayout as! UICollectionViewFlowLayout
-            layout.sectionInset = UIEdgeInsets(top: 0,left: 10,bottom: 0,right: 0)
-            layout.minimumInteritemSpacing = 0
-            layout.itemSize = CGSize(width: (self.view.frame.size.width - 30)/2, height: (self.recentPlayedCollectionCell.frame.size.width - 40)/2)
-        }
+    
+    func collectionViewConstraints() {
+        let layout = self.recentPlayedCollectionCell.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.sectionInset = UIEdgeInsets(top: 0,left: 10,bottom: 0,right: 0)
+        layout.minimumInteritemSpacing = 0
+        layout.itemSize = CGSize(width: (self.view.frame.size.width - 30)/2, height: (self.recentPlayedCollectionCell.frame.size.width - 40)/2)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
-           updatePlayerView()
+            updatePlayerView()
         case false:
             updatePlayerView()
         default:
             break
         }
+        for i in 0..<createdPlaylistArray.count {
+            fetchVideoWithEntityName("PlaylistMusicData", createdPlaylistArray[i])
+        }
+    
+        DispatchQueue.main.async {
+            self.playlistTableView.reloadData()
+        }
         fetchRecentlyPlayedVideoData()
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.videoPlaylistCount = []
+    }
+    
+    
+    func fetchVideoWithEntityName(_ entityName: String, _ selectedPlaylistName: String){
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (videoList, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }else{
+                if videoList != nil {
+                    switch entityName {
+                    case "PlaylistMusicData":
+                        
+                        
+                        self?.videoPlaylistCount.append(videoList!.count)
+                        
+                    default:
+                        break
+                    }
+                }
+            }
+        }
     }
     
     func  updatePlayerView() {
@@ -97,8 +131,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
             if let error = error {
                 print("Error getting player state:" + error.localizedDescription)
-            } else if let playerState = playerState as? WKYTPlayerState {
-                
+            } else {
                 self?.updatePlayerState(playerState)
             }
         })
@@ -140,11 +173,11 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                 if videoList != nil {
                     switch entityName {
                     case recentPlayedEntityName:
-                        self.recentPlayedVideo.append(videoList!)
+                        self.recentPlayedVideo.append(contentsOf: videoList!)
                         self.recentPlayedCollectionCell.reloadData()
                     case topHitsEntityName:
-                        self.topHitsArray.append(videoList!)
-                         self.recentPlayedCollectionCell.reloadData()
+                        self.topHitsArray.append(contentsOf: videoList!)
+                        self.recentPlayedCollectionCell.reloadData()
                         
                     default:
                         break
@@ -244,10 +277,12 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                 cell.playlistName.font = UIFont(name: "Verdana-Bold", size: 14.0)
                 cell.playlistImage.image = UIImage(systemName: "list.bullet")
             }else{
-                
                 cell.playlistName.text = createdPlaylistArray[indexPath.row]
+                cell.trackCountLabel.text = "\(videoPlaylistCount[indexPath.row]) tracks"
                 cell.playlistName.textColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                 cell.playlistName.font = UIFont(name: "Verdana", size: 12.0)
+                cell.trackCountLabel.font = UIFont(name: "Verdana-Bold", size: 10.0)
+                cell.trackCountLabel.textColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
                 cell.playlistName.textAlignment = .left
                 cell.playlistImage.image = UIImage(systemName: "music.note.list")
                 cell.playlistImage.tintColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
@@ -310,7 +345,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         case SelectedTableView.topHitsTableView.rawValue:
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "World Top 100"
-
+                
                 let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
                 if selectedSearch == true {
                     nc.searchIsSelected = true
@@ -323,7 +358,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "RECENTLY PLAYED"
-
+                
                 let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
                 if selectedSearch == true {
                     nc.searchIsSelected = true
@@ -353,16 +388,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    //        if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
-    //            selectedPlaylistRowTitle = createdPlaylistArray[indexPath.row]
-    //            deleteSelectedPlaylist(predicateName: selectedPlaylistRowTitle!)
-    //            createdPlaylistArray.remove(at: indexPath.row)
-    //            UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
-    //            tableView.deleteRows(at: [indexPath], with: .automatic)
-    //
-    //        }
-    //    }
+    
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "", handler: {a,b,c in
@@ -420,9 +446,9 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var collectionCell = UICollectionViewCell()
-       
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! RecentPlayedCollectionViewCell
-            
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! RecentPlayedCollectionViewCell
+        
         if indexPath.row == 0 {
             cell.cellTitleLabel.text = "World Top 100"
             cell.recentlyPlayedVideoCountLabel.text = "\(topHitsArray.count) tracks"
@@ -456,9 +482,9 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
                 }
             }
             collectionCell = cell
-
+            
         }else{
-     
+            
             cell.cellTitleLabel.text = "RECENTLY PLAYED"
             cell.recentlyPlayedVideoCountLabel.text = "\(recentPlayedVideo.count) tracks"
             
@@ -540,9 +566,9 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0{
             self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: SelectedTableView.topHitsTableView.rawValue)
-
+            
         }else{
             self.performSegue(withIdentifier: destinationToSelectedIdentifier, sender: SelectedTableView.recentPlayedTableView.rawValue)
-            }
+        }
     }
 }

@@ -263,15 +263,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "047A2A0F-1FAE-4DC1-ACB2-99D76C4B5B4F"
+            uuid = "62142A1A-2016-4B99-9753-D1AD05877CC4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iTunes_Search/DataService/CoreDataVideoClass.swift"
+            filePath = "iTunes_Search/Controller/AddSelectedMusicToWaveViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -279,15 +279,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3714370A-3AAB-4277-843B-F9E1C925B46D"
+            uuid = "C9F750D4-A734-4788-944F-EBE26E9C5CBF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iTunes_Search/DataService/CoreDataVideoClass.swift"
+            filePath = "iTunes_Search/Controller/AddSelectedMusicToWaveViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -295,17 +295,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D7B6CBF4-E8CC-49BC-866E-2D21D32ED25A"
+            uuid = "52FDABB4-055E-4A30-B059-9F248D1399F2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iTunes_Search/DataService/CoreDataVideoClass.swift"
+            filePath = "iTunes_Search/Controller/AddSelectedMusicToWaveViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "unknown"
             landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "14F7DACE-2A7B-478C-9638-52C459058A27"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iTunes_Search/Controller/CreatPlaylistsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

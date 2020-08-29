@@ -82,7 +82,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
             if let error = error {
                 print("Error getting player state:" + error.localizedDescription)
-            } else if let playerState = playerState as? WKYTPlayerState {
+            } else  {
                 
                 self?.updatePlayerState(playerState)
             }
@@ -113,7 +113,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                     switch entityName {
                     case myLibraryEntityName:
 
-                        self?.myLibraryListArray.append(videoList!)
+                        self?.myLibraryListArray.append(contentsOf: videoList!)
                         let libraryCount: Bool = (self?.myLibraryListArray.count)! <= 5 ? true : false
                             
                         self?.viewAllButton.isHidden = libraryCount
@@ -223,7 +223,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 print(error?.localizedDescription as Any)
             }else {
                 self.myLibraryListArray = []
-                self.myLibraryListArray.append(videoList!)
+                self.myLibraryListArray.append(contentsOf: videoList!)
                 
                 self.myLibraryTableView.reloadData()
             }

@@ -69,30 +69,30 @@
                                     <constraint firstItem="vfS-2s-L9L" firstAttribute="centerY" secondItem="pOt-wZ-Puk" secondAttribute="centerY" id="lao-XE-o8v"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="85" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="87" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
                                 <rect key="frame" x="0.0" y="66" width="404" height="693"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LibraryMusicCell" rowHeight="85" id="zSA-8A-8h5" customClass="MainLibrariMusciTableViewCell" customModule="Wave" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="404" height="85"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LibraryMusicCell" rowHeight="87" id="zSA-8A-8h5" customClass="MainLibrariMusciTableViewCell" customModule="Wave" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="404" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zSA-8A-8h5" id="4Gu-Qs-Akk">
-                                            <rect key="frame" x="0.0" y="0.0" width="404" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="404" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2GM-l8-VqR" customClass="DesignView" customModule="Wave" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="10" width="394" height="70"/>
+                                                    <rect key="frame" x="5" y="10" width="394" height="72"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PXj-ps-FFG">
-                                                            <rect key="frame" x="15" y="2.6666666666666643" width="65" height="65"/>
+                                                            <rect key="frame" x="15" y="3.6666666666666643" width="65" height="65"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="65" id="8WO-30-GcV"/>
                                                                 <constraint firstAttribute="width" constant="65" id="fvU-is-KYe"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ybO-jW-F83">
-                                                            <rect key="frame" x="90" y="10" width="289" height="50"/>
+                                                            <rect key="frame" x="90" y="11" width="289" height="50"/>
                                                             <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="VS6-gq-bfW"/>
@@ -686,10 +686,10 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vMN-El-leR">
-                                        <rect key="frame" x="149.66666666666666" y="0.0" width="115" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="0.0" width="114.99999999999997" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mX2-WB-MwD">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -710,10 +710,10 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="q4C-Lj-i5b">
-                                        <rect key="frame" x="149.66666666666666" y="170" width="114.99999999999997" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="170" width="115" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Mvh-us-vpg">
-                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -734,10 +734,10 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6Wv-1H-y7w">
-                                        <rect key="frame" x="149.66666666666666" y="340" width="114.99999999999997" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="340" width="115" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="t6N-kZ-YPG">
-                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -758,10 +758,10 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="K97-pR-imt">
-                                        <rect key="frame" x="149.66666666666666" y="510" width="114.99999999999997" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="510" width="115" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ycc-Qs-2OP">
-                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -1300,7 +1300,7 @@
                                                             <color key="textColor" red="0.05955345184" green="0.040464602410000002" blue="0.13334190849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wv1-9g-5se">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wv1-9g-5se">
                                                             <rect key="frame" x="314" y="11" width="95" height="48"/>
                                                             <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="10"/>
                                                             <nil key="textColor"/>
@@ -1384,7 +1384,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8og-sb-J2T"/>
+        <segue reference="Qee-MJ-F5O"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>

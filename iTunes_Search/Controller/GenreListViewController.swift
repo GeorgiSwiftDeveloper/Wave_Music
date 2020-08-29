@@ -98,7 +98,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
         VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
             if let error = error {
                 print("Error getting player state:" + error.localizedDescription)
-            } else if let playerState = playerState as? WKYTPlayerState {
+            } else {
                 
                 self?.updatePlayerState(playerState)
             }
@@ -172,7 +172,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-                    self.videoArray.append(videoList!)
+//                    self.videoArray.append(videoList!)
                     self.genreTableView.reloadData()
                 }
             }

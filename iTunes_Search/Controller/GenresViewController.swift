@@ -34,8 +34,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         activityIndicator.activityLoadIndecator(self.view, indicatorView)
         activityIndicator.activityIndicatorView.startAnimating()
         
-//        collectionViewDesign()
-//        
+      
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.removeActivityIndicator), userInfo: nil, repeats: true)
     }
     
@@ -73,7 +72,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
             if let error = error {
                 print("Error getting player state:" + error.localizedDescription)
-            } else if let playerState = playerState as? WKYTPlayerState {
+            } else {
                 
                 self?.updatePlayerState(playerState)
             }
@@ -102,14 +101,7 @@ class GenresViewController: UIViewController,UICollectionViewDelegate,UICollecti
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
     }
     
-//    func collectionViewDesign() {
-//        let layout = self.genreCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-////        layout.sectionInset = UIEdgeInsets(top: 0,left: 5,bottom: 0,right: 5)
-////        layout.minimumInteritemSpacing = 10
-//        layout.itemSize = CGSize(width: (self.genreCollectionView.frame.size.width - 20)/3, height: self.genreCollectionView.frame.size.width/3)
-//        
-//        
-//    }
+
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
