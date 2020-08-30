@@ -172,7 +172,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-//                    self.videoArray.append(videoList!)
+                    self.videoArray.append(contentsOf: videoList!)
                     self.genreTableView.reloadData()
                 }
             }

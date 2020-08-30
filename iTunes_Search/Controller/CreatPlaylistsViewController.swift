@@ -27,9 +27,9 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     var checkTableViewName: String = ""
     var selectTopHitsRow = Bool()
     var videoSelected = Bool()
-
     
-
+    
+    
     var videoPlaylistCount = [Int]()
     
     var libraryImageArray: [UIImageView] = []
@@ -88,7 +88,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         for i in 0..<createdPlaylistArray.count {
             fetchVideoWithEntityName("PlaylistMusicData", createdPlaylistArray[i])
         }
-    
+        
         DispatchQueue.main.async {
             self.playlistTableView.reloadData()
         }
@@ -444,6 +444,38 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     
+    func getImageFromUrl(_ arrayOf: [Video]) -> [UIImage] {
+        
+        var imageArray = [UIImage]()
+        do
+        {
+            let imageUrl1 = URL(string: arrayOf[0].videoImageUrl ?? "")
+            let imageUrl2 = URL(string: arrayOf[1].videoImageUrl ?? "")
+            let imageUrl3 = URL(string: arrayOf[2].videoImageUrl ?? "")
+            let imageUrl4 = URL(string: arrayOf[3].videoImageUrl ?? "")
+            
+            let data1:NSData =  try NSData(contentsOf: imageUrl1!)
+            let data2:NSData =  try NSData(contentsOf: imageUrl2!)
+            let data3:NSData =  try NSData(contentsOf: imageUrl3!)
+            let data4:NSData =  try NSData(contentsOf: imageUrl4!)
+            
+            
+            let image1: UIImage = UIImage(data: data1 as Data)!
+            let image2: UIImage = UIImage(data: data2 as Data)!
+            let image3: UIImage = UIImage(data: data3 as Data)!
+            let image4: UIImage = UIImage(data: data4 as Data)!
+            
+            imageArray = [image1,image2,image3,image4]
+            
+        }
+        catch {
+            // error
+        }
+        
+        
+        return imageArray
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var collectionCell = UICollectionViewCell()
         
@@ -456,24 +488,12 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
             var topImageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
             
             if topHitsArray.count >= 4 {
-                let imageUrl1 = URL(string: topHitsArray[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: topHitsArray[1].videoImageUrl ?? "")
-                let imageUrl3 = URL(string: topHitsArray[2].videoImageUrl ?? "")
-                let imageUrl4 = URL(string: topHitsArray[3].videoImageUrl ?? "")
-                do{
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
-                    let data4:NSData = try NSData(contentsOf: imageUrl4!)
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                    cell.imageView3.image =  UIImage(data: data3 as Data)
-                    cell.imageView4.image =  UIImage(data: data4 as Data)
-                    
-                    
-                }catch{
-                    print("error")
-                }
+                
+                let imageArray =  getImageFromUrl(topHitsArray)
+                cell.imageView1.image =  imageArray[0]
+                cell.imageView2.image =  imageArray[1]
+                cell.imageView3.image =  imageArray[2]
+                cell.imageView4.image =  imageArray[3]
             }else if topHitsArray.count == 0 {
                 
                 topImageArray = topImageArray.map { image in
@@ -500,60 +520,25 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
                 }
                 
             case 1:
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
-                do {
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                } catch  {
-                    print("error")
-                }
+                let imageArray =  getImageFromUrl(recentPlayedVideo)
+                cell.imageView1.image =  imageArray[0]
+                
                 
             case 2:
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
-                do {
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                } catch  {
-                    print("error")
-                }
-                
+                let imageArray =  getImageFromUrl(recentPlayedVideo)
+                cell.imageView1.image =  imageArray[0]
+                cell.imageView2.image =  imageArray[1]
             case 3:
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
-                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl ?? "")
-                
-                do {
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
-                    
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                    cell.imageView3.image =  UIImage(data: data3 as Data)
-                    
-                } catch  {
-                    print("error")
-                }
+                let imageArray =  getImageFromUrl(recentPlayedVideo)
+                cell.imageView1.image =  imageArray[0]
+                cell.imageView2.image =  imageArray[1]
+                cell.imageView3.image =  imageArray[2]
             default:
-                let imageUrl1 = URL(string: recentPlayedVideo[0].videoImageUrl ?? "")
-                let imageUrl2 = URL(string: recentPlayedVideo[1].videoImageUrl ?? "")
-                let imageUrl3 = URL(string: recentPlayedVideo[2].videoImageUrl ?? "")
-                let imageUrl4 = URL(string: recentPlayedVideo[3].videoImageUrl ?? "")
-                do {
-                    let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                    let data2:NSData = try NSData(contentsOf: imageUrl2!)
-                    let data3:NSData = try NSData(contentsOf: imageUrl3!)
-                    let data4:NSData = try NSData(contentsOf: imageUrl4!)
-                    cell.imageView1.image =  UIImage(data: data1 as Data)
-                    cell.imageView2.image =  UIImage(data: data2 as Data)
-                    cell.imageView3.image =  UIImage(data: data3 as Data)
-                    cell.imageView4.image =  UIImage(data: data4 as Data)
-                } catch  {
-                    print("error")
-                }
+                let imageArray =  getImageFromUrl(recentPlayedVideo)
+                cell.imageView1.image =  imageArray[0]
+                cell.imageView2.image =  imageArray[1]
+                cell.imageView3.image =  imageArray[2]
+                cell.imageView4.image =  imageArray[3]
             }
             
             
@@ -562,6 +547,9 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
         
         return collectionCell
     }
+    
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0{
