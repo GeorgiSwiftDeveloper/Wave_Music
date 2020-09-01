@@ -227,8 +227,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
                 } else{
                     // at least one matching object exists
                     let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .cancel) {[weak self] (action) in
-                    }
+                    let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alert.addAction(action)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -243,8 +242,7 @@ class GenreListViewController: UIViewController, UITableViewDelegate, UITableVie
             self?.tabBarController?.selectedIndex = 3
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { [weak self](action) in
-        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(addMyLibraryAction)
         alert.addAction(addPlaylistAction)
         alert.addAction(cancelAction)

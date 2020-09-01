@@ -444,36 +444,46 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     
-    func getImageFromUrl(_ arrayOf: [Video]) -> [UIImage] {
+    func getImageFromUrl(_ arrayWithImageIndex: [Video]) -> [UIImage] {
         
-        var imageArray = [UIImage]()
+        var imageList = [UIImage]()
+        
+        var imageUrlList = [URL]()
+        
+        var imageDataList = [NSData]()
+        
+        
         do
         {
-            let imageUrl1 = URL(string: arrayOf[0].videoImageUrl ?? "")
-            let imageUrl2 = URL(string: arrayOf[1].videoImageUrl ?? "")
-            let imageUrl3 = URL(string: arrayOf[2].videoImageUrl ?? "")
-            let imageUrl4 = URL(string: arrayOf[3].videoImageUrl ?? "")
             
-            let data1:NSData =  try NSData(contentsOf: imageUrl1!)
-            let data2:NSData =  try NSData(contentsOf: imageUrl2!)
-            let data3:NSData =  try NSData(contentsOf: imageUrl3!)
-            let data4:NSData =  try NSData(contentsOf: imageUrl4!)
+            for i in arrayWithImageIndex{
+                let imageUrl = URL(string: i.videoImageUrl ?? "")
+                imageUrlList.append(imageUrl!)
+                
+            }
             
+            for imageUrl in imageUrlList {
+                if imageUrlList.count > 0  {
+                    let imageData:NSData =  try NSData(contentsOf: imageUrl)
+                    imageDataList.append(imageData)
+                }
+            }
             
-            let image1: UIImage = UIImage(data: data1 as Data)!
-            let image2: UIImage = UIImage(data: data2 as Data)!
-            let image3: UIImage = UIImage(data: data3 as Data)!
-            let image4: UIImage = UIImage(data: data4 as Data)!
-            
-            imageArray = [image1,image2,image3,image4]
+            for imageData in imageDataList {
+                if imageDataList.count > 0 {
+                    let image: UIImage = UIImage(data: imageData as Data)!
+                    imageList.append(image)
+                }
+            }
             
         }
         catch {
             // error
+            print("Could not get image from url \(error.localizedDescription)")
         }
         
         
-        return imageArray
+        return imageList
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -494,6 +504,7 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
                 cell.imageView2.image =  imageArray[1]
                 cell.imageView3.image =  imageArray[2]
                 cell.imageView4.image =  imageArray[3]
+                
             }else if topHitsArray.count == 0 {
                 
                 topImageArray = topImageArray.map { image in
