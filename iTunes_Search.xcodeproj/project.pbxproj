@@ -686,6 +686,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "my.Wave-Music";
 				PRODUCT_NAME = Wave;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -708,6 +710,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "my.Wave-Music";
 				PRODUCT_NAME = Wave;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

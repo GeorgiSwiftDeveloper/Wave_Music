@@ -113,9 +113,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 }
                 if  checkIfSongAlreadyInDatabase == true  {
                     let alert = UIAlertController(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "")  already exist in your list", preferredStyle: .alert)
-                    let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                        
-                    }
+                    let libraryAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(libraryAction)
                     self?.present(alert, animated: true, completion: nil)
                 }
@@ -142,9 +140,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             self?.selectedSectionTableView.reloadData()
         }
         
-        let actionNo = UIAlertAction(title: "NO", style: .cancel) { (action) in
-            
-        }
+        let actionNo = UIAlertAction(title: "NO", style: .default, handler: nil)
         
         alert.addAction(actionYes)
         alert.addAction(actionNo)

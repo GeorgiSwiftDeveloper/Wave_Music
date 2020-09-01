@@ -23,7 +23,7 @@ class MainLibrariMusciTableViewCell: UITableViewCell {
     
     func configureMyLibraryCell(_ video: Video){
         self.videoID = video.videoId ?? ""
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.musicTitleLabel.text = video.videoTitle
             if video.videoImageUrl != ""{
             self.imageViewUrl = video.videoImageUrl ?? ""
@@ -45,7 +45,7 @@ class MainLibrariMusciTableViewCell: UITableViewCell {
             self.musicImageView.layer.shadowRadius = 3
             self.musicImageView.layer.shadowOffset = .zero
             self.musicImageView.clipsToBounds = true
-        }
+//        }
     }
     
 }
