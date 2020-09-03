@@ -28,7 +28,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     var selectTopHitsRow = Bool()
     var videoSelected = Bool()
     
-    
+
     
     var videoPlaylistCount = [Int]()
     
@@ -85,14 +85,20 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         default:
             break
         }
-        for i in 0..<createdPlaylistArray.count {
-            fetchVideoWithEntityName("PlaylistMusicData", createdPlaylistArray[i])
-        }
         
+        getPlaylistMusicCount()
         DispatchQueue.main.async {
             self.playlistTableView.reloadData()
         }
         fetchRecentlyPlayedVideoData()
+    }
+    
+    
+    func getPlaylistMusicCount(){
+        for i in 0..<createdPlaylistArray.count {
+            fetchVideoWithEntityName("PlaylistMusicData", createdPlaylistArray[i])
+        }
+        print("video count is \(videoPlaylistCount)")
     }
     
     
@@ -103,19 +109,21 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     
     func fetchVideoWithEntityName(_ entityName: String, _ selectedPlaylistName: String){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (videoList, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-            }else{
-                if videoList != nil {
-                    switch entityName {
-                    case "PlaylistMusicData":
-                        
-                        
-                        self?.videoPlaylistCount.append(videoList!.count)
-                        
-                    default:
-                        break
+        if selectedPlaylistName != "New Playlist" {
+            CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (videoList, error) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }else{
+                    if videoList != nil {
+                        switch entityName {
+                        case "PlaylistMusicData":
+                            
+                            
+                            self?.videoPlaylistCount.append(videoList!.count)
+                            
+                        default:
+                            break
+                        }
                     }
                 }
             }
@@ -278,7 +286,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                 cell.playlistImage.image = UIImage(systemName: "list.bullet")
             }else{
                 cell.playlistName.text = createdPlaylistArray[indexPath.row]
-                cell.trackCountLabel.text = "\(videoPlaylistCount[indexPath.row]) tracks"
+                cell.trackCountLabel.text = "\(videoPlaylistCount[indexPath.row - 1]) tracks"
                 cell.playlistName.textColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                 cell.playlistName.font = UIFont(name: "Verdana", size: 12.0)
                 cell.trackCountLabel.font = UIFont(name: "Verdana-Bold", size: 10.0)
@@ -316,8 +324,13 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                         self.present(alert, animated: true, completion: nil)
                     }else{
                         self.createdPlaylistArray.append(text!)
+                        print("count is \(self.createdPlaylistArray.count)")
                         UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
-                        self.playlistTableView.reloadData()
+                        self.videoPlaylistCount = []
+                        self.getPlaylistMusicCount()
+                        DispatchQueue.main.async {
+                            self.playlistTableView.reloadData()
+                        }
                     }
                 }
             }
@@ -390,20 +403,39 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     
     
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "", handler: {a,b,c in
-            // example of your delete function
+    //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    //        let deleteAction = UIContextualAction(style: .normal, title: "", handler: {a,b,c in
+    //            // example of your delete function
+    //            self.selectedPlaylistRowTitle = self.createdPlaylistArray[indexPath.row]
+    //            print(self.selectedPlaylistRowTitle!)
+    //            self.deleteSelectedPlaylist(predicateName: self.selectedPlaylistRowTitle!)
+    //            self.createdPlaylistArray.remove(at: indexPath.row)
+    //
+    //            print("count is \(self.createdPlaylistArray.count)")
+    //
+    //            UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
+    //            tableView.deleteRows(at: [indexPath], with: .automatic)
+    //        })
+    //
+    //        deleteAction.image = UIImage(systemName: "trash")
+    //        deleteAction.backgroundColor = .black
+    //        return UISwipeActionsConfiguration(actions: [deleteAction])
+    //    }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
             self.selectedPlaylistRowTitle = self.createdPlaylistArray[indexPath.row]
             print(self.selectedPlaylistRowTitle!)
             self.deleteSelectedPlaylist(predicateName: self.selectedPlaylistRowTitle!)
             self.createdPlaylistArray.remove(at: indexPath.row)
+            
+            print("count is \(self.createdPlaylistArray.count)")
+            
             UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
             tableView.deleteRows(at: [indexPath], with: .automatic)
-        })
-        
-        deleteAction.image = UIImage(systemName: "trash")
-        deleteAction.backgroundColor = .black
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+            
+        }
     }
     
     
@@ -533,7 +565,6 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
             case 1:
                 let imageArray =  getImageFromUrl(recentPlayedVideo)
                 cell.imageView1.image =  imageArray[0]
-                
                 
             case 2:
                 let imageArray =  getImageFromUrl(recentPlayedVideo)
