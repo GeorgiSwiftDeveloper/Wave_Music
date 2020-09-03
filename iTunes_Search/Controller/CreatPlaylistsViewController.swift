@@ -214,7 +214,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                             let videoId =  self.topHitsArray[songIndex].videoId ?? ""
                             //                            let channelId =  self.topHitsArray[songIndex].channelId ?? ""
                             
-                            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName: topHitsEntityName) { (checkIfSaveIsSuccessful, error, checkIfSongAlreadyInDatabase) in
+                            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName: topHitsEntityName) { (error) in
                                 if error != nil {
                                     print(error?.localizedDescription as Any)
                                 }
@@ -310,7 +310,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             let action = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             }
             let createPlaylistAction = UIAlertAction(title: "Create", style: .default) { (action) in
-                let text = (alert.textFields?.first as! UITextField).text
+                let text = alert.textFields?.first?.text
                 if text == ""{
                     print("data is empty")
                 }else{

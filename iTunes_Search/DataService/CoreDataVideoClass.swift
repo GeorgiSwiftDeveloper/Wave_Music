@@ -9,8 +9,16 @@
 import UIKit
 import CoreData
 
+protocol SelectedSongIsAlreadyExsistInDatabaseDelegate: AnyObject {
+    func ifSelectedSongIsAlreadyExsistInDatabase(_ coreDataMananger: CoreDataVideoClass, _ ifAlreadyInDatabase: Bool)
+}
+
 class CoreDataVideoClass: NSObject {
+    
+    
     static var coreDataVideoInstance = CoreDataVideoClass()
+    
+    weak var selectedSongIsAlreadyExsistInDatabase: SelectedSongIsAlreadyExsistInDatabaseDelegate?
     
     func fetchVideoWithEntityName(coreDataEntityName: String, searchBarText: String,playlistName: String, loadVideoList: @escaping(_ returnVideoList: [Video]?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
@@ -39,7 +47,7 @@ class CoreDataVideoClass: NSObject {
                 //                let playListId = data.value(forKey: "playListId") as! String
                  let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
                 videoArray.append(videoList)
-//                    loadVideoList(videoList,nil)
+
             }
                 loadVideoList(videoArray,nil)
         } catch {
@@ -48,7 +56,7 @@ class CoreDataVideoClass: NSObject {
         }
     }
     
-    func saveVideoWithEntityName(videoTitle: String,videoImage:String,videoId: String,playlistName: String, coreDataEntityName: String, loadVideoList: @escaping(_ returnVideoList: Bool?, _ returnError: Error?, _ checkIfSongAlreadyInDatabase: Bool)-> ()){
+    func saveVideoWithEntityName(videoTitle: String,videoImage:String,videoId: String,playlistName: String, coreDataEntityName: String, loadVideoList: @escaping(_ returnError: Error?)-> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
         if playlistName != ""{
             let predicate = NSPredicate(format: "title == %@ AND playlistName == %@", argumentArray: [videoTitle, playlistName])
@@ -70,14 +78,15 @@ class CoreDataVideoClass: NSObject {
                     newEntity.setValue(playlistName, forKey: "playlistName")
                 }
                 try context?.save()
-                loadVideoList(true,nil, false)
+                loadVideoList(nil)
                 print("data has been saved ")
             }else{
                 print("this song is in database")
-                loadVideoList(false,nil, true)
+                selectedSongIsAlreadyExsistInDatabase?.ifSelectedSongIsAlreadyExsistInDatabase(self, true)
+                loadVideoList(nil)
             }
         }catch{
-            loadVideoList(false,error,false)
+            loadVideoList(error)
             print("error")
         }
     }

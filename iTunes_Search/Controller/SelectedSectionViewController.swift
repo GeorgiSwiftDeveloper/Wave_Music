@@ -19,7 +19,8 @@ protocol CheckIfMusicRecordDeletedDelegate:AnyObject {
     func musicRecordDeletedDelegate(_ alertTitleName: String)
 }
 
-class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate {
+class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate, SelectedSongIsAlreadyExsistInDatabaseDelegate {
+    
     
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
@@ -39,6 +40,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     weak var ifRowIsSelectedDelegate: CheckIfRowIsSelectedDelegate?
     weak var musicRecordDeletedDelegate: CheckIfMusicRecordDeletedDelegate?
     
+    
+    var coreDataConnectionManage = CoreDataVideoClass()
+    
+    
     @IBOutlet weak var selectedSectionTableView: UITableView!
     
     
@@ -47,6 +52,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         
         self.selectedSectionTableView.delegate = self
         self.selectedSectionTableView.dataSource = self
+        self.coreDataConnectionManage.selectedSongIsAlreadyExsistInDatabase = self
         
         switch checkTableViewName {
         case SelectedTableView.topHitsTableView.rawValue:
@@ -100,6 +106,15 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     
+    func ifSelectedSongIsAlreadyExsistInDatabase(_ coreDataMananger: CoreDataVideoClass, _ ifAlreadyInDatabase: Bool) {
+        if ifAlreadyInDatabase == true {
+            let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
+            let alert = UIAlertController(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "")  already exist in your list", preferredStyle: .alert)
+            let libraryAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(libraryAction)
+            present(alert, animated: true, completion: nil)
+        }
+    }
     func saveSelectedMusicCoreDataEntity(_ selectedPlaylistRowTitle: String) {
         
         let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
@@ -107,15 +122,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
         
         if (videoIDProperty != nil) || (videoImageUrlProperty != nil) || (videoTitleProperty != nil) {
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName) {[weak self] (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase)  in
+            coreDataConnectionManage.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName) {(error)  in
                 if error != nil {
                     print(error?.localizedDescription as Any)
-                }
-                if  checkIfSongAlreadyInDatabase == true  {
-                    let alert = UIAlertController(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "")  already exist in your list", preferredStyle: .alert)
-                    let libraryAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(libraryAction)
-                    self?.present(alert, animated: true, completion: nil)
                 }
             }
         }
@@ -210,7 +219,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         VideoPlayer.callVideoPlayer.webView.getPlayerState({ [weak self] (playerState, error) in
             if let error = error {
                 print("Error getting player state:" + error.localizedDescription)
-            } else if let playerState = playerState as? WKYTPlayerState {
+            } else {
                 
                 self?.updatePlayerState(playerState)
             }
@@ -486,7 +495,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (checkIfLoadIsSuccessful, error, checkIfSongAlreadyInDatabase) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
