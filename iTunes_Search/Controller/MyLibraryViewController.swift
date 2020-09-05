@@ -183,6 +183,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func setupSearchNavBar() {
         SearchController.sharedSearchControllerInstace.searchController(searchController, superViewController: self, navigationItem: self.navigationItem, searchPlaceholder: SearchPlaceholder.librarySearch)
+    
+        
         //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle.fill"), style: .done, target: self, action: #selector(settingsButtonSelected))
     }
     
@@ -282,10 +284,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
-        view.tintColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+        view.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 18)!
-        header.textLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        header.textLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         let myLibraryCount: Bool = myLibraryListArray.count >= 4 ? true : false
         if  myLibraryCount == true{
             viewAllButton.frame = CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40)

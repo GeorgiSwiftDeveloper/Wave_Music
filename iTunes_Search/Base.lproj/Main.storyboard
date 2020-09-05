@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kEB-Wj-v1n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kEB-Wj-v1n">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -26,6 +26,7 @@
                         <segue destination="Htc-C7-YKe" kind="relationship" relationship="viewControllers" id="fd4-gm-v4M"/>
                         <segue destination="TcC-dr-1WH" kind="relationship" relationship="viewControllers" id="EvN-Ki-6YH"/>
                         <segue destination="k7t-tx-TXM" kind="relationship" relationship="viewControllers" id="bDO-iD-XJ8"/>
+                        <segue destination="UiT-bX-h4E" kind="relationship" relationship="viewControllers" id="Kq2-z6-GJo"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NQW-6Q-aE5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -686,10 +687,10 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vMN-El-leR">
-                                        <rect key="frame" x="149.66666666666666" y="0.0" width="114.99999999999997" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="0.0" width="115" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mX2-WB-MwD">
-                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -710,10 +711,10 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="q4C-Lj-i5b">
-                                        <rect key="frame" x="149.66666666666666" y="170" width="115" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="170" width="114.99999999999997" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Mvh-us-vpg">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -734,10 +735,10 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6Wv-1H-y7w">
-                                        <rect key="frame" x="149.66666666666666" y="340" width="115" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="340" width="114.99999999999997" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="t6N-kZ-YPG">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -758,10 +759,10 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="K97-pR-imt">
-                                        <rect key="frame" x="149.66666666666666" y="510" width="115" height="160"/>
+                                        <rect key="frame" x="149.66666666666666" y="510" width="114.99999999999997" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ycc-Qs-2OP">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.99999999999997" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -973,8 +974,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stationImage" translatesAutoresizingMaskIntoConstraints="NO" id="w0G-nD-TV0">
-                                                    <rect key="frame" x="8" y="8" width="120" height="75"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble.left.and.bubble.right.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="w0G-nD-TV0">
+                                                    <rect key="frame" x="8" y="8.6666666666666643" width="120" height="75.666666666666686"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="75" id="AYS-9u-RHi"/>
                                                         <constraint firstAttribute="width" constant="120" id="qvu-5W-2Yq"/>
@@ -1077,7 +1078,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hmL-CO-72y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6999.1999999999998" y="204.67980295566502"/>
+            <point key="canvasLocation" x="6998.5507246376819" y="204.24107142857142"/>
         </scene>
         <!--Playlists-->
         <scene sceneID="fTU-uF-xvd">
@@ -1363,6 +1364,38 @@
             </objects>
             <point key="canvasLocation" x="4788.4057971014499" y="204.24107142857142"/>
         </scene>
+        <!--More-->
+        <scene sceneID="Dqv-Xa-rkt">
+            <objects>
+                <tableViewController id="CiN-XP-F57" customClass="MoreUITableViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="65" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XLe-RO-6Sm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="moreCell" rowHeight="65" id="Z8f-6k-mr0" customClass="MoreTableViewCell" customModule="Wave" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="65"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z8f-6k-mr0" id="O2v-AR-Xj7">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="CiN-XP-F57" id="Yn5-uG-Lhj"/>
+                            <outlet property="delegate" destination="CiN-XP-F57" id="soW-xj-DBX"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="More" id="AhR-A2-xU3"/>
+                    <connections>
+                        <outlet property="settingsTableView" destination="XLe-RO-6Sm" id="Hst-Ad-gns"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rfU-Ph-t2h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5300" y="932.8125"/>
+        </scene>
         <!--MyRadio-->
         <scene sceneID="WsH-PS-gGh">
             <objects>
@@ -1382,6 +1415,25 @@
             </objects>
             <point key="canvasLocation" x="5778" y="205"/>
         </scene>
+        <!--More-->
+        <scene sceneID="UdN-oa-YHv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UiT-bX-h4E" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="More" image="gear" catalog="system" selectedImage="gear" id="mdN-2S-oj2"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WGb-M1-u6u">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CiN-XP-F57" kind="relationship" relationship="rootViewController" id="447-h8-CNt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u1i-en-PUj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4389.855072463768" y="932.8125"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Qee-MJ-F5O"/>
@@ -1391,6 +1443,9 @@
         <image name="07012019-18" width="5000" height="4000"/>
         <image name="NowPlayingBars" width="19.666666030883789" height="19"/>
         <image name="antenna.radiowaves.left.and.right" catalog="system" width="128" height="109"/>
+        <image name="bubble.left.and.bubble.right.fill" catalog="system" width="128" height="97"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="gear" width="128" height="128"/>
         <image name="icon-hamburger" width="22" height="16"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="music.note" catalog="system" width="97" height="128"/>
@@ -1398,7 +1453,6 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="pop" width="3223" height="4834"/>
         <image name="square.stack.3d.up.fill" catalog="system" width="128" height="124"/>
-        <image name="stationImage" width="120" height="75"/>
         <image name="wave-1" width="512" height="512"/>
     </resources>
 </document>
