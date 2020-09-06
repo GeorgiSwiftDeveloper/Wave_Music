@@ -18,8 +18,12 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     let searchController = UISearchController(searchResultsController: nil)
     
     @IBOutlet weak var myLibraryTableView: UITableView!
-    @IBOutlet weak var artistsCollectionCell: UICollectionView!
     @IBOutlet weak var noTracksFoundView: UIView!
+    @IBOutlet weak var genreCollectionView: UICollectionView!
+    
+    @IBOutlet weak var indicatorView: UIView!
+    
+    var selectedGenreIndexRow = Int()
     
     var myLibraryListArray = [Video]()
     var webView = WKYTPlayerView()
@@ -50,8 +54,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         self.myLibraryTableView.dataSource = self
         
         
-        //        self.artistsCollectionCell.delegate = self
-        //        self.artistsCollectionCell.dataSource = self
+        self.genreCollectionView.delegate = self
+        self.genreCollectionView.dataSource = self
     }
     
     
@@ -112,10 +116,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 if videoList != nil {
                     switch entityName {
                     case myLibraryEntityName:
-
+                        
                         self?.myLibraryListArray.append(contentsOf: videoList!)
                         let libraryCount: Bool = (self?.myLibraryListArray.count)! <= 5 ? true : false
-                            
+                        
                         self?.viewAllButton.isHidden = libraryCount
                         
                         DispatchQueue.main.async {
@@ -183,7 +187,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func setupSearchNavBar() {
         SearchController.sharedSearchControllerInstace.searchController(searchController, superViewController: self, navigationItem: self.navigationItem, searchPlaceholder: SearchPlaceholder.librarySearch)
-    
+        
         
         //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle.fill"), style: .done, target: self, action: #selector(settingsButtonSelected))
     }
@@ -288,13 +292,13 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 18)!
         header.textLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        let myLibraryCount: Bool = myLibraryListArray.count >= 4 ? true : false
+        let myLibraryCount: Bool = myLibraryListArray.count >= 3 ? true : false
         if  myLibraryCount == true{
             viewAllButton.frame = CGRect(x: UIScreen.main.bounds.width - 100, y: 10, width: 100, height: 40)
             viewAllButton.tag = section
             viewAllButton.setTitle("View all", for: .normal)
             viewAllButton.titleLabel?.font =  UIFont(name: "Verdana-Bold", size: 9)
-            viewAllButton.setTitleColor(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), for: .normal)
+            viewAllButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
             header.addSubview(viewAllButton)
             sectionButton = viewAllButton
             viewAllButton.addTarget(self, action: #selector(destinationMyLibraryVC), for: .touchUpInside)
@@ -309,7 +313,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         if  let nc = segue.destination as? SelectedSectionViewController {
             nc.navigationItem.title = "My Library"
-
+            
             let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
             
             if selectedSearch == true {
@@ -319,8 +323,20 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             nc.ifRowIsSelectedDelegate = self
             nc.musicRecordDeletedDelegate = self
         }
+        if segue.identifier == "genrseListSegue" {
+            let genreVC = segue.destination as! GenreListViewController
+            let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+            if selectedSearch == true {
+                genreVC.searchIsSelected = true
+            }
+            
+            let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
+            if selectedmyLybrary == true {
+                genreVC.selectedmyLybrary = true
+            }
+            genreVC.genreModel  = sender as? GenreModel
+        }
     }
-    
     
     
     
@@ -329,7 +345,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         self.selectLibraryRow = false
         
         let selectedCell = self.myLibraryTableView.cellForRow(at: indexPath) as! MainLibrariMusciTableViewCell
-
+        
         getSelectedLibraryVideo(indexPath)
         
         VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.musicTitleLabel.text!)
@@ -367,7 +383,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             removeSelectedVideoRow(atIndexPath: indexPath)
             myLibraryListArray.remove(at: indexPath.row)
             checkIfNoTracksFound()
-            let libraryCount: Bool = (self.myLibraryListArray.count) <= 5 ? true : false
+            let libraryCount: Bool = (self.myLibraryListArray.count) <= 4 ? true : false
             sectionButton.isHidden = libraryCount
             
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -385,5 +401,44 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         }catch {
             print("Could not remove video from Database \(error.localizedDescription)")
         }
+    }
+}
+
+
+extension MyLibraryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return  GenreModelService.instance.getGenreArray().count
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
+            
+            cell.confiigurationGenreCell(GenreModelService.instance.getGenreArray()[indexPath.row])
+            cell.layer.borderColor = UIColor.lightGray.cgColor
+            cell.layer.borderWidth = 0.5
+            cell.layer.cornerRadius = 6
+            cell.layer.backgroundColor = UIColor.white.cgColor
+            
+            return cell
+        }else {
+            return GenresCollectionViewCell()
+        }
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
+        selectedGenreIndexRow = indexPath.row
+        
+        let selectedGenereCollectionIndex = UserDefaults.standard.object(forKey: "selectedGenereCollectionIndex") as? Int
+        if selectedGenereCollectionIndex == selectedGenreIndexRow {
+            UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
+        }else{
+            UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
+        }
+        
+        self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
     }
 }

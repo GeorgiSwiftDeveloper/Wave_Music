@@ -29,8 +29,8 @@ class WaveUITests: XCTestCase {
         app.tabBars.buttons.element(boundBy: 0).tap()
         XCTAssertTrue(app.isDisplayLibraryView, "MyLibraryView is not available when tabbar clicked")
         
-        app.tabBars.buttons.element(boundBy: 1).tap()
-        XCTAssertTrue(app.isDisplayGenresList, "GenreListView is not available when tabbar clicked")
+//        app.tabBars.buttons.element(boundBy: 1).tap()
+//        XCTAssertTrue(app.isDisplayGenresList, "GenreListView is not available when tabbar clicked")
         
         app.tabBars.buttons.element(boundBy: 2).tap()
         XCTAssertTrue(app.isDisplaySearchView, "SearchView is not available when tabbar clicked")
