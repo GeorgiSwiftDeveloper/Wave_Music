@@ -11,6 +11,7 @@ import Foundation
 enum SelectedTableView: String {
     case  topHitsTableView = "TopHits"
     case  libraryTableView  = "MyLibrary"
+    case  genreCollectionView  = "GenreList"
     case  recentPlayedTableView = "RecentPlayed"
     case  playlistTableView = "Playlist"
 }

@@ -87,6 +87,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         }
         
         getPlaylistMusicCount()
+        
         DispatchQueue.main.async {
             self.playlistTableView.reloadData()
         }
@@ -230,25 +231,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         }
     }
     
-    
-    func recentPlayerVideoImage(videoCount:Int,imageData: @escaping(_ imageData: [Data]) -> ()) {
-        
-        var imageDataArray = [Data]()
-        
-        for i in 0..<videoCount {
-            let imageUrl1 = URL(string: recentPlayedVideo[i].videoImageUrl! )
-            do{
-                let data1:NSData = try NSData(contentsOf: imageUrl1!)
-                
-                imageDataArray.append(data1 as Data)
-                
-            }catch{
-                print("no image data found")
-            }
-            imageData(imageDataArray)
-        }
-        
-    }
     
     func checkIfRowIsSelected(_ checkIf: Bool) {
         if checkIf == true{
@@ -400,27 +382,6 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             return false
         }
     }
-    
-    
-    
-    //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    //        let deleteAction = UIContextualAction(style: .normal, title: "", handler: {a,b,c in
-    //            // example of your delete function
-    //            self.selectedPlaylistRowTitle = self.createdPlaylistArray[indexPath.row]
-    //            print(self.selectedPlaylistRowTitle!)
-    //            self.deleteSelectedPlaylist(predicateName: self.selectedPlaylistRowTitle!)
-    //            self.createdPlaylistArray.remove(at: indexPath.row)
-    //
-    //            print("count is \(self.createdPlaylistArray.count)")
-    //
-    //            UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
-    //            tableView.deleteRows(at: [indexPath], with: .automatic)
-    //        })
-    //
-    //        deleteAction.image = UIImage(systemName: "trash")
-    //        deleteAction.backgroundColor = .black
-    //        return UISwipeActionsConfiguration(actions: [deleteAction])
-    //    }
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

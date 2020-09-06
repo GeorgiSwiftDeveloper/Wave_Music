@@ -40,7 +40,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var videoPlayerClass = VideoPlayer()
     var checkIfRecentPlaylistIsEmpty = Bool()
     
-    var artImageArray  = ["justinB","justinT","eminem","beyonce1","swift"]
+    
+    var selectedGenreRowTitleHolder = String()
+    
+    
     
     
     override func viewDidLoad() {
@@ -236,20 +239,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
     }
     
-    
-    
-    //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    //        return artImageArray.count
-    //    }
-    //
-    //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    //            let artCell = collectionView.dequeueReusableCell(withReuseIdentifier: "artists", for: indexPath) as! ArtistsCollectionViewCell
-    //            artCell.configureArtistCell(artImageArray[indexPath.row])
-    //        return artCell
-    //    }
-    
-    
-    
 }
 
 extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
@@ -311,6 +300,37 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        if  let nc = segue.destination as? SelectedSectionViewController {
+            switch sender as? String {
+            case SelectedTableView.libraryTableView.rawValue:
+                nc.navigationItem.title = "My Library"
+                
+                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                
+                if selectedSearch == true {
+                    nc.searchIsSelected = true
+                }
+                nc.checkTableViewName = sender as! String
+                nc.ifRowIsSelectedDelegate = self
+                nc.musicRecordDeletedDelegate = self
+            case SelectedTableView.genreCollectionView.rawValue:
+                nc.navigationItem.title = selectedGenreRowTitleHolder
+                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
+                if selectedSearch == true {
+                    nc.searchIsSelected = true
+                }
+                
+                let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
+                if selectedmyLybrary == true {
+                    nc.selectedmyLybrary = true
+                }
+                nc.genreModel  = sender as? GenreModel
+            default:
+                break
+            }
+            
+        }
+      
         if  let nc = segue.destination as? SelectedSectionViewController {
             nc.navigationItem.title = "My Library"
             
@@ -429,16 +449,16 @@ extension MyLibraryViewController: UICollectionViewDelegate, UICollectionViewDat
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedGenreRow = GenreModelService.instance.getGenreArray()[indexPath.row]
+        let selectedGenreRowTitle = GenreModelService.instance.getGenreArray()[indexPath.row]
         selectedGenreIndexRow = indexPath.row
-        
+        selectedGenreRowTitleHolder = selectedGenreRowTitle.genreTitle
         let selectedGenereCollectionIndex = UserDefaults.standard.object(forKey: "selectedGenereCollectionIndex") as? Int
         if selectedGenereCollectionIndex == selectedGenreIndexRow {
             UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
         }else{
             UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
         }
-        
-        self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
+         self.performSegue(withIdentifier: destinationToMyLibraryIdentifier, sender: SelectedTableView.genreCollectionView.rawValue)
+//        self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
     }
 }

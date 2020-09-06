@@ -215,10 +215,10 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
-                    
-                    if ((self.superViewController as? GenresViewController) != nil) {
-                        self.superViewController?.navigationController?.navigationBar.isHidden = true
-                    }
+//                    
+//                    if ((self.superViewController as? GenresViewController) != nil) {
+//                        self.superViewController?.navigationController?.navigationBar.isHidden = true
+//                    }
                     
                     self.visualEffectView.removeFromSuperview()
                 }

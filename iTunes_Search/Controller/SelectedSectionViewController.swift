@@ -21,7 +21,7 @@ protocol CheckIfMusicRecordDeletedDelegate:AnyObject {
 
 class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate, SelectedSongIsAlreadyExsistInDatabaseDelegate {
     
-    
+    var webView = WKYTPlayerView()
     var topHitsLists = [Video]()
     var myLibraryList = [Video]()
     var recentPlayedVideo = [Video]()
@@ -30,12 +30,17 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     var checkTableViewName = String()
-    
-    
-    var webView = WKYTPlayerView()
-    
     var topHitsListHeight = 190
+//    var searchIsSelected = Bool()
+    
+    var genreModel: GenreModel?
+    var videoArray = [Video]()
+    var entityName = String()
+    var youTubeVideoID =  String()
+    var youTubeVideoTitle =  String()
+    var selectedIndex = Int()
     var searchIsSelected = Bool()
+    var selectedmyLybrary = Bool()
     
     weak var ifRowIsSelectedDelegate: CheckIfRowIsSelectedDelegate?
     weak var musicRecordDeletedDelegate: CheckIfMusicRecordDeletedDelegate?
@@ -46,12 +51,22 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     @IBOutlet weak var selectedSectionTableView: UITableView!
     
+    var isEmpty: Bool {
+        do {
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.takeGenreName(genreModel!.genreTitle))
+            let count  = try context?.count(for: request)
+            return count == 0
+        } catch {
+            return true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.selectedSectionTableView.delegate = self
         self.selectedSectionTableView.dataSource = self
+        
         self.coreDataConnectionManage.selectedSongIsAlreadyExsistInDatabase = self
         
         switch checkTableViewName {
@@ -98,6 +113,32 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 present(alert, animated: true, completion: nil)
             }else{
                 UserDefaults.standard.set(videoPlaylist.count, forKey: "videoPlaylistCount")
+            }
+        case SelectedTableView.genreCollectionView.rawValue:
+            if isEmpty{
+                YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: self.genreModel!.genreTitle, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
+                    if error != nil {
+                        print(error?.localizedDescription as Any)
+                    }else{
+                        self.videoArray = loadVideolist!
+                        for songIndex in 0..<self.videoArray.count{
+                            let title =   self.videoArray[songIndex].videoTitle ?? ""
+                            let image =  self.videoArray[songIndex].videoImageUrl ?? ""
+                            let videoId =  self.videoArray[songIndex].videoId ?? ""
+                            let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
+                            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle)) { ( error) in
+                                if error != nil {
+                                    print(error?.localizedDescription as Any)
+                                }
+                            }
+                            DispatchQueue.main.async {
+                                self.selectedSectionTableView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }else{
+                fetchVideoWithEntityNameGenre()
             }
         default:
             break
@@ -265,6 +306,51 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     
+    func takeGenreName(_ genreName: String) -> String {
+        switch genreName {
+        case "Rap":
+            self.entityName = "YouTubeDataModel"
+        case "Hip-Hop":
+            self.entityName = "YouTubeHipHopData"
+        case "Pop":
+            self.entityName = "YouTubePopData"
+        case "Rock":
+            self.entityName = "YouTubeRockData"
+        case "R&B":
+            self.entityName = "YouTubeRBData"
+        case "Dance":
+            self.entityName = "YouTubeDanceData"
+        case "Electronic":
+            self.entityName = "YouTubeElectronicData"
+        case "Jazz":
+            self.entityName = "YouTubeJazzData"
+        case "Instrumental":
+            self.entityName = "YouTubeInstrumentalData"
+        case "Blues":
+            self.entityName = "YouTubeBluesData"
+        case "Car Music":
+            self.entityName = "YouTubeCarMusicData"
+        case "Deep Bass":
+            self.entityName = "YouTubeDeepBassData"
+        default:
+            break
+        }
+        return entityName
+    }
+    
+    func fetchVideoWithEntityNameGenre(){
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: self.takeGenreName(genreModel!.genreTitle), searchBarText: "", playlistName: "") { (videoList, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }else{
+                if videoList != nil {
+                    self.videoArray.append(contentsOf: videoList!)
+                    self.selectedSectionTableView.reloadData()
+                }
+            }
+        }
+    }
+    
     
     func fetchVideoWithEntityName(_ entityName: String, _ selectedPlaylistName: String){
         CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (videoList, error) in
@@ -308,7 +394,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             numberOfRowsInSection = recentPlayedVideo.count
         case SelectedTableView.playlistTableView.rawValue:
             numberOfRowsInSection = videoPlaylist.count
-            
+        case SelectedTableView.genreCollectionView.rawValue:
+            numberOfRowsInSection = videoArray.count
         default:
             break
         }
@@ -362,6 +449,14 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 cell.addToFavoriteButton.isHidden = true
                 selectedTableViewCell = cell
             }else {
+                return SelectedSectionTableViewCell()
+            }
+        case SelectedTableView.genreCollectionView.rawValue:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
+                DispatchQueue.main.async {
+                    cell.configureSelectedVideoCell(self.videoArray[indexPath.row])
+                }
+            }else{
                 return SelectedSectionTableViewCell()
             }
         default:
@@ -452,6 +547,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 myLibraryList.remove(at: indexPath.row)
             case SelectedTableView.recentPlayedTableView.rawValue:
                 recentPlayedVideo.remove(at: indexPath.row)
+            case SelectedTableView.genreCollectionView.rawValue:
+                videoArray.remove(at: indexPath.row)
             default:
                 break
             }
@@ -467,9 +564,12 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             entityName = myLibraryEntityName
         case SelectedTableView.recentPlayedTableView.rawValue:
             entityName = recentPlayedEntityName
+        case SelectedTableView.genreCollectionView.rawValue:
+            entityName = self.takeGenreName(genreModel!.genreTitle)
         default:
             break
         }
+        
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let result = try? context?.fetch(request)
         let resultData = result as! [NSManagedObject]
@@ -495,7 +595,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (error) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
@@ -508,6 +608,17 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case SelectedTableView.playlistTableView.rawValue:
             
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
+            
+        case SelectedTableView.genreCollectionView.rawValue:
+            
+            let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
+            self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
+            
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }
+            }
         default:
             break
         }
