@@ -323,32 +323,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
         }
-        
-//        if  let nc = segue.destination as? SelectedSectionViewController {
-//            nc.navigationItem.title = "My Library"
-//
-//            let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-//
-//            if selectedSearch == true {
-//                nc.searchIsSelected = true
-//            }
-//            nc.checkTableViewName = sender as! String
-//            nc.ifRowIsSelectedDelegate = self
-//            nc.musicRecordDeletedDelegate = self
-//        }
-//        if segue.identifier == "genrseListSegue" {
-//            let genreVC = segue.destination as! GenreListViewController
-//            let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-//            if selectedSearch == true {
-//                genreVC.searchIsSelected = true
-//            }
-//
-//            let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
-//            if selectedmyLybrary == true {
-//                genreVC.selectedmyLybrary = true
-//            }
-//            genreVC.genreModel  = sender as? GenreModel
-//        }
     }
     
     

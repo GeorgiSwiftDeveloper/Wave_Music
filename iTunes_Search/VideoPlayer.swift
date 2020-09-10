@@ -237,10 +237,11 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
-                    
+//                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
+                    break
                 case .collapsed:
-                    self.visualEffectView.effect = nil
+//                    self.visualEffectView.effect = nil
+                    break
                 }
             }
             
