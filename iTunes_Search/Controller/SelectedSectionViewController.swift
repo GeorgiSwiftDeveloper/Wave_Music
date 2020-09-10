@@ -463,7 +463,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 DispatchQueue.main.async {
                     cell.configureSelectedVideoCell(self.videoArray[indexPath.row])
                 }
-                cell.addToFavoriteButton.isHidden = true
+                cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
                 selectedTableViewCell = cell
             }else{
                 return SelectedSectionTableViewCell()

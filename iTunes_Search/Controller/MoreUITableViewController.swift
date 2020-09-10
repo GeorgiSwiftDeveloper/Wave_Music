@@ -64,7 +64,7 @@ class MoreUITableViewController: UITableViewController {
         cell?.textLabel?.text = settingsArray[indexPath.row].settingsName
         
         cell?.textLabel!.lineBreakMode = .byCharWrapping
-        cell?.textLabel!.font = UIFont.systemFont(ofSize: 16.0)
+        cell?.textLabel?.font = UIFont(name: "Verdana", size: 16.0)
         cell?.textLabel?.textColor = UIColor.black
         cell?.accessoryType = .disclosureIndicator
         cell?.textLabel?.textAlignment = .center
@@ -72,15 +72,4 @@ class MoreUITableViewController: UITableViewController {
         
         return cell!
     }
-    
-    
-    override  func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
-    {
-        view.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Verdana", size: 10)!
-        header.textLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        header.textLabel?.numberOfLines  = 0
-    }
-    
 }

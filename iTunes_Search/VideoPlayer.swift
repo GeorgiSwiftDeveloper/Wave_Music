@@ -59,7 +59,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     func videoPalyerClass(genreVideoID:String,index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: String){
         videoTitle = selectedVideoTitle
-        setupCardVisualEffect()
+//        setupCardVisualEffect()
         
         cardViewController = CardViewController(nibName:String(cardController), bundle:nil)
         
@@ -142,12 +142,12 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     
     
-    func setupCardVisualEffect() {
-        visualEffectView = UIVisualEffectView()
-        visualEffectView.frame = CGRect(x: 0, y: 0, width: (self.superViewController?.view.frame.width)!, height: 145)
-        self.superViewController!.view.addSubview(visualEffectView)
-        
-    }
+//    func setupCardVisualEffect() {
+//        visualEffectView = UIVisualEffectView()
+//        visualEffectView.frame = CGRect(x: 0, y: 0, width: (self.superViewController?.view.frame.width)!, height: 145)
+//        self.superViewController!.view.addSubview(visualEffectView)
+//
+//    }
     
     
     func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {

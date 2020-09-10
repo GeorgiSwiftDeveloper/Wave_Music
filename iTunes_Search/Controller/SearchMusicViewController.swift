@@ -118,13 +118,15 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchBar.text != "" {
             let songName = searchBar.text
-            searchConnectionManager.fetchYouTubeData(name: songName!)
-            searchController.searchBar.text  = songName
-            searchController.isActive = true
-            self.searchHintImageView.isHidden = true
-            self.searchHintLabelText.isHidden = true
             activityIndicator.activityLoadIndecator(self.view, self.hintView)
             activityIndicator.activityIndicatorView.startAnimating()
+            
+            searchConnectionManager.fetchYouTubeData(name: songName!)
+            searchController.searchBar.text  = songName
+            
+            searchController.isActive = false
+            self.searchHintImageView.isHidden = true
+            self.searchHintLabelText.isHidden = true
             
         }
     }
@@ -140,14 +142,13 @@ extension SearchMusicViewController: AlbumManagerDelegate {
             self.hintView.isHidden = true
             self.searchMusicTableView.isHidden = false
             self.searchMusicList = album
-            DispatchQueue.main.async {
-                self.searchMusicTableView.reloadData()
-                self.searchMusicTableView.isHidden = false
-                self.hintView.isHidden = true
-                self.view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-                self.searchHintImageView.isHidden = false
-                self.searchHintLabelText.isHidden = false
-            }
+            self.searchMusicTableView.isHidden = false
+            self.hintView.isHidden = true
+            self.view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            self.searchHintImageView.isHidden = false
+            self.searchHintLabelText.isHidden = false
+            
+            self.searchMusicTableView.reloadData()
             ActivityIndecator.activitySharedInstace.activityIndicatorView.stopAnimating()
         }
     }
