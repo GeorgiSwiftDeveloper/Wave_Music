@@ -316,6 +316,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 if selectedmyLybrary == true {
                     nc.selectedmyLybrary = true
                 }
+                nc.checkTableViewName = sender as! String
                 nc.selectedGenreTitle  = selectedGenreRowTitleHolder
             default:
                 break

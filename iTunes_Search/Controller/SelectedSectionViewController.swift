@@ -120,6 +120,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                         print(error?.localizedDescription as Any)
                     }else{
                         self.videoArray = loadVideolist!
+                        print(loadVideolist?.count)
                         for songIndex in 0..<self.videoArray.count{
                             let title =   self.videoArray[songIndex].videoTitle ?? ""
                             let image =  self.videoArray[songIndex].videoImageUrl ?? ""
@@ -130,9 +131,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                                     print(error?.localizedDescription as Any)
                                 }
                             }
-                            DispatchQueue.main.async {
-                                self.selectedSectionTableView.reloadData()
-                            }
+                        }
+                        DispatchQueue.main.async {
+                            self.selectedSectionTableView.reloadData()
                         }
                     }
                 }
@@ -186,8 +187,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         let actionYes = UIAlertAction(title: "YES", style: .default) { [weak self](action) in
             self?.musicRecordDeletedDelegate?.musicRecordDeletedDelegate(alertTitle)
             self?.deleteRecords()
-               DispatchQueue.main.async {
-            self?.selectedSectionTableView.reloadData()
+            DispatchQueue.main.async {
+                self?.selectedSectionTableView.reloadData()
             }
         }
         
@@ -301,7 +302,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     func searchisSelected() {
         if searchIsSelected == true {
             UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
-               DispatchQueue.main.async {
+            DispatchQueue.main.async {
                 self.selectedSectionTableView.reloadData()
             }
         }
@@ -347,9 +348,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
+                    print("video is \(videoList)")
                     self.videoArray.append(contentsOf: videoList!)
-                       DispatchQueue.main.async {
-                    self.selectedSectionTableView.reloadData()
+                    DispatchQueue.main.async {
+                        self.selectedSectionTableView.reloadData()
                     }
                 }
             }
@@ -461,6 +463,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 DispatchQueue.main.async {
                     cell.configureSelectedVideoCell(self.videoArray[indexPath.row])
                 }
+                cell.addToFavoriteButton.isHidden = true
+                selectedTableViewCell = cell
             }else{
                 return SelectedSectionTableViewCell()
             }
@@ -638,7 +642,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         VideoPlayer.callVideoPlayer.superViewController = self
         
         VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
-           DispatchQueue.main.async {
+        DispatchQueue.main.async {
             self.selectedSectionTableView.reloadData()
         }
     }
