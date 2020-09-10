@@ -28,7 +28,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     var selectTopHitsRow = Bool()
     var videoSelected = Bool()
     
-
+    
     
     var videoPlaylistCount = [Int]()
     
@@ -61,8 +61,9 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         if let musicPlaylist = UserDefaults.standard.object(forKey: "MusicPlaylist") as? [String] {
             createdPlaylistArray = musicPlaylist
         }
-        
-        self.playlistTableView.reloadData()
+        DispatchQueue.main.async {
+            self.playlistTableView.reloadData()
+        }
     }
     
     
@@ -186,8 +187,9 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                         self.recentPlayedCollectionCell.reloadData()
                     case topHitsEntityName:
                         self.topHitsArray.append(contentsOf: videoList!)
-                        self.recentPlayedCollectionCell.reloadData()
-                        
+                        DispatchQueue.main.async {
+                            self.recentPlayedCollectionCell.reloadData()
+                        }
                     default:
                         break
                     }
@@ -220,8 +222,9 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                                     print(error?.localizedDescription as Any)
                                 }
                             }
-                            self.recentPlayedCollectionCell.reloadData()
-                            
+                            DispatchQueue.main.async {
+                                self.recentPlayedCollectionCell.reloadData()
+                            }
                         }
                     }
                 }
@@ -234,9 +237,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
     
     func checkIfRowIsSelected(_ checkIf: Bool) {
         if checkIf == true{
-            DispatchQueue.main.async {
-                self.selectTopHitsRow = true
-            }
+            self.selectTopHitsRow = true
         }
     }
     
@@ -247,7 +248,9 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                 image.image = nil
                 return image
             }
-            recentPlayedCollectionCell.reloadData()
+            DispatchQueue.main.async {
+                self.recentPlayedCollectionCell.reloadData()
+            }
         }
     }
     
@@ -493,11 +496,12 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
             if topHitsArray.count >= 4 {
                 
                 let imageArray =  getImageFromUrl(topHitsArray)
-                cell.imageView1.image =  imageArray[0]
-                cell.imageView2.image =  imageArray[1]
-                cell.imageView3.image =  imageArray[2]
-                cell.imageView4.image =  imageArray[3]
-                
+                DispatchQueue.main.async {
+                    cell.imageView1.image =  imageArray[0]
+                    cell.imageView2.image =  imageArray[1]
+                    cell.imageView3.image =  imageArray[2]
+                    cell.imageView4.image =  imageArray[3]
+                }
             }else if topHitsArray.count == 0 {
                 
                 topImageArray = topImageArray.map { image in
@@ -525,23 +529,31 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
                 
             case 1:
                 let imageArray =  getImageFromUrl(recentPlayedVideo)
-                cell.imageView1.image =  imageArray[0]
+                DispatchQueue.main.async {
+                    cell.imageView1.image =  imageArray[0]
+                }
                 
             case 2:
                 let imageArray =  getImageFromUrl(recentPlayedVideo)
-                cell.imageView1.image =  imageArray[0]
-                cell.imageView2.image =  imageArray[1]
+                DispatchQueue.main.async {
+                    cell.imageView1.image =  imageArray[0]
+                    cell.imageView2.image =  imageArray[1]
+                }
             case 3:
                 let imageArray =  getImageFromUrl(recentPlayedVideo)
-                cell.imageView1.image =  imageArray[0]
-                cell.imageView2.image =  imageArray[1]
-                cell.imageView3.image =  imageArray[2]
+                DispatchQueue.main.async {
+                    cell.imageView1.image =  imageArray[0]
+                    cell.imageView2.image =  imageArray[1]
+                    cell.imageView3.image =  imageArray[2]
+                }
             default:
                 let imageArray =  getImageFromUrl(recentPlayedVideo)
-                cell.imageView1.image =  imageArray[0]
-                cell.imageView2.image =  imageArray[1]
-                cell.imageView3.image =  imageArray[2]
-                cell.imageView4.image =  imageArray[3]
+                DispatchQueue.main.async {
+                    cell.imageView1.image =  imageArray[0]
+                    cell.imageView2.image =  imageArray[1]
+                    cell.imageView3.image =  imageArray[2]
+                    cell.imageView4.image =  imageArray[3]
+                }
             }
             
             

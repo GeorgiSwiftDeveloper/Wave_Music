@@ -39,6 +39,7 @@ class SearchMusicViewController: UIViewController,UISearchControllerDelegate,UIS
         super.viewDidLoad()
         self.view.accessibilityIdentifier = "SearchView"
         self.searchController.searchBar.accessibilityIdentifier = "Search"
+        
         searchConnectionManager.searchAlbumDelegate = self
         self.searchMusicTableView.delegate = self
         self.searchMusicTableView.dataSource = self
@@ -136,20 +137,18 @@ extension SearchMusicViewController: AlbumManagerDelegate {
     func didUpdateAlbum(_ albumManager: SearchConnection, album: [Video]) {
         
         if  album.count != 0 {
+            self.hintView.isHidden = true
+            self.searchMusicTableView.isHidden = false
+            self.searchMusicList = album
             DispatchQueue.main.async {
-                self.hintView.isHidden = true
-                self.searchMusicTableView.isHidden = false
-                self.searchMusicList = album
-                DispatchQueue.main.async {
-                    self.searchMusicTableView.reloadData()
-                }
+                self.searchMusicTableView.reloadData()
                 self.searchMusicTableView.isHidden = false
                 self.hintView.isHidden = true
-                ActivityIndecator.activitySharedInstace.activityIndicatorView.stopAnimating()
                 self.view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
                 self.searchHintImageView.isHidden = false
                 self.searchHintLabelText.isHidden = false
             }
+            ActivityIndecator.activitySharedInstace.activityIndicatorView.stopAnimating()
         }
     }
     
@@ -165,7 +164,9 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "searchMusicCell", for: indexPath) as? SearchVideoTableViewCell {
-            cell.configureSearchCell(albums: searchMusicList[indexPath.row])
+            DispatchQueue.main.async {
+                cell.configureSearchCell(albums: self.searchMusicList[indexPath.row])
+            }
             cell.favoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
             cell.favoriteButton.tag = indexPath.row;
             
@@ -213,7 +214,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         }
         let addPlaylistAction = UIAlertAction(title: "Add to Playlist", style: .default) { (action) in
             self.navigationController?.popViewController(animated: true)
-            self.tabBarController?.selectedIndex = 3
+            self.tabBarController?.selectedIndex = 2
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in

@@ -25,7 +25,6 @@ class SelectedSectionTableViewCell: UITableViewCell {
             self.videoImageUrlProperty = video.videoImageUrl ?? ""
             self.videoIDProperty = video.videoId ?? ""
             self.videoTitleProperty = video.videoTitle ?? ""
-            DispatchQueue.main.async {
                 self.topHitLabelText.text = video.videoTitle
                 if video.videoImageUrl != ""{
                     let imageUrl = URL(string: video.videoImageUrl ?? "")
@@ -49,4 +48,4 @@ class SelectedSectionTableViewCell: UITableViewCell {
                 self.topHitImageView?.clipsToBounds = true
             }
     }
-}
+

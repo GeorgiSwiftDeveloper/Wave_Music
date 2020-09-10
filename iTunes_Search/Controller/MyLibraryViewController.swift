@@ -39,8 +39,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var viewAllButton = UIButton()
     var videoPlayerClass = VideoPlayer()
     var checkIfRecentPlaylistIsEmpty = Bool()
-    
-    
     var selectedGenreRowTitleHolder = String()
     
     
@@ -173,15 +171,17 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func musicRecordDeletedDelegate(_ alertTitleName: String) {
         if alertTitleName == "My Library" {
             myLibraryListArray = []
-            myLibraryTableView.reloadData()
+            DispatchQueue.main.async {
+                self.myLibraryTableView.reloadData()
+            }
         }
     }
     
     func checkIfRowIsSelected(_ checkIf: Bool) {
         if checkIf == true{
+            self.selectLibraryRow = true
+            self.selectTopHitsRow = true
             DispatchQueue.main.async {
-                self.selectLibraryRow = true
-                self.selectTopHitsRow = true
                 self.myLibraryTableView.reloadData()
             }
         }
@@ -190,16 +190,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     func setupSearchNavBar() {
         SearchController.sharedSearchControllerInstace.searchController(searchController, superViewController: self, navigationItem: self.navigationItem, searchPlaceholder: SearchPlaceholder.librarySearch)
-        
-        
-        //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle.fill"), style: .done, target: self, action: #selector(settingsButtonSelected))
     }
-    
-    
-    //    @objc func  settingsButtonSelected()  {
-    //        print("selected")
-    //
-    //        }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         print("Search end editing")
@@ -217,7 +208,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty == false{
             fetchSearchSong(searchBar, searchText: searchText)
-            self.myLibraryTableView.reloadData()
+            DispatchQueue.main.async {
+                self.myLibraryTableView.reloadData()
+            }
         }
         else{
             self.myLibraryListArray = []
@@ -233,8 +226,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
             }else {
                 self.myLibraryListArray = []
                 self.myLibraryListArray.append(contentsOf: videoList!)
-                
-                self.myLibraryTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.myLibraryTableView.reloadData()
+                }
             }
         }
     }
@@ -263,10 +257,8 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: myLibraryTableViewCellIdentifier, for: indexPath) as? MainLibrariMusciTableViewCell)!
         
-        DispatchQueue.main.async {
             libraryMusicCell.configureMyLibraryCell(self.myLibraryListArray[indexPath.row])
             
-        }
         return libraryMusicCell
     }
     
@@ -330,7 +322,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
         }
-      
+        
         if  let nc = segue.destination as? SelectedSectionViewController {
             nc.navigationItem.title = "My Library"
             
@@ -390,7 +382,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         videoSelected = true
         VideoPlayer.callVideoPlayer.superViewController = self
-        myLibraryTableView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.myLibraryTableView.reloadData()
+        }
     }
     
     
@@ -433,13 +428,12 @@ extension MyLibraryViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
-            
-            cell.confiigurationGenreCell(GenreModelService.instance.getGenreArray()[indexPath.row])
-            cell.layer.borderColor = UIColor.lightGray.cgColor
-            cell.layer.borderWidth = 0.5
-            cell.layer.cornerRadius = 6
-            cell.layer.backgroundColor = UIColor.white.cgColor
-            
+                cell.confiigurationGenreCell(GenreModelService.instance.getGenreArray()[indexPath.row])
+                cell.layer.borderColor = UIColor.lightGray.cgColor
+                cell.layer.borderWidth = 0.5
+                cell.layer.cornerRadius = 6
+                cell.layer.backgroundColor = UIColor.white.cgColor
+
             return cell
         }else {
             return GenresCollectionViewCell()
@@ -458,7 +452,6 @@ extension MyLibraryViewController: UICollectionViewDelegate, UICollectionViewDat
         }else{
             UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
         }
-         self.performSegue(withIdentifier: destinationToMyLibraryIdentifier, sender: SelectedTableView.genreCollectionView.rawValue)
-//        self.performSegue(withIdentifier: "genrseListSegue", sender: selectedGenreRow)
+        self.performSegue(withIdentifier: destinationToMyLibraryIdentifier, sender: SelectedTableView.genreCollectionView.rawValue)
     }
 }

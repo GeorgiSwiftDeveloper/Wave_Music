@@ -15,11 +15,11 @@ class GenresCollectionViewCell: UICollectionViewCell {
     
     
     func confiigurationGenreCell(_ albums: GenreModel) {
-        DispatchQueue.main.async {
-            self.genreNameLabel.text = albums.genreTitle
-            self.genreImageView.image = UIImage(named: albums.genreImage)
-                     
-        }
+        
+        self.genreNameLabel.text = albums.genreTitle
+        self.genreImageView.image = UIImage(named: albums.genreImage)
+        
+        
         self.genreImageView.layer.cornerRadius = 5
         self.genreNameLabel.layer.shadowColor = UIColor.lightGray.cgColor
         self.genreNameLabel.layer.shadowRadius = 5
@@ -27,6 +27,6 @@ class GenresCollectionViewCell: UICollectionViewCell {
         self.genreNameLabel?.layer.shadowOffset = .zero
     }
     
-
+    
     
 }

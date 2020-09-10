@@ -44,6 +44,7 @@
 		6A762AB52502F0CE00C793A6 /* MoreUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A762AB42502F0CE00C793A6 /* MoreUITableViewController.swift */; };
 		6A762AB72502F48F00C793A6 /* MoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A762AB62502F48F00C793A6 /* MoreTableViewCell.swift */; };
 		6A8532DC24EE516700498245 /* WaveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8532DB24EE516700498245 /* WaveUITests.swift */; };
+		6ABA084A2509CD7800453C21 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA08492509CD7800453C21 /* UIView+Ext.swift */; };
 		6ABBC281245B822D002565E2 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABBC27F245B822D002565E2 /* CardViewController.swift */; };
 		6ABBC282245B822D002565E2 /* CardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ABBC280245B822D002565E2 /* CardViewController.xib */; };
 		6ABFE2272439099C000217B5 /* GenresCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */; };
@@ -115,6 +116,7 @@
 		6A8532D924EE516700498245 /* WaveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8532DB24EE516700498245 /* WaveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveUITests.swift; sourceTree = "<group>"; };
 		6A8532DD24EE516700498245 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6ABA08492509CD7800453C21 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		6ABBC27F245B822D002565E2 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		6ABBC280245B822D002565E2 /* CardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewController.xib; sourceTree = "<group>"; };
 		6ABFE2262439099C000217B5 /* GenresCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				6AC4964B248452580050825B /* AlertView.swift */,
 				6A08424624CCEC7200F00E0F /* ActivityIndicator.swift */,
 				6A51B846245F7CCC00F72DAF /* VideoPlayer.swift */,
+				6ABA08492509CD7800453C21 /* UIView+Ext.swift */,
 			);
 			name = UIElements;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				6AD0FD2D243C2B30006BF086 /* StationRadioTableViewCell.swift in Sources */,
 				6AF255CD2482D9BF00EC0E4A /* PlaylistsTableViewCell.swift in Sources */,
 				6A5227D42453CEAE00D77850 /* MyLibraryTableViewCell.swift in Sources */,
+				6ABA084A2509CD7800453C21 /* UIView+Ext.swift in Sources */,
 				6AD0FD31243C2DF4006BF086 /* RadioModel.swift in Sources */,
 				6ABFE2272439099C000217B5 /* GenresCollectionViewCell.swift in Sources */,
 				6A4BF72224DDD6D6009DFB8B /* UILabelModel.swift in Sources */,

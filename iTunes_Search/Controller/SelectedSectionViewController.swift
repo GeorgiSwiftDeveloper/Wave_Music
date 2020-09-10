@@ -31,7 +31,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     var checkTableViewName = String()
     var topHitsListHeight = 190
-//    var searchIsSelected = Bool()
     
     var genreModel: GenreModel?
     var videoArray = [Video]()
@@ -84,7 +83,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 let alert = UIAlertController(title: "No Tracks Found", message: "Your recently played songs will be placed here after you play any song", preferredStyle: .alert)
                 let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
                     self.navigationController?.popViewController(animated: true)
-                    self.tabBarController?.selectedIndex = 3
+                    self.tabBarController?.selectedIndex = 2
                     self.tabBarController?.tabBar.isHidden = false
                 }
                 alert.addAction(libraryAction)
@@ -187,7 +186,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         let actionYes = UIAlertAction(title: "YES", style: .default) { [weak self](action) in
             self?.musicRecordDeletedDelegate?.musicRecordDeletedDelegate(alertTitle)
             self?.deleteRecords()
+               DispatchQueue.main.async {
             self?.selectedSectionTableView.reloadData()
+            }
         }
         
         let actionNo = UIAlertAction(title: "NO", style: .default, handler: nil)
@@ -300,7 +301,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     func searchisSelected() {
         if searchIsSelected == true {
             UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
-            selectedSectionTableView.reloadData()
+               DispatchQueue.main.async {
+                self.selectedSectionTableView.reloadData()
+            }
         }
         searchIsSelected = false
     }
@@ -345,7 +348,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             }else{
                 if videoList != nil {
                     self.videoArray.append(contentsOf: videoList!)
+                       DispatchQueue.main.async {
                     self.selectedSectionTableView.reloadData()
+                    }
                 }
             }
         }
@@ -505,7 +510,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             UserDefaults.standard.set(selectedCell.videoImageUrlProperty, forKey:"image")
             UserDefaults.standard.set(selectedCell.videoTitleProperty, forKey:"title")
             self.navigationController?.popViewController(animated: true)
-            self.tabBarController?.selectedIndex = 3
+            self.tabBarController?.selectedIndex = 2
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
@@ -633,8 +638,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         VideoPlayer.callVideoPlayer.superViewController = self
         
         VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
-        
-        selectedSectionTableView.reloadData()
+           DispatchQueue.main.async {
+            self.selectedSectionTableView.reloadData()
+        }
     }
 }
 
