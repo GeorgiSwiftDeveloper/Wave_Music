@@ -32,7 +32,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var checkTableViewName = String()
     var topHitsListHeight = 190
     
-    var genreModel: GenreModel?
+    var selectedGenreTitle: String?
     var videoArray = [Video]()
     var entityName = String()
     var youTubeVideoID =  String()
@@ -52,7 +52,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     var isEmpty: Bool {
         do {
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.takeGenreName(genreModel!.genreTitle))
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.takeGenreName(selectedGenreTitle!))
             let count  = try context?.count(for: request)
             return count == 0
         } catch {
@@ -115,7 +115,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             }
         case SelectedTableView.genreCollectionView.rawValue:
             if isEmpty{
-                YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: self.genreModel!.genreTitle, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
+                YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: selectedGenreTitle!, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
                     }else{
@@ -342,7 +342,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     func fetchVideoWithEntityNameGenre(){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: self.takeGenreName(genreModel!.genreTitle), searchBarText: "", playlistName: "") { (videoList, error) in
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: self.takeGenreName(selectedGenreTitle!), searchBarText: "", playlistName: "") { (videoList, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }else{
@@ -570,7 +570,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         case SelectedTableView.recentPlayedTableView.rawValue:
             entityName = recentPlayedEntityName
         case SelectedTableView.genreCollectionView.rawValue:
-            entityName = self.takeGenreName(genreModel!.genreTitle)
+            entityName = self.takeGenreName(selectedGenreTitle!)
         default:
             break
         }
