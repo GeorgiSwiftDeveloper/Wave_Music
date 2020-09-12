@@ -90,4 +90,14 @@ extension UIView {
         }
     }
     
+    
+    func pinDarkModeUISwitchConstraint(to superView: UITableViewCell) {
+        translatesAutoresizingMaskIntoConstraints = false
+        rightAnchor.constraint(equalTo: superView.rightAnchor, constant: 75).isActive = true
+        centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: 10).isActive = true
+        widthAnchor.constraint(equalToConstant: 150).isActive = true
+        heightAnchor.constraint(equalToConstant: 55).isActive = true
+    }
+    
+    
 }

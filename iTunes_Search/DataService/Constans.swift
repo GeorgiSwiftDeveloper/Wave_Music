@@ -19,6 +19,7 @@ enum SelectedTableView: String {
 var cardController = "CardViewController"
 
 var selectedTableViewCellIdentifier = "selectedTableViewCell"
+var selectedSettingsCellIdentifier = "selectedTableViewCell"
 var genreTableViewCellIdentifier =  "genreCell"
 var myLibraryTableViewCellIdentifier =  "LibraryMusicCell"
 var destinationToMyLibraryIdentifier = "DestinationViewIdentifier"

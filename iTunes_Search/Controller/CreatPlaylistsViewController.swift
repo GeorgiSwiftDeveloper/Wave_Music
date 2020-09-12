@@ -57,7 +57,10 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         playlistTableView.dataSource = self
         
         getYouTubeResults()
-        
+        loadCreatedMusicPlaylist()
+    }
+    
+    func loadCreatedMusicPlaylist(){
         if let musicPlaylist = UserDefaults.standard.object(forKey: "MusicPlaylist") as? [String] {
             createdPlaylistArray = musicPlaylist
         }
@@ -65,7 +68,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
             self.playlistTableView.reloadData()
         }
     }
-    
     
     
     func collectionViewConstraints() {
@@ -490,7 +492,7 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
         if indexPath.row == 0 {
             cell.cellTitleLabel.text = "World Top 100"
             cell.recentlyPlayedVideoCountLabel.text = "\(topHitsArray.count) tracks"
-            
+          
             var topImageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
             
             if topHitsArray.count >= 4 {

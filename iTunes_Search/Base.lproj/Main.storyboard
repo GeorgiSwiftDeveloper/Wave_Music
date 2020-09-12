@@ -993,12 +993,13 @@
         <scene sceneID="Dqv-Xa-rkt">
             <objects>
                 <tableViewController id="CiN-XP-F57" customClass="MoreUITableViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="65" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XLe-RO-6Sm">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="65" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XLe-RO-6Sm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="moreCell" rowHeight="65" id="Z8f-6k-mr0" customClass="MoreTableViewCell" customModule="Wave" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="moreCell" rowHeight="65" id="Z8f-6k-mr0" customClass="MoreTableViewCell" customModule="Wave" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z8f-6k-mr0" id="O2v-AR-Xj7">
@@ -1061,7 +1062,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Qee-MJ-F5O"/>
+        <segue reference="8og-sb-J2T"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>

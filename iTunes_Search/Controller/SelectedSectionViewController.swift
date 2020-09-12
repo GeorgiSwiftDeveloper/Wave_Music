@@ -68,6 +68,11 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         
         self.coreDataConnectionManage.selectedSongIsAlreadyExsistInDatabase = self
         
+        returnTableViewNameWithAction()
+    }
+    
+    
+    func returnTableViewNameWithAction() {
         switch checkTableViewName {
         case SelectedTableView.topHitsTableView.rawValue:
             fetchVideoWithEntityName("TopHitsModel", "")
@@ -77,7 +82,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             self.navigationItem.rightBarButtonItem  = deleteButton
         case SelectedTableView.recentPlayedTableView.rawValue:
             fetchVideoWithEntityName("RecentPlayedMusicData", "")
-            let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction)) 
+            let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
             if recentPlayedVideo.count == 0 {
                 let alert = UIAlertController(title: "No Tracks Found", message: "Your recently played songs will be placed here after you play any song", preferredStyle: .alert)
@@ -143,7 +148,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         default:
             break
         }
-        
     }
     
     

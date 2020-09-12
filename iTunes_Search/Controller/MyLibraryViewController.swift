@@ -21,7 +21,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     @IBOutlet weak var noTracksFoundView: UIView!
     @IBOutlet weak var genreCollectionView: UICollectionView!
     
-    @IBOutlet weak var indicatorView: UIView!
     
     var selectedGenreIndexRow = Int()
     
