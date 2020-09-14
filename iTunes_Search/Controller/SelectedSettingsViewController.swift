@@ -46,6 +46,18 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var numberOfSections: Int?
+        switch selectedSettingsIndex {
+        case 7:
+           numberOfSections =  AskQuestionServer.instance.getquestionList().count
+        default:
+            numberOfSections = 1
+        }
+        
+        return numberOfSections!
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowsInSection = Int()
@@ -65,7 +77,7 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
         case 6:
             numberOfRowsInSection = 3
         case 7:
-            numberOfRowsInSection = 2
+            numberOfRowsInSection = AskQuestionServer.instance.getquestionList()[section].questionDesc?.count as! Int
         case 8:
             numberOfRowsInSection = 4
         case 9:
@@ -112,8 +124,8 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
             break
             
         case 7:
-            
-            break
+            cell.textLabel?.text = AskQuestionServer.instance.getquestionList()[indexPath.section].questionDesc?[indexPath.row]
+      
         case 9:
             break
             
@@ -121,6 +133,18 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
             break
         }
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+       var titleForHeaderInSection: String?
+             switch selectedSettingsIndex {
+             case 7:
+                titleForHeaderInSection =  AskQuestionServer.instance.getquestionList()[section].sectionTitle
+             default:
+                 titleForHeaderInSection = ""
+             }
+             return titleForHeaderInSection!
     }
     
     
