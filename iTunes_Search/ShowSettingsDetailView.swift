@@ -15,8 +15,8 @@ class SettingsDetailView {
     
     static let sharedSettingsDetail  = SettingsDetailView()
     
-    func showAlertView(message: String, actionTitle: String,view: UIViewController) {
-        let alert = UIAlertController(title: "Contact us", message: message, preferredStyle: .alert)
+    func showAlertView(title: String, message: String, actionTitle: String,view: UIViewController) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: actionTitle, style: .default, handler: nil)
         
         alert.addAction(action)

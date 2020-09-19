@@ -9,7 +9,7 @@
 import UIKit
 
 class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     var timerPickerView = UIDatePicker()
     var darkModeSwitchButton = UISwitch()
     
@@ -50,7 +50,7 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
         var numberOfSections: Int?
         switch selectedSettingsIndex {
         case 7:
-           numberOfSections =  AskQuestionServer.instance.getquestionList().count
+            numberOfSections =  AskQuestionServer.instance.getquestionList().count
         default:
             numberOfSections = 1
         }
@@ -125,7 +125,8 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
             
         case 7:
             cell.textLabel?.text = AskQuestionServer.instance.getquestionList()[indexPath.section].questionDesc?[indexPath.row]
-      
+            cell.selectionStyle = .none
+            cell.accessoryType = .disclosureIndicator
         case 9:
             break
             
@@ -135,16 +136,35 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        view.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 15)!
+        header.textLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        var heightForHeaderInSection: CGFloat?
+        switch selectedSettingsIndex {
+        case 7:
+            heightForHeaderInSection =  45.0
+        default:
+            heightForHeaderInSection = 45.0
+        }
+        return heightForHeaderInSection!
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-       var titleForHeaderInSection: String?
-             switch selectedSettingsIndex {
-             case 7:
-                titleForHeaderInSection =  AskQuestionServer.instance.getquestionList()[section].sectionTitle
-             default:
-                 titleForHeaderInSection = ""
-             }
-             return titleForHeaderInSection!
+        var titleForHeaderInSection: String?
+        switch selectedSettingsIndex {
+        case 7:
+            titleForHeaderInSection =  AskQuestionServer.instance.getquestionList()[section].sectionTitle
+        default:
+            titleForHeaderInSection = ""
+        }
+        return titleForHeaderInSection!
     }
     
     
@@ -166,7 +186,29 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = self.tableView.cellForRow(at: tableView.indexPathForSelectedRow!)
-        selectedCell?.selectionStyle  = .none
+        switch selectedSettingsIndex {
+        case 7:
+            switch (indexPath.section, indexPath.row) {
+            case (0,0):
+                SettingsDetailView.sharedSettingsDetail.showAlertView(title: AskQuestionServer.instance.getquestionList()[indexPath.section].sectionTitle!, message: "Wave does not allow caching or downloading due to YouTube restrictions", actionTitle: "OK", view: self)
+            case (1,0):
+                SettingsDetailView.sharedSettingsDetail.showAlertView(title: AskQuestionServer.instance.getquestionList()[indexPath.section].sectionTitle!, message: "You can add tracks to your playlist by taping + button on the right side of the playlist", actionTitle: "OK", view: self)
+            case (1,1):
+                SettingsDetailView.sharedSettingsDetail.showAlertView(title: AskQuestionServer.instance.getquestionList()[indexPath.section].sectionTitle!, message: "You can create a new playlist by visiting the Playlist tab and tap 'Create New Playlist'", actionTitle: "OK", view: self)
+            case (1,2):
+                SettingsDetailView.sharedSettingsDetail.showAlertView(title: AskQuestionServer.instance.getquestionList()[indexPath.section].sectionTitle!, message: "You can delete a playlist by swiping to the left side then tapping 'Delete Playlist'", actionTitle: "OK", view: self)
+            case (2,0):
+                SettingsDetailView.sharedSettingsDetail.showAlertView(title: AskQuestionServer.instance.getquestionList()[indexPath.section].sectionTitle!, message: "You can search or new tracks by tapping the Seatch tap then tapping the search bar at the top o the screen", actionTitle: "OK", view: self)
+            case (3,0):
+                SettingsDetailView.sharedSettingsDetail.showAlertView(title: AskQuestionServer.instance.getquestionList()[indexPath.section].sectionTitle!, message: "You can delete tracks by swiping to the left then tap 'Delete'. Note that some playlist do not allow tracks to be deleted, such as the Recently Added playlist.", actionTitle: "OK", view: self)
+            case (3,1):
+                SettingsDetailView.sharedSettingsDetail.showAlertView(title: AskQuestionServer.instance.getquestionList()[indexPath.section].sectionTitle!, message: "You can edit track inoramtion by swiipiing to the left on a track and then tapping 'Edit'", actionTitle: "OK", view: self)
+            default:
+                break
+            }
+        default:
+            break
+        }
     }
     
 }

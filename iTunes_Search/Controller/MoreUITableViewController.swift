@@ -54,7 +54,7 @@ class MoreUITableViewController: UITableViewController {
         case 4:
             SettingsDetailView.sharedSettingsDetail.openInstagramApp(username: "georgi___yan")
         case 8:
-            SettingsDetailView.sharedSettingsDetail.showAlertView(message: "Cell: 323-332-75-03 \n Email: developermalkhasyan@gmail.com", actionTitle: "OK", view: self)
+            SettingsDetailView.sharedSettingsDetail.showAlertView(title: settingsArray[indexPath.row].settingsName, message: "Cell: 323-332-75-03 \n Email: developermalkhasyan@gmail.com", actionTitle: "OK", view: self)
         default:
             let newViewController = SelectedSettingsViewController()
             newViewController.selectedSettingsTitle = selectedCell?.textLabel?.text
