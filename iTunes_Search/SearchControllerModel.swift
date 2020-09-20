@@ -27,6 +27,8 @@ class SearchController: NSObject {
         searchController.delegate = superViewController as? UISearchControllerDelegate
         searchController.searchBar.delegate = superViewController as? UISearchBarDelegate
         searchController.searchBar.isHidden = false
+        searchController.searchResultsUpdater = superViewController as? UISearchResultsUpdating
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = true
         superViewController.definesPresentationContext = true
         navigationItem.searchController?.searchBar.delegate = superViewController as? UISearchBarDelegate

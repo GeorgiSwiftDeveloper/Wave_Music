@@ -26,7 +26,7 @@ let settingsArray = [
     MoreModel(settingsImage: "lightbulb.fill", settingsName: "Dark Mode"),
     MoreModel(settingsImage: "play.rectangle.fill", settingsName: "YouTube Login"),
     MoreModel(settingsImage: "camera.fill", settingsName: "Wave on Instagram"),
-    MoreModel(settingsImage: "questionmark.square.fill", settingsName: "Help & Support"),
+//    MoreModel(settingsImage: "questionmark.square.fill", settingsName: "Help & Support"),
     MoreModel(settingsImage: "bubble.left.and.bubble.right.fill", settingsName: "Send Feedback"),
     MoreModel(settingsImage: "message.fill", settingsName: "Ask Question"),
     MoreModel(settingsImage: "person.2.fill", settingsName: "Contact Us"),

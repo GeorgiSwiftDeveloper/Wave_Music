@@ -41,7 +41,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var selectedGenreRowTitleHolder = String()
     
     
-    
+    var searchLibrary = [Video]()
+    var searching: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +51,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         
         setupSearchNavBar()
         
-        self.myLibraryTableView.delegate = self
-        self.myLibraryTableView.dataSource = self
-        
-        
-        self.genreCollectionView.delegate = self
-        self.genreCollectionView.dataSource = self
     }
     
     
@@ -170,9 +165,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func musicRecordDeletedDelegate(_ alertTitleName: String) {
         if alertTitleName == "My Library" {
             myLibraryListArray = []
-            DispatchQueue.main.async {
                 self.myLibraryTableView.reloadData()
-            }
         }
     }
     
@@ -180,9 +173,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         if checkIf == true{
             self.selectLibraryRow = true
             self.selectTopHitsRow = true
-            DispatchQueue.main.async {
                 self.myLibraryTableView.reloadData()
-            }
         }
     }
     
@@ -192,44 +183,59 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("Search end editing")
-        if searchBar.searchTextField.text?.isEmpty == true{
-            self.myLibraryListArray = []
-            fetchVideoWithEntityName(myLibraryEntityName)
-        }
+//        if searchBar.searchTextField.text!.isEmpty{
+//            self.myLibraryListArray = []
+//            fetchVideoWithEntityName(myLibraryEntityName)
+//        }else{
+//            print("a")
+//        }
+        
+        
         
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        print("")
+        print("kk")
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty == false{
-            fetchSearchSong(searchBar, searchText: searchText)
-            DispatchQueue.main.async {
-                self.myLibraryTableView.reloadData()
-            }
-        }
-        else{
-            self.myLibraryListArray = []
-            fetchVideoWithEntityName(myLibraryEntityName)
-        }
+        
+        searchLibrary = myLibraryListArray.filter({$0.videoTitle!.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        searching = true
+        myLibraryTableView.reloadData()
+        //        if !searchText.isEmpty{
+        //            fetchSearchSong(searchBar, searchText: searchText)
+        //            DispatchQueue.main.async {
+        //                self.myLibraryTableView.reloadData()
+        //            }
+        //        }
+        //        else{
+        //            self.myLibraryListArray = []
+        //            fetchVideoWithEntityName(myLibraryEntityName)
+        //        }
+        
     }
     
-    func fetchSearchSong(_ searchBar: UISearchBar, searchText: String) {
-        
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: myLibraryEntityName, searchBarText: searchBar.text!, playlistName: "") { (videoList, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-            }else {
-                self.myLibraryListArray = []
-                self.myLibraryListArray.append(contentsOf: videoList!)
-                DispatchQueue.main.async {
-                    self.myLibraryTableView.reloadData()
-                }
-            }
-        }
+//    func fetchSearchSong(_ searchBar: UISearchBar, searchText: String) {
+//        
+//        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: myLibraryEntityName, searchBarText: searchBar.text!, playlistName: "") { (videoList, error) in
+//            if error != nil {
+//                print(error?.localizedDescription as Any)
+//            }else {
+//                self.myLibraryListArray = []
+//                self.myLibraryListArray.append(contentsOf: videoList!)
+//                DispatchQueue.main.async {
+//                    self.myLibraryTableView.reloadData()
+//                }
+//            }
+//        }
+//    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchController.isActive = false
+        searching = false
+        searchBar.text = ""
+        myLibraryTableView.reloadData()
     }
     
 }
@@ -248,16 +254,25 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return myLibraryListArray.count
+        if searching {
+            return searchLibrary.count
+        }else{
+            return myLibraryListArray.count
+            
+            
+        }
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  libraryMusicCell = (tableView.dequeueReusableCell(withIdentifier: myLibraryTableViewCellIdentifier, for: indexPath) as? MainLibrariMusciTableViewCell)!
         
+        if searching {
+            libraryMusicCell.configureMyLibraryCell(searchLibrary[indexPath.row])
+        }else{
             libraryMusicCell.configureMyLibraryCell(self.myLibraryListArray[indexPath.row])
-            
+        }
+        
         return libraryMusicCell
     }
     
@@ -402,12 +417,12 @@ extension MyLibraryViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
-                cell.confiigurationGenreCell(GenreModelService.instance.getGenreArray()[indexPath.row])
-                cell.layer.borderColor = UIColor.lightGray.cgColor
-                cell.layer.borderWidth = 0.5
-                cell.layer.cornerRadius = 6
-                cell.layer.backgroundColor = UIColor.white.cgColor
-
+            cell.confiigurationGenreCell(GenreModelService.instance.getGenreArray()[indexPath.row])
+            cell.layer.borderColor = UIColor.lightGray.cgColor
+            cell.layer.borderWidth = 0.5
+            cell.layer.cornerRadius = 6
+            cell.layer.backgroundColor = UIColor.white.cgColor
+            
             return cell
         }else {
             return GenresCollectionViewCell()
