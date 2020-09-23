@@ -23,6 +23,19 @@ class SettingsDetailView {
         view.present(alert, animated: true, completion: nil)
     }
     
+    func showPlaylistAlertView(title: String, message: String, actionTitle: String,view: UIViewController) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: actionTitle, style: .destructive) { (action) in
+            view.navigationController?.popViewController(animated: true)
+            view.tabBarController?.selectedIndex = 2
+            view.tabBarController?.tabBar.isHidden = false
+        }
+        
+        alert.addAction(action)
+        view.present(alert, animated: true, completion: nil)
+    }
+    
+    
     func showSafariVC(for url: String,view: UIViewController){
         guard let url = URL(string: url) else {
             return

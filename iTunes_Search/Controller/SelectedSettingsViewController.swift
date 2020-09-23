@@ -49,7 +49,7 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
     func numberOfSections(in tableView: UITableView) -> Int {
         var numberOfSections: Int?
         switch selectedSettingsIndex {
-        case 7:
+        case 6:
             numberOfSections =  AskQuestionServer.instance.getquestionList().count
         default:
             numberOfSections = 1
@@ -75,9 +75,9 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
         case 5:
             numberOfRowsInSection = 1
         case 6:
-            numberOfRowsInSection = 3
+            numberOfRowsInSection = AskQuestionServer.instance.getquestionList()[section].questionDesc!.count
         case 7:
-            numberOfRowsInSection = AskQuestionServer.instance.getquestionList()[section].questionDesc?.count as! Int
+            numberOfRowsInSection = 3
         case 8:
             numberOfRowsInSection = 4
         case 9:
@@ -121,12 +121,12 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
             break
         case 6:
             
-            break
-            
-        case 7:
             cell.textLabel?.text = AskQuestionServer.instance.getquestionList()[indexPath.section].questionDesc?[indexPath.row]
             cell.selectionStyle = .none
             cell.accessoryType = .disclosureIndicator
+            
+        case 7:
+           break
         case 9:
             break
             
@@ -148,7 +148,7 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var heightForHeaderInSection: CGFloat?
         switch selectedSettingsIndex {
-        case 7:
+        case 6:
             heightForHeaderInSection =  45.0
         default:
             heightForHeaderInSection = 45.0
@@ -159,7 +159,7 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var titleForHeaderInSection: String?
         switch selectedSettingsIndex {
-        case 7:
+        case 6:
             titleForHeaderInSection =  AskQuestionServer.instance.getquestionList()[section].sectionTitle
         default:
             titleForHeaderInSection = ""
@@ -185,9 +185,9 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell = self.tableView.cellForRow(at: tableView.indexPathForSelectedRow!)
+//        let selectedCell = self.tableView.cellForRow(at: tableView.indexPathForSelectedRow!)
         switch selectedSettingsIndex {
-        case 7:
+        case 6:
             switch (indexPath.section, indexPath.row) {
             case (0,0):
                 SettingsDetailView.sharedSettingsDetail.showAlertView(title: AskQuestionServer.instance.getquestionList()[indexPath.section].sectionTitle!, message: "Wave does not allow caching or downloading due to YouTube restrictions", actionTitle: "OK", view: self)

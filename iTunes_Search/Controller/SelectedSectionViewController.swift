@@ -107,14 +107,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
             if videoPlaylist.count == 0 {
-                let alert = UIAlertController(title: "No Tracks Found", message: "Your songs will be placed here after you add any song", preferredStyle: .alert)
-                let libraryAction = UIAlertAction(title: "OK", style: .default) {[weak self] (action) in
-                    self?.navigationController?.popViewController(animated: true)
-                    self?.tabBarController?.selectedIndex = 3
-                    self?.tabBarController?.tabBar.isHidden = false
-                }
-                alert.addAction(libraryAction)
-                present(alert, animated: true, completion: nil)
+                SettingsDetailView.sharedSettingsDetail.showPlaylistAlertView(title: "No Tracks Found", message: "Your songs will be placed here after you add any song", actionTitle: "OK", view: self)
             }else{
                 UserDefaults.standard.set(videoPlaylist.count, forKey: "videoPlaylistCount")
             }
@@ -125,7 +118,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                         print(error?.localizedDescription as Any)
                     }else{
                         self.videoArray = loadVideolist!
-                        print(loadVideolist?.count)
+                        //                        print(loadVideolist?.count)
                         for songIndex in 0..<self.videoArray.count{
                             let title =   self.videoArray[songIndex].videoTitle ?? ""
                             let image =  self.videoArray[songIndex].videoImageUrl ?? ""
@@ -152,12 +145,9 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     func ifSelectedSongIsAlreadyExsistInDatabase(_ coreDataMananger: CoreDataVideoClass, _ ifAlreadyInDatabase: Bool) {
-        if ifAlreadyInDatabase == true {
+        if ifAlreadyInDatabase {
             let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
-            let alert = UIAlertController(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "")  already exist in your list", preferredStyle: .alert)
-            let libraryAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(libraryAction)
-            present(alert, animated: true, completion: nil)
+            SettingsDetailView.sharedSettingsDetail.showAlertView(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "")  already exist in your list", actionTitle: "OK", view: self)
         }
     }
     func saveSelectedMusicCoreDataEntity(_ selectedPlaylistRowTitle: String) {
@@ -304,7 +294,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     
     func searchisSelected() {
-        if searchIsSelected == true {
+        if searchIsSelected {
             UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
             DispatchQueue.main.async {
                 self.selectedSectionTableView.reloadData()
@@ -352,7 +342,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-                    print("video is \(videoList)")
+//                    print("video is \(videoList)")
                     self.videoArray.append(contentsOf: videoList!)
                     DispatchQueue.main.async {
                         self.selectedSectionTableView.reloadData()
@@ -415,63 +405,47 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var selectedTableViewCell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell
         switch checkTableViewName {
         case SelectedTableView.topHitsTableView.rawValue:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-                DispatchQueue.main.async {
-                    cell.configureSelectedVideoCell(self.topHitsLists[indexPath.row])
-                    
-                }
-                cell.addToFavoriteButton.tag = indexPath.row;
-                cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
-                selectedTableViewCell = cell
-            }else {
-                return SelectedSectionTableViewCell()
+            DispatchQueue.main.async { [self] in
+                cell?.configureSelectedVideoCell(self.topHitsLists[indexPath.row])
+                
             }
+            cell?.addToFavoriteButton.tag = indexPath.row;
+            cell?.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
+            selectedTableViewCell = cell!
         case SelectedTableView.libraryTableView.rawValue:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-                DispatchQueue.main.async {
-                    cell.configureSelectedVideoCell(self.myLibraryList[indexPath.row])
-                    
-                }
-                cell.addToFavoriteButton.isHidden = true
-                selectedTableViewCell = cell
-            }else {
-                return SelectedSectionTableViewCell()
+            DispatchQueue.main.async {
+                cell?.configureSelectedVideoCell(self.myLibraryList[indexPath.row])
+                
             }
+            cell?.addToFavoriteButton.isHidden = true
+            selectedTableViewCell = cell!
+            
         case SelectedTableView.recentPlayedTableView.rawValue:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-                DispatchQueue.main.async {
-                    cell.configureSelectedVideoCell(self.recentPlayedVideo[indexPath.row])
-                    
-                }
-                cell.addToFavoriteButton.tag = indexPath.row;
-                cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
-                selectedTableViewCell = cell
-            }else {
-                return SelectedSectionTableViewCell()
+            
+            DispatchQueue.main.async {
+                cell!.configureSelectedVideoCell(self.recentPlayedVideo[indexPath.row])
+                
             }
+            cell!.addToFavoriteButton.tag = indexPath.row;
+            cell?.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
+            selectedTableViewCell = cell!
         case SelectedTableView.playlistTableView.rawValue:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-                DispatchQueue.main.async {
-                    cell.configureSelectedVideoCell(self.videoPlaylist[indexPath.row])
-                    
-                }
-                cell.addToFavoriteButton.isHidden = true
-                selectedTableViewCell = cell
-            }else {
-                return SelectedSectionTableViewCell()
+            
+            DispatchQueue.main.async {
+                cell?.configureSelectedVideoCell(self.videoPlaylist[indexPath.row])
+                
             }
+            cell?.addToFavoriteButton.isHidden = true
+            selectedTableViewCell = cell!
         case SelectedTableView.genreCollectionView.rawValue:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: selectedTableViewCellIdentifier, for: indexPath) as? SelectedSectionTableViewCell {
-                DispatchQueue.main.async {
-                    cell.configureSelectedVideoCell(self.videoArray[indexPath.row])
-                }
-                cell.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
-                selectedTableViewCell = cell
-            }else{
-                return SelectedSectionTableViewCell()
+            DispatchQueue.main.async {
+                cell?.configureSelectedVideoCell(self.videoArray[indexPath.row])
             }
+            cell?.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
+            selectedTableViewCell = cell!
         default:
             break
         }

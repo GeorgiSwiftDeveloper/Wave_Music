@@ -170,10 +170,10 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     func checkIfRowIsSelected(_ checkIf: Bool) {
-        if checkIf == true{
+        if checkIf{
             self.selectLibraryRow = true
             self.selectTopHitsRow = true
-                self.myLibraryTableView.reloadData()
+            self.myLibraryTableView.reloadData()
         }
     }
     
@@ -183,14 +183,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        if searchBar.searchTextField.text!.isEmpty{
-//            self.myLibraryListArray = []
-//            fetchVideoWithEntityName(myLibraryEntityName)
-//        }else{
-//            print("a")
-//        }
-        
-        
         
     }
     
@@ -203,33 +195,9 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         searchLibrary = myLibraryListArray.filter({$0.videoTitle!.lowercased().prefix(searchText.count) == searchText.lowercased()})
         searching = true
         myLibraryTableView.reloadData()
-        //        if !searchText.isEmpty{
-        //            fetchSearchSong(searchBar, searchText: searchText)
-        //            DispatchQueue.main.async {
-        //                self.myLibraryTableView.reloadData()
-        //            }
-        //        }
-        //        else{
-        //            self.myLibraryListArray = []
-        //            fetchVideoWithEntityName(myLibraryEntityName)
-        //        }
         
     }
-    
-//    func fetchSearchSong(_ searchBar: UISearchBar, searchText: String) {
-//        
-//        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: myLibraryEntityName, searchBarText: searchBar.text!, playlistName: "") { (videoList, error) in
-//            if error != nil {
-//                print(error?.localizedDescription as Any)
-//            }else {
-//                self.myLibraryListArray = []
-//                self.myLibraryListArray.append(contentsOf: videoList!)
-//                DispatchQueue.main.async {
-//                    self.myLibraryTableView.reloadData()
-//                }
-//            }
-//        }
-//    }
+
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchController.isActive = false
