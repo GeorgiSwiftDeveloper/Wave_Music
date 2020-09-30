@@ -19,7 +19,9 @@ protocol CheckIfMusicRecordDeletedDelegate:AnyObject {
     func musicRecordDeletedDelegate(_ alertTitleName: String)
 }
 
-class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate, SelectedSongIsAlreadyExsistInDatabaseDelegate {
+class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate, CheckIfSelectedSongIsExsistInDatabaseDelegate {
+    
+
     
     var webView = WKYTPlayerView()
     var topHitsLists = [Video]()
@@ -144,12 +146,17 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     
-    func ifSelectedSongIsAlreadyExsistInDatabase(_ coreDataMananger: CoreDataVideoClass, _ ifAlreadyInDatabase: Bool) {
+    func ifSelectedSongIsExsistInDatabase(_ coreDataMananger: CoreDataVideoClass, _ ifAlreadyInDatabase: Bool) {
         if ifAlreadyInDatabase {
             let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
             SettingsDetailView.sharedSettingsDetail.showAlertView(title: "Please check your Playlist", message: "\(videoTitleProperty ?? "")  already exist in your list", actionTitle: "OK", view: self)
+        }else{
+            let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
+            SettingsDetailView.sharedSettingsDetail.showAlertView(title:"\(videoTitleProperty ?? "")", message:"Successfuly added to the playlist", actionTitle: "OK", view: self)
         }
     }
+    
+  
     func saveSelectedMusicCoreDataEntity(_ selectedPlaylistRowTitle: String) {
         
         let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
@@ -414,6 +421,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
             cell?.addToFavoriteButton.tag = indexPath.row;
             cell?.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
+            
             selectedTableViewCell = cell!
         case SelectedTableView.libraryTableView.rawValue:
             DispatchQueue.main.async {
@@ -444,6 +452,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             DispatchQueue.main.async {
                 cell?.configureSelectedVideoCell(self.videoArray[indexPath.row])
             }
+            cell?.addToFavoriteButton.tag = indexPath.row
             cell?.addToFavoriteButton.addTarget(self, action: #selector(addToMyLibraryButton(sender:)), for: .touchUpInside)
             selectedTableViewCell = cell!
         default:

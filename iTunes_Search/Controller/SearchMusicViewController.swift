@@ -169,7 +169,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.configureSearchCell(albums: self.searchMusicList[indexPath.row])
             }
             cell.favoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
-            cell.favoriteButton.tag = indexPath.row;
+            cell.favoriteButton.tag = indexPath.row
             
             return cell
         }else {

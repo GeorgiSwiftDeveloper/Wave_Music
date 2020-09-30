@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -53,12 +55,12 @@
                                 <constraint firstItem="W19-Tv-QLd" firstAttribute="centerX" secondItem="DCU-k9-vyf" secondAttribute="centerX" id="xzn-tw-abA"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUB-9c-aSV">
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUB-9c-aSV">
                             <rect key="frame" x="60" y="741" width="294" height="45"/>
                             <color key="backgroundColor" red="0.12941176469999999" green="0.54901960780000003" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="45" id="Qo7-wb-PQm"/>
-                                <constraint firstAttribute="width" constant="294" id="fKH-LB-ZE6"/>
+                                <constraint firstAttribute="width" constant="294" id="4Pf-qu-OMt"/>
+                                <constraint firstAttribute="height" constant="45" id="Npl-2T-JWp"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="23"/>
                             <state key="normal" title="Done">
@@ -68,8 +70,14 @@
                                 <action selector="clickDoneAction:" destination="-1" eventType="touchUpInside" id="gXa-br-las"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Added to Library" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQk-fu-3pq">
+                            <rect key="frame" x="15" y="663" width="384" height="29.5"/>
+                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="24"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T98-PE-0UO">
-                            <rect key="frame" x="20" y="138" width="374" height="30"/>
+                            <rect key="frame" x="15" y="153" width="384" height="30"/>
                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="26"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -78,20 +86,24 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="T98-PE-0UO" secondAttribute="trailing" constant="20" id="3VJ-dV-yc6"/>
+                        <constraint firstItem="GUB-9c-aSV" firstAttribute="centerX" secondItem="q1l-gG-S0c" secondAttribute="centerX" id="0BF-hR-Tbw"/>
                         <constraint firstAttribute="trailing" secondItem="DCU-k9-vyf" secondAttribute="trailing" constant="40" id="3aO-5K-csW"/>
                         <constraint firstItem="DCU-k9-vyf" firstAttribute="centerX" secondItem="q1l-gG-S0c" secondAttribute="centerX" id="4zJ-Fn-ifZ"/>
+                        <constraint firstItem="T98-PE-0UO" firstAttribute="centerX" secondItem="q1l-gG-S0c" secondAttribute="centerX" id="5LR-dM-hOC"/>
                         <constraint firstItem="DCU-k9-vyf" firstAttribute="centerY" secondItem="q1l-gG-S0c" secondAttribute="centerY" id="6g5-hm-rZL"/>
-                        <constraint firstItem="T98-PE-0UO" firstAttribute="top" secondItem="q1l-gG-S0c" secondAttribute="top" constant="138" id="Ffg-dq-hNt"/>
-                        <constraint firstItem="GUB-9c-aSV" firstAttribute="leading" secondItem="q1l-gG-S0c" secondAttribute="leading" constant="60" id="OT7-Fk-AuS"/>
-                        <constraint firstAttribute="bottom" secondItem="GUB-9c-aSV" secondAttribute="bottom" constant="110" id="Waz-wV-sYJ"/>
+                        <constraint firstItem="sQk-fu-3pq" firstAttribute="leading" secondItem="q1l-gG-S0c" secondAttribute="leading" constant="15" id="C4j-W2-nsg"/>
+                        <constraint firstItem="Hhe-oO-eN9" firstAttribute="top" secondItem="T98-PE-0UO" secondAttribute="bottom" constant="120" id="Iju-YW-nfI"/>
+                        <constraint firstItem="GUB-9c-aSV" firstAttribute="top" secondItem="Hhe-oO-eN9" secondAttribute="bottom" constant="148" id="NEd-c1-Rtn"/>
                         <constraint firstItem="DCU-k9-vyf" firstAttribute="leading" secondItem="q1l-gG-S0c" secondAttribute="leading" constant="40" id="cDb-Nb-zBV"/>
-                        <constraint firstAttribute="trailing" secondItem="GUB-9c-aSV" secondAttribute="trailing" constant="60" id="nD4-Ui-PbF"/>
-                        <constraint firstItem="T98-PE-0UO" firstAttribute="leading" secondItem="q1l-gG-S0c" secondAttribute="leading" constant="20" id="zZ5-R8-9US"/>
+                        <constraint firstAttribute="trailing" secondItem="sQk-fu-3pq" secondAttribute="trailing" constant="15" id="kxN-wB-UXd"/>
+                        <constraint firstItem="T98-PE-0UO" firstAttribute="leading" secondItem="q1l-gG-S0c" secondAttribute="leading" constant="15" id="qxe-3U-NXn"/>
+                        <constraint firstAttribute="trailing" secondItem="T98-PE-0UO" secondAttribute="trailing" constant="15" id="rXH-9j-kx6"/>
+                        <constraint firstItem="sQk-fu-3pq" firstAttribute="top" secondItem="DCU-k9-vyf" secondAttribute="bottom" constant="65" id="ycD-oB-eUe"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="q1l-gG-S0c" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="5dc-XV-DMz"/>
                 <constraint firstAttribute="bottom" secondItem="q1l-gG-S0c" secondAttribute="bottom" id="Lxl-Iy-Ckf"/>
@@ -103,12 +115,14 @@
                 <constraint firstItem="q1l-gG-S0c" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mWt-r4-7Mt"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="131.8840579710145" y="104.46428571428571"/>
         </view>
     </objects>
     <resources>
         <image name="background" width="320" height="568"/>
         <image name="success" width="256" height="256"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

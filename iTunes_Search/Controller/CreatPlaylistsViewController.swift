@@ -53,9 +53,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
         
         collectionViewConstraints()
         
-        playlistTableView.delegate = self
-        playlistTableView.dataSource = self
-        
         getYouTubeResults()
         loadCreatedMusicPlaylist()
     }

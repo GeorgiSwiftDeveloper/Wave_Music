@@ -20,6 +20,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     var webView = WKYTPlayerView()
     var cardViewController = CardViewController()
+    var imageHolderView = UIView()
     var visualEffectView:UIVisualEffectView!
     
     var checkIfPaused = true
@@ -71,10 +72,23 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
         self.cardViewController.view.addSubview(self.webView)
         
-        self.webView.translatesAutoresizingMaskIntoConstraints = false
-        self.webView.pinWebView(to: cardViewController.view)
-        self.webView.delegate = self
-        self.webView.isHidden = true
+
+        self.cardViewController.view.addSubview(imageHolderView)
+        self.imageHolderView.pinImageHolderView(to: cardViewController.view)
+        self.webView.pinWebView(to: imageHolderView)
+    
+        
+        imageHolderView.clipsToBounds = false
+        imageHolderView.layer.borderWidth = 2
+        imageHolderView.layer.cornerRadius = 5
+
+        imageHolderView.layer.shadowColor = UIColor.white.cgColor
+        imageHolderView.layer.shadowOpacity = 1
+        imageHolderView.layer.shadowOffset = CGSize.zero
+        imageHolderView.layer.shadowRadius = 10
+        
+        webView.delegate = self
+        webView.isHidden = true
         
         let playerVars: [AnyHashable: Any] = ["playsinline" : 1,"controls": "0","showinfo": "0",
                                               "origin": "https://www.youtube.com"]

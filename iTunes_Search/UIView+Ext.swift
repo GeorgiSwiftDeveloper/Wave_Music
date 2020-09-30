@@ -15,9 +15,19 @@ extension UIView {
     func pinWebView(to superView: UIView) {
         
         translatesAutoresizingMaskIntoConstraints = false
-        topAnchor.constraint(equalToSystemSpacingBelow: superView.topAnchor, multiplier: 5).isActive = true
-        rightAnchor.constraint(equalToSystemSpacingAfter: superView.rightAnchor, multiplier: 0).isActive  = true
-        leftAnchor.constraint(equalToSystemSpacingAfter: superView.leftAnchor, multiplier: 0).isActive = true
+        topAnchor.constraint(equalToSystemSpacingBelow: superView.topAnchor, multiplier: 0).isActive = true
+        leadingAnchor.constraint(equalToSystemSpacingAfter: superView.leadingAnchor, multiplier: 0).isActive  = true
+        trailingAnchor.constraint(equalToSystemSpacingAfter: superView.trailingAnchor, multiplier: 0).isActive = true
+        heightAnchor.constraint(greaterThanOrEqualToConstant: 300).isActive = true
+        widthAnchor.constraint(greaterThanOrEqualToConstant: UIScreen.main.bounds.width).isActive = true
+    }
+    
+    func pinImageHolderView(to superView: UIView) {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalToSystemSpacingBelow: superView.topAnchor, multiplier: 10).isActive = true
+        leadingAnchor.constraint(equalToSystemSpacingAfter: superView.leadingAnchor, multiplier: 0).isActive  = true
+        trailingAnchor.constraint(equalToSystemSpacingAfter: superView.trailingAnchor, multiplier: 0).isActive = true
         heightAnchor.constraint(greaterThanOrEqualToConstant: 300).isActive = true
         widthAnchor.constraint(greaterThanOrEqualToConstant: UIScreen.main.bounds.width).isActive = true
     }

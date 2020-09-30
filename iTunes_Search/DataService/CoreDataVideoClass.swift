@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 
-protocol SelectedSongIsAlreadyExsistInDatabaseDelegate: AnyObject {
-    func ifSelectedSongIsAlreadyExsistInDatabase(_ coreDataMananger: CoreDataVideoClass, _ ifAlreadyInDatabase: Bool)
+protocol CheckIfSelectedSongIsExsistInDatabaseDelegate: AnyObject {
+    func ifSelectedSongIsExsistInDatabase(_ coreDataMananger: CoreDataVideoClass, _ ifAlreadyInDatabase: Bool)
 }
 
 class CoreDataVideoClass: NSObject {
@@ -18,7 +18,7 @@ class CoreDataVideoClass: NSObject {
     
     static var coreDataVideoInstance = CoreDataVideoClass()
     
-    weak var selectedSongIsAlreadyExsistInDatabase: SelectedSongIsAlreadyExsistInDatabaseDelegate?
+    weak var selectedSongIsAlreadyExsistInDatabase: CheckIfSelectedSongIsExsistInDatabaseDelegate?
     
     func fetchVideoWithEntityName(coreDataEntityName: String, searchBarText: String,playlistName: String, loadVideoList: @escaping(_ returnVideoList: [Video]?, _ returnError: Error? ) -> ()){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
@@ -79,10 +79,11 @@ class CoreDataVideoClass: NSObject {
                 }
                 try context?.save()
                 loadVideoList(nil)
+                selectedSongIsAlreadyExsistInDatabase?.ifSelectedSongIsExsistInDatabase(self, false)
                 print("data has been saved ")
             }else{
                 print("this song is in database")
-                selectedSongIsAlreadyExsistInDatabase?.ifSelectedSongIsAlreadyExsistInDatabase(self, true)
+                selectedSongIsAlreadyExsistInDatabase?.ifSelectedSongIsExsistInDatabase(self, true)
                 loadVideoList(nil)
             }
         }catch{
