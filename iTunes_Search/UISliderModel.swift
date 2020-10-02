@@ -25,6 +25,6 @@ class MusicVolumeSlider: UISlider {
         maximumValue = 100
         setValue(80, animated: true)
         isContinuous = true
-        tintColor = UIColor.white
+        tintColor = UIColor.black
     }
 }

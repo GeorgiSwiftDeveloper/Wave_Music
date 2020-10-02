@@ -227,12 +227,12 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y <=  0.000000 {
-            ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
-        }
-    }
+//
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if scrollView.contentOffset.y <=  0.000000 {
+//            ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
+//        }
+//    }
     
     
     

@@ -30,7 +30,7 @@ class MusicPlayerButton: UIButton {
     
     
     func configureMusicPlayerButton(image: String) {
-        self.setImage(UIImage(named: image), for: .normal)
+        self.setImage(UIImage(named: image)?.withTintColor(.black), for: .normal)
     }
     
 }
@@ -43,7 +43,7 @@ class AddToFavoriteButton: MusicPlayerButton {
     }
     
      func configureMusicAddButton(image: String, text: String) {
-        setImage(UIImage(systemName: image), for: .normal)
+        setImage(UIImage(systemName: image)?.withTintColor(.black), for: .normal)
         updateUI(text: text )
     }
     
@@ -60,7 +60,7 @@ class AddToFavoriteButton: MusicPlayerButton {
 class SharePlayedMusicButton: AddToFavoriteButton {
     
     override func configureMusicAddButton(image: String,text: String) {
-        setImage(UIImage(systemName: image), for: .normal)
+        setImage(UIImage(systemName: image)?.withTintColor(.black), for: .normal)
         updateUI(text: text)
     }
     

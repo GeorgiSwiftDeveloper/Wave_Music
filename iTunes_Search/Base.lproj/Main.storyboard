@@ -131,7 +131,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="87" estimatedRowHeight="-1" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-sb-dl1">
                                 <rect key="frame" x="0.0" y="226" width="414" height="533"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LibraryMusicCell" rowHeight="87" id="zSA-8A-8h5" customClass="MainLibrariMusciTableViewCell" customModule="Wave" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="87"/>
@@ -341,6 +341,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="PH9-KG-7jy"/>
                     <connections>
+                        <outlet property="sectedTableViewTopNSLayoutConstraint" destination="aEU-06-x6I" id="Z34-D9-7bE"/>
                         <outlet property="selectedSectionTableView" destination="RQx-Yz-1G9" id="oaf-sW-zKZ"/>
                     </connections>
                 </viewController>
@@ -1076,7 +1077,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8og-sb-J2T"/>
+        <segue reference="Qee-MJ-F5O"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>

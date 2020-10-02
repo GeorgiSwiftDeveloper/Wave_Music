@@ -34,7 +34,7 @@ extension UIView {
     
     func pinTopMusicLabel(to superView: UIView, playerButton: UIButton) {
         translatesAutoresizingMaskIntoConstraints = false
-        topAnchor.constraint(equalToSystemSpacingBelow: superview!.topAnchor, multiplier: 1.5).isActive = true
+        topAnchor.constraint(equalToSystemSpacingBelow: superview!.topAnchor, multiplier: 1.4).isActive = true
         leadingAnchor.constraint(equalToSystemSpacingAfter: superview!.leadingAnchor, multiplier: 2).isActive = true
         trailingAnchor.constraint(lessThanOrEqualTo: playerButton.leadingAnchor, constant: -30).isActive = true
         

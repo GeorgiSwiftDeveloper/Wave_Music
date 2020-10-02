@@ -21,7 +21,7 @@ protocol CheckIfMusicRecordDeletedDelegate:AnyObject {
 
 class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate, CheckIfSelectedSongIsExsistInDatabaseDelegate {
     
-
+    
     
     var webView = WKYTPlayerView()
     var topHitsLists = [Video]()
@@ -30,6 +30,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var videoPlaylist = [Video]()
     
     
+    var descriptionLabel = MusicTextLabel()
     
     var checkTableViewName = String()
     var topHitsListHeight = 190
@@ -49,6 +50,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     var coreDataConnectionManage = CoreDataVideoClass()
     
+    @IBOutlet weak var sectedTableViewTopNSLayoutConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var selectedSectionTableView: UITableView!
     
@@ -114,13 +116,14 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 UserDefaults.standard.set(videoPlaylist.count, forKey: "videoPlaylistCount")
             }
         case SelectedTableView.genreCollectionView.rawValue:
+            self.showDescriptonLabelInGenreView()
+            
             if isEmpty{
                 YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: selectedGenreTitle!, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
                     }else{
                         self.videoArray = loadVideolist!
-                        //                        print(loadVideolist?.count)
                         for songIndex in 0..<self.videoArray.count{
                             let title =   self.videoArray[songIndex].videoTitle ?? ""
                             let image =  self.videoArray[songIndex].videoImageUrl ?? ""
@@ -146,6 +149,21 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     
+    func showDescriptonLabelInGenreView(){
+        sectedTableViewTopNSLayoutConstraint.constant  += 75
+        descriptionLabel = MusicTextLabel(frame: CGRect(x: 15, y: (navigationController?.navigationBar.frame.height)!, width: UIScreen.main.bounds.width, height: 65))
+        descriptionLabel.font = UIFont(name: "Verdana", size: 14)
+        let attributedString = NSMutableAttributedString(string: "Discover new music from \(selectedGenreTitle!) genre we think you'll like.Rereshed every Friday.")
+        let paragraphStyle = NSMutableParagraphStyle()
+        // *** set LineSpacing property in points ***
+        paragraphStyle.lineSpacing = 4
+        // *** Apply attribute to string ***
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        descriptionLabel.attributedText = attributedString
+        self.view.addSubview(descriptionLabel)
+    }
+    
+    
     func ifSelectedSongIsExsistInDatabase(_ coreDataMananger: CoreDataVideoClass, _ ifAlreadyInDatabase: Bool) {
         if ifAlreadyInDatabase {
             let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
@@ -156,7 +174,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         }
     }
     
-  
+    
     func saveSelectedMusicCoreDataEntity(_ selectedPlaylistRowTitle: String) {
         
         let videoIDProperty = UserDefaults.standard.object(forKey: "videoId") as? String
@@ -349,7 +367,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-//                    print("video is \(videoList)")
+                    //                    print("video is \(videoList)")
                     self.videoArray.append(contentsOf: videoList!)
                     DispatchQueue.main.async {
                         self.selectedSectionTableView.reloadData()

@@ -30,7 +30,7 @@ class MusicTextLabel: UILabel {
     
     private func configureMesucLabel() {
         numberOfLines = 0
-        font = UIFont(name: "Verdana-Bold", size: 10)
-        textColor = .white
+        font = UIFont(name: "Verdana-Bold", size: 12)
+        textColor = .black
     }
 }

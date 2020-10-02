@@ -251,7 +251,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
-        view.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        view.tintColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Verdana-Bold", size: 18)!
         header.textLabel?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)

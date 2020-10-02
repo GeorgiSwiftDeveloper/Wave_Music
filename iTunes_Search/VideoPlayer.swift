@@ -15,7 +15,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     static let callVideoPlayer = VideoPlayer()
     
     
-    let cardHeight:CGFloat = 750
+    let cardHeight:CGFloat = 900
     let cardHandleAreaHeight:CGFloat = 130
     
     var webView = WKYTPlayerView()
@@ -128,11 +128,11 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                 self?.updatePlayerState(playerState)
                 if self?.checkIfPaused == false {
                     self?.webView.playVideo()
-                    sender.setImage(UIImage(named: "btn-pause"), for: .normal)
+                    sender.setImage(UIImage(named: "btn-pause")?.withTintColor(.black), for: .normal)
                     UserDefaults.standard.set(true, forKey:"pause")
                 }else{
                     self?.webView.pauseVideo()
-                    sender.setImage(UIImage(named: "btn-play"), for: .normal)
+                    sender.setImage(UIImage(named: "btn-play")?.withTintColor(.black), for: .normal)
                     UserDefaults.standard.set(false, forKey:"pause")
                 }
             }
