@@ -205,7 +205,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                 if error != nil  {
                     print("erorr")
                 }else{
-                    DispatchQueue.main.async{
                         self.topHitsArray = loadVideolist!
                         for songIndex in 0..<self.topHitsArray.count{
                             
@@ -225,7 +224,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                                 self.recentPlayedCollectionCell.reloadData()
                             }
                         }
-                    }
                 }
             }
         }else{
@@ -299,7 +297,6 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                     print("data is empty")
                 }else{
                     if self.createdPlaylistArray.contains(text!){
-                        print("This playlist is already exists")
                         let alert = UIAlertController(title: "Please change your Playlist name", message: "Playlist with name \(text ?? "") is already exists", preferredStyle: .alert)
                         let libraryAction = UIAlertAction(title: "OK", style: .default) { (action) in
                             
@@ -308,7 +305,6 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                         self.present(alert, animated: true, completion: nil)
                     }else{
                         self.createdPlaylistArray.append(text!)
-                        print("count is \(self.createdPlaylistArray.count)")
                         UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
                         self.videoPlaylistCount = []
                         self.getPlaylistMusicCount()
@@ -389,11 +385,8 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == PlaylistsTableViewCell.EditingStyle.delete{
             self.selectedPlaylistRowTitle = self.createdPlaylistArray[indexPath.row]
-            print(self.selectedPlaylistRowTitle!)
             self.deleteSelectedPlaylist(predicateName: self.selectedPlaylistRowTitle!)
             self.createdPlaylistArray.remove(at: indexPath.row)
-            
-            print("count is \(self.createdPlaylistArray.count)")
             
             UserDefaults.standard.set(self.createdPlaylistArray, forKey:"MusicPlaylist")
             tableView.deleteRows(at: [indexPath], with: .automatic)

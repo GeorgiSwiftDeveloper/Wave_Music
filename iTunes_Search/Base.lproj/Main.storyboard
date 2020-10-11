@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kEB-Wj-v1n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xG8-CZ-7In">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -360,54 +360,91 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pop" translatesAutoresizingMaskIntoConstraints="NO" id="vlQ-Ag-FqO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRi-gj-M90">
-                                <rect key="frame" x="57" y="415.66666666666669" width="300" height="64.666666666666686"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="o4m-Og-rLT"/>
-                                </constraints>
-                                <string key="text">Choose your Country and we will create separate folder for you. Add tracks to your library by searching songs, and adding them to favorites.</string>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wave-1" translatesAutoresizingMaskIntoConstraints="NO" id="vEp-Zf-ceL">
-                                <rect key="frame" x="82" y="65.666666666666686" width="250" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="Aw7-AJ-mVV"/>
-                                    <constraint firstAttribute="height" constant="150" id="rpB-CZ-Rht"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6G-jM-TyB">
-                                <rect key="frame" x="163.66666666666666" y="771.33333333333337" width="87" height="35"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                <state key="normal" title="Continue">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextButtonAction:" destination="xG8-CZ-7In" eventType="touchUpInside" id="anb-qq-jUl"/>
-                                    <segue destination="kEB-Wj-v1n" kind="presentation" identifier="myTabbarControllerID" id="xRX-jN-L01"/>
-                                </connections>
-                            </button>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RAC-px-thp">
-                                <rect key="frame" x="47" y="505.33333333333326" width="320" height="216"/>
-                            </pickerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1iy-ud-wBV">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSY-PZ-v16">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="224"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wave-1" translatesAutoresizingMaskIntoConstraints="NO" id="vEp-Zf-ceL">
+                                                <rect key="frame" x="134.66666666666666" y="39.666666666666657" width="144.99999999999997" height="145"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="145" id="Idb-bP-CPz"/>
+                                                    <constraint firstAttribute="height" constant="145" id="aev-Ay-Vhb"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="vEp-Zf-ceL" firstAttribute="centerY" secondItem="cSY-PZ-v16" secondAttribute="centerY" id="YOS-Ch-Eat"/>
+                                            <constraint firstItem="vEp-Zf-ceL" firstAttribute="centerX" secondItem="cSY-PZ-v16" secondAttribute="centerX" id="snO-Zo-cPX"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ulT-d6-Ppe">
+                                        <rect key="frame" x="0.0" y="224" width="414" height="224"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRi-gj-M90">
+                                                <rect key="frame" x="33" y="73" width="348" height="78.333333333333314"/>
+                                                <string key="text">Choose your Country and we will create separate folder for you. Add tracks to your library by searching songs, and adding them to favorites.</string>
+                                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="vRi-gj-M90" firstAttribute="leading" secondItem="ulT-d6-Ppe" secondAttribute="leadingMargin" constant="25" id="3zl-co-zDT"/>
+                                            <constraint firstItem="vRi-gj-M90" firstAttribute="centerY" secondItem="ulT-d6-Ppe" secondAttribute="centerY" id="hea-lz-EtH"/>
+                                            <constraint firstItem="vRi-gj-M90" firstAttribute="centerX" secondItem="ulT-d6-Ppe" secondAttribute="centerX" id="oI9-3j-ZhC"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="vRi-gj-M90" secondAttribute="trailing" constant="25" id="of5-VJ-IK4"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hak-L0-G1d">
+                                        <rect key="frame" x="0.0" y="448" width="414" height="224"/>
+                                        <subviews>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RAC-px-thp">
+                                                <rect key="frame" x="47" y="15" width="320" height="194"/>
+                                            </pickerView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="RAC-px-thp" firstAttribute="top" secondItem="hak-L0-G1d" secondAttribute="top" constant="15" id="UfG-C0-oK6"/>
+                                            <constraint firstItem="RAC-px-thp" firstAttribute="centerY" secondItem="hak-L0-G1d" secondAttribute="centerY" id="d6J-45-Vnv"/>
+                                            <constraint firstItem="RAC-px-thp" firstAttribute="centerX" secondItem="hak-L0-G1d" secondAttribute="centerX" id="gTz-Na-AAN"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGZ-Vw-gF9">
+                                        <rect key="frame" x="0.0" y="672" width="414" height="224"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6G-jM-TyB">
+                                                <rect key="frame" x="163.66666666666666" y="94.666666666666629" width="87" height="35"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
+                                                <state key="normal" title="Continue">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="nextButtonAction:" destination="xG8-CZ-7In" eventType="touchUpInside" id="anb-qq-jUl"/>
+                                                    <segue destination="kEB-Wj-v1n" kind="presentation" identifier="myTabbarControllerID" id="xRX-jN-L01"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="B6G-jM-TyB" firstAttribute="centerX" secondItem="UGZ-Vw-gF9" secondAttribute="centerX" id="621-D0-sfA"/>
+                                            <constraint firstItem="B6G-jM-TyB" firstAttribute="centerY" secondItem="UGZ-Vw-gF9" secondAttribute="centerY" id="gf6-9X-fcF"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FvA-br-4lD"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="vlQ-Ag-FqO" firstAttribute="trailing" secondItem="FvA-br-4lD" secondAttribute="trailing" id="1OW-pm-GcB"/>
-                            <constraint firstItem="vRi-gj-M90" firstAttribute="top" secondItem="vEp-Zf-ceL" secondAttribute="bottom" constant="200" id="5qn-xH-sCK"/>
-                            <constraint firstItem="vlQ-Ag-FqO" firstAttribute="leading" secondItem="FvA-br-4lD" secondAttribute="leading" id="5y7-jz-hQF"/>
-                            <constraint firstItem="vRi-gj-M90" firstAttribute="centerX" secondItem="0bM-s3-nmR" secondAttribute="centerX" id="CvA-dW-H49"/>
-                            <constraint firstItem="vRi-gj-M90" firstAttribute="centerY" secondItem="0bM-s3-nmR" secondAttribute="centerY" id="EpU-uY-2CD"/>
+                            <constraint firstItem="vlQ-Ag-FqO" firstAttribute="trailing" secondItem="0bM-s3-nmR" secondAttribute="trailing" id="1OW-pm-GcB"/>
+                            <constraint firstItem="1iy-ud-wBV" firstAttribute="top" secondItem="0bM-s3-nmR" secondAttribute="top" id="1fK-pY-zh1"/>
+                            <constraint firstItem="vlQ-Ag-FqO" firstAttribute="leading" secondItem="0bM-s3-nmR" secondAttribute="leading" id="5y7-jz-hQF"/>
+                            <constraint firstAttribute="bottom" secondItem="1iy-ud-wBV" secondAttribute="bottom" id="AZs-aq-Jdf"/>
+                            <constraint firstAttribute="trailing" secondItem="1iy-ud-wBV" secondAttribute="trailing" id="BTr-sl-BrX"/>
+                            <constraint firstItem="1iy-ud-wBV" firstAttribute="leading" secondItem="0bM-s3-nmR" secondAttribute="leading" id="D6G-Gh-stl"/>
                             <constraint firstItem="vlQ-Ag-FqO" firstAttribute="top" secondItem="0bM-s3-nmR" secondAttribute="top" id="IVp-Yf-odl"/>
-                            <constraint firstItem="RAC-px-thp" firstAttribute="top" secondItem="vRi-gj-M90" secondAttribute="bottom" constant="25" id="LCj-wK-un0"/>
                             <constraint firstAttribute="bottom" secondItem="vlQ-Ag-FqO" secondAttribute="bottom" id="WB4-z1-eP8"/>
-                            <constraint firstItem="B6G-jM-TyB" firstAttribute="top" secondItem="RAC-px-thp" secondAttribute="bottom" constant="50" id="aTI-4C-2Mb"/>
-                            <constraint firstItem="B6G-jM-TyB" firstAttribute="centerX" secondItem="0bM-s3-nmR" secondAttribute="centerX" id="fzL-NZ-fAQ"/>
-                            <constraint firstItem="RAC-px-thp" firstAttribute="centerX" secondItem="0bM-s3-nmR" secondAttribute="centerX" id="m2Q-jF-IVa"/>
-                            <constraint firstItem="vEp-Zf-ceL" firstAttribute="centerX" secondItem="0bM-s3-nmR" secondAttribute="centerX" id="zyi-9l-ug0"/>
                         </constraints>
                     </view>
                     <connections>
@@ -417,7 +454,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w8b-T3-u3P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-946.39999999999998" y="204.67980295566502"/>
+            <point key="canvasLocation" x="-947.82608695652186" y="204.24107142857142"/>
         </scene>
         <!--Search Music View Controller-->
         <scene sceneID="tne-QT-ifu">

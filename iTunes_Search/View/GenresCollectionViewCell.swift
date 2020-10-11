@@ -11,7 +11,7 @@ import UIKit
 class GenresCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var genreImageView: UIImageView!
     @IBOutlet weak var genreNameLabel: UILabel!
-    @IBOutlet weak var trackCountLabel: UILabel!
+
     
     
     func confiigurationGenreCell(_ albums: GenreModel) {
@@ -25,6 +25,8 @@ class GenresCollectionViewCell: UICollectionViewCell {
         self.genreNameLabel.layer.shadowRadius = 5
         self.genreNameLabel?.layer.shadowOpacity = 1
         self.genreNameLabel?.layer.shadowOffset = .zero
+        
+        
     }
     
     

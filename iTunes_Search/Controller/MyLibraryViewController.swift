@@ -274,32 +274,32 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if  let nc = segue.destination as? SelectedSectionViewController {
+        if  let selectedViewController = segue.destination as? SelectedSectionViewController {
             switch sender as? String {
             case SelectedTableView.libraryTableView.rawValue:
-                nc.navigationItem.title = "My Library"
+                selectedViewController.navigationItem.title = "My Library"
                 
                 let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
                 
                 if selectedSearch == true {
-                    nc.searchIsSelected = true
+                    selectedViewController.searchIsSelected = true
                 }
-                nc.checkTableViewName = sender as! String
-                nc.ifRowIsSelectedDelegate = self
-                nc.musicRecordDeletedDelegate = self
+                selectedViewController.checkTableViewName = sender as! String
+                selectedViewController.ifRowIsSelectedDelegate = self
+                selectedViewController.musicRecordDeletedDelegate = self
             case SelectedTableView.genreCollectionView.rawValue:
-                nc.navigationItem.title = selectedGenreRowTitleHolder
+                selectedViewController.navigationItem.title = selectedGenreRowTitleHolder
                 let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
                 if selectedSearch == true {
-                    nc.searchIsSelected = true
+                    selectedViewController.searchIsSelected = true
                 }
                 
                 let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
                 if selectedmyLybrary == true {
-                    nc.selectedmyLybrary = true
+                    selectedViewController.selectedmyLybrary = true
                 }
-                nc.checkTableViewName = sender as! String
-                nc.selectedGenreTitle  = selectedGenreRowTitleHolder
+                selectedViewController.checkTableViewName = sender as! String
+                selectedViewController.selectedGenreTitle  = selectedGenreRowTitleHolder
             default:
                 break
             }
