@@ -8,6 +8,7 @@
 
 import UIKit
 import MediaPlayer
+import CoreData
 import YoutubePlayer_in_WKWebView
 
 class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate {
@@ -28,6 +29,9 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var checkifAnimationHappend = Bool()
     var checkIfPause = true
     var videoTitle = String()
+    var videoID = String()
+    var videoImage = String()
+    
     
     enum CardState {
         case expanded
@@ -46,6 +50,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var middleMusicTextLabel = MusicTextLabel()
     
     var playerButton = MusicPlayerButton()
+    var favoriteHurtButton = AddToFavoriteButton()
     var middlePlayerButton = MusicPlayerButton()
     var leftButton = MusicPlayerButton()
     var rightButton = MusicPlayerButton()
@@ -56,11 +61,14 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var musicVolumeSlider = MusicVolumeSlider()
     
     var addToFavorite = MusicPlayerButton()
-    var sharePlayedMusic = SharePlayedMusicButton()
     
-    func videoPalyerClass(genreVideoID:String,index: Int,superView:UIViewController,ifCellIsSelected: Bool,selectedVideoTitle: String){
+    
+    func videoPalyerClass(genreVideoID:String,videoImageName:String,superView:UIViewController,selectedVideoTitle: String){
         videoTitle = selectedVideoTitle
-//        setupCardVisualEffect()
+        videoID = genreVideoID
+        videoImage = videoImageName
+        
+        //        setupCardVisualEffect()
         
         cardViewController = CardViewController(nibName:String(cardController), bundle:nil)
         
@@ -72,16 +80,16 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
         self.cardViewController.view.addSubview(self.webView)
         
-
+        
         self.cardViewController.view.addSubview(imageHolderView)
         self.imageHolderView.pinImageHolderView(to: cardViewController.view)
         self.webView.pinWebView(to: imageHolderView)
-    
+        
         
         imageHolderView.clipsToBounds = false
         imageHolderView.layer.borderWidth = 2
         imageHolderView.layer.cornerRadius = 5
-
+        
         imageHolderView.layer.shadowColor = UIColor.white.cgColor
         imageHolderView.layer.shadowOpacity = 1
         imageHolderView.layer.shadowOffset = CGSize.zero
@@ -99,7 +107,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
         self.musicPlayerButtonConfiguration()
         self.topMusicLabelConfiguration()
-        
+        self.favoriteHurteButton()
         UserDefaults.standard.set(true, forKey:"pause")
         
         
@@ -130,6 +138,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     self?.webView.playVideo()
                     sender.setImage(UIImage(named: "btn-pause")?.withTintColor(.black), for: .normal)
                     UserDefaults.standard.set(true, forKey:"pause")
+                    
                 }else{
                     self?.webView.pauseVideo()
                     sender.setImage(UIImage(named: "btn-play")?.withTintColor(.black), for: .normal)
@@ -156,12 +165,12 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     
     
-//    func setupCardVisualEffect() {
-//        visualEffectView = UIVisualEffectView()
-//        visualEffectView.frame = CGRect(x: 0, y: 0, width: (self.superViewController?.view.frame.width)!, height: 145)
-//        self.superViewController!.view.addSubview(visualEffectView)
-//
-//    }
+    //    func setupCardVisualEffect() {
+    //        visualEffectView = UIVisualEffectView()
+    //        visualEffectView.frame = CGRect(x: 0, y: 0, width: (self.superViewController?.view.frame.width)!, height: 145)
+    //        self.superViewController!.view.addSubview(visualEffectView)
+    //
+    //    }
     
     
     func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
@@ -214,16 +223,17 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     self.musicPrevNextButtons()
                     self.musicPlayerVolumeSliderConfiguration()
                     self.topMusicTextLabel.isHidden = true
+                    self.favoriteHurtButton.isHidden = true
                     self.playerButton.isHidden = true
                     self.webView.isHidden = false
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
                     self.playerButton.isHidden  = false
                     self.topMusicLabelConfiguration()
-                    
+                    self.favoriteHurteButton()
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
-                    //                    self.visualEffectView.removeFromSuperview()
+                //                    self.visualEffectView.removeFromSuperview()
                 }
             }
             
@@ -251,10 +261,10 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-//                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
+                    //                    self.visualEffectView.effect = UIBlurEffect(style: .systemThickMaterialDark)
                     break
                 case .collapsed:
-//                    self.visualEffectView.effect = nil
+                    //                    self.visualEffectView.effect = nil
                     break
                 }
             }
@@ -343,17 +353,72 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         self.cardViewController.view.addSubview(volMax)
         self.volMax.pinVolMaxAndVolMin(to: self.musicVolumeSlider, ifMax: true)
         
-        //        addToFavorite = AddToFavoriteButton(image: "star.fill", text: "Library")
-        //        self.addToFavorite.frame = CGRect(x: self.cardViewController.view.frame.origin.x, y: 600, width: 100, height: 30)
-        //        self.cardViewController.view.addSubview(addToFavorite)
-        //
-        //
-        //        sharePlayedMusic = SharePlayedMusicButton(image: "arrowshape.turn.up.right.fill", text: "Share")
-        //        self.sharePlayedMusic.frame = CGRect(x: self.cardViewController.view.center.x + 40, y: 600, width: 230, height: 30)
-        //        self.cardViewController.view.addSubview(sharePlayedMusic)
-        
         
     }
+    
+    
+    final func favoriteHurteButton(){
+        
+        checkIfSongIsInDatabase { (count) in
+            if(count == 0){
+                self.favoriteHurtButton = AddToFavoriteButton(image: "heart", color: .black)
+            }else{
+                self.favoriteHurtButton = AddToFavoriteButton(image: "heart.fill", color: .black)
+                self.favoriteHurtButton.isUserInteractionEnabled = false
+            }
+        }
+        self.cardViewController.view.addSubview(self.favoriteHurtButton)
+        self.favoriteHurtButton.pinTopFavoriteButton(to: self.cardViewController.view, playerButton: self.topMusicTextLabel)
+        self.favoriteHurtButton.addTarget(self, action: #selector(favoriteButtonClicked(sender:)), for: .touchUpInside)
+    }
+    
+    
+    
+    
+    func checkIfSongIsInDatabase(completion: @escaping(Int) -> ()){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: myLibraryEntityName)
+        let predicate = NSPredicate(format: "title == %@", videoTitle as CVarArg)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        var musicCount = Int()
+        do {
+            let count = try context?.count(for: request)
+            musicCount = count!
+            
+            completion(musicCount)
+        } catch  {
+            print("empty")
+        }
+    }
+    
+    
+    @objc func favoriteButtonClicked(sender: UIButton) {
+        checkIfSongIsInDatabase { [self] (count) in
+            if count != 0 {
+                
+            }else{
+                let entity = NSEntityDescription.entity(forEntityName: myLibraryEntityName, in: context!)
+                let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+                newEntity.setValue(self.videoTitle, forKey: "title")
+                newEntity.setValue(self.videoImage, forKey: "image")
+                newEntity.setValue(self.videoID, forKey: "videoId")
+                do {
+                    try context?.save()
+                    print("data has been saved ")
+                    AlertView.instance.showAlert(title: "\(self.videoTitle)", message:"Successfuly added to MyLibrary list", alertType: .success, videoImage: self.videoImage)
+                    sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    
+                } catch  {
+                    print("a")
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
     
     @objc  func sliderVolume(sender: UISlider) {
         switch Int(sender.value) {

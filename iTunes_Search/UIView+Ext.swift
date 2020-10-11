@@ -32,11 +32,21 @@ extension UIView {
         widthAnchor.constraint(greaterThanOrEqualToConstant: UIScreen.main.bounds.width).isActive = true
     }
     
+    
+    func pinTopFavoriteButton(to superView: UIView, playerButton: UILabel) {
+        translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalToSystemSpacingBelow: superview!.topAnchor, multiplier: 2.0).isActive = true
+        leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: 10).isActive = true
+        trailingAnchor.constraint(lessThanOrEqualTo: playerButton.leadingAnchor, constant: 0).isActive = true
+        
+    }
+    
+    
     func pinTopMusicLabel(to superView: UIView, playerButton: UIButton) {
         translatesAutoresizingMaskIntoConstraints = false
         topAnchor.constraint(equalToSystemSpacingBelow: superview!.topAnchor, multiplier: 1.4).isActive = true
-        leadingAnchor.constraint(equalToSystemSpacingAfter: superview!.leadingAnchor, multiplier: 2).isActive = true
-        trailingAnchor.constraint(lessThanOrEqualTo: playerButton.leadingAnchor, constant: -30).isActive = true
+        leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: 50).isActive = true
+        trailingAnchor.constraint(lessThanOrEqualTo: playerButton.leadingAnchor, constant: -20).isActive = true
         
     }
     

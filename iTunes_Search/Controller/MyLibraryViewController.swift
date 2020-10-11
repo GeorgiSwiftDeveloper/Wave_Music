@@ -317,7 +317,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         getSelectedLibraryVideo(indexPath)
         
-        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.musicTitleLabel.text!)
+        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, videoImageName: selectedCell.imageViewUrl, superView: self, selectedVideoTitle: selectedCell.musicTitleLabel.text!)
         
         CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
             if error != nil {

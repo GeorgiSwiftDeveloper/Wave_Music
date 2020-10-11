@@ -13,18 +13,18 @@ class SelectedSectionTableViewCell: UITableViewCell {
     @IBOutlet weak var topHitImageView: UIImageView!
     @IBOutlet weak var topHitLabelText: UILabel!
     @IBOutlet weak var addToFavoriteButton: UIButton!
-    var videoIDProperty = String()
-    var videoImageUrlProperty = String()
-    var videoTitleProperty = String()
+    var videoID = String()
+    var imageViewUrl = String()
+    var videoTitle = String()
 
     
     
     
     
     func configureSelectedVideoCell(_ video: Video){
-            self.videoImageUrlProperty = video.videoImageUrl ?? ""
-            self.videoIDProperty = video.videoId ?? ""
-            self.videoTitleProperty = video.videoTitle ?? ""
+            self.imageViewUrl = video.videoImageUrl ?? ""
+            self.videoID = video.videoId ?? ""
+            self.videoTitle = video.videoTitle ?? ""
                 self.topHitLabelText.text = video.videoTitle
                 if video.videoImageUrl != ""{
                     let imageUrl = URL(string: video.videoImageUrl ?? "")

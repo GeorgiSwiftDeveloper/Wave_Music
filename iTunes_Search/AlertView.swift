@@ -58,9 +58,10 @@ class AlertView: UIView {
     
         let imageUrl = URL(string: videoImage)
         do{
-            let data:NSData = try NSData(contentsOf: imageUrl!)
+            if let image = imageUrl {
+            let data:NSData = try NSData(contentsOf: image)
             self.musicImageView.image =  UIImage(data: data as Data)
-            
+            }
         }catch{
             print("error")
         }
@@ -77,6 +78,7 @@ class AlertView: UIView {
         UIApplication.shared.keyWindow?.addSubview(perentView)
     }
     @IBAction func clickDoneAction(_ sender: Any) {
+        let nc = NotificationCenter.default
         perentView.removeFromSuperview()
     }
 }

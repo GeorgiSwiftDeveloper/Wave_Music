@@ -37,31 +37,29 @@ class MusicPlayerButton: UIButton {
 
 class AddToFavoriteButton: MusicPlayerButton {
     
-    convenience init(image: String, text: String) {
+    convenience init(image: String, color: UIColor) {
         self.init(frame: .zero)
-        configureMusicAddButton(image: image,text: text)
+        configureMusicAddButton(image: image, color: color)
     }
     
-     func configureMusicAddButton(image: String, text: String) {
+    func configureMusicAddButton(image: String, color: UIColor) {
         setImage(UIImage(systemName: image)?.withTintColor(.black), for: .normal)
-        updateUI(text: text )
+        updateUI()
     }
     
-    func updateUI(text: String) {
-        imageView?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    func updateUI() {
+        imageView?.tintColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
         imageView?.clipsToBounds = true
-        setTitle(text, for: .normal)
-        titleLabel?.font = UIFont(name: "Helvetica Bold", size: 11)
     }
     
 }
 
 
-class SharePlayedMusicButton: AddToFavoriteButton {
-    
-    override func configureMusicAddButton(image: String,text: String) {
-        setImage(UIImage(systemName: image)?.withTintColor(.black), for: .normal)
-        updateUI(text: text)
-    }
-    
-}
+//class SharePlayedMusicButton: AddToFavoriteButton {
+//    
+//    override func configureMusicAddButton(image: String) {
+//        setImage(UIImage(systemName: image)?.withTintColor(.black), for: .normal)
+//        updateUI()
+//    }
+//    
+//}

@@ -485,23 +485,23 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         self.selectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.selectedSectionTableView.cellForRow(at: selectedIndex) as! SelectedSectionTableViewCell
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
-        let predicate = NSPredicate(format: "title == %@", selectedCell.videoTitleProperty as CVarArg)
+        let predicate = NSPredicate(format: "title == %@", selectedCell.videoTitle as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
-        let alert = UIAlertController(title: "\(selectedCell.videoTitleProperty)", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "\(selectedCell.videoTitle)", message: "", preferredStyle: .actionSheet)
         let addMyLibraryAction = UIAlertAction(title: "Add to MyLibrary", style: .default) { [weak self](action) in
             do{
                 let count = try context?.count(for: request)
                 if(count == 0){
                     let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
                     let newEntity = NSManagedObject(entity: entity!, insertInto: context)
-                    newEntity.setValue(selectedCell.videoTitleProperty, forKey: "title")
-                    newEntity.setValue(selectedCell.videoImageUrlProperty, forKey: "image")
-                    newEntity.setValue(selectedCell.videoIDProperty, forKey: "videoId")
+                    newEntity.setValue(selectedCell.videoTitle, forKey: "title")
+                    newEntity.setValue(selectedCell.imageViewUrl, forKey: "image")
+                    newEntity.setValue(selectedCell.videoID, forKey: "videoId")
                     try context?.save()
                     print("data has been saved ")
-                    let selectedImageViewUrl = selectedCell.videoImageUrlProperty
-                    AlertView.instance.showAlert(title: "\(selectedCell.videoTitleProperty)", message:"Successfuly added to MyLibrary list", alertType: .success, videoImage: selectedImageViewUrl)
+                    let selectedImageViewUrl = selectedCell.imageViewUrl
+                    AlertView.instance.showAlert(title: "\(selectedCell.videoTitle)", message:"Successfuly added to MyLibrary list", alertType: .success, videoImage: selectedImageViewUrl)
                 } else{
                     // at least one matching object exists
                     let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
@@ -515,9 +515,9 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             }
         }
         let addPlaylistAction = UIAlertAction(title: "Add to Playlist", style: .default) { (action) in
-            UserDefaults.standard.set(selectedCell.videoIDProperty, forKey:"videoId")
-            UserDefaults.standard.set(selectedCell.videoImageUrlProperty, forKey:"image")
-            UserDefaults.standard.set(selectedCell.videoTitleProperty, forKey:"title")
+            UserDefaults.standard.set(selectedCell.videoID, forKey:"videoId")
+            UserDefaults.standard.set(selectedCell.imageViewUrl, forKey:"image")
+            UserDefaults.standard.set(selectedCell.videoTitle, forKey:"title")
             self.navigationController?.popViewController(animated: true)
             self.tabBarController?.selectedIndex = 2
         }
@@ -609,7 +609,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitle, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
@@ -628,7 +628,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitleProperty, videoImage: selectedCell.videoImageUrlProperty, videoId: selectedCell.videoIDProperty, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitle, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
@@ -646,7 +646,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         VideoPlayer.callVideoPlayer.webView.pauseVideo()
         VideoPlayer.callVideoPlayer.superViewController = self
         
-        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoIDProperty, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.topHitLabelText.text!)
+        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, videoImageName: selectedCell.imageViewUrl, superView: self, selectedVideoTitle: selectedCell.topHitLabelText.text!)
         DispatchQueue.main.async {
             self.selectedSectionTableView.reloadData()
         }

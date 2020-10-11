@@ -37,16 +37,20 @@ class CoreDataVideoClass: NSObject {
             guard  let result = try context?.fetch(request) else {return}
             print(result.count)
             var videoArray = [Video]()
+            var videoList: Video
+            
             for data in result as! [NSManagedObject] {
                 
-                let videoId = data.value(forKey: "videoId") as! String
-                let title = data.value(forKey: "title") as! String
-                let image = data.value(forKey: "image") as! String
-                //                let channelId = data.value(forKey: "channelId") as? String ?? ""
-                //                let songDescription = data.value(forKey: "songDescription") as! String
-                //                let playListId = data.value(forKey: "playListId") as! String
-                 let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
-                videoArray.append(videoList)
+                let videoId = data.value(forKey: "videoId") as? String ?? ""
+                let title = data.value(forKey: "title") as? String ?? ""
+                let image = data.value(forKey: "image") as? String ?? ""
+                
+                if videoId != "" && title != "" && image != "" {
+                    videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
+                    videoArray.append(videoList)
+                }
+//                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
+//                videoArray.append(videoList)
 
             }
                 loadVideoList(videoArray,nil)

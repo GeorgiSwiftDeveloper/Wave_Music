@@ -242,7 +242,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         VideoPlayer.callVideoPlayer.cardViewController.view = nil
         
         VideoPlayer.callVideoPlayer.superViewController = self
-        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, index: indexPath.row, superView: self, ifCellIsSelected: true, selectedVideoTitle: selectedCell.singerNameLabel.text!)
+        VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, videoImageName: selectedCell.videoImageUrl, superView: self, selectedVideoTitle: selectedCell.singerNameLabel.text!)
         
         CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (error) in
             if error != nil {
