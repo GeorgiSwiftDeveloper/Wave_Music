@@ -124,12 +124,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                             let videoId =  self.videoArray[songIndex].videoId ?? ""
                             let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
                             CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle))
-                            
-//                            { ( error) in
-//                                if error != nil {
-//                                    print(error?.localizedDescription as Any)
-//                                }
-//                            }
                         }
                         DispatchQueue.main.async {
                             self.selectedSectionTableView.reloadData()
@@ -587,11 +581,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
             CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitle, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName)
-//            { (error) in
-//                if error != nil {
-//                    print(error?.localizedDescription as Any)
-//                }
-//            }
+
         case SelectedTableView.recentPlayedTableView.rawValue:
             
             
@@ -607,11 +597,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
             CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitle, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName)
-//            { (error) in
-//                if error != nil {
-//                    print(error?.localizedDescription as Any)
-//                }
-//            }
         default:
             break
         }

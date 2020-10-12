@@ -49,9 +49,6 @@ class CoreDataVideoClass: NSObject {
                     videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
                     videoArray.append(videoList)
                 }
-//                let videoList = Video(videoId: videoId, videoTitle: title , videoDescription: "" , videoPlaylistId: "", videoImageUrl: image , channelId:"", genreTitle: "")
-//                videoArray.append(videoList)
-
             }
                 loadVideoList(videoArray,nil)
         } catch {
@@ -82,16 +79,13 @@ class CoreDataVideoClass: NSObject {
                     newEntity.setValue(playlistName, forKey: "playlistName")
                 }
                 try context?.save()
-//                loadVideoList(nil)
                 selectedSongIsAlreadyExsistInDatabase?.ifSelectedSongIsExsistInDatabase(self, false)
                 print("data has been saved ")
             }else{
                 print("this song is in database")
                 selectedSongIsAlreadyExsistInDatabase?.ifSelectedSongIsExsistInDatabase(self, true)
-//                loadVideoList(nil)
             }
         }catch{
-//            loadVideoList(error)
             print("error")
         }
     }
