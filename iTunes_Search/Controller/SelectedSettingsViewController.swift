@@ -185,7 +185,6 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let selectedCell = self.tableView.cellForRow(at: tableView.indexPathForSelectedRow!)
         switch selectedSettingsIndex {
         case 6:
             switch (indexPath.section, indexPath.row) {

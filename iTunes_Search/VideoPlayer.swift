@@ -87,13 +87,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
         
         imageHolderView.clipsToBounds = false
-        imageHolderView.layer.borderWidth = 2
-        imageHolderView.layer.cornerRadius = 5
-        
-        imageHolderView.layer.shadowColor = UIColor.white.cgColor
-        imageHolderView.layer.shadowOpacity = 1
-        imageHolderView.layer.shadowOffset = CGSize.zero
-        imageHolderView.layer.shadowRadius = 10
+
         
         webView.delegate = self
         webView.isHidden = true
@@ -118,13 +112,13 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         cardViewController.view.addGestureRecognizer(panGestureRecognizer)
         
     }
-    @objc func rightButtonAction(sender: UIButton){
-        
-    }
-    
-    @objc func leftButtonAction(sender: UIButton){
-        
-    }
+//    @objc func rightButtonAction(sender: UIButton){
+//        
+//    }
+//    
+//    @objc func leftButtonAction(sender: UIButton){
+//        
+//    }
     
     
     @objc func playAndPauseButtonAction(sender: UIButton){

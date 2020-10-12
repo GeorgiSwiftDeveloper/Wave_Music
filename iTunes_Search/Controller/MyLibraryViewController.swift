@@ -13,7 +13,7 @@ import  YoutubePlayer_in_WKWebView
 
 
 
-class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate,CheckIfRowIsSelectedDelegate,CheckIfMusicRecordDeletedDelegate  {
+class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, WKYTPlayerViewDelegate,CheckIfMusicRecordDeletedDelegate  {
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -169,14 +169,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         }
     }
     
-    func checkIfRowIsSelected(_ checkIf: Bool) {
-        if checkIf{
-            self.selectLibraryRow = true
-            self.selectTopHitsRow = true
-            self.myLibraryTableView.reloadData()
-        }
-    }
-    
     
     func setupSearchNavBar() {
         SearchController.sharedSearchControllerInstace.searchController(searchController, superViewController: self, navigationItem: self.navigationItem, searchPlaceholder: SearchPlaceholder.librarySearch)
@@ -278,26 +270,10 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
             switch sender as? String {
             case SelectedTableView.libraryTableView.rawValue:
                 selectedViewController.navigationItem.title = "My Library"
-                
-                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-                
-                if selectedSearch == true {
-                    selectedViewController.searchIsSelected = true
-                }
                 selectedViewController.checkTableViewName = sender as! String
-                selectedViewController.ifRowIsSelectedDelegate = self
                 selectedViewController.musicRecordDeletedDelegate = self
             case SelectedTableView.genreCollectionView.rawValue:
                 selectedViewController.navigationItem.title = selectedGenreRowTitleHolder
-                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-                if selectedSearch == true {
-                    selectedViewController.searchIsSelected = true
-                }
-                
-                let selectedmyLybrary = UserDefaults.standard.object(forKey: "selectedmyLybrary") as? Bool
-                if selectedmyLybrary == true {
-                    selectedViewController.selectedmyLybrary = true
-                }
                 selectedViewController.checkTableViewName = sender as! String
                 selectedViewController.selectedGenreTitle  = selectedGenreRowTitleHolder
             default:
@@ -311,7 +287,6 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.selectLibraryRow = false
         
         let selectedCell = self.myLibraryTableView.cellForRow(at: indexPath) as! MainLibrariMusciTableViewCell
         
@@ -319,14 +294,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         
         VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, videoImageName: selectedCell.imageViewUrl, superView: self, selectedVideoTitle: selectedCell.musicTitleLabel.text!)
         
-        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-            }
-            else{
-                self.fetchVideoData()
-            }
-        }
+        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.musicTitleLabel.text!, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName)
         
         
     }

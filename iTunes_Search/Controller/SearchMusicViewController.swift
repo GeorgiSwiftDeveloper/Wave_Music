@@ -227,15 +227,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     
-//
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView.contentOffset.y <=  0.000000 {
-//            ActivityIndecator.activitySharedInstace.activityIndicatorView.startAnimating()
-//        }
-//    }
-    
-    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = self.searchMusicTableView.cellForRow(at: tableView.indexPathForSelectedRow!) as! SearchVideoTableViewCell
         
@@ -244,10 +235,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         VideoPlayer.callVideoPlayer.superViewController = self
         VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, videoImageName: selectedCell.videoImageUrl, superView: self, selectedVideoTitle: selectedCell.singerNameLabel.text!)
         
-        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData") { (error) in
-            if error != nil {
-                print(error?.localizedDescription)
-            }
-        }
+        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData")
     }
 }

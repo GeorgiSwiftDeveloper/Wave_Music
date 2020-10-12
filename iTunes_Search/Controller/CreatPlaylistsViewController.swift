@@ -11,7 +11,7 @@ import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
 
-class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelegate, CheckIfMusicRecordDeletedDelegate {
+class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedDelegate {
     
     
     @IBOutlet weak var playlistTableView: UITableView!
@@ -209,21 +209,16 @@ class CreatPlaylistsViewController: UIViewController, CheckIfRowIsSelectedDelega
                         for songIndex in 0..<self.topHitsArray.count{
                             
                             let title =   self.topHitsArray[songIndex].videoTitle ?? ""
-                            //                            let description =  self.topHitsArray[songIndex].videoDescription ?? ""
                             let image =  self.topHitsArray[songIndex].videoImageUrl ?? ""
-                            //                            let playlistId = self.topHitsArray[songIndex].videoPlaylistId ?? ""
                             let videoId =  self.topHitsArray[songIndex].videoId ?? ""
-                            //                            let channelId =  self.topHitsArray[songIndex].channelId ?? ""
                             
-                            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName: topHitsEntityName) { (error) in
-                                if error != nil {
-                                    print(error?.localizedDescription as Any)
-                                }
-                            }
-                            DispatchQueue.main.async {
-                                self.recentPlayedCollectionCell.reloadData()
-                            }
+                            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName: topHitsEntityName)
+
                         }
+                    
+                    DispatchQueue.main.async {
+                        self.recentPlayedCollectionCell.reloadData()
+                    }
                 }
             }
         }else{
@@ -338,27 +333,14 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
         case SelectedTableView.topHitsTableView.rawValue:
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "World Top 100"
-                
-                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-                if selectedSearch == true {
-                    nc.searchIsSelected = true
-                }
-                UserDefaults.standard.set(false, forKey:"selectedSearch")
                 nc.checkTableViewName = sender as! String
-                nc.ifRowIsSelectedDelegate = self
+
             }
         case SelectedTableView.recentPlayedTableView.rawValue:
             
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "RECENTLY PLAYED"
-                
-                let selectedSearch = UserDefaults.standard.object(forKey: "selectedSearch") as? Bool
-                if selectedSearch == true {
-                    nc.searchIsSelected = true
-                }
-                UserDefaults.standard.set(false, forKey:"selectedSearch")
                 nc.checkTableViewName = sender as! String
-                nc.ifRowIsSelectedDelegate = self
                 nc.musicRecordDeletedDelegate = self
             }
         case selectedPlaylistRowTitle:

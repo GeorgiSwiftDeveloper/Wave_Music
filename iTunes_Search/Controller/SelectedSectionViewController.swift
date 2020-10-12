@@ -11,10 +11,6 @@ import CoreData
 import WebKit
 import  YoutubePlayer_in_WKWebView
 
-protocol CheckIfRowIsSelectedDelegate:AnyObject {
-    func checkIfRowIsSelected(_ checkIfRowIsSelected: Bool)
-}
-
 protocol CheckIfMusicRecordDeletedDelegate:AnyObject {
     func musicRecordDeletedDelegate(_ alertTitleName: String)
 }
@@ -41,10 +37,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var youTubeVideoID =  String()
     var youTubeVideoTitle =  String()
     var selectedIndex = Int()
-    var searchIsSelected = Bool()
     var selectedmyLybrary = Bool()
-    
-    weak var ifRowIsSelectedDelegate: CheckIfRowIsSelectedDelegate?
+
     weak var musicRecordDeletedDelegate: CheckIfMusicRecordDeletedDelegate?
     
     
@@ -129,11 +123,13 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                             let image =  self.videoArray[songIndex].videoImageUrl ?? ""
                             let videoId =  self.videoArray[songIndex].videoId ?? ""
                             let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
-                            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle)) { ( error) in
-                                if error != nil {
-                                    print(error?.localizedDescription as Any)
-                                }
-                            }
+                            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle))
+                            
+//                            { ( error) in
+//                                if error != nil {
+//                                    print(error?.localizedDescription as Any)
+//                                }
+//                            }
                         }
                         DispatchQueue.main.async {
                             self.selectedSectionTableView.reloadData()
@@ -182,11 +178,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         let videoTitleProperty = UserDefaults.standard.object(forKey: "title") as? String
         
         if (videoIDProperty != nil) || (videoImageUrlProperty != nil) || (videoTitleProperty != nil) {
-            coreDataConnectionManage.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName) {(error)  in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }
-            }
+            coreDataConnectionManage.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName)
+        
         }
     }
     
@@ -256,9 +249,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         
-        searchisSelected()
-        
-        
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -312,21 +302,10 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
-        searchisSelected()
         self.navigationController?.navigationBar.isHidden = false
     }
     
-    
-    
-    func searchisSelected() {
-        if searchIsSelected {
-            UserDefaults.standard.set(false, forKey:"checkIfLibraryRowIsSelected")
-            DispatchQueue.main.async {
-                self.selectedSectionTableView.reloadData()
-            }
-        }
-        searchIsSelected = false
-    }
+
     
     
     func takeGenreName(_ genreName: String) -> String {
@@ -367,7 +346,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 print(error?.localizedDescription as Any)
             }else{
                 if videoList != nil {
-                    //                    print("video is \(videoList)")
                     self.videoArray.append(contentsOf: videoList!)
                     DispatchQueue.main.async {
                         self.selectedSectionTableView.reloadData()
@@ -598,7 +576,6 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ifRowIsSelectedDelegate?.checkIfRowIsSelected(true)
         switch checkTableViewName {
         case SelectedTableView.libraryTableView.rawValue:
             
@@ -609,11 +586,12 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitle, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }
-            }
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitle, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName)
+//            { (error) in
+//                if error != nil {
+//                    print(error?.localizedDescription as Any)
+//                }
+//            }
         case SelectedTableView.recentPlayedTableView.rawValue:
             
             
@@ -628,11 +606,12 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             let selectedCell = self.selectedSectionTableView.cellForRow(at: indexPath) as! SelectedSectionTableViewCell
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
-            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitle, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName) { (error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }
-            }
+            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitle, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName)
+//            { (error) in
+//                if error != nil {
+//                    print(error?.localizedDescription as Any)
+//                }
+//            }
         default:
             break
         }
