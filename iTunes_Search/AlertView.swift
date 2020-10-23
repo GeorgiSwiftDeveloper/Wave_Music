@@ -13,7 +13,7 @@ import UIKit
 class AlertView: UIView {
     
     static let instance = AlertView()
-    
+    var cardVC = VideoPlayer()
     
     @IBOutlet var perentView: UIView!
     @IBOutlet weak var alerView: UIView!
@@ -78,7 +78,7 @@ class AlertView: UIView {
         UIApplication.shared.keyWindow?.addSubview(perentView)
     }
     @IBAction func clickDoneAction(_ sender: Any) {
-        let nc = NotificationCenter.default
+        VideoPlayer.callVideoPlayer.favoriteHeartButton()
         perentView.removeFromSuperview()
     }
 }

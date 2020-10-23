@@ -20,7 +20,7 @@ class CoreDataVideoClass: NSObject {
     
     weak var selectedSongIsAlreadyExsistInDatabase: CheckIfSelectedSongIsExsistInDatabaseDelegate?
     
-    func fetchVideoWithEntityName(coreDataEntityName: String, searchBarText: String,playlistName: String, loadVideoList: @escaping(_ returnVideoList: [Video]?, _ returnError: Error? ) -> ()){
+    func fetchVideoWithEntityName(coreDataEntityName: String, searchBarText: String,playlistName: String, loadVideoList: @escaping(Result<[Video], Error>) -> Void){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
         
         if searchBarText != "" {
@@ -50,9 +50,9 @@ class CoreDataVideoClass: NSObject {
                     videoArray.append(videoList)
                 }
             }
-                loadVideoList(videoArray,nil)
+            loadVideoList(.success(videoArray))
         } catch {
-            loadVideoList(nil,error)
+            loadVideoList(.failure(error.localizedDescription as! Error))
             print("Failed")
         }
     }

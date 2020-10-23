@@ -53,13 +53,3 @@ class AddToFavoriteButton: MusicPlayerButton {
     }
     
 }
-
-
-//class SharePlayedMusicButton: AddToFavoriteButton {
-//    
-//    override func configureMusicAddButton(image: String) {
-//        setImage(UIImage(systemName: image)?.withTintColor(.black), for: .normal)
-//        updateUI()
-//    }
-//    
-//}

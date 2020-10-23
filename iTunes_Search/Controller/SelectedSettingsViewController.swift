@@ -88,22 +88,27 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
         return numberOfRowsInSection
     }
     
+
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: selectedSettingsCellIdentifier, for: indexPath)
+        cell.backgroundColor = UIColor.white
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.white
+        cell.selectedBackgroundView = backgroundView
         switch selectedSettingsIndex {
         case 0:
             
             break
         case 1:
+            tableView.isScrollEnabled = false
             switch indexPath.row {
             case 0:
-                cell.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 timerPickerView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 220)
                 timerPickerView.backgroundColor = UIColor.white
                 timerPickerView.datePickerMode = UIDatePicker.Mode.countDownTimer
                 cell.addSubview(timerPickerView)
             default:
-                cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 cell.textLabel?.text = "Start"
                 cell.textLabel?.textAlignment = .center
                 cell.textLabel?.textColor = UIColor.red
@@ -185,6 +190,7 @@ class SelectedSettingsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         switch selectedSettingsIndex {
         case 6:
             switch (indexPath.section, indexPath.row) {

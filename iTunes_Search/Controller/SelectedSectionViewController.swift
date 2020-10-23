@@ -38,7 +38,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var youTubeVideoTitle =  String()
     var selectedIndex = Int()
     var selectedmyLybrary = Bool()
-
+    
     weak var musicRecordDeletedDelegate: CheckIfMusicRecordDeletedDelegate?
     
     
@@ -113,20 +113,22 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             self.showDescriptonLabelInGenreView()
             
             if isEmpty{
-                YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: selectedGenreTitle!, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
-                    if error != nil {
-                        print(error?.localizedDescription as Any)
-                    }else{
-                        self.videoArray = loadVideolist!
-                        for songIndex in 0..<self.videoArray.count{
-                            let title =   self.videoArray[songIndex].videoTitle ?? ""
-                            let image =  self.videoArray[songIndex].videoImageUrl ?? ""
-                            let videoId =  self.videoArray[songIndex].videoId ?? ""
-                            let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
-                            CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle))
-                        }
-                        DispatchQueue.main.async {
-                            self.selectedSectionTableView.reloadData()
+                DispatchQueue.global(qos: .background).async {
+                    YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: self.selectedGenreTitle!, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
+                        if error != nil {
+                            print(error?.localizedDescription as Any)
+                        }else{
+                            self.videoArray = loadVideolist!
+                            for songIndex in 0..<self.videoArray.count{
+                                let title =   self.videoArray[songIndex].videoTitle ?? ""
+                                let image =  self.videoArray[songIndex].videoImageUrl ?? ""
+                                let videoId =  self.videoArray[songIndex].videoId ?? ""
+                                let genreTitle = self.videoArray[songIndex].genreTitle ?? ""
+                                CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName:self.takeGenreName(genreTitle))
+                            }
+                            DispatchQueue.main.async {
+                                self.selectedSectionTableView.reloadData()
+                            }
                         }
                     }
                 }
@@ -173,7 +175,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         
         if (videoIDProperty != nil) || (videoImageUrlProperty != nil) || (videoTitleProperty != nil) {
             coreDataConnectionManage.saveVideoWithEntityName(videoTitle: videoTitleProperty!, videoImage: videoImageUrlProperty!, videoId: videoIDProperty!, playlistName: selectedPlaylistRowTitle, coreDataEntityName: playlistEntityName)
-        
+            
         }
     }
     
@@ -299,7 +301,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         self.navigationController?.navigationBar.isHidden = false
     }
     
-
+    
     
     
     func takeGenreName(_ genreName: String) -> String {
@@ -335,49 +337,62 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     func fetchVideoWithEntityNameGenre(){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: self.takeGenreName(selectedGenreTitle!), searchBarText: "", playlistName: "") { (videoList, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-            }else{
-                if videoList != nil {
-                    self.videoArray.append(contentsOf: videoList!)
-                    DispatchQueue.main.async {
-                        self.selectedSectionTableView.reloadData()
-                    }
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: self.takeGenreName(selectedGenreTitle!), searchBarText: "", playlistName: "") { [weak self]  (result) in
+            
+            switch result {
+            case .success(let videoList):
+                self?.videoArray.append(contentsOf: videoList)
+                DispatchQueue.main.async {
+                    self?.selectedSectionTableView.reloadData()
                 }
+            case .failure(let error):
+                print(error)
             }
+            
+            
         }
     }
     
     
     func fetchVideoWithEntityName(_ entityName: String, _ selectedPlaylistName: String){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (videoList, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-            }else{
-                if videoList != nil {
-                    switch entityName {
-                    case "TopHitsModel":
-                        self?.topHitsLists.append(contentsOf: videoList!)
-                    case "MyLibraryMusicData":
-                        self?.myLibraryList.append(contentsOf: videoList!)
-                    case "RecentPlayedMusicData":
-                        self?.recentPlayedVideo.append(contentsOf: videoList!)
-                    case "PlaylistMusicData":
-                        self?.videoPlaylist.append(contentsOf: videoList!)
-                        
-                    default:
-                        break
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self?.selectedSectionTableView.reloadData()
-                    }
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (result) in
+            
+            guard let self = self else{ return}
+            switch entityName {
+            case topHitsEntityName:
+                switch result {
+                case .success(let videoList):
+                    self.topHitsLists.append(contentsOf: videoList)
+                case .failure(let error):
+                    print(error)
                 }
+            case myLibraryEntityName:
+                switch result {
+                case .success(let videoList):
+                    self.myLibraryList.append(contentsOf: videoList)
+                case .failure(let error):
+                    print(error)
+                }
+            case recentPlayedEntityName:
+                switch result {
+                case .success(let videoList):
+                    self.recentPlayedVideo.append(contentsOf: videoList)
+                case .failure(let error):
+                    print(error)
+                }
+            case playlistEntityName:
+                switch result {
+                case .success(let videoList):
+                    self.videoPlaylist.append(contentsOf: videoList)
+                case .failure(let error):
+                    print(error)
+                }
+            default:
+                break
+                
             }
         }
     }
-    
 }
 
 extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSource {
@@ -581,7 +596,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             self.getSelectedMusicRowAndPlayVideoPlayer(indexPath)
             
             CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.videoTitle, videoImage: selectedCell.imageViewUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: recentPlayedEntityName)
-
+            
         case SelectedTableView.recentPlayedTableView.rawValue:
             
             

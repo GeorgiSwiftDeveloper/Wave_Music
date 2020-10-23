@@ -101,7 +101,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         
         self.musicPlayerButtonConfiguration()
         self.topMusicLabelConfiguration()
-        self.favoriteHurteButton()
+        self.favoriteHeartButton()
         UserDefaults.standard.set(true, forKey:"pause")
         
         
@@ -224,7 +224,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     self.cardViewController.view.frame.origin.y = (self.superViewController?.view.frame.height)! - self.cardHandleAreaHeight
                     self.playerButton.isHidden  = false
                     self.topMusicLabelConfiguration()
-                    self.favoriteHurteButton()
+                    self.favoriteHeartButton()
                     self.superViewController?.navigationController?.navigationBar.isHidden = false
                     self.superViewController?.tabBarController?.tabBar.isHidden = false
                 //                    self.visualEffectView.removeFromSuperview()
@@ -351,7 +351,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     }
     
     
-    final func favoriteHurteButton(){
+    final func favoriteHeartButton(){
         
         checkIfSongIsInDatabase { (count) in
             if(count == 0){
@@ -407,7 +407,18 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                 }
             }
         }
+
     }
+    
+    
+    
+    
+    
+    
+//    func updateFavoriteButton() {
+//        self.favoriteHurtButton = AddToFavoriteButton(image: "heart.fill", color: .black)
+//        
+//    }
     
     
     

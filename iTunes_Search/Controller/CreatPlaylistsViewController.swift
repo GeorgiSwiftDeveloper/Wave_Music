@@ -86,18 +86,18 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
         }
         
         getPlaylistMusicCount()
-
-
+        
+        
         fetchRecentlyPlayedVideoData()
-
+        
     }
     
     
     func getPlaylistMusicCount(){
-            for i in 0..<self.createdPlaylistArray.count {
-                fetchVideoWithEntityName("PlaylistMusicData", self.createdPlaylistArray[i])
+        for i in 0..<self.createdPlaylistArray.count {
+            fetchVideoWithEntityName("PlaylistMusicData", self.createdPlaylistArray[i])
         }
-
+        
         DispatchQueue.main.async {
             self.playlistTableView.reloadData()
         }
@@ -112,21 +112,20 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
     
     func fetchVideoWithEntityName(_ entityName: String, _ selectedPlaylistName: String){
         if selectedPlaylistName != "New Playlist" {
-            CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (videoList, error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }else{
-                    if videoList != nil {
-                        switch entityName {
-                        case "PlaylistMusicData":
-                            
-                            
-                            self?.videoPlaylistCount.append(videoList!.count)
-                            
-                        default:
-                            break
-                        }
+            CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (result) in
+                
+                guard let self = self else{ return}
+                switch entityName {
+                case playlistEntityName:
+                    switch result {
+                    case .success(let videoList):
+                        self.videoPlaylistCount.append(videoList.count)
+                    case .failure(let error):
+                        print(error)
                     }
+                default:
+                    break
+                    
                 }
             }
         }
@@ -177,23 +176,32 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
     
     func fetchVideoWithEntityName(_ entityName: String){
         DispatchQueue.global(qos: .background).async {
-            CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { (videoList, error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }else{
-                    if videoList != nil {
-                        switch entityName {
-                        case recentPlayedEntityName:
-                            self.recentPlayedVideo.append(contentsOf: videoList!)
-                        case topHitsEntityName:
-                            self.topHitsArray.append(contentsOf: videoList!)
-                        default:
-                            break
-                        }
-                        DispatchQueue.main.async {
-                            self.recentPlayedCollectionCell.reloadData()
-                        }
+            CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { [weak self] (result) in
+                
+                guard let self = self else{ return}
+                
+                switch entityName {
+                case recentPlayedEntityName:
+                    switch result {
+                    case .success(let videoList):
+                        self.recentPlayedVideo.append(contentsOf: videoList)
+                    case .failure(let error):
+                        print(error)
                     }
+                case topHitsEntityName:
+                    switch result {
+                    case .success(let videoList):
+                        self.topHitsArray.append(contentsOf: videoList)
+                    case .failure(let error):
+                        print(error)
+                    }
+                default:
+                    break
+                    
+                }
+                
+                DispatchQueue.main.async {
+                    self.recentPlayedCollectionCell.reloadData()
                 }
             }
         }
@@ -204,10 +212,10 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
     func getYouTubeResults(){
         if isEntityIsEmpty{
             DispatchQueue.global(qos: .background).async { [self] in
-            YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: genreTypeHits, selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
-                if error != nil  {
-                    print("erorr")
-                }else{
+                YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: genreTypeHits, selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
+                    if error != nil  {
+                        print("erorr")
+                    }else{
                         self.topHitsArray = loadVideolist!
                         for songIndex in 0..<self.topHitsArray.count{
                             
@@ -216,15 +224,15 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
                             let videoId =  self.topHitsArray[songIndex].videoId ?? ""
                             
                             CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: title, videoImage: image, videoId: videoId, playlistName: "", coreDataEntityName: topHitsEntityName)
-
+                            
                         }
-                    
-                    DispatchQueue.main.async {
-                        self.recentPlayedCollectionCell.reloadData()
+                        
+                        DispatchQueue.main.async {
+                            self.recentPlayedCollectionCell.reloadData()
+                        }
                     }
                 }
             }
-        }
         }else{
             fetchVideoWithEntityName(topHitsEntityName)
         }
@@ -338,7 +346,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
             if  let nc = segue.destination as? SelectedSectionViewController {
                 nc.navigationItem.title = "World Top 100"
                 nc.checkTableViewName = sender as! String
-
+                
             }
         case SelectedTableView.recentPlayedTableView.rawValue:
             
@@ -467,8 +475,8 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
         
         if indexPath.row == 0 {
             cell.cellTitleLabel.text = "World Top 100"
-            cell.recentlyPlayedVideoCountLabel.text = "\(topHitsArray.count) tracks"
-          
+            cell.recentlyPlayedVideoCountLabel.text = "\(topHitsArray.count) Songs"
+            
             var topImageArray = [cell.imageView1, cell.imageView2,cell.imageView3,cell.imageView4]
             
             if topHitsArray.count >= 4 {
@@ -507,28 +515,28 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
                 
             case 1:
                 let imageArray =  self.getImageFromUrl(self.recentPlayedVideo)
-                    cell.imageView1.image =  imageArray[0]
-                    cell.imageView2.image = UIImage(named: "")
+                cell.imageView1.image =  imageArray[0]
+                cell.imageView2.image = UIImage(named: "")
                 
             case 2:
-                    let imageArray =  self.getImageFromUrl(self.recentPlayedVideo)
-                    cell.imageView1.image =  imageArray[0]
-                    cell.imageView2.image =  imageArray[1]
-                    cell.imageView3.image = UIImage(named: "")
-
+                let imageArray =  self.getImageFromUrl(self.recentPlayedVideo)
+                cell.imageView1.image =  imageArray[0]
+                cell.imageView2.image =  imageArray[1]
+                cell.imageView3.image = UIImage(named: "")
+                
             case 3:
-                    let imageArray =  self.getImageFromUrl(self.recentPlayedVideo)
-                    cell.imageView1.image =  imageArray[0]
-                    cell.imageView2.image =  imageArray[1]
-                    cell.imageView3.image =  imageArray[2]
-                    cell.imageView4.image =  UIImage(named: "")
-
+                let imageArray =  self.getImageFromUrl(self.recentPlayedVideo)
+                cell.imageView1.image =  imageArray[0]
+                cell.imageView2.image =  imageArray[1]
+                cell.imageView3.image =  imageArray[2]
+                cell.imageView4.image =  UIImage(named: "")
+                
             default:
-                    let imageArray =  self.getImageFromUrl(self.recentPlayedVideo)
-                    cell.imageView1.image =  imageArray[0]
-                    cell.imageView2.image =  imageArray[1]
-                    cell.imageView3.image =  imageArray[2]
-                    cell.imageView4.image =  imageArray[3]
+                let imageArray =  self.getImageFromUrl(self.recentPlayedVideo)
+                cell.imageView1.image =  imageArray[0]
+                cell.imageView2.image =  imageArray[1]
+                cell.imageView3.image =  imageArray[2]
+                cell.imageView4.image =  imageArray[3]
             }
             
             

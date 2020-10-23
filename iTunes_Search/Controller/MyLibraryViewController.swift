@@ -104,26 +104,29 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     
     func fetchVideoWithEntityName(_ entityName: String){
-        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { [weak self](videoList, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-            }else{
-                if videoList != nil {
-                    switch entityName {
-                    case myLibraryEntityName:
-                        
-                        self?.myLibraryListArray.append(contentsOf: videoList!)
-                        let libraryCount: Bool = (self?.myLibraryListArray.count)! <= 5 ? true : false
-                        
-                        self?.viewAllButton.isHidden = libraryCount
-                        
-                        DispatchQueue.main.async {
-                            self?.myLibraryTableView.reloadData()
-                        }
-                    default:
-                        break
+        
+        
+        CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: "") { [weak self](result) in
+            
+            guard let self = self else{ return}
+            switch entityName {
+            case myLibraryEntityName:
+                switch result {
+                case .success(let videoList):
+                    self.myLibraryListArray.append(contentsOf: videoList)
+                    let libraryCount: Bool = (self.myLibraryListArray.count) <= 5 ? true : false
+                    
+                    self.viewAllButton.isHidden = libraryCount
+                    
+                    DispatchQueue.main.async {
+                        self.myLibraryTableView.reloadData()
                     }
+                case .failure(let error):
+                    print(error)
                 }
+            default:
+                break
+                
             }
         }
     }
@@ -165,7 +168,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     func musicRecordDeletedDelegate(_ alertTitleName: String) {
         if alertTitleName == "My Library" {
             myLibraryListArray = []
-                self.myLibraryTableView.reloadData()
+            self.myLibraryTableView.reloadData()
         }
     }
     
@@ -189,7 +192,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         myLibraryTableView.reloadData()
         
     }
-
+    
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchController.isActive = false

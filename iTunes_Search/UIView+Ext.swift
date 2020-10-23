@@ -93,6 +93,7 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         centerXAnchor.constraint(equalToSystemSpacingAfter: superview!.centerXAnchor, multiplier: 0).isActive = true
+        
         topAnchor.constraint(lessThanOrEqualTo: middleButton.bottomAnchor, constant: 50).isActive = true
         widthAnchor.constraint(equalToConstant: 250).isActive = true
         heightAnchor.constraint(equalToConstant: 25).isActive = true
