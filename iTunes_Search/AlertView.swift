@@ -78,8 +78,12 @@ class AlertView: UIView {
         UIApplication.shared.keyWindow?.addSubview(perentView)
     }
     @IBAction func clickDoneAction(_ sender: Any) {
-        VideoPlayer.callVideoPlayer.favoriteHeartButton()
+        if VideoPlayer.callVideoPlayer.videoPlayerSelected {
+            VideoPlayer.callVideoPlayer.favoriteHeartButton()
+            perentView.removeFromSuperview()
+        }else{
         perentView.removeFromSuperview()
+        }
     }
 }
 

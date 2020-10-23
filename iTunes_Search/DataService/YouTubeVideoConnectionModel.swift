@@ -24,7 +24,7 @@ class  YouTubeVideoConnection {
     func getYouTubeVideo(genreType: String?,selectedViewController: String, loadYouTubeList: @escaping(_ returnYoutubeList: [Video]?, _ returnError: Error? ) -> ()) {
         
         switch selectedViewController {
-        case "GenreListViewController":
+        case "genreList":
             
             API_KEY = "AIzaSyDnZJailNum2kVdCTUPpK80O8ERYBqbnX4"
             switch genreType {
@@ -55,7 +55,7 @@ class  YouTubeVideoConnection {
             default:
                 break
             }
-        case "MyLibraryViewController":
+        case "topHits":
             API_KEY = "AIzaSyD_ftHSeTLdHnAqtUv-pnWW8jOXv5TFZg8"
             switch genreType {
             case "Hits":

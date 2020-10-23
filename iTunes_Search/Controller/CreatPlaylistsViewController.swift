@@ -212,7 +212,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
     func getYouTubeResults(){
         if isEntityIsEmpty{
             DispatchQueue.global(qos: .background).async { [self] in
-                YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: genreTypeHits, selectedViewController: "MyLibraryViewController") { (loadVideolist, error) in
+                YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: genreTypeHits, selectedViewController: "topHits") { (loadVideolist, error) in
                     if error != nil  {
                         print("erorr")
                     }else{

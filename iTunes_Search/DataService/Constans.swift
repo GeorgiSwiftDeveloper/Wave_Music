@@ -20,7 +20,7 @@ var cardController = "CardViewController"
 
 var selectedTableViewCellIdentifier = "selectedTableViewCell"
 var selectedSettingsCellIdentifier = "selectedTableViewCell"
-var genreTableViewCellIdentifier =  "genreCell"
+var genreCellIdentifier =  "genreCollectionCell"
 var searchMusicCellIdentifier = "searchMusicCell"
 var playListCellIdentifier = "playlistCell"
 var recetAndTopHitCollectionCellIIdentifire = "collectionCell"

@@ -235,6 +235,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         VideoPlayer.callVideoPlayer.superViewController = self
         VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, videoImageName: selectedCell.videoImageUrl, superView: self, selectedVideoTitle: selectedCell.singerNameLabel.text!)
         
-        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName:  recentPlayedEntityNamea)
+        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName:  recentPlayedEntityName)
     }
 }

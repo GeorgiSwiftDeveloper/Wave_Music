@@ -29,7 +29,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var descriptionLabel = MusicTextLabel()
     
     var checkTableViewName = String()
-    var topHitsListHeight = 190
     
     var selectedGenreTitle: String?
     var videoArray = [Video]()
@@ -37,7 +36,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     var youTubeVideoID =  String()
     var youTubeVideoTitle =  String()
     var selectedIndex = Int()
-    var selectedmyLybrary = Bool()
     
     weak var musicRecordDeletedDelegate: CheckIfMusicRecordDeletedDelegate?
     
@@ -73,13 +71,13 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     func returnTableViewNameWithAction() {
         switch checkTableViewName {
         case SelectedTableView.topHitsTableView.rawValue:
-            fetchVideoWithEntityName("TopHitsModel", "")
+            fetchVideoWithEntityName(topHitsEntityName, selectedPlaylistName: "")
         case SelectedTableView.libraryTableView.rawValue:
-            fetchVideoWithEntityName("MyLibraryMusicData", "")
+            fetchVideoWithEntityName(myLibraryEntityName, selectedPlaylistName: "")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
         case SelectedTableView.recentPlayedTableView.rawValue:
-            fetchVideoWithEntityName("RecentPlayedMusicData", "")
+            fetchVideoWithEntityName(recentPlayedEntityName, selectedPlaylistName: "")
             let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
             if recentPlayedVideo.count == 0 {
@@ -96,7 +94,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             guard let selectedPaylistName = UserDefaults.standard.object(forKey: "selectedPlaylistRowTitle") as? String else{return}
             saveSelectedMusicCoreDataEntity(selectedPaylistName)
             
-            fetchVideoWithEntityName(playlistEntityName, selectedPaylistName)
+            fetchVideoWithEntityName(playlistEntityName, selectedPlaylistName: selectedPaylistName)
             
             UserDefaults.standard.removeObject(forKey: "videoId")
             UserDefaults.standard.removeObject(forKey: "image")
@@ -114,7 +112,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             
             if isEmpty{
                 DispatchQueue.global(qos: .background).async {
-                    YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: self.selectedGenreTitle!, selectedViewController: "GenreListViewController") { (loadVideolist, error) in
+                    YouTubeVideoConnection.getYouTubeVideoInstace.getYouTubeVideo(genreType: self.selectedGenreTitle!, selectedViewController: "genreList") { (loadVideolist, error) in
                         if error != nil {
                             print(error?.localizedDescription as Any)
                         }else{
@@ -212,13 +210,13 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         var entityName = String()
         switch checkTableViewName {
         case SelectedTableView.libraryTableView.rawValue:
-            entityName = "MyLibraryMusicData"
+            entityName = myLibraryEntityName
             myLibraryList = []
         case SelectedTableView.recentPlayedTableView.rawValue:
-            entityName = "RecentPlayedMusicData"
+            entityName = recentPlayedEntityName
             recentPlayedVideo = []
         case SelectedTableView.playlistTableView.rawValue:
-            entityName = "Playlist"
+            entityName =  playlistEntityName
             videoPlaylist = []
         default:
             break
@@ -354,7 +352,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     
-    func fetchVideoWithEntityName(_ entityName: String, _ selectedPlaylistName: String){
+    func fetchVideoWithEntityName(_ entityName: String,selectedPlaylistName: String){
         CoreDataVideoClass.coreDataVideoInstance.fetchVideoWithEntityName(coreDataEntityName: entityName, searchBarText: "", playlistName: selectedPlaylistName) { [weak self] (result) in
             
             guard let self = self else{ return}
@@ -492,8 +490,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
                 } else{
                     // at least one matching object exists
                     let alert = UIAlertController(title: "Please check your Library", message: "This song is already exist in your library list", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                    }
+                    let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alert.addAction(action)
                     self?.present(alert, animated: true, completion: nil)
                 }
@@ -509,8 +506,8 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             self.tabBarController?.selectedIndex = 2
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
         alert.addAction(addMyLibraryAction)
         alert.addAction(addPlaylistAction)
         alert.addAction(cancelAction)

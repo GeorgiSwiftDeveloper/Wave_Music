@@ -28,6 +28,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var cardVisible = false
     var checkifAnimationHappend = Bool()
     var checkIfPause = true
+    var videoPlayerSelected = Bool()
     var videoTitle = String()
     var videoID = String()
     var videoImage = String()
@@ -50,8 +51,10 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     var middleMusicTextLabel = MusicTextLabel()
     
     var playerButton = MusicPlayerButton()
+    
     var favoriteHurtButton = AddToFavoriteButton()
     var middlePlayerButton = MusicPlayerButton()
+    
     var leftButton = MusicPlayerButton()
     var rightButton = MusicPlayerButton()
     
@@ -67,7 +70,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         videoTitle = selectedVideoTitle
         videoID = genreVideoID
         videoImage = videoImageName
-        
+        videoPlayerSelected = true
         //        setupCardVisualEffect()
         
         cardViewController = CardViewController(nibName:String(cardController), bundle:nil)

@@ -9,8 +9,8 @@
 import UIKit
 
 class GenreModel: NSObject {
-    var genreImage: String
-    var genreTitle: String
+    var genreImage: String?
+    var genreTitle: String?
     
     
     init(genreImage: String, genreTitle:String) {

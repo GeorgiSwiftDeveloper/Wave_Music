@@ -17,7 +17,7 @@ class GenresCollectionViewCell: UICollectionViewCell {
     func confiigurationGenreCell(_ albums: GenreModel) {
         
         self.genreNameLabel.text = albums.genreTitle
-        self.genreImageView.image = UIImage(named: albums.genreImage)
+        self.genreImageView.image = UIImage(named: albums.genreImage!)
         
         
         self.genreImageView.layer.cornerRadius = 5

@@ -355,7 +355,7 @@ extension MyLibraryViewController: UICollectionViewDelegate, UICollectionViewDat
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCollectionCell", for: indexPath) as? GenresCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: genreCellIdentifier, for: indexPath) as? GenresCollectionViewCell {
             cell.confiigurationGenreCell(GenreModelService.instance.getGenreArray()[indexPath.row])
             cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.layer.borderWidth = 0.5
@@ -373,13 +373,7 @@ extension MyLibraryViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedGenreRowTitle = GenreModelService.instance.getGenreArray()[indexPath.row]
         selectedGenreIndexRow = indexPath.row
-        selectedGenreRowTitleHolder = selectedGenreRowTitle.genreTitle
-        let selectedGenereCollectionIndex = UserDefaults.standard.object(forKey: "selectedGenereCollectionIndex") as? Int
-        if selectedGenereCollectionIndex == selectedGenreIndexRow {
-            UserDefaults.standard.set(true, forKey:"checkGenreRowIsSelected")
-        }else{
-            UserDefaults.standard.set(false, forKey:"checkGenreRowIsSelected")
-        }
+        selectedGenreRowTitleHolder = selectedGenreRowTitle.genreTitle!
         self.performSegue(withIdentifier: destinationToMyLibraryIdentifier, sender: SelectedTableView.genreCollectionView.rawValue)
     }
 }
