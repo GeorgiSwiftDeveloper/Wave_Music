@@ -95,7 +95,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
     
     func getPlaylistMusicCount(){
         for i in 0..<self.createdPlaylistArray.count {
-            fetchVideoWithEntityName("PlaylistMusicData", self.createdPlaylistArray[i])
+            fetchVideoWithEntityName(playlistEntityName, self.createdPlaylistArray[i])
         }
         
         DispatchQueue.main.async {
@@ -266,7 +266,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "playlistCell", for: indexPath) as? PlaylistsTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: playListCellIdentifier, for: indexPath) as? PlaylistsTableViewCell {
             if indexPath.row == 0 {
                 cell.trackCountLabel.isHidden = true
                 cell.playlistName.text = createdPlaylistArray[0]
@@ -471,7 +471,7 @@ extension CreatPlaylistsViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var collectionCell = UICollectionViewCell()
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! RecentPlayedCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: recetAndTopHitCollectionCellIIdentifire, for: indexPath) as! RecentPlayedCollectionViewCell
         
         if indexPath.row == 0 {
             cell.cellTitleLabel.text = "World Top 100"

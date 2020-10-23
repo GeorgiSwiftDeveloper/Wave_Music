@@ -471,7 +471,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
         let selectedIndex = IndexPath(row: sender.tag, section: 0)
         self.selectedSectionTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
         let selectedCell = self.selectedSectionTableView.cellForRow(at: selectedIndex) as! SelectedSectionTableViewCell
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: myLibraryEntityName)
         let predicate = NSPredicate(format: "title == %@", selectedCell.videoTitle as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
@@ -480,7 +480,7 @@ extension SelectedSectionViewController: UITableViewDelegate, UITableViewDataSou
             do{
                 let count = try context?.count(for: request)
                 if(count == 0){
-                    let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+                    let entity = NSEntityDescription.entity(forEntityName: myLibraryEntityName, in: context!)
                     let newEntity = NSManagedObject(entity: entity!, insertInto: context)
                     newEntity.setValue(selectedCell.videoTitle, forKey: "title")
                     newEntity.setValue(selectedCell.imageViewUrl, forKey: "image")

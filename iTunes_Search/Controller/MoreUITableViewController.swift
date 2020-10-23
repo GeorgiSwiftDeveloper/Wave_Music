@@ -29,7 +29,7 @@ class MoreUITableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "moreCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: moreCellIdentifire, for: indexPath)
         
         cell.imageView?.image = UIImage(systemName: settingsArray[indexPath.row].settingsImage)
         cell.textLabel?.text = settingsArray[indexPath.row].settingsName

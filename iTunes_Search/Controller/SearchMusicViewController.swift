@@ -164,7 +164,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "searchMusicCell", for: indexPath) as? SearchVideoTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: searchMusicCellIdentifier, for: indexPath) as? SearchVideoTableViewCell {
             DispatchQueue.main.async {
                 cell.configureSearchCell(albums: self.searchMusicList[indexPath.row])
             }
@@ -183,7 +183,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         let selectedRow = IndexPath(row: sender.tag, section: 0)
         self.searchMusicTableView.selectRow(at: selectedRow, animated: true, scrollPosition: .none)
         let selectedCell = self.searchMusicTableView.cellForRow(at: selectedRow) as! SearchVideoTableViewCell
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "MyLibraryMusicData")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: myLibraryEntityName)
         let predicate = NSPredicate(format: "title == %@", selectedCell.singerNameLabel.text! as CVarArg)
         request.predicate = predicate
         request.fetchLimit = 1
@@ -192,7 +192,7 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
             do{
                 let count = try context?.count(for: request)
                 if(count == 0){
-                    let entity = NSEntityDescription.entity(forEntityName: "MyLibraryMusicData", in: context!)
+                    let entity = NSEntityDescription.entity(forEntityName: myLibraryEntityName, in: context!)
                     let newEntity = NSManagedObject(entity: entity!, insertInto: context)
                     newEntity.setValue(selectedCell.singerNameLabel.text, forKey: "title")
                     newEntity.setValue(selectedCell.videoImageUrl, forKey: "image")
@@ -235,6 +235,6 @@ extension SearchMusicViewController: UITableViewDelegate, UITableViewDataSource 
         VideoPlayer.callVideoPlayer.superViewController = self
         VideoPlayer.callVideoPlayer.videoPalyerClass(genreVideoID: selectedCell.videoID, videoImageName: selectedCell.videoImageUrl, superView: self, selectedVideoTitle: selectedCell.singerNameLabel.text!)
         
-        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName: "RecentPlayedMusicData")
+        CoreDataVideoClass.coreDataVideoInstance.saveVideoWithEntityName(videoTitle: selectedCell.singerNameLabel.text!, videoImage: selectedCell.videoImageUrl, videoId: selectedCell.videoID, playlistName: "", coreDataEntityName:  recentPlayedEntityNamea)
     }
 }
