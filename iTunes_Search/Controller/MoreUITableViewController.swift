@@ -11,7 +11,7 @@ import SafariServices
 
 
 
-class MoreUITableViewController: UITableViewController {
+class MoreUITableViewController: UIViewController,UITableViewDelegate, UITableViewDataSource  {
     @IBOutlet var settingsTableView: UITableView!
     
     override func viewDidLoad() {
@@ -22,13 +22,13 @@ class MoreUITableViewController: UITableViewController {
     }
     
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return getSettingsListArray().count
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: moreCellIdentifire, for: indexPath)
         
         cell.imageView?.image = UIImage(systemName: settingsArray[indexPath.row].settingsImage)
@@ -45,8 +45,8 @@ class MoreUITableViewController: UITableViewController {
     }
     
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell = self.tableView.cellForRow(at: tableView.indexPathForSelectedRow!) as? UITableViewCell
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell = tableView.cellForRow(at: tableView.indexPathForSelectedRow!) as? UITableViewCell
         
         switch indexPath.row {
         case 3:

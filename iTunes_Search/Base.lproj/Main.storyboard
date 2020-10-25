@@ -3,7 +3,7 @@
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -1041,38 +1041,50 @@
             </objects>
             <point key="canvasLocation" x="2287" y="206"/>
         </scene>
-        <!--More-->
-        <scene sceneID="Dqv-Xa-rkt">
+        <!--MoreUI Table View Controller-->
+        <scene sceneID="jVR-bs-WF3">
             <objects>
-                <tableViewController id="CiN-XP-F57" customClass="MoreUITableViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="65" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XLe-RO-6Sm">
+                <viewController id="fc7-WL-DBL" customClass="MoreUITableViewController" customModule="Wave" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GR4-41-tYQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MXZ-eJ-eNQ">
+                                <rect key="frame" x="0.0" y="56" width="414" height="703"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="moreCell" rowHeight="73" id="rrj-j6-vr5" customClass="MoreTableViewCell" customModule="Wave" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="73"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rrj-j6-vr5" id="jiD-Xe-KnN">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="fc7-WL-DBL" id="YIO-49-Zoi"/>
+                                    <outlet property="delegate" destination="fc7-WL-DBL" id="AK6-wM-DNW"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8xI-Fy-WgR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="moreCell" rowHeight="65" id="Z8f-6k-mr0" customClass="MoreTableViewCell" customModule="Wave" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="65"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z8f-6k-mr0" id="O2v-AR-Xj7">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="CiN-XP-F57" id="Yn5-uG-Lhj"/>
-                            <outlet property="delegate" destination="CiN-XP-F57" id="soW-xj-DBX"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="More" id="AhR-A2-xU3"/>
+                        <constraints>
+                            <constraint firstItem="8xI-Fy-WgR" firstAttribute="trailing" secondItem="MXZ-eJ-eNQ" secondAttribute="trailing" id="EZA-RJ-ACb"/>
+                            <constraint firstItem="MXZ-eJ-eNQ" firstAttribute="top" secondItem="8xI-Fy-WgR" secondAttribute="top" id="O9h-xw-dMh"/>
+                            <constraint firstItem="8xI-Fy-WgR" firstAttribute="bottom" secondItem="MXZ-eJ-eNQ" secondAttribute="bottom" id="WDW-Yi-bVg"/>
+                            <constraint firstItem="MXZ-eJ-eNQ" firstAttribute="leading" secondItem="8xI-Fy-WgR" secondAttribute="leading" id="nZa-89-Jxt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="j0q-tq-8e8"/>
                     <connections>
-                        <outlet property="settingsTableView" destination="XLe-RO-6Sm" id="Hst-Ad-gns"/>
+                        <outlet property="settingsTableView" destination="MXZ-eJ-eNQ" id="gDl-5i-soR"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rfU-Ph-t2h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k4d-gk-yEI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2287" y="933"/>
+            <point key="canvasLocation" x="2258" y="933"/>
         </scene>
         <!--MyRadio-->
         <scene sceneID="WsH-PS-gGh">
@@ -1105,7 +1117,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="CiN-XP-F57" kind="relationship" relationship="rootViewController" id="447-h8-CNt"/>
+                        <segue destination="fc7-WL-DBL" kind="relationship" relationship="rootViewController" id="j7U-wp-95K"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1i-en-PUj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
