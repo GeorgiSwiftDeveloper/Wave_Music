@@ -403,7 +403,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
                     try context?.save()
                     print("data has been saved ")
                     AlertView.instance.showAlert(title: "\(self.videoTitle)", message:"Successfuly added to MyLibrary list", alertType: .success, videoImage: self.videoImage)
-                    sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    sender.setImage(SFSymbols.heart, for: .normal)
                     
                 } catch  {
                     print("a")
@@ -412,18 +412,6 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         }
 
     }
-    
-    
-    
-    
-    
-    
-//    func updateFavoriteButton() {
-//        self.favoriteHurtButton = AddToFavoriteButton(image: "heart.fill", color: .black)
-//        
-//    }
-    
-    
     
     
     

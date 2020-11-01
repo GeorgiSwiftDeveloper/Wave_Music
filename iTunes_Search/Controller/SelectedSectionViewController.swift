@@ -74,11 +74,11 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             fetchVideoWithEntityName(topHitsEntityName, selectedPlaylistName: "")
         case SelectedTableView.libraryTableView.rawValue:
             fetchVideoWithEntityName(myLibraryEntityName, selectedPlaylistName: "")
-            let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
+            let deleteButton = UIBarButtonItem(image: SFSymbols.trush, style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
         case SelectedTableView.recentPlayedTableView.rawValue:
             fetchVideoWithEntityName(recentPlayedEntityName, selectedPlaylistName: "")
-            let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
+            let deleteButton = UIBarButtonItem(image: SFSymbols.trush, style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
             if recentPlayedVideo.count == 0 {
                 let alert = UIAlertController(title: "No Tracks Found", message: "Your recently played songs will be placed here after you play any song", preferredStyle: .alert)
@@ -100,7 +100,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
             UserDefaults.standard.removeObject(forKey: "image")
             UserDefaults.standard.removeObject(forKey: "title")
             
-            let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.circle.fill"), style: .plain, target: self, action:#selector(rightButtonAction))
+            let deleteButton = UIBarButtonItem(image: SFSymbols.trush, style: .plain, target: self, action:#selector(rightButtonAction))
             self.navigationItem.rightBarButtonItem  = deleteButton
             if videoPlaylist.count == 0 {
                 SettingsDetailView.sharedSettingsDetail.showPlaylistAlertView(title: "No Tracks Found", message: "Your songs will be placed here after you add any song", actionTitle: "OK", view: self)

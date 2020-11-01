@@ -9,6 +9,14 @@
 import Foundation
 import UIKit
 
+
+enum SFSymbols {
+    static let trush = UIImage(systemName: "trash.circle.fill")
+    static let heart = UIImage(systemName: "heart.fill")
+    static let list = UIImage(systemName: "list.bullet")
+    static let music = UIImage(systemName: "music.note.list")
+}
+
 extension UIView {
     
     
