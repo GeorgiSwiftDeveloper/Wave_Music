@@ -16,7 +16,6 @@
 		6A1375CE2433D09F0086113D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A1375CC2433D09F0086113D /* LaunchScreen.storyboard */; };
 		6A1375D62433D0D80086113D /* SearchConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1375D52433D0D80086113D /* SearchConnection.swift */; };
 		6A3CB2A624D4B9C90066712D /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3CB2A524D4B9C90066712D /* DesignView.swift */; };
-		6A41657A2457FB2E00910513 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4165792457FB2E00910513 /* WelcomeViewController.swift */; };
 		6A41657C2458EF0D00910513 /* SelectedSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */; };
 		6A41657E2458FC9B00910513 /* SelectedSectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41657D2458FC9B00910513 /* SelectedSectionTableViewCell.swift */; };
 		6A48ECC424366485007A82D6 /* FutureMuviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A48ECC324366485007A82D6 /* FutureMuviesModel.swift */; };
@@ -89,7 +88,6 @@
 		6A1375CF2433D09F0086113D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A1375D52433D0D80086113D /* SearchConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConnection.swift; sourceTree = "<group>"; };
 		6A3CB2A524D4B9C90066712D /* DesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
-		6A4165792457FB2E00910513 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSectionViewController.swift; sourceTree = "<group>"; };
 		6A41657D2458FC9B00910513 /* SelectedSectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSectionTableViewCell.swift; sourceTree = "<group>"; };
 		6A48ECC324366485007A82D6 /* FutureMuviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureMuviesModel.swift; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 		6A1375E4243435300086113D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				6A4165792457FB2E00910513 /* WelcomeViewController.swift */,
 				6A5227D52453DB4D00D77850 /* MyLibraryViewController.swift */,
 				6A41657B2458EF0C00910513 /* SelectedSectionViewController.swift */,
 				6A1375C52433D09E0086113D /* SearchMusicViewController.swift */,
@@ -514,7 +511,6 @@
 				6ABFE2272439099C000217B5 /* GenresCollectionViewCell.swift in Sources */,
 				6A4BF72224DDD6D6009DFB8B /* UILabelModel.swift in Sources */,
 				6A1375D62433D0D80086113D /* SearchConnection.swift in Sources */,
-				6A41657A2457FB2E00910513 /* WelcomeViewController.swift in Sources */,
 				6A1375C22433D09E0086113D /* AppDelegate.swift in Sources */,
 				6A5A0CE0244970D1005150D2 /* YouTubeVideoConnectionModel.swift in Sources */,
 				6AFA495A24AC3877006A6991 /* Constans.swift in Sources */,

@@ -49,13 +49,21 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         self.view.accessibilityIdentifier = "MyLibrary"
         
+        fetchVideoData(firstTime: true)
+        checkIfNoTracksFound()
         setupSearchNavBar()
         
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
+        super.viewWillAppear(animated)
+        videoPlayerStatus()
+        fetchVideoData(firstTime: false)
+        checkIfNoTracksFound()
+    }
+    
+    
+    func videoPlayerStatus(){
         
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
@@ -66,10 +74,6 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         default:
             break
         }
-        
-        fetchVideoData()
-        
-        checkIfNoTracksFound()
     }
     
     func  updatePlayerView() {
@@ -97,9 +101,17 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     }
     
     
-    func fetchVideoData() {
-        self.myLibraryListArray = []
-        fetchVideoWithEntityName(myLibraryEntityName)
+    func fetchVideoData(firstTime: Bool) {
+        if firstTime {
+            fetchVideoWithEntityName(myLibraryEntityName)
+        }else{
+            CoreDataVideoClass.coreDataVideoInstance.getCoreDataEntityCount(entityName: myLibraryEntityName, currentDataCount: self.myLibraryListArray.count) { (result) in
+                if result == false {
+                    self.myLibraryListArray = []
+                    self.fetchVideoWithEntityName(myLibraryEntityName)
+                }
+            }
+        }
     }
     
     

@@ -89,4 +89,24 @@ class CoreDataVideoClass: NSObject {
             print("error")
         }
     }
+    
+    
+    func getCoreDataEntityCount(entityName: String,currentDataCount: Int, dataResult: @escaping(_ dataResult: Bool) -> ())  {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        
+        do {
+            guard  let result = try context?.fetch(request) else {return}
+            
+            if result.count ==  currentDataCount {
+                print("Will not fetch data   because \(result.count) count is equal to \(currentDataCount)")
+                dataResult(true)
+            }else{
+                print("Will fetch data from Core Data  because \(result.count) count  is not equal \(currentDataCount)")
+                dataResult(false)
+            }
+        } catch {
+            print("Failed")
+        }
+
+    }
 }

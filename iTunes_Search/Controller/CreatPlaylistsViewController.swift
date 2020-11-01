@@ -52,6 +52,7 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
         collectionViewConstraints()
         
         getYouTubeResults()
+        fetchVideoData(firstTime: true)
         loadCreatedMusicPlaylist()
     }
     
@@ -75,6 +76,14 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        videoPlayerStatus()
+        getPlaylistMusicCount()
+        fetchVideoData(firstTime: false)
+        
+    }
+    
+    func videoPlayerStatus(){
+        
         let pause = UserDefaults.standard.object(forKey: "pause") as? Bool
         switch pause {
         case true:
@@ -84,12 +93,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
         default:
             break
         }
-        
-        getPlaylistMusicCount()
-        
-        
-        fetchRecentlyPlayedVideoData()
-        
     }
     
     
@@ -146,12 +149,21 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
         })
     }
     
+
     
-    func fetchRecentlyPlayedVideoData() {
-        
-        self.recentPlayedVideo = []
-        fetchVideoWithEntityName(recentPlayedEntityName)
+    func fetchVideoData(firstTime: Bool) {
+        if firstTime {
+            fetchVideoWithEntityName(recentPlayedEntityName)
+        }else{
+            CoreDataVideoClass.coreDataVideoInstance.getCoreDataEntityCount(entityName: recentPlayedEntityName, currentDataCount: self.recentPlayedVideo.count) { (result) in
+                if result == false {
+                    self.recentPlayedVideo = []
+                    self.fetchVideoWithEntityName(recentPlayedEntityName)
+                }
+            }
+        }
     }
+
     
     func updatePlayerState(_ playerState: WKYTPlayerState){
         switch playerState {
@@ -272,7 +284,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                 cell.playlistName.text = createdPlaylistArray[0]
                 cell.playlistName.textColor = #colorLiteral(red: 0.0632667467, green: 0.0395433642, blue: 0.1392272115, alpha: 1)
                 cell.playlistName.font = UIFont(name: "Verdana-Bold", size: 14.0)
-                cell.playlistImage.image = UIImage(systemName: "list.bullet")
+                cell.playlistImage.image = SFSymbols.list
             }else{
                 cell.playlistName.text = createdPlaylistArray[indexPath.row]
                 cell.trackCountLabel.text = "\(videoPlaylistCount[indexPath.row - 1]) tracks"
@@ -281,7 +293,7 @@ extension CreatPlaylistsViewController: UITableViewDelegate, UITableViewDataSour
                 cell.trackCountLabel.font = UIFont(name: "Verdana-Bold", size: 10.0)
                 cell.trackCountLabel.textColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
                 cell.playlistName.textAlignment = .left
-                cell.playlistImage.image = UIImage(systemName: "music.note.list")
+                cell.playlistImage.image = SFSymbols.music
                 cell.playlistImage.tintColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
             }
             return cell
