@@ -17,7 +17,7 @@ protocol CheckIfMusicRecordDeletedDelegate:AnyObject {
 
 class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTPlayerViewDelegate, CheckIfSelectedSongIsExsistInDatabaseDelegate {
     
-    
+    let defaults = UserDefaults.standard
     
     var webView = WKYTPlayerView()
     var topHitsLists = [Video]()
@@ -71,6 +71,8 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     func returnTableViewNameWithAction() {
         switch checkTableViewName {
         case SelectedTableView.topHitsTableView.rawValue:
+//            let topHitsCount = defaults.object(forKey: "topHitsCount") as? Int ?? Int ()
+//            fetchVideoData(entityName: topHitsEntityName, dataCount: topHitsCount)
             fetchVideoWithEntityName(topHitsEntityName, selectedPlaylistName: "")
         case SelectedTableView.libraryTableView.rawValue:
             fetchVideoWithEntityName(myLibraryEntityName, selectedPlaylistName: "")
@@ -138,6 +140,18 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
         }
     }
     
+    
+    
+    
+//    func fetchVideoData(entityName: String, dataCount: Int) {
+//            CoreDataVideoClass.coreDataVideoInstance.getCoreDataEntityCount(entityName: entityName, currentDataCount: dataCount) { (result) in
+//                if result == false {
+//                    self.fetchVideoWithEntityName(topHitsEntityName, selectedPlaylistName: "")
+//
+//                }
+//            }
+//    }
+
     
     func showDescriptonLabelInGenreView(){
         sectedTableViewTopNSLayoutConstraint.constant  += 75
@@ -361,6 +375,7 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
                 switch result {
                 case .success(let videoList):
                     self.topHitsLists.append(contentsOf: videoList)
+//                    self.defaults.setValue(self.topHitsLists.count, forKey: "topHitsCount")
                 case .failure(let error):
                     print(error)
                 }

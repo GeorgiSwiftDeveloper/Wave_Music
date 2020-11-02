@@ -48,8 +48,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         self.view.accessibilityIdentifier = "MyLibrary"
-        
-        fetchVideoData(firstTime: true)
+    
         checkIfNoTracksFound()
         setupSearchNavBar()
         

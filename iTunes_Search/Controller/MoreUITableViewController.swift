@@ -44,6 +44,10 @@ class MoreUITableViewController: UIViewController,UITableViewDelegate, UITableVi
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
+    
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell = tableView.cellForRow(at: tableView.indexPathForSelectedRow!) as? UITableViewCell

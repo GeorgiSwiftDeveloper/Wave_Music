@@ -52,7 +52,6 @@ class CreatPlaylistsViewController: UIViewController, CheckIfMusicRecordDeletedD
         collectionViewConstraints()
         
         getYouTubeResults()
-        fetchVideoData(firstTime: true)
         loadCreatedMusicPlaylist()
     }
     
