@@ -17,6 +17,7 @@ protocol AlbumManagerDelegate: AnyObject {
 class SearchConnection {
    weak var searchAlbumDelegate: AlbumManagerDelegate?
     var videoArray = [Video]()
+    
     let  API_KEY = "AIzaSyDnZJailNum2kVdCTUPpK80O8ERYBqbnX4"
     
     func fetchYouTubeData(name: String) {

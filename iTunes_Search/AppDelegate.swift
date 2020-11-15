@@ -55,9 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func resetState(){
-        //        guard let bundleIdentifier = Bundle.main.bundleIdentifier else{fatalError()}
-        //        UserDefaults.standard.removePersistentDomain(forName: bundleIdentifier)
-//        UserDefaults.standard.removeObject(forKey: "checkGenreRowIsSelected")
         UserDefaults.standard.removeObject(forKey: "pause")
         UserDefaults.standard.removeObject(forKey: "selectedPlaylistRowTitle")
         

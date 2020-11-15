@@ -204,7 +204,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     
     
-    func animateTransitionIfNeeded (state:CardState, duration:TimeInterval) {
+  private  func animateTransitionIfNeeded (state:CardState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.7) {
                 switch state {
@@ -272,7 +272,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         }
     }
     
-    func startInteractiveTransition(state:CardState, duration:TimeInterval) {
+  private  func startInteractiveTransition(state:CardState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
             animateTransitionIfNeeded(state: state, duration: duration)
         }
@@ -282,13 +282,13 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
         }
     }
     
-    func updateInteractiveTransition(fractionCompleted:CGFloat) {
+  private  func updateInteractiveTransition(fractionCompleted:CGFloat) {
         for animator in runningAnimations {
             animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
         }
     }
     
-    func continueInteractiveTransition (){
+   private func continueInteractiveTransition (){
         for animator in runningAnimations {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         }
@@ -296,7 +296,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     
     
     
-    final   func  topMusicLabelConfiguration() {
+    private  func  topMusicLabelConfiguration() {
         topMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .left)
         self.cardViewController.view.addSubview(topMusicTextLabel)
         self.topMusicTextLabel.pinTopMusicLabel(to: self.cardViewController.view, playerButton: self.playerButton)
@@ -304,27 +304,27 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     }
     
     
-    final  func  middleMusicLabelConfiguration() {
+    private  func  middleMusicLabelConfiguration() {
         middleMusicTextLabel = MusicTextLabel(textTitle: videoTitle, textAlignment: .center)
         self.cardViewController.view.addSubview(middleMusicTextLabel)
         self.middleMusicTextLabel.pinMiddleMusicLabel(superView: self.cardViewController.view, webView: self.webView)
         
     }
     
-    final func  musicPlayerButtonConfiguration() {
+    private func  musicPlayerButtonConfiguration() {
         playerButton = MusicPlayerButton(image: "btn-pause")
         self.cardViewController.view.addSubview(playerButton)
         self.playerButton.pinPlayerButton(to: self.cardViewController.view, middle: false)
         self.playerButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
     }
     
-    final func  middleMusicPlayerButtonConfiguration() {
+    private func  middleMusicPlayerButtonConfiguration() {
         self.cardViewController.view.addSubview(middlePlayerButton)
         self.middlePlayerButton.pinPlayerButton(to: self.cardViewController.view, middle: true)
         self.middlePlayerButton.addTarget(self, action: #selector(self.playAndPauseButtonAction(sender:)), for: .touchUpInside)
     }
     
-    func musicPrevNextButtons() {
+    private  func musicPrevNextButtons() {
         leftButton = MusicPlayerButton(image: "btn-previous")
         self.cardViewController.view.addSubview(leftButton)
         self.leftButton.pinLeftAndRightButtons(to: self.middlePlayerButton, ifLeft: true)
@@ -335,7 +335,7 @@ class VideoPlayer: NSObject, WKYTPlayerViewDelegate, UIGestureRecognizerDelegate
     }
     
     
-    final func  musicPlayerVolumeSliderConfiguration() {
+    private  final func  musicPlayerVolumeSliderConfiguration() {
         self.cardViewController.view.addSubview(self.musicVolumeSlider)
         self.musicVolumeSlider.pinMusicVolumeSlider(to: self.cardViewController.view, to: self.middlePlayerButton)
         

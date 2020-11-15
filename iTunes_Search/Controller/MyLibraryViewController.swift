@@ -43,7 +43,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     
     var searchLibrary = [Video]()
     var searching: Bool = false
-    
+    var searchConnectionManager = SearchConnection()
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
