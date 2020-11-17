@@ -22,6 +22,7 @@ class GenresCollectionViewCell: UICollectionViewCell {
         
         genreNameHolderView.layer.cornerRadius = 10
         
+        
         self.genreImageView.layer.cornerRadius = 8
         self.genreNameLabel.layer.shadowColor = UIColor.lightGray.cgColor
         self.genreNameLabel.layer.shadowRadius = 5
