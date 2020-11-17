@@ -20,7 +20,7 @@ class GenreModelService {
         GenreModel(genreImage: "pop.jpg", genreTitle: "Pop"),
         GenreModel(genreImage: "rock.jpg", genreTitle: "Rock"),
         GenreModel(genreImage: "r&b.jpg", genreTitle: "R&B"),
-        GenreModel(genreImage: "instrumental.jpg", genreTitle: "Instrumental"),
+        GenreModel(genreImage: "instrumental.jpg", genreTitle: "Techno"),
         GenreModel(genreImage: "blues.jpg", genreTitle: "Blues"),
         GenreModel(genreImage: "car.jpg", genreTitle: "Car Music"),
         GenreModel(genreImage: "deep.jpg", genreTitle: "Deep Bass"),

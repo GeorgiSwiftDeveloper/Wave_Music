@@ -33,7 +33,6 @@
 		6A5A0CDC2448DCE7005150D2 /* GenreModelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDB2448DCE7005150D2 /* GenreModelService.swift */; };
 		6A5A0CDE244969AE005150D2 /* YouTubeVideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDD244969AE005150D2 /* YouTubeVideoModel.swift */; };
 		6A5A0CE0244970D1005150D2 /* YouTubeVideoConnectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CDF244970D1005150D2 /* YouTubeVideoConnectionModel.swift */; };
-		6A5A0CE2244971E0005150D2 /* GenreVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */; };
 		6A66CFD324734522004B0C44 /* RecentPlayedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */; };
 		6A66CFD52474A698004B0C44 /* CoreDataVideoClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66CFD42474A698004B0C44 /* CoreDataVideoClass.swift */; };
 		6A6AFF02250BF36700FE2EAA /* SelectedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AFF01250BF36700FE2EAA /* SelectedSettingsViewController.swift */; };
@@ -100,7 +99,6 @@
 		6A5A0CDB2448DCE7005150D2 /* GenreModelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreModelService.swift; sourceTree = "<group>"; };
 		6A5A0CDD244969AE005150D2 /* YouTubeVideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoModel.swift; sourceTree = "<group>"; };
 		6A5A0CDF244970D1005150D2 /* YouTubeVideoConnectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoConnectionModel.swift; sourceTree = "<group>"; };
-		6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreVideoTableViewCell.swift; sourceTree = "<group>"; };
 		6A5FFEF0244D4E61006382DD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPlayedCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A66CFD42474A698004B0C44 /* CoreDataVideoClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataVideoClass.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				6AD76C6A246C8D1000E76108 /* SearchVideoTableViewCell.swift */,
-				6A5A0CE1244971E0005150D2 /* GenreVideoTableViewCell.swift */,
 				6A5227D32453CEAE00D77850 /* MyLibraryTableViewCell.swift */,
 				6A56285F2454B38200CCEB63 /* MainLibrariMusciTableViewCell.swift */,
 				6A66CFD224734522004B0C44 /* RecentPlayedCollectionViewCell.swift */,
@@ -464,7 +461,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AD0FD26243C24D5006BF086 /* RadioStationViewController.swift in Sources */,
-				6A5A0CE2244971E0005150D2 /* GenreVideoTableViewCell.swift in Sources */,
 				6A5A0CD82447DB0A005150D2 /* GenreModel.swift in Sources */,
 				6A5628602454B38200CCEB63 /* MainLibrariMusciTableViewCell.swift in Sources */,
 				6A6AFF02250BF36700FE2EAA /* SelectedSettingsViewController.swift in Sources */,

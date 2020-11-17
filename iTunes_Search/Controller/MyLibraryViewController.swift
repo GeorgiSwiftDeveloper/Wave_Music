@@ -44,6 +44,8 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
     var searchLibrary = [Video]()
     var searching: Bool = false
     var searchConnectionManager = SearchConnection()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         debugPrint(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
@@ -104,7 +106,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
         if firstTime {
             fetchVideoWithEntityName(myLibraryEntityName)
         }else{
-            CoreDataVideoClass.coreDataVideoInstance.getCoreDataEntityCount(entityName: myLibraryEntityName, currentDataCount: self.myLibraryListArray.count) { (result) in
+            CoreDataVideoClass.coreDataVideoInstance.getCoreDataEntityCount(entityName: myLibraryEntityName, currentDataCount: myLibraryListArray.count) { (result) in
                 if result == false {
                     self.myLibraryListArray = []
                     self.fetchVideoWithEntityName(myLibraryEntityName)
@@ -125,7 +127,7 @@ class MyLibraryViewController: UIViewController, UISearchControllerDelegate, UIS
                 switch result {
                 case .success(let videoList):
                     self.myLibraryListArray.append(contentsOf: videoList)
-                    let libraryCount: Bool = (self.myLibraryListArray.count) <= 5 ? true : false
+                    let libraryCount = self.myLibraryListArray.count <= 5 ? true : false
                     
                     self.viewAllButton.isHidden = libraryCount
                     
@@ -244,7 +246,7 @@ extension MyLibraryViewController: UITableViewDataSource, UITableViewDelegate {
         if searching {
             libraryMusicCell.configureMyLibraryCell(searchLibrary[indexPath.row])
         }else{
-            libraryMusicCell.configureMyLibraryCell(self.myLibraryListArray[indexPath.row])
+            libraryMusicCell.configureMyLibraryCell(myLibraryListArray[indexPath.row])
         }
         
         return libraryMusicCell
