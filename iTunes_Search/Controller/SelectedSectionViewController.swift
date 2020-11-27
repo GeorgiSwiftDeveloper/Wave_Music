@@ -71,8 +71,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     func returnTableViewNameWithAction() {
         switch checkTableViewName {
         case SelectedTableView.topHitsTableView.rawValue:
-//            let topHitsCount = defaults.object(forKey: "topHitsCount") as? Int ?? Int ()
-//            fetchVideoData(entityName: topHitsEntityName, dataCount: topHitsCount)
             fetchVideoWithEntityName(topHitsEntityName, selectedPlaylistName: "")
         case SelectedTableView.libraryTableView.rawValue:
             fetchVideoWithEntityName(myLibraryEntityName, selectedPlaylistName: "")
@@ -141,17 +139,6 @@ class SelectedSectionViewController: UIViewController,WKNavigationDelegate,WKYTP
     }
     
     
-    
-    
-//    func fetchVideoData(entityName: String, dataCount: Int) {
-//            CoreDataVideoClass.coreDataVideoInstance.getCoreDataEntityCount(entityName: entityName, currentDataCount: dataCount) { (result) in
-//                if result == false {
-//                    self.fetchVideoWithEntityName(topHitsEntityName, selectedPlaylistName: "")
-//
-//                }
-//            }
-//    }
-
     
     func showDescriptonLabelInGenreView(){
         sectedTableViewTopNSLayoutConstraint.constant  += 75
